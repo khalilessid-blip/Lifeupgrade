@@ -1,808 +1,1212 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>Life Upgrade — Ta trajectoire commence maintenant</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta
     name="description"
-    content="Life Upgrade : développement personnel, professionnel, orientation, apprentissage et trajectoire de vie."
+    content="Life Upgrade — développement personnel, professionnel, orientation, apprentissage et trajectoire de vie."
   >
+  <title>Life Upgrade — Construis ta trajectoire</title>
 
   <style>
-    :root {
-      --bg: #f5f7fb;
-      --surface: #ffffff;
-      --surface-2: #eef2f7;
-      --text: #172033;
-      --muted: #6d7687;
-      --primary: #5b5cf0;
-      --primary-dark: #4546d8;
-      --accent: #21c69a;
-      --border: #e1e6ef;
-      --shadow: 0 18px 50px rgba(20, 31, 56, 0.08);
-      --radius: 22px;
-      --max: 1180px;
+    :root{
+      --bg:#f5f6fa;
+      --surface:#ffffff;
+      --surface-2:#eef1f6;
+      --ink:#141827;
+      --muted:#6c7487;
+      --line:#e1e5ed;
+      --primary:#615df5;
+      --primary-dark:#4b47da;
+      --teal:#19b68e;
+      --gold:#d99b2b;
+      --danger:#c85b67;
+      --navy:#0e1220;
+      --navy-2:#1a2032;
+      --shadow:0 20px 60px rgba(21,28,51,.09);
+      --max:1200px;
+      --radius:22px;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
     }
 
-    html {
-      scroll-behavior: smooth;
+    html{
+      scroll-behavior:smooth;
     }
 
-    body {
-      font-family: Inter, Arial, sans-serif;
-      color: var(--text);
-      background: var(--bg);
-      line-height: 1.6;
+    body{
+      font-family:Inter,Arial,sans-serif;
+      color:var(--ink);
+      background:var(--bg);
+      line-height:1.55;
     }
 
-    a {
-      color: inherit;
-      text-decoration: none;
+    h1,h2,h3,h4{
+      line-height:1.08;
+      letter-spacing:-.8px;
+    }
+
+    h1{
+      font-size:clamp(44px,6vw,76px);
+      letter-spacing:-3px;
+    }
+
+    h2{
+      font-size:clamp(30px,4vw,48px);
+      letter-spacing:-2px;
+    }
+
+    h3{
+      font-size:21px;
+    }
+
+    p{
+      color:var(--muted);
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
     }
 
     button,
-    input {
-      font: inherit;
+    input,
+    select,
+    textarea{
+      font:inherit;
     }
 
-    button {
-      cursor: pointer;
+    button{
+      cursor:pointer;
     }
 
-    .container {
-      width: min(100% - 32px, var(--max));
-      margin: 0 auto;
+    .container{
+      width:min(calc(100% - 32px),var(--max));
+      margin:0 auto;
     }
 
-    .topbar {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(16px);
-      background: rgba(245, 247, 251, 0.9);
-      border-bottom: 1px solid rgba(225, 230, 239, 0.9);
+    .section{
+      padding:82px 0;
     }
 
-    .topbar-inner {
-      min-height: 76px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
+    .section.light{
+      background:var(--surface);
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 11px;
-      font-weight: 800;
-      font-size: 19px;
-      letter-spacing: -0.4px;
-      white-space: nowrap;
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      margin-bottom:14px;
+      color:var(--primary);
+      font-size:11px;
+      font-weight:800;
+      letter-spacing:1.4px;
+      text-transform:uppercase;
     }
 
-    .brand-mark {
-      width: 38px;
-      height: 38px;
-      border-radius: 12px;
-      display: grid;
-      place-items: center;
-      color: white;
-      background: linear-gradient(135deg, var(--primary), #7e6cf4);
-      font-size: 13px;
-      font-weight: 800;
+    .eyebrow::before{
+      content:"";
+      width:22px;
+      height:2px;
+      background:var(--primary);
+      border-radius:999px;
     }
 
-    .nav {
-      display: flex;
-      align-items: center;
-      gap: 22px;
-      color: var(--muted);
-      font-size: 14px;
-      font-weight: 600;
+    .section-head{
+      margin-bottom:35px;
+      max-width:780px;
     }
 
-    .nav a:hover {
-      color: var(--text);
+    .section-head p{
+      margin-top:12px;
+      font-size:15px;
     }
 
-    .button {
-      border: 0;
-      border-radius: 12px;
-      padding: 12px 18px;
-      font-weight: 700;
-      transition: transform .2s, box-shadow .2s, background .2s;
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      min-height:44px;
+      padding:11px 17px;
+      border:0;
+      border-radius:12px;
+      font-weight:800;
+      transition:.2s ease;
     }
 
-    .button:hover {
-      transform: translateY(-1px);
+    .btn:hover{
+      transform:translateY(-1px);
     }
 
-    .button-primary {
-      background: var(--primary);
-      color: white;
-      box-shadow: 0 10px 25px rgba(91, 92, 240, .23);
+    .btn-primary{
+      background:var(--primary);
+      color:white;
+      box-shadow:0 12px 26px rgba(97,93,245,.22);
     }
 
-    .button-primary:hover {
-      background: var(--primary-dark);
+    .btn-primary:hover{
+      background:var(--primary-dark);
     }
 
-    .button-secondary {
-      background: white;
-      border: 1px solid var(--border);
-      color: var(--text);
+    .btn-secondary{
+      background:white;
+      color:var(--ink);
+      border:1px solid var(--line);
     }
 
-    .button-ghost {
-      background: transparent;
-      color: var(--text);
-      border: 1px solid var(--border);
+    .btn-dark{
+      background:var(--navy);
+      color:white;
     }
 
-    .hero {
-      padding: 80px 0 70px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.08fr .92fr;
-      gap: 56px;
-      align-items: center;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: 1.4px;
-      color: var(--primary);
-      margin-bottom: 16px;
-    }
-
-    .eyebrow::before {
-      content: "";
-      width: 24px;
-      height: 2px;
-      border-radius: 99px;
-      background: var(--primary);
-    }
-
-    h1 {
-      font-size: clamp(42px, 6vw, 74px);
-      line-height: .98;
-      letter-spacing: -3.4px;
-      max-width: 780px;
-      margin-bottom: 24px;
-    }
-
-    .hero-text {
-      font-size: 18px;
-      color: var(--muted);
-      max-width: 650px;
-      margin-bottom: 28px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      margin-bottom: 20px;
-    }
-
-    .hero-note {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px 20px;
-      color: var(--muted);
-      font-size: 13px;
-    }
-
-    .hero-card {
-      background: linear-gradient(145deg, #13192b, #212b49);
-      border-radius: 28px;
-      padding: 26px;
-      color: white;
-      box-shadow: 0 25px 60px rgba(10, 16, 35, .18);
-      position: relative;
-      overflow: hidden;
+    .btn-small{
+      padding:9px 12px;
+      min-height:38px;
+      font-size:13px;
     }
 
-    .hero-card::after {
-      content: "";
-      position: absolute;
-      width: 240px;
-      height: 240px;
-      right: -80px;
-      top: -90px;
-      border-radius: 50%;
-      background: rgba(91, 92, 240, .2);
-      filter: blur(20px);
+    .tag{
+      display:inline-flex;
+      align-items:center;
+      padding:6px 9px;
+      border-radius:999px;
+      background:#eff0ff;
+      color:var(--primary);
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .pill{
+      display:inline-flex;
+      padding:6px 9px;
+      border-radius:999px;
+      background:var(--surface-2);
+      color:var(--muted);
+      font-size:11px;
+      font-weight:700;
+    }
+
+    /* NAVIGATION */
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:100;
+      backdrop-filter:blur(18px);
+      background:rgba(245,246,250,.9);
+      border-bottom:1px solid rgba(225,229,237,.9);
+    }
+
+    .topbar-inner{
+      min-height:74px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:18px;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .brand-mark{
+      width:38px;
+      height:38px;
+      display:grid;
+      place-items:center;
+      border-radius:12px;
+      color:white;
+      background:linear-gradient(135deg,var(--primary),#8581ff);
+      font-size:12px;
+    }
+
+    .nav{
+      display:flex;
+      gap:17px;
+      align-items:center;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .nav a:hover{
+      color:var(--ink);
+    }
+
+    .account-area{
+      display:flex;
+      align-items:center;
+      gap:8px;
+    }
+
+    .user-chip{
+      display:none;
+      align-items:center;
+      gap:8px;
+      padding:6px 10px;
+      background:white;
+      border:1px solid var(--line);
+      border-radius:999px;
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .user-chip.show{
+      display:flex;
+    }
+
+    .avatar{
+      width:27px;
+      height:27px;
+      display:grid;
+      place-items:center;
+      border-radius:50%;
+      background:#eff0ff;
+      color:var(--primary);
+      font-size:11px;
+    }
+
+    /* HERO */
+
+    .hero{
+      padding:80px 0 68px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.08fr .92fr;
+      gap:52px;
+      align-items:center;
+    }
+
+    .hero-copy p{
+      max-width:680px;
+      margin-top:22px;
+      font-size:18px;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin:28px 0 18px;
+    }
+
+    .hero-trust{
+      display:flex;
+      flex-wrap:wrap;
+      gap:13px 20px;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .hero-card{
+      padding:27px;
+      color:white;
+      border-radius:28px;
+      background:linear-gradient(145deg,#101529,#1d2943);
+      box-shadow:0 28px 70px rgba(10,16,32,.2);
+    }
+
+    .hero-card-top{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:24px;
+    }
+
+    .hero-card-top small{
+      color:#9da8be;
+    }
+
+    .score{
+      display:flex;
+      align-items:end;
+      gap:8px;
+    }
+
+    .score strong{
+      font-size:56px;
+      line-height:1;
+    }
+
+    .score span{
+      color:#aeb9cf;
+      font-size:13px;
+      padding-bottom:7px;
+    }
+
+    .hero-graph{
+      height:120px;
+      margin:20px 0;
+      border-radius:18px;
+      background:rgba(255,255,255,.05);
+      overflow:hidden;
+    }
+
+    .hero-graph svg{
+      width:100%;
+      height:100%;
+    }
+
+    .hero-kpis{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+    }
+
+    .hero-kpi{
+      padding:14px;
+      border-radius:16px;
+      background:rgba(255,255,255,.06);
+    }
+
+    .hero-kpi span{
+      display:block;
+      margin-bottom:4px;
+      color:#9da8be;
+      font-size:11px;
+    }
+
+    .hero-kpi strong{
+      font-size:17px;
+    }
+
+    /* PROFILE */
+
+    .profile-grid{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:12px;
+    }
+
+    .profile-card{
+      padding:20px;
+      text-align:left;
+      border:1px solid var(--line);
+      background:white;
+      border-radius:18px;
+      transition:.2s;
+    }
+
+    .profile-card:hover,
+    .profile-card.active{
+      transform:translateY(-2px);
+      border-color:rgba(97,93,245,.4);
+      box-shadow:0 14px 32px rgba(97,93,245,.09);
+    }
+
+    .profile-icon{
+      width:42px;
+      height:42px;
+      display:grid;
+      place-items:center;
+      margin-bottom:15px;
+      border-radius:12px;
+      background:#eff0ff;
+      color:var(--primary);
+      font-weight:800;
     }
 
-    .hero-card-top {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 26px;
-      position: relative;
-      z-index: 2;
+    .profile-card strong{
+      display:block;
+      margin-bottom:6px;
+      font-size:16px;
     }
 
-    .hero-card-title {
-      font-size: 14px;
-      font-weight: 700;
+    .profile-card small{
+      color:var(--muted);
     }
 
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 999px;
-      padding: 7px 10px;
-      font-size: 11px;
-      font-weight: 800;
-      background: rgba(255,255,255,.1);
-      color: #dce3ff;
+    /* GRID CARDS */
+
+    .grid-3{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
     }
 
-    .trajectory-score {
-      font-size: 54px;
-      line-height: 1;
-      font-weight: 800;
-      letter-spacing: -2px;
-      position: relative;
-      z-index: 2;
+    .grid-2{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:14px;
     }
 
-    .trajectory-score span {
-      font-size: 18px;
-      color: #aab5cf;
-      margin-left: 5px;
+    .grid-4{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
     }
 
-    .trajectory-line {
-      height: 110px;
-      margin: 28px 0;
-      border-radius: 18px;
-      background:
-        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.015)),
-        repeating-linear-gradient(
-          to bottom,
-          transparent 0,
-          transparent 27px,
-          rgba(255,255,255,.05) 28px
-        );
-      position: relative;
-      overflow: hidden;
+    .card{
+      padding:23px;
+      border:1px solid var(--line);
+      background:white;
+      border-radius:20px;
     }
 
-    .trajectory-svg {
-      width: 100%;
-      height: 100%;
+    .card p{
+      margin-top:8px;
+      font-size:13px;
     }
 
-    .hero-metrics {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-      position: relative;
-      z-index: 2;
+    .card ul{
+      display:grid;
+      gap:7px;
+      margin-top:14px;
+      list-style:none;
+      color:var(--muted);
+      font-size:12px;
     }
 
-    .hero-metric {
-      border-radius: 15px;
-      background: rgba(255,255,255,.07);
-      padding: 14px;
+    .card li::before{
+      content:"✓";
+      margin-right:7px;
+      color:var(--teal);
+      font-weight:800;
     }
+
+    /* SIMULATOR */
 
-    .hero-metric span {
-      display: block;
-      color: #aab5cf;
-      font-size: 11px;
-      margin-bottom: 4px;
+    .simulator{
+      display:grid;
+      grid-template-columns:330px 1fr;
+      gap:16px;
     }
 
-    .hero-metric strong {
-      font-size: 18px;
+    .panel{
+      padding:24px;
+      border:1px solid var(--line);
+      background:white;
+      border-radius:22px;
+      box-shadow:0 10px 34px rgba(21,28,51,.04);
     }
 
-    section {
-      padding: 82px 0;
+    .panel-head{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      margin-bottom:22px;
     }
 
-    section:nth-of-type(even) {
-      background: var(--surface);
+    .panel-head p{
+      margin-top:4px;
+      font-size:13px;
     }
 
-    .section-title {
-      max-width: 720px;
-      margin-bottom: 36px;
+    .control{
+      margin-bottom:21px;
     }
 
-    h2 {
-      font-size: clamp(30px, 4vw, 46px);
-      letter-spacing: -1.8px;
-      line-height: 1.08;
-      margin-bottom: 14px;
+    .control label{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:8px;
+      font-size:12px;
+      font-weight:800;
     }
 
-    .section-text {
-      color: var(--muted);
-      max-width: 710px;
+    .control label span:last-child{
+      color:var(--primary);
     }
 
-    .profile-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 14px;
+    input[type="range"]{
+      width:100%;
+      accent-color:var(--primary);
     }
 
-    .profile {
-      border: 1px solid var(--border);
-      background: white;
-      border-radius: 18px;
-      padding: 22px;
-      text-align: left;
-      transition: .2s;
-      box-shadow: 0 10px 25px rgba(20, 31, 56, 0.03);
+    .control small{
+      display:block;
+      margin-top:5px;
+      color:var(--muted);
+      font-size:11px;
     }
 
-    .profile:hover {
-      transform: translateY(-3px);
-      box-shadow: var(--shadow);
+    .scenario-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
     }
 
-    .profile.active {
-      border-color: rgba(91,92,240,.45);
-      box-shadow: 0 12px 32px rgba(91,92,240,.12);
+    .scenario{
+      padding:18px;
+      border-radius:18px;
+      background:var(--surface-2);
     }
 
-    .profile-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 13px;
-      background: #eef0ff;
-      display: grid;
-      place-items: center;
-      margin-bottom: 16px;
-      color: var(--primary);
-      font-weight: 800;
-      font-size: 19px;
+    .scenario.green{
+      background:#ecfbf6;
     }
 
-    .profile h3 {
-      margin-bottom: 7px;
-      font-size: 18px;
+    .scenario small{
+      display:block;
+      margin-bottom:5px;
+      color:var(--muted);
+      font-size:10px;
+      font-weight:800;
+      text-transform:uppercase;
     }
 
-    .profile p {
-      color: var(--muted);
-      font-size: 14px;
+    .scenario strong{
+      font-size:28px;
     }
 
-    .simulator {
-      display: grid;
-      grid-template-columns: 330px 1fr;
-      gap: 18px;
+    .scenario.green strong{
+      color:#148a68;
     }
 
-    .panel {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 22px;
-      box-shadow: 0 10px 30px rgba(20, 31, 56, .04);
+    .bars{
+      display:grid;
+      gap:13px;
+      margin-top:22px;
     }
 
-    .panel-padding {
-      padding: 24px;
+    .bar-row{
+      display:grid;
+      grid-template-columns:120px 1fr 80px;
+      gap:10px;
+      align-items:center;
+      font-size:12px;
     }
 
-    .panel-title {
-      display: flex;
-      justify-content: space-between;
-      gap: 15px;
-      margin-bottom: 25px;
+    .bar{
+      height:8px;
+      overflow:hidden;
+      border-radius:999px;
+      background:#e9edf4;
     }
 
-    .panel-title h3 {
-      font-size: 20px;
-      margin-bottom: 4px;
+    .bar i{
+      display:block;
+      height:100%;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--primary),#8b87ff);
+      transition:.2s;
     }
 
-    .panel-title p {
-      font-size: 13px;
-      color: var(--muted);
+    .compare-table{
+      width:100%;
+      margin-top:22px;
+      border-collapse:collapse;
+      font-size:12px;
     }
 
-    .control {
-      margin-bottom: 23px;
+    .compare-table th,
+    .compare-table td{
+      padding:10px 8px;
+      border-bottom:1px solid var(--line);
+      text-align:left;
     }
 
-    .control label {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      font-size: 13px;
-      font-weight: 700;
-      margin-bottom: 9px;
+    .compare-table th{
+      color:var(--muted);
     }
 
-    .control-value {
-      color: var(--primary);
+    /* ORIENTATION */
+
+    .option-card{
+      padding:22px;
+      border:1px solid var(--line);
+      background:white;
+      border-radius:20px;
     }
 
-    input[type="range"] {
-      width: 100%;
-      accent-color: var(--primary);
+    .option-card h3{
+      margin:13px 0 8px;
     }
 
-    .dashboard-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 13px;
+    .option-card p{
+      font-size:13px;
     }
 
-    .stat-card {
-      border-radius: 18px;
-      background: var(--surface-2);
-      padding: 19px;
+    .compatibility{
+      margin-top:15px;
+      font-size:12px;
+      font-weight:800;
+      color:var(--teal);
     }
+
+    /* CAREER */
 
-    .stat-card span {
-      display: block;
-      color: var(--muted);
-      font-size: 12px;
-      margin-bottom: 6px;
+    .skill-row{
+      display:grid;
+      grid-template-columns:120px 1fr 40px;
+      gap:10px;
+      align-items:center;
+      margin-top:12px;
+      font-size:12px;
     }
 
-    .stat-card strong {
-      font-size: 27px;
-      letter-spacing: -1px;
+    .skill-track{
+      height:8px;
+      overflow:hidden;
+      border-radius:999px;
+      background:#e9edf4;
     }
 
-    .scenario-box {
-      margin-top: 17px;
-      padding: 18px;
-      border-radius: 17px;
-      background: #f0fff9;
-      border: 1px solid #d1f5e9;
+    .skill-track i{
+      display:block;
+      height:100%;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--primary),#8b87ff);
     }
 
-    .scenario-box small {
-      color: #4a7a6a;
-      display: block;
-      margin-bottom: 6px;
+    .gap-box{
+      margin-top:18px;
+      padding:15px;
+      border:1px solid #f0e4bf;
+      border-radius:16px;
+      background:#faf8ef;
     }
 
-    .scenario-box strong {
-      font-size: 23px;
-      color: #158966;
+    .gap-box strong{
+      display:block;
+      margin-bottom:4px;
+      font-size:13px;
     }
 
-    .bar-list {
-      margin-top: 22px;
-      display: grid;
-      gap: 14px;
+    .gap-box p{
+      font-size:12px;
     }
 
-    .bar-item {
-      display: grid;
-      grid-template-columns: 120px 1fr 90px;
-      align-items: center;
-      gap: 10px;
-      font-size: 13px;
+    /* COURSES */
+
+    .course-card{
+      display:flex;
+      flex-direction:column;
+      min-height:250px;
+      padding:22px;
+      border:1px solid var(--line);
+      background:white;
+      border-radius:20px;
     }
 
-    .bar-bg {
-      height: 9px;
-      border-radius: 99px;
-      background: #e9edf4;
-      overflow: hidden;
+    .course-meta{
+      display:flex;
+      justify-content:space-between;
+      gap:8px;
+      color:var(--muted);
+      font-size:11px;
+      font-weight:800;
     }
 
-    .bar-fill {
-      height: 100%;
-      width: 0;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--primary), #7d72f6);
-      transition: width .25s;
+    .course-card h3{
+      margin:17px 0 9px;
     }
 
-    .feature-grid,
-    .course-grid,
-    .community-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
+    .course-card p{
+      font-size:13px;
     }
 
-    .feature,
-    .course,
-    .community-card {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 21px;
-      padding: 23px;
+    .course-bottom{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:auto;
+      padding-top:18px;
     }
 
-    .feature h3,
-    .course h3,
-    .community-card h3 {
-      margin-bottom: 9px;
-      font-size: 20px;
+    .free-label{
+      color:var(--teal);
+      font-size:11px;
+      font-weight:800;
     }
 
-    .feature p,
-    .course p,
-    .community-card p {
-      color: var(--muted);
-      font-size: 14px;
+    /* CULTURE */
+
+    .culture-card{
+      min-height:190px;
+      display:flex;
+      flex-direction:column;
+      justify-content:end;
+      padding:20px;
+      border-radius:20px;
+      color:white;
+      background:linear-gradient(145deg,#1b2140,#0e1220);
     }
 
-    .tag {
-      display: inline-flex;
-      padding: 6px 9px;
-      border-radius: 999px;
-      font-size: 11px;
-      font-weight: 800;
-      color: var(--primary);
-      background: #eef0ff;
-      margin-bottom: 13px;
+    .culture-card:nth-child(2){
+      background:linear-gradient(145deg,#173a33,#10201c);
     }
 
-    .course-top {
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      margin-bottom: 16px;
+    .culture-card:nth-child(3){
+      background:linear-gradient(145deg,#462a1b,#22140d);
     }
 
-    .course-time {
-      color: var(--muted);
-      font-size: 12px;
+    .culture-card:nth-child(4){
+      background:linear-gradient(145deg,#332347,#171120);
     }
 
-    .course-bottom {
-      margin-top: 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
+    .culture-card p{
+      color:#b8c0d0;
+      margin-top:5px;
+      font-size:12px;
     }
+
+    /* COMMUNITY */
 
-    .course-status {
-      color: #168a67;
-      font-size: 12px;
-      font-weight: 700;
+    .community{
+      display:grid;
+      grid-template-columns:1.2fr .8fr;
+      gap:16px;
     }
 
-    .poll {
-      display: grid;
-      gap: 12px;
-      margin-top: 20px;
+    .poll-options{
+      display:grid;
+      gap:9px;
+      margin-top:18px;
     }
 
-    .poll-option {
-      border: 1px solid var(--border);
-      background: white;
-      padding: 15px;
-      border-radius: 15px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 15px;
-      text-align: left;
+    .poll-option{
+      width:100%;
+      padding:14px;
+      border:1px solid var(--line);
+      border-radius:14px;
+      background:white;
+      display:flex;
+      justify-content:space-between;
+      text-align:left;
     }
 
     .poll-option:hover,
-    .poll-option.selected {
-      border-color: var(--primary);
-      background: #f7f7ff;
+    .poll-option.selected{
+      border-color:rgba(97,93,245,.4);
+      background:#f8f8ff;
     }
 
-    .poll-option small {
-      color: var(--muted);
-      font-weight: 700;
+    .poll-option b{
+      color:var(--primary);
+      font-size:11px;
     }
 
-    .community-grid {
-      grid-template-columns: 1.35fr .65fr;
+    /* COACHING */
+
+    .coaching{
+      color:white;
+      background:linear-gradient(145deg,#0f1425,#1c2741);
     }
 
-    .premium {
-      background: linear-gradient(135deg, #151b2f, #252f50);
-      color: white;
-      border-radius: 26px;
-      padding: 38px;
-      box-shadow: 0 25px 60px rgba(16, 24, 44, .2);
+    .coaching-grid{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:18px;
     }
 
-    .premium-grid {
-      display: grid;
-      grid-template-columns: 1fr .7fr;
-      gap: 30px;
-      align-items: center;
+    .coaching-copy p{
+      margin-top:15px;
+      color:#b6bfd1;
+      max-width:650px;
     }
 
-    .premium h2 {
-      margin-bottom: 12px;
+    .coach-workflow{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:22px;
     }
 
-    .premium p {
-      color: #b5bfd4;
-      max-width: 690px;
+    .coach-step{
+      padding:14px;
+      border:1px solid rgba(255,255,255,.09);
+      border-radius:16px;
+      background:rgba(255,255,255,.06);
     }
 
-    .premium-list {
-      margin-top: 22px;
-      display: grid;
-      gap: 9px;
-      list-style: none;
-      color: #d9dfec;
+    .coach-step strong{
+      display:block;
+      font-size:13px;
     }
 
-    .premium-list li::before {
-      content: "✓";
-      margin-right: 9px;
-      color: #63e7bf;
-      font-weight: 800;
+    .coach-step span{
+      display:block;
+      margin-top:4px;
+      color:#9eabc1;
+      font-size:11px;
     }
 
-    .price-card {
-      background: rgba(255,255,255,.08);
-      border: 1px solid rgba(255,255,255,.12);
-      border-radius: 20px;
-      padding: 24px;
+    .premium-card{
+      padding:25px;
+      border-radius:22px;
+      background:white;
+      color:var(--ink);
     }
 
-    .price-card small {
-      color: #abb5cb;
+    .premium-card .price{
+      display:block;
+      margin:5px 0 10px;
+      font-size:45px;
+      font-weight:900;
     }
 
-    .price-card strong {
-      display: block;
-      font-size: 42px;
-      letter-spacing: -1px;
-      margin: 6px 0 16px;
+    .premium-card .price span{
+      font-size:15px;
+      color:var(--muted);
     }
 
-    .price-note {
-      color: #aeb8cc;
-      font-size: 12px;
-      margin-top: 10px;
+    .premium-card ul{
+      display:grid;
+      gap:9px;
+      margin:15px 0 20px;
+      list-style:none;
+      color:var(--muted);
+      font-size:12px;
     }
 
-    .footer {
-      padding: 34px 0 50px;
-      border-top: 1px solid var(--border);
-      color: var(--muted);
-      font-size: 13px;
+    .premium-card li::before{
+      content:"✓";
+      color:var(--teal);
+      font-weight:800;
+      margin-right:7px;
     }
 
-    .footer-inner {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: center;
+    /* PARENT */
+
+    .privacy-box{
+      margin-top:15px;
+      padding:14px;
+      border:1px solid #e4e4ff;
+      border-radius:15px;
+      background:#f8f8ff;
+      color:var(--muted);
+      font-size:12px;
     }
 
-    .modal {
-      position: fixed;
-      inset: 0;
-      background: rgba(11,16,32,.52);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      z-index: 100;
+    /* FOOTER */
+
+    footer{
+      padding:40px 0 55px;
+      border-top:1px solid var(--line);
     }
 
-    .modal.open {
-      display: flex;
+    .footer-inner{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      color:var(--muted);
+      font-size:12px;
     }
 
-    .modal-card {
-      background: white;
-      max-width: 560px;
-      width: 100%;
-      border-radius: 24px;
-      padding: 28px;
-      box-shadow: 0 25px 80px rgba(0,0,0,.2);
+    /* MODALS */
+
+    .modal-bg{
+      position:fixed;
+      inset:0;
+      z-index:300;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:16px;
+      background:rgba(9,12,22,.58);
     }
 
-    .modal-card h3 {
-      font-size: 28px;
-      margin-bottom: 10px;
+    .modal-bg.open{
+      display:flex;
     }
 
-    .modal-card p {
-      color: var(--muted);
+    .modal{
+      position:relative;
+      width:min(100%,720px);
+      max-height:90vh;
+      overflow:auto;
+      padding:28px;
+      border-radius:24px;
+      background:white;
+      box-shadow:0 35px 100px rgba(0,0,0,.25);
     }
 
-    .modal-actions {
-      display: flex;
-      gap: 10px;
-      margin-top: 20px;
-      flex-wrap: wrap;
+    .modal.wide{
+      width:min(100%,900px);
     }
 
-    .hidden {
-      display: none !important;
+    .modal-close{
+      position:absolute;
+      top:13px;
+      right:14px;
+      width:34px;
+      height:34px;
+      border:0;
+      border-radius:50%;
+      background:var(--surface-2);
+      font-size:18px;
     }
 
-    @media (max-width: 980px) {
-      .nav {
-        display: none;
+    .modal p{
+      margin-top:8px;
+      font-size:14px;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:13px;
+      margin-top:20px;
+    }
+
+    .form-group{
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+    }
+
+    .form-group.full{
+      grid-column:1 / -1;
+    }
+
+    .form-group label{
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea{
+      width:100%;
+      padding:12px 13px;
+      border:1px solid var(--line);
+      border-radius:11px;
+      outline:none;
+      background:white;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus{
+      border-color:var(--primary);
+      box-shadow:0 0 0 3px rgba(97,93,245,.08);
+    }
+
+    .interest-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:9px;
+      margin-top:10px;
+    }
+
+    .interest-option{
+      position:relative;
+    }
+
+    .interest-option input{
+      position:absolute;
+      opacity:0;
+      pointer-events:none;
+    }
+
+    .interest-option label{
+      display:block;
+      padding:11px 12px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      cursor:pointer;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+    }
+
+    .interest-option input:checked + label{
+      border-color:var(--primary);
+      background:#f5f4ff;
+      color:var(--primary);
+    }
+
+    .form-actions{
+      display:flex;
+      justify-content:flex-end;
+      gap:9px;
+      margin-top:20px;
+    }
+
+    .form-error{
+      display:none;
+      margin-top:12px;
+      padding:11px;
+      border-radius:11px;
+      background:#fff0f2;
+      color:var(--danger);
+      font-size:12px;
+    }
+
+    .form-success{
+      display:none;
+      margin-top:12px;
+      padding:11px;
+      border-radius:11px;
+      background:#ecfbf6;
+      color:#168a67;
+      font-size:12px;
+    }
+
+    /* IQ */
+
+    .iq-progress{
+      height:8px;
+      overflow:hidden;
+      margin:20px 0 22px;
+      border-radius:999px;
+      background:#e8ecf3;
+    }
+
+    .iq-progress i{
+      display:block;
+      width:0;
+      height:100%;
+      border-radius:inherit;
+      background:linear-gradient(90deg,var(--primary),#8b87ff);
+    }
+
+    .iq-question{
+      display:none;
+    }
+
+    .iq-question.active{
+      display:block;
+    }
+
+    .iq-options{
+      display:grid;
+      gap:9px;
+      margin-top:16px;
+    }
+
+    .iq-option{
+      padding:13px;
+      text-align:left;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:white;
+    }
+
+    .iq-option:hover,
+    .iq-option.selected{
+      border-color:var(--primary);
+      background:#f5f4ff;
+      color:var(--primary);
+    }
+
+    .iq-nav{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      margin-top:20px;
+    }
+
+    .iq-result{
+      display:none;
+      margin-top:20px;
+      padding:22px;
+      border-radius:18px;
+      background:#f7f7ff;
+      text-align:center;
+    }
+
+    .iq-result.show{
+      display:block;
+    }
+
+    .iq-number{
+      font-size:54px;
+      font-weight:900;
+      color:var(--primary);
+    }
+
+    /* COURSE VIEWER */
+
+    .course-module{
+      margin-top:11px;
+      padding:16px;
+      border:1px solid var(--line);
+      border-radius:15px;
+      background:#fbfbfd;
+    }
+
+    .course-module strong{
+      display:block;
+      font-size:13px;
+    }
+
+    .course-module p{
+      margin-top:5px;
+      font-size:12px;
+    }
+
+    @media(max-width:1050px){
+      .nav{
+        display:none;
       }
 
       .hero-grid,
-      .premium-grid,
       .simulator,
-      .community-grid {
-        grid-template-columns: 1fr;
+      .coaching-grid,
+      .community{
+        grid-template-columns:1fr;
       }
 
-      .profile-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .profile-grid{
+        grid-template-columns:repeat(3,1fr);
       }
 
-      .dashboard-grid,
-      .feature-grid,
-      .course-grid {
-        grid-template-columns: repeat(2, 1fr);
+      .grid-4{
+        grid-template-columns:repeat(2,1fr);
       }
     }
 
-    @media (max-width: 640px) {
-      .container {
-        width: min(100% - 22px, var(--max));
+    @media(max-width:760px){
+      .container{
+        width:min(calc(100% - 22px),var(--max));
       }
 
-      .topbar-inner {
-        min-height: 68px;
+      .hero{
+        padding-top:50px;
       }
 
-      .topbar .button {
-        display: none;
-      }
-
-      .hero {
-        padding-top: 50px;
-      }
-
-      h1 {
-        font-size: 43px;
-        letter-spacing: -2.4px;
-      }
-
-      section {
-        padding: 58px 0;
-      }
-
+      .grid-3,
+      .grid-2,
       .profile-grid,
-      .dashboard-grid,
-      .feature-grid,
-      .course-grid {
-        grid-template-columns: 1fr;
+      .scenario-grid,
+      .interest-grid{
+        grid-template-columns:1fr;
       }
 
-      .bar-item {
-        grid-template-columns: 90px 1fr 68px;
+      .grid-4{
+        grid-template-columns:1fr;
       }
 
-      .footer-inner {
-        flex-direction: column;
-        align-items: flex-start;
+      .form-grid{
+        grid-template-columns:1fr;
+      }
+
+      .form-group.full{
+        grid-column:auto;
+      }
+
+      .coach-workflow{
+        grid-template-columns:1fr;
+      }
+
+      .bar-row{
+        grid-template-columns:95px 1fr 65px;
+      }
+
+      .footer-inner{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+
+      .account-area .btn-secondary{
+        display:none;
       }
     }
   </style>
@@ -810,1011 +1214,2640 @@
 
 <body>
 
-  <header class="topbar">
-    <div class="container topbar-inner">
-      <a href="#accueil" class="brand">
-        <span class="brand-mark">LU</span>
-        <span>Life Upgrade</span>
-      </a>
+<header class="topbar">
+  <div class="container topbar-inner">
 
-      <nav class="nav">
-        <a href="#trajectoire">Trajectoire</a>
-        <a href="#orientation">Orientation</a>
-        <a href="#parcours">Parcours</a>
-        <a href="#communaute">Communauté</a>
-        <a href="#coaching">Coaching</a>
-      </nav>
+    <a class="brand" href="#accueil">
+      <span class="brand-mark">LU</span>
+      <span>Life Upgrade</span>
+    </a>
 
-      <button class="button button-ghost" id="profileButton">
-        Mon profil
+    <nav class="nav">
+      <a href="#trajectoire">Trajectoire</a>
+      <a href="#personnel">Personnel</a>
+      <a href="#professionnel">Professionnel</a>
+      <a href="#orientation">Orientation</a>
+      <a href="#cours">Cours</a>
+      <a href="#communaute">Communauté</a>
+    </nav>
+
+    <div class="account-area">
+
+      <div id="userChip" class="user-chip">
+        <span id="userAvatar" class="avatar">LU</span>
+        <span id="userName">Mon compte</span>
+      </div>
+
+      <button id="openAccountBtn" class="btn btn-primary btn-small">
+        Créer un compte
       </button>
-    </div>
-  </header>
-
-  <main>
-
-    <!-- HERO -->
-    <section class="hero" id="accueil">
-      <div class="container hero-grid">
-
-        <div>
-          <div class="eyebrow">PERSONNEL · PROFESSIONNEL · ÉTUDES</div>
-
-          <h1>
-            Vois où tes habitudes te mènent.
-          </h1>
-
-          <p class="hero-text">
-            Life Upgrade transforme tes habitudes, tes objectifs et tes choix
-            en trajectoires concrètes. Comprends où tu vas, explore d'autres
-            scénarios et construis la suite.
-          </p>
-
-          <div class="hero-actions">
-            <button class="button button-primary" data-scroll="#trajectoire">
-              Calculer ma trajectoire
-            </button>
-
-            <button class="button button-secondary" data-scroll="#orientation">
-              Découvrir l'orientation
-            </button>
-          </div>
-
-          <div class="hero-note">
-            <span>✓ Gratuit pour commencer</span>
-            <span>✓ Sans compte obligatoire</span>
-            <span>✓ Personnel + Professionnel</span>
-          </div>
-        </div>
-
-        <div class="hero-card">
-
-          <div class="hero-card-top">
-            <span class="hero-card-title">TA TRAJECTOIRE</span>
-            <span class="badge">365 jours</span>
-          </div>
-
-          <div class="trajectory-score">
-            <span id="heroScore">72</span>
-            <span>/100</span>
-          </div>
-
-          <div class="trajectory-line">
-            <svg class="trajectory-svg" viewBox="0 0 600 140" preserveAspectRatio="none">
-              <path
-                d="M0 122 C80 112 120 100 170 105 C230 110 255 75 310 82 C365 90 392 52 440 57 C505 65 540 28 600 18"
-                fill="none"
-                stroke="#8b87ff"
-                stroke-width="5"
-                stroke-linecap="round"
-              />
-              <circle cx="0" cy="122" r="6" fill="#8b87ff"/>
-              <circle cx="600" cy="18" r="6" fill="#63e7bf"/>
-            </svg>
-          </div>
-
-          <div class="hero-metrics">
-            <div class="hero-metric">
-              <span>Temps récupérable</span>
-              <strong id="heroHours">0 h</strong>
-            </div>
-
-            <div class="hero-metric">
-              <span>Épargne annuelle</span>
-              <strong id="heroSavings">0 €</strong>
-            </div>
-
-            <div class="hero-metric">
-              <span>Apprentissage</span>
-              <strong id="heroLearning">0 h</strong>
-            </div>
-
-            <div class="hero-metric">
-              <span>Sport</span>
-              <strong id="heroSport">0</strong>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- PROFILS -->
-    <section>
-      <div class="container">
-
-        <div class="section-title">
-          <div class="eyebrow">COMMENCE PAR TOI</div>
-
-          <h2>
-            Une plateforme, plusieurs trajectoires.
-          </h2>
-
-          <p class="section-text">
-            Le moteur reste le même. L'expérience s'adapte à ton profil,
-            à tes objectifs et à ta situation.
-          </p>
-        </div>
-
-        <div class="profile-grid">
-
-          <button class="profile active" data-profile="personal">
-            <div class="profile-icon">◎</div>
-            <h3>Vie personnelle</h3>
-            <p>
-              Habitudes, temps, énergie, sommeil, apprentissage et équilibre.
-            </p>
-          </button>
-
-          <button class="profile" data-profile="professional">
-            <div class="profile-icon">↗</div>
-            <h3>Professionnel</h3>
-            <p>
-              Carrière, organisation, compétences, objectifs et évolution.
-            </p>
-          </button>
-
-          <button class="profile" data-profile="student">
-            <div class="profile-icon">▣</div>
-            <h3>Étudiant</h3>
-            <p>
-              Études, compétences, stages, orientation et employabilité.
-            </p>
-          </button>
-
-          <button class="profile" data-profile="highschool">
-            <div class="profile-icon">✦</div>
-            <h3>Lycéen</h3>
-            <p>
-              Orientation, métiers, études et premières trajectoires.
-            </p>
-          </button>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- SIMULATEUR -->
-    <section id="trajectoire">
-      <div class="container">
-
-        <div class="section-title">
-          <div class="eyebrow">SIMULATEUR DE TRAJECTOIRE</div>
-
-          <h2>
-            Change une habitude. Regarde la trajectoire changer.
-          </h2>
-
-          <p class="section-text">
-            Ces chiffres sont des projections mathématiques basées sur les
-            données que tu déclares. Ils ne prédisent pas ton avenir.
-          </p>
-        </div>
-
-        <div class="simulator">
-
-          <!-- CONTROLES -->
-          <div class="panel panel-padding">
-
-            <div class="panel-title">
-              <div>
-                <h3>Ton quotidien</h3>
-                <p>Modifie les curseurs.</p>
-              </div>
-            </div>
-
-            <div class="control">
-              <label>
-                <span>Temps d'écran</span>
-                <span class="control-value">
-                  <span id="screenValue">4h00</span>/jour
-                </span>
-              </label>
-
-              <input
-                id="screen"
-                type="range"
-                min="0"
-                max="8"
-                step="0.25"
-                value="4"
-              >
-            </div>
-
-            <div class="control">
-              <label>
-                <span>Sport</span>
-                <span class="control-value">
-                  <span id="sportValue">1</span> séance/semaine
-                </span>
-              </label>
-
-              <input
-                id="sport"
-                type="range"
-                min="0"
-                max="7"
-                step="1"
-                value="1"
-              >
-            </div>
-
-            <div class="control">
-              <label>
-                <span>Apprentissage</span>
-                <span class="control-value">
-                  <span id="learningValue">1</span> h/semaine
-                </span>
-              </label>
-
-              <input
-                id="learning"
-                type="range"
-                min="0"
-                max="20"
-                step="0.5"
-                value="1"
-              >
-            </div>
-
-            <div class="control">
-              <label>
-                <span>Épargne</span>
-                <span class="control-value">
-                  <span id="savingValue">100</span> €/mois
-                </span>
-              </label>
-
-              <input
-                id="saving"
-                type="range"
-                min="0"
-                max="1000"
-                step="25"
-                value="100"
-              >
-            </div>
-
-            <div class="control">
-              <label>
-                <span>Réunions</span>
-                <span class="control-value">
-                  <span id="meetingValue">7</span> h/semaine
-                </span>
-              </label>
-
-              <input
-                id="meeting"
-                type="range"
-                min="0"
-                max="20"
-                step="0.5"
-                value="7"
-              >
-            </div>
-
-            <button class="button button-primary" style="width:100%;" id="upgradeButton">
-              Appliquer mon upgrade
-            </button>
-
-          </div>
-
-          <!-- RESULTATS -->
-          <div class="panel panel-padding">
-
-            <div class="panel-title">
-              <div>
-                <h3>Ta trajectoire à 365 jours</h3>
-                <p id="profileMessage">
-                  Projection basée sur tes habitudes déclarées.
-                </p>
-              </div>
-
-              <span class="badge" style="background:#eef8f4;color:#168a67;">
-                Active
-              </span>
-            </div>
-
-            <div class="dashboard-grid">
-
-              <div class="stat-card">
-                <span>Téléphone</span>
-                <strong id="phoneTotal">0 h</strong>
-              </div>
-
-              <div class="stat-card">
-                <span>Sport</span>
-                <strong id="sportTotal">0</strong>
-              </div>
-
-              <div class="stat-card">
-                <span>Apprentissage</span>
-                <strong id="learningTotal">0 h</strong>
-              </div>
-
-              <div class="stat-card">
-                <span>Épargne</span>
-                <strong id="savingTotal">0 €</strong>
-              </div>
-
-            </div>
-
-            <div class="scenario-box">
-              <small>ET SI TU CHANGEAIS 3 CHOSES ?</small>
-              <strong id="recoveredHours">0 h récupérables/an</strong>
-              <p id="scenarioText" style="margin-top:5px;color:#4a7a6a;">
-                Compare ensuite avec un scénario d'upgrade.
-              </p>
-            </div>
-
-            <div class="bar-list">
-
-              <div class="bar-item">
-                <span>Temps écran</span>
-                <div class="bar-bg">
-                  <div class="bar-fill" id="phoneBar"></div>
-                </div>
-                <strong id="phoneBarLabel">0 h</strong>
-              </div>
-
-              <div class="bar-item">
-                <span>Sport</span>
-                <div class="bar-bg">
-                  <div class="bar-fill" id="sportBar"></div>
-                </div>
-                <strong id="sportBarLabel">0</strong>
-              </div>
-
-              <div class="bar-item">
-                <span>Apprentissage</span>
-                <div class="bar-bg">
-                  <div class="bar-fill" id="learningBar"></div>
-                </div>
-                <strong id="learningBarLabel">0 h</strong>
-              </div>
-
-              <div class="bar-item">
-                <span>Réunions</span>
-                <div class="bar-bg">
-                  <div class="bar-fill" id="meetingBar"></div>
-                </div>
-                <strong id="meetingBarLabel">0 h</strong>
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- ORIENTATION -->
-    <section id="orientation">
-      <div class="container">
-
-        <div class="section-title">
-          <div class="eyebrow">ORIENTATION & CONSEILS</div>
-
-          <h2>
-            Comprendre tes options avant de choisir.
-          </h2>
-
-          <p class="section-text">
-            Life Upgrade peut t'aider à comparer des trajectoires,
-            identifier des compétences à développer et construire
-            un plan d'action.
-          </p>
-        </div>
-
-        <div class="feature-grid">
-
-          <article class="feature">
-            <span class="tag">Lycéen</span>
-            <h3>Explorer des métiers</h3>
-            <p>
-              Compare plusieurs possibilités selon tes intérêts,
-              tes points forts et les études à envisager.
-            </p>
-          </article>
-
-          <article class="feature">
-            <span class="tag">Étudiant</span>
-            <h3>Construire ton Career Gap</h3>
-            <p>
-              Identifie les compétences qui te séparent actuellement
-              du métier que tu vises.
-            </p>
-          </article>
-
-          <article class="feature">
-            <span class="tag">Professionnel</span>
-            <h3>Comparer des scénarios</h3>
-            <p>
-              Évolution, spécialisation, reconversion ou projet :
-              compare plusieurs trajectoires avant d'agir.
-            </p>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- PARCOURS -->
-    <section id="parcours">
-      <div class="container">
-
-        <div class="section-title">
-          <div class="eyebrow">PARCOURS & MINI-FORMATIONS</div>
-
-          <h2>
-            Apprendre, pratiquer, évaluer, progresser.
-          </h2>
-
-          <p class="section-text">
-            De petits parcours permettent de travailler une compétence
-            puis de terminer par un bilan.
-          </p>
-        </div>
-
-        <div class="course-grid">
-
-          <article class="course">
-            <div class="course-top">
-              <span class="tag">Développement personnel</span>
-              <span class="course-time">7 jours</span>
-            </div>
-
-            <h3>Prendre la parole avec confiance</h3>
-
-            <p>
-              Structure, voix, regard, gestion des questions et mise en situation.
-            </p>
-
-            <div class="course-bottom">
-              <span class="course-status">Évaluation finale</span>
-              <button
-                class="button button-secondary course-button"
-                data-course="Prendre la parole avec confiance"
-              >
-                Découvrir
-              </button>
-            </div>
-          </article>
-
-          <article class="course">
-            <div class="course-top">
-              <span class="tag">Métier</span>
-              <span class="course-time">30 min</span>
-            </div>
-
-            <h3>Découvrir le métier de Data Analyst</h3>
-
-            <p>
-              Missions, compétences, outils, quotidien et perspectives.
-            </p>
-
-            <div class="course-bottom">
-              <span class="course-status">Mini-quiz</span>
-              <button
-                class="button button-secondary course-button"
-                data-course="Découvrir le métier de Data Analyst"
-              >
-                Découvrir
-              </button>
-            </div>
-          </article>
-
-          <article class="course">
-            <div class="course-top">
-              <span class="tag">Curiosité</span>
-              <span class="course-time">5 min/jour</span>
-            </div>
-
-            <h3>Pourquoi les étoiles brillent-elles ?</h3>
-
-            <p>
-              Une découverte courte pour apprendre, tester et partager.
-            </p>
-
-            <div class="course-bottom">
-              <span class="course-status">Quiz</span>
-              <button
-                class="button button-secondary course-button"
-                data-course="Pourquoi les étoiles brillent-elles ?"
-              >
-                Commencer
-              </button>
-            </div>
-          </article>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- COMMUNAUTE -->
-    <section id="communaute">
-      <div class="container">
-
-        <div class="section-title">
-          <div class="eyebrow">COMMUNAUTÉ</div>
-
-          <h2>
-            Décider ensemble de quoi parler ensuite.
-          </h2>
-
-          <p class="section-text">
-            Propose un sujet, vote, partage une expérience ou participe
-            plus tard à des ateliers et discussions de groupe.
-          </p>
-        </div>
-
-        <div class="community-grid">
-
-          <div class="community-card">
-
-            <span class="tag">Sondage de la semaine</span>
-
-            <h3>
-              Quel sujet devrait être le prochain grand débat ?
-            </h3>
-
-            <div class="poll">
-
-              <button class="poll-option" data-poll="IA et métiers">
-                <span>IA et métiers</span>
-                <small>38%</small>
-              </button>
-
-              <button class="poll-option" data-poll="Passion ou stabilité">
-                <span>Passion ou stabilité ?</span>
-                <small>27%</small>
-              </button>
-
-              <button class="poll-option" data-poll="Pourquoi procrastinons-nous">
-                <span>Pourquoi procrastinons-nous ?</span>
-                <small>21%</small>
-              </button>
-
-              <button class="poll-option" data-poll="Dépendance au téléphone">
-                <span>Sommes-nous dépendants du téléphone ?</span>
-                <small>14%</small>
-              </button>
-
-            </div>
-
-            <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;">
-              <button class="button button-primary" id="voteButton">
-                Voter
-              </button>
-
-              <button class="button button-secondary" id="suggestButton">
-                Proposer un sujet
-              </button>
-            </div>
-
-            <p id="voteMessage" style="margin-top:14px;color:var(--muted);font-size:13px;"></p>
-
-          </div>
-
-          <div class="community-card">
-
-            <span class="tag">Expérience membre</span>
-
-            <h3>
-              « J'ai changé de métier à 31 ans. »
-            </h3>
-
-            <p>
-              Une histoire de reconversion, ce qui a réellement aidé,
-              ce qui a été difficile et ce qui aurait pu être fait différemment.
-            </p>
-
-            <div style="margin-top:18px;color:var(--muted);font-size:13px;">
-              — Exemple de future expérience communautaire
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-    <!-- COACHING -->
-    <section id="coaching">
-      <div class="container">
-
-        <div class="premium">
-
-          <div class="premium-grid">
-
-            <div>
-
-              <div class="eyebrow" style="color:#93a0ff;">
-                COACHING PREMIUM
-              </div>
-
-              <h2>
-                Quand tu veux aller plus loin, tu n'avances plus seul.
-              </h2>
-
-              <p>
-                Le coach Life Upgrade analyse ton tableau de bord avant
-                chaque séance, arrive avec une synthèse et construit avec
-                toi un plan personnalisé.
-              </p>
-
-              <ul class="premium-list">
-                <li>2 séances de coaching par mois</li>
-                <li>Analyse de progression avant chaque séance</li>
-                <li>Plan personnalisé</li>
-                <li>Suivi des objectifs</li>
-                <li>Teams, Google Meet ou WhatsApp selon ta préférence</li>
-                <li>Coaching de vie et de progression</li>
-              </ul>
-
-            </div>
-
-            <div class="price-card">
-
-              <small>Projet d'offre</small>
-
-              <strong>
-                4,99 €
-                <span style="font-size:16px;font-weight:600;">/mois</span>
-              </strong>
-
-              <button
-                class="button button-primary"
-                style="width:100%;"
-                id="premiumButton"
-              >
-                Rejoindre la liste d'intérêt
-              </button>
-
-              <div class="price-note">
-                Le coaching Life Upgrade n'est pas un service médical,
-                psychologique ou psychothérapeutique.
-              </div>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-    </section>
-
-  </main>
-
-  <footer class="footer">
-    <div class="container footer-inner">
-      <div>
-        <strong>Life Upgrade</strong>
-        <div style="margin-top:4px;">
-          Développement personnel · professionnel · orientation · apprentissage
-        </div>
-      </div>
-
-      <div>
-        Prototype V1
-      </div>
-    </div>
-  </footer>
-
-  <!-- MODAL -->
-  <div class="modal" id="modal">
-    <div class="modal-card">
-
-      <div class="eyebrow">LIFE UPGRADE</div>
-
-      <h3 id="modalTitle">Ton profil</h3>
-
-      <p id="modalText">
-        Cette fonctionnalité sera développée dans la prochaine étape.
-      </p>
-
-      <div class="modal-actions">
-
-        <button class="button button-primary" id="modalPrimary">
-          Compris
-        </button>
-
-        <button class="button button-secondary" id="modalClose">
-          Fermer
-        </button>
-
-      </div>
 
     </div>
   </div>
+</header>
 
-  <script>
-    // ---------------------------------------
-    // LIFE UPGRADE — Prototype V1
-    // ---------------------------------------
+<main>
 
-    const state = {
-      profile: "personal",
-      selectedPoll: null
+  <!-- ========================= -->
+  <!-- ACCUEIL -->
+  <!-- ========================= -->
+
+  <section id="accueil" class="hero">
+    <div class="container hero-grid">
+
+      <div class="hero-copy">
+
+        <div class="eyebrow">
+          PERSONNEL · PROFESSIONNEL · ÉTUDES
+        </div>
+
+        <h1>
+          Construis la trajectoire que tu veux vraiment.
+        </h1>
+
+        <p>
+          Life Upgrade t'aide à comprendre où tu en es, à visualiser où
+          tes habitudes peuvent te mener, à explorer tes options et à
+          construire ton prochain plan d'action.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#trajectoire" class="btn btn-primary">
+            Simuler ma trajectoire
+          </a>
+
+          <button id="openIQHero" class="btn btn-secondary">
+            Faire le test de raisonnement
+          </button>
+
+          <a href="#cours" class="btn btn-secondary">
+            Voir les cours gratuits
+          </a>
+        </div>
+
+        <div class="hero-trust">
+          <span>✓ Gratuit pour commencer</span>
+          <span>✓ Aucun compte nécessaire pour les tests</span>
+          <span>✓ Cours gratuits sans inscription</span>
+          <span>✓ Personnel + professionnel</span>
+        </div>
+
+      </div>
+
+      <div class="hero-card">
+
+        <div class="hero-card-top">
+          <div>
+            <strong>TA TRAJECTOIRE</strong>
+            <small style="display:block;margin-top:4px;">
+              Projection illustrative à 365 jours
+            </small>
+          </div>
+
+          <span class="tag">365 jours</span>
+        </div>
+
+        <div class="score">
+          <strong id="heroScore">72</strong>
+          <span>/100</span>
+        </div>
+
+        <div class="hero-graph">
+          <svg viewBox="0 0 600 140" preserveAspectRatio="none">
+            <path
+              d="M0 120 C90 112 120 100 180 103 C250 110 285 72 335 81 C390 92 425 56 475 57 C530 58 560 34 600 17"
+              fill="none"
+              stroke="#8b87ff"
+              stroke-width="5"
+              stroke-linecap="round"
+            />
+            <circle cx="0" cy="120" r="6" fill="#8b87ff"/>
+            <circle cx="600" cy="17" r="6" fill="#63e7bf"/>
+          </svg>
+        </div>
+
+        <div class="hero-kpis">
+
+          <div class="hero-kpi">
+            <span>Temps récupérable</span>
+            <strong id="heroRecovered">0 h</strong>
+          </div>
+
+          <div class="hero-kpi">
+            <span>Épargne annuelle</span>
+            <strong id="heroSavings">0 €</strong>
+          </div>
+
+          <div class="hero-kpi">
+            <span>Apprentissage</span>
+            <strong id="heroLearning">0 h</strong>
+          </div>
+
+          <div class="hero-kpi">
+            <span>Sport</span>
+            <strong id="heroSport">0</strong>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- PROFILS -->
+  <!-- ========================= -->
+
+  <section class="section light">
+
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">TON PROFIL</div>
+          <h2>Un même moteur, plusieurs trajectoires.</h2>
+          <p>
+            Le site s'adapte à la situation de chacun.
+          </p>
+        </div>
+      </div>
+
+      <div class="profile-grid">
+
+        <button class="profile-card active" data-profile="personal">
+          <div class="profile-icon">◎</div>
+          <strong>Personnel</strong>
+          <small>
+            Habitudes, temps, énergie, sommeil, apprentissage et équilibre.
+          </small>
+        </button>
+
+        <button class="profile-card" data-profile="professional">
+          <div class="profile-icon">↗</div>
+          <strong>Professionnel</strong>
+          <small>
+            Carrière, compétences, organisation, objectifs et évolution.
+          </small>
+        </button>
+
+        <button class="profile-card" data-profile="student">
+          <div class="profile-icon">▣</div>
+          <strong>Étudiant</strong>
+          <small>
+            Études, stages, compétences, employabilité et orientation.
+          </small>
+        </button>
+
+        <button class="profile-card" data-profile="highschool">
+          <div class="profile-icon">✦</div>
+          <strong>Lycéen</strong>
+          <small>
+            Découverte des métiers, études, orientation et préparation.
+          </small>
+        </button>
+
+        <button class="profile-card" data-profile="parent">
+          <div class="profile-icon">＋</div>
+          <strong>Parent</strong>
+          <small>
+            Accompagner un jeune sans transformer l'orientation en surveillance.
+          </small>
+        </button>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- TRAJECTOIRE -->
+  <!-- ========================= -->
+
+  <section id="trajectoire" class="section">
+
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">SIMULATEUR DE TRAJECTOIRE</div>
+          <h2>Change quelques variables et vois l'effet cumulé.</h2>
+          <p>
+            Les projections sont mathématiques et illustratives.
+            Elles ne prédisent pas le futur.
+          </p>
+        </div>
+      </div>
+
+      <div class="simulator">
+
+        <div class="panel">
+
+          <div class="panel-head">
+            <div>
+              <h3>Ton quotidien</h3>
+              <p>Modifie les curseurs.</p>
+            </div>
+
+            <span class="pill">365 jours</span>
+          </div>
+
+          <div class="control">
+
+            <label>
+              <span>Temps d'écran</span>
+              <span><span id="screenValue">4</span> h/jour</span>
+            </label>
+
+            <input
+              type="range"
+              id="screen"
+              min="0"
+              max="8"
+              step=".25"
+              value="4"
+            >
+
+            <small>
+              Exemple : réseaux sociaux, vidéos, navigation.
+            </small>
+
+          </div>
+
+          <div class="control">
+
+            <label>
+              <span>Sport</span>
+              <span><span id="sportValue">1</span> / semaine</span>
+            </label>
+
+            <input
+              type="range"
+              id="sport"
+              min="0"
+              max="7"
+              step="1"
+              value="1"
+            >
+
+          </div>
+
+          <div class="control">
+
+            <label>
+              <span>Apprentissage</span>
+              <span><span id="learningValue">1</span> h/semaine</span>
+            </label>
+
+            <input
+              type="range"
+              id="learning"
+              min="0"
+              max="20"
+              step=".5"
+              value="1"
+            >
+
+          </div>
+
+          <div class="control">
+
+            <label>
+              <span>Épargne</span>
+              <span><span id="savingValue">100</span> €/mois</span>
+            </label>
+
+            <input
+              type="range"
+              id="saving"
+              min="0"
+              max="1500"
+              step="25"
+              value="100"
+            >
+
+          </div>
+
+          <div class="control">
+
+            <label>
+              <span>Réunions</span>
+              <span><span id="meetingValue">7</span> h/semaine</span>
+            </label>
+
+            <input
+              type="range"
+              id="meeting"
+              min="0"
+              max="20"
+              step=".5"
+              value="7"
+            >
+
+          </div>
+
+          <button id="upgradeTrajectoryBtn" class="btn btn-primary" style="width:100%;">
+            Appliquer mon upgrade
+          </button>
+
+        </div>
+
+        <div class="panel">
+
+          <div class="panel-head">
+            <div>
+              <h3>Ta trajectoire à un an</h3>
+              <p id="trajectoryMessage">
+                Basée sur les habitudes que tu as déclarées.
+              </p>
+            </div>
+
+            <span class="tag">Simulation</span>
+          </div>
+
+          <div class="scenario-grid">
+
+            <div class="scenario">
+              <small>Temps d'écran / an</small>
+              <strong id="phoneTotal">0 h</strong>
+            </div>
+
+            <div class="scenario">
+              <small>Sport / an</small>
+              <strong id="sportTotal">0</strong>
+            </div>
+
+            <div class="scenario">
+              <small>Apprentissage / an</small>
+              <strong id="learningTotal">0 h</strong>
+            </div>
+
+            <div class="scenario">
+              <small>Épargne / an</small>
+              <strong id="savingTotal">0 €</strong>
+            </div>
+
+          </div>
+
+          <div class="scenario green">
+
+            <small>ET SI TU RÉDUISAIS LE TEMPS D'ÉCRAN ?</small>
+
+            <strong id="recoveredHours">
+              0 h récupérables
+            </strong>
+
+            <p id="scenarioDescription">
+              Le temps récupéré pourrait être réalloué à l'apprentissage,
+              au sport, à un projet personnel ou au repos.
+            </p>
+
+          </div>
+
+          <div class="bars">
+
+            <div class="bar-row">
+              <span>Temps écran</span>
+              <div class="bar">
+                <i id="phoneBar"></i>
+              </div>
+              <strong id="phoneBarLabel">0 h</strong>
+            </div>
+
+            <div class="bar-row">
+              <span>Sport</span>
+              <div class="bar">
+                <i id="sportBar"></i>
+              </div>
+              <strong id="sportBarLabel">0</strong>
+            </div>
+
+            <div class="bar-row">
+              <span>Apprentissage</span>
+              <div class="bar">
+                <i id="learningBar"></i>
+              </div>
+              <strong id="learningBarLabel">0 h</strong>
+            </div>
+
+            <div class="bar-row">
+              <span>Réunions</span>
+              <div class="bar">
+                <i id="meetingBar"></i>
+              </div>
+              <strong id="meetingBarLabel">0 h</strong>
+            </div>
+
+          </div>
+
+          <table class="compare-table">
+
+            <thead>
+              <tr>
+                <th>Indicateur</th>
+                <th>Aujourd'hui</th>
+                <th>Projection</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              <tr>
+                <td>Écran</td>
+                <td id="tableScreenNow">4 h/jour</td>
+                <td id="tableScreenYear">1460 h</td>
+              </tr>
+
+              <tr>
+                <td>Sport</td>
+                <td id="tableSportNow">1 / semaine</td>
+                <td id="tableSportYear">52</td>
+              </tr>
+
+              <tr>
+                <td>Apprentissage</td>
+                <td id="tableLearningNow">1 h/semaine</td>
+                <td id="tableLearningYear">52 h</td>
+              </tr>
+
+              <tr>
+                <td>Épargne</td>
+                <td id="tableSavingNow">100 €/mois</td>
+                <td id="tableSavingYear">1200 €</td>
+              </tr>
+
+            </tbody>
+
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- PERSONNEL -->
+  <!-- ========================= -->
+
+  <section id="personnel" class="section light">
+
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">DÉVELOPPEMENT PERSONNEL</div>
+          <h2>Comprendre ta vie avant de vouloir tout changer.</h2>
+          <p>
+            Life Upgrade travaille sur les habitudes, le temps, l'apprentissage,
+            l'organisation et les objectifs personnels.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+
+        <article class="card">
+          <span class="tag">Temps</span>
+          <h3>Ton budget de temps</h3>
+          <p>
+            Visualiser comment tes heures sont réellement réparties sur une semaine.
+          </p>
+          <ul>
+            <li>temps d'écran</li>
+            <li>temps personnel</li>
+            <li>temps de qualité</li>
+            <li>temps récupérable</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <span class="tag">Habitudes</span>
+          <h3>Des petites actions</h3>
+          <p>
+            Les parcours privilégient les changements réalistes plutôt que
+            les grandes promesses.
+          </p>
+          <ul>
+            <li>missions quotidiennes</li>
+            <li>objectifs hebdomadaires</li>
+            <li>progression</li>
+            <li>bilan de fin de parcours</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <span class="tag">Apprentissage</span>
+          <h3>Continuer à apprendre</h3>
+          <p>
+            Développer des compétences et entretenir sa curiosité au quotidien.
+          </p>
+          <ul>
+            <li>mini-formations</li>
+            <li>culture générale</li>
+            <li>quiz</li>
+            <li>discussions</li>
+          </ul>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- PROFESSIONNEL -->
+  <!-- ========================= -->
+
+  <section id="professionnel" class="section">
+
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">DÉVELOPPEMENT PROFESSIONNEL</div>
+          <h2>Construis ta prochaine étape professionnelle.</h2>
+          <p>
+            Compare ta situation actuelle avec ton objectif et travaille
+            progressivement sur les compétences nécessaires.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+
+        <div class="card">
+
+          <span class="tag">Career Gap</span>
+
+          <h3 style="margin-top:13px;">
+            Exemple : Développeur Backend
+          </h3>
+
+          <div class="skill-row">
+            <span>Python</span>
+            <div class="skill-track"><i style="width:75%"></i></div>
+            <strong>7.5</strong>
+          </div>
+
+          <div class="skill-row">
+            <span>SQL</span>
+            <div class="skill-track"><i style="width:55%"></i></div>
+            <strong>5.5</strong>
+          </div>
+
+          <div class="skill-row">
+            <span>Cloud</span>
+            <div class="skill-track"><i style="width:28%"></i></div>
+            <strong>2.8</strong>
+          </div>
+
+          <div class="skill-row">
+            <span>Git</span>
+            <div class="skill-track"><i style="width:65%"></i></div>
+            <strong>6.5</strong>
+          </div>
+
+          <div class="gap-box">
+            <strong>Écart principal</strong>
+            <p>
+              Dans cet exemple, Cloud et SQL constituent les deux domaines
+              à renforcer en priorité pour se rapprocher de l'objectif.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="card">
+
+          <span class="tag">Plan professionnel</span>
+
+          <h3 style="margin-top:13px;">
+            90 prochains jours
+          </h3>
+
+          <ul>
+            <li>terminer un projet portfolio</li>
+            <li>renforcer SQL</li>
+            <li>faire un module Cloud</li>
+            <li>mettre à jour CV et portfolio</li>
+            <li>préparer les entretiens</li>
+            <li>faire le bilan à J+90</li>
+          </ul>
+
+          <button
+            class="btn btn-primary btn-small"
+            style="margin-top:18px;"
+            id="careerAdviceBtn"
+          >
+            Obtenir un conseil
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- ETUDES / LYCEENS -->
+  <!-- ========================= -->
+
+  <section class="section light">
+
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">ÉTUDES · LYCÉENS · PARENTS</div>
+          <h2>Accompagner une trajectoire scolaire sans décider à la place du jeune.</h2>
+          <p>
+            L'objectif est d'explorer des possibilités, d'identifier des compétences
+            et de préparer les prochaines étapes.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+
+        <article class="card">
+          <span class="tag">Lycéen</span>
+          <h3>Explorer les métiers</h3>
+          <p>
+            Comparer plusieurs métiers selon les intérêts, compétences,
+            études et contraintes déclarées.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="tag">Étudiant</span>
+          <h3>Préparer l'employabilité</h3>
+          <p>
+            Relier études, compétences, projets, stages et objectifs professionnels.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="tag">Parent</span>
+          <h3>Accompagner sans surveiller</h3>
+          <p>
+            Le jeune doit savoir ce qui est partagé. Le parent reçoit uniquement
+            les informations auxquelles il a accès.
+          </p>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- ORIENTATION -->
+  <!-- ========================= -->
+
+  <section id="orientation" class="section">
+
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">ORIENTATION & CONSEILS</div>
+          <h2>Explorer des options avant de choisir une direction.</h2>
+          <p>
+            Life Upgrade propose des pistes et explique pourquoi elles apparaissent.
+            Il ne décide pas à la place de l'utilisateur.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+
+        <article class="option-card">
+          <span class="tag">Piste A</span>
+          <h3>Ingénierie</h3>
+          <p>
+            Peut correspondre à un profil attiré par les sciences,
+            la résolution de problèmes et les projets techniques.
+          </p>
+          <div class="compatibility">Compatibilité indicative : 87 %</div>
+          <button
+            class="btn btn-secondary btn-small orientation-btn"
+            data-title="Ingénierie"
+            data-text="Cette piste est donnée comme exemple. Elle devra ensuite être calculée à partir du profil, des compétences, des intérêts et des objectifs réels."
+            style="margin-top:15px;"
+          >
+            Voir la logique
+          </button>
+        </article>
+
+        <article class="option-card">
+          <span class="tag">Piste B</span>
+          <h3>Informatique</h3>
+          <p>
+            Pour un utilisateur intéressé par les technologies,
+            la logique, la création et la résolution de problèmes.
+          </p>
+          <div class="compatibility">Compatibilité indicative : 82 %</div>
+          <button
+            class="btn btn-secondary btn-small orientation-btn"
+            data-title="Informatique"
+            data-text="Une véritable recommandation devra expliquer les critères utilisés et rester présentée comme une piste à explorer, jamais comme une décision définitive."
+            style="margin-top:15px;"
+          >
+            Voir la logique
+          </button>
+        </article>
+
+        <article class="option-card">
+          <span class="tag">Piste C</span>
+          <h3>Marketing / Communication</h3>
+          <p>
+            Pour un profil attiré par la création, la communication,
+            les projets et les interactions humaines.
+          </p>
+          <div class="compatibility">Compatibilité indicative : 78 %</div>
+          <button
+            class="btn btn-secondary btn-small orientation-btn"
+            data-title="Marketing / Communication"
+            data-text="La recommandation finale devra tenir compte des intérêts, compétences, expérience, objectifs et réalités du parcours."
+            style="margin-top:15px;"
+          >
+            Voir la logique
+          </button>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- PARCOURS -->
+  <!-- ========================= -->
+
+  <section class="section light">
+
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">PARCOURS</div>
+          <h2>Un objectif. Un parcours. Un bilan.</h2>
+          <p>
+            Chaque parcours se termine par une évaluation et une nouvelle trajectoire.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-3">
+
+        <article class="card">
+          <span class="tag">7 jours</span>
+          <h3>Prise de parole</h3>
+          <p>
+            Structurer son message, poser sa voix, s'entraîner, répondre
+            aux questions et réaliser une mini-présentation.
+          </p>
+          <button
+            class="btn btn-primary btn-small free-course-btn"
+            data-course="public-speaking"
+            style="margin-top:18px;"
+          >
+            Commencer gratuitement
+          </button>
+        </article>
+
+        <article class="card">
+          <span class="tag">30 min</span>
+          <h3>Découvrir un métier</h3>
+          <p>
+            Comprendre un métier, son quotidien, ses compétences,
+            ses outils et ses possibilités d'évolution.
+          </p>
+          <button
+            class="btn btn-primary btn-small free-course-btn"
+            data-course="data-analyst"
+            style="margin-top:18px;"
+          >
+            Commencer gratuitement
+          </button>
+        </article>
+
+        <article class="card">
+          <span class="tag">5 modules</span>
+          <h3>Apprendre à apprendre</h3>
+          <p>
+            Apprendre à organiser son travail, pratiquer le rappel actif,
+            réviser et mesurer sa progression.
+          </p>
+          <button
+            class="btn btn-primary btn-small free-course-btn"
+            data-course="learning-how"
+            style="margin-top:18px;"
+          >
+            Commencer gratuitement
+          </button>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- CULTURE -->
+  <!-- ========================= -->
+
+  <section class="section">
+
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">CULTURE & CURIOSITÉ</div>
+          <h2>Apprendre parce que le monde est intéressant.</h2>
+          <p>
+            Astronomie, sciences de la vie, histoire, technologie, culture et société.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-4">
+
+        <article class="culture-card">
+          <span class="tag">Astronomie</span>
+          <h3>Pourquoi les étoiles brillent-elles ?</h3>
+          <p>Une découverte courte suivie d'un mini-quiz.</p>
+        </article>
+
+        <article class="culture-card">
+          <span class="tag">Sciences de la vie</span>
+          <h3>Comment notre mémoire fonctionne-t-elle ?</h3>
+          <p>Comprendre les grands principes sans jargon inutile.</p>
+        </article>
+
+        <article class="culture-card">
+          <span class="tag">Histoire</span>
+          <h3>Les événements qui ont changé le monde</h3>
+          <p>Des récits courts pour replacer les grandes étapes dans leur contexte.</p>
+        </article>
+
+        <article class="culture-card">
+          <span class="tag">Sciences</span>
+          <h3>L'évolution des technologies</h3>
+          <p>Découvrir comment certaines innovations ont transformé nos usages.</p>
+        </article>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- TEST IQ -->
+  <!-- ========================= -->
+
+  <section class="section light">
+
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">TEST LIBRE</div>
+          <h2>Un mini-test de raisonnement sans inscription.</h2>
+          <p>
+            Tu peux le faire immédiatement. Aucun compte n'est nécessaire.
+            Le résultat est ludique et indicatif, pas un test de QI officiel.
+          </p>
+        </div>
+      </div>
+
+      <div class="card">
+
+        <div id="iqProgressWrap" class="iq-progress">
+          <i id="iqProgress"></i>
+        </div>
+
+        <div id="iqQuestions"></div>
+
+        <div class="iq-nav">
+          <button id="iqPrev" class="btn btn-secondary btn-small">
+            Précédent
+          </button>
+
+          <button id="iqNext" class="btn btn-primary btn-small">
+            Suivant
+          </button>
+        </div>
+
+        <div id="iqResult" class="iq-result">
+
+          <div class="tag">Résultat indicatif</div>
+
+          <div class="iq-number" id="iqScore">
+            0
+          </div>
+
+          <h3 id="iqLabel">
+            Résultat
+          </h3>
+
+          <p id="iqAdvice"></p>
+
+          <div style="margin-top:16px;">
+            <button id="iqRestart" class="btn btn-secondary btn-small">
+              Recommencer
+            </button>
+
+            <button id="iqSaveResult" class="btn btn-primary btn-small">
+              Créer un compte pour sauvegarder
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- COMMUNAUTÉ / SONDAGES -->
+  <!-- ========================= -->
+
+  <section id="communaute" class="section">
+
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">COMMUNAUTÉ</div>
+          <h2>La communauté aide à choisir les prochains sujets.</h2>
+          <p>
+            Vote, propose un thème, partage une expérience ou participe à une discussion.
+          </p>
+        </div>
+      </div>
+
+      <div class="community">
+
+        <div class="card">
+
+          <span class="tag">Sondage de la semaine</span>
+
+          <h3 style="margin-top:13px;">
+            Quel sujet devrait être le prochain grand débat ?
+          </h3>
+
+          <div class="poll-options">
+
+            <button class="poll-option" data-poll="IA et métiers">
+              <span>IA et métiers</span>
+              <b>38 %</b>
+            </button>
+
+            <button class="poll-option" data-poll="Passion ou stabilité">
+              <span>Passion ou stabilité ?</span>
+              <b>27 %</b>
+            </button>
+
+            <button class="poll-option" data-poll="Pourquoi procrastinons-nous">
+              <span>Pourquoi procrastinons-nous ?</span>
+              <b>21 %</b>
+            </button>
+
+            <button class="poll-option" data-poll="Dépendance au téléphone">
+              <span>Sommes-nous dépendants du téléphone ?</span>
+              <b>14 %</b>
+            </button>
+
+          </div>
+
+          <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;">
+
+            <button id="voteBtn" class="btn btn-primary btn-small">
+              Voter
+            </button>
+
+            <button id="suggestTopicBtn" class="btn btn-secondary btn-small">
+              Proposer un sujet
+            </button>
+
+          </div>
+
+          <p id="voteStatus" style="margin-top:12px;"></p>
+
+        </div>
+
+        <div class="card">
+
+          <span class="tag">Partage d'expérience</span>
+
+          <h3 style="margin-top:13px;">
+            « J'ai changé de métier à 31 ans. »
+          </h3>
+
+          <p style="margin-top:12px;font-size:14px;">
+            Une future bibliothèque d'expériences : reconversion,
+            études, premier stage, prise de parole, apprentissage,
+            organisation et projets personnels.
+          </p>
+
+          <div style="margin-top:18px;">
+            <button id="experienceBtn" class="btn btn-secondary btn-small">
+              Partager mon expérience
+            </button>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ========================= -->
+  <!-- COACHING -->
+  <!-- ========================= -->
+
+  <section class="section coaching" id="coaching">
+
+    <div class="container coaching-grid">
+
+      <div class="coaching-copy">
+
+        <div class="eyebrow" style="color:#9ea5ff;">
+          COACHING PREMIUM
+        </div>
+
+        <h2>
+          Un coach de vie pour t'aider à transformer tes objectifs en actions.
+        </h2>
+
+        <p>
+          Avant chaque séance, le coach analyse ton évolution,
+          tes objectifs, tes habitudes et tes résultats.
+          Il arrive ensuite avec une préparation et construit avec toi
+          un plan personnalisé.
+        </p>
+
+        <div class="coach-workflow">
+
+          <div class="coach-step">
+            <strong>Analyse</strong>
+            <span>Le tableau de bord est préparé avant la séance.</span>
+          </div>
+
+          <div class="coach-step">
+            <strong>Séance</strong>
+            <span>2 rendez-vous mensuels dans l'offre envisagée.</span>
+          </div>
+
+          <div class="coach-step">
+            <strong>Plan</strong>
+            <span>Les objectifs et prochaines actions sont définis.</span>
+          </div>
+
+        </div>
+
+      </div>
+
+      <div class="premium-card">
+
+        <div class="tag">
+          Offre envisagée
+        </div>
+
+        <span class="price">
+          4,99 € <span>/ mois</span>
+        </span>
+
+        <ul>
+          <li>2 séances de coaching par mois</li>
+          <li>analyse du dashboard avant la séance</li>
+          <li>plan personnalisé</li>
+          <li>suivi des objectifs</li>
+          <li>Teams / Google Meet / WhatsApp selon préférence</li>
+          <li>coaching de vie et progression</li>
+        </ul>
+
+        <button
+          id="premiumInterestBtn"
+          class="btn btn-primary"
+          style="width:100%;"
+        >
+          Rejoindre la liste d'intérêt
+        </button>
+
+        <div class="privacy-box">
+          Life Upgrade propose du coaching de vie et de progression.
+          Ce service ne remplace pas un psychologue, un psychiatre,
+          un médecin ou un autre professionnel de santé.
+        </div>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ========================= -->
+  <!-- PARENT -->
+  <!-- ========================= -->
+
+  <section class="section light">
+
+    <div class="container">
+
+      <div class="section-head">
+        <div>
+          <div class="eyebrow">ESPACE PARENT</div>
+          <h2>Accompagner sans surveiller.</h2>
+          <p>
+            Le futur espace parent permettra de suivre les grandes étapes
+            partagées volontairement par le jeune.
+          </p>
+        </div>
+      </div>
+
+      <div class="grid-2">
+
+        <div class="card">
+
+          <span class="tag">Ce qui peut être partagé</span>
+
+          <ul>
+            <li>objectif d'orientation</li>
+            <li>étapes de parcours</li>
+            <li>échéances importantes</li>
+            <li>progression générale</li>
+            <li>projets ou actions partagés</li>
+          </ul>
+
+        </div>
+
+        <div class="card">
+
+          <span class="tag">Ce qui doit rester protégé</span>
+
+          <ul>
+            <li>journal personnel privé</li>
+            <li>réponses personnelles non partagées</li>
+            <li>informations confidentielles</li>
+            <li>contenu privé du coaching</li>
+            <li>éléments non autorisés par le jeune</li>
+          </ul>
+
+        </div>
+
+      </div>
+
+      <div class="privacy-box">
+        Pour les mineurs, les règles de consentement, de partage et de protection
+        devront être définies précisément avant le lancement commercial.
+      </div>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+
+  <div class="container footer-inner">
+
+    <div>
+      <strong>Life Upgrade</strong>
+      <div style="margin-top:5px;">
+        Développement personnel · professionnel · orientation · apprentissage
+      </div>
+    </div>
+
+    <div>
+      Site prototype
+    </div>
+
+  </div>
+
+</footer>
+
+<!-- ========================= -->
+<!-- MODAL COMPTE -->
+<!-- ========================= -->
+
+<div id="accountModalBg" class="modal-bg">
+
+  <div class="modal">
+
+    <button id="accountModalClose" class="modal-close">×</button>
+
+    <div class="eyebrow">CRÉER UN COMPTE</div>
+
+    <h2 style="font-size:34px;">
+      Construisons ton espace Life Upgrade.
+    </h2>
+
+    <p>
+      Le compte permet de conserver ton profil et, plus tard,
+      ta progression. Pour l'instant les données sont stockées
+      localement sur cet appareil.
+    </p>
+
+    <form id="accountForm">
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="firstName">Prénom</label>
+          <input id="firstName" name="firstName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Nom</label>
+          <input id="lastName" name="lastName" required>
+        </div>
+
+        <div class="form-group">
+          <label for="country">Pays</label>
+
+          <select id="country" name="country" required>
+            <option value="">Choisir</option>
+            <option>France</option>
+            <option>Belgique</option>
+            <option>Suisse</option>
+            <option>Canada</option>
+            <option>Luxembourg</option>
+            <option>Maroc</option>
+            <option>Algérie</option>
+            <option>Tunisie</option>
+            <option>Sénégal</option>
+            <option>Côte d'Ivoire</option>
+            <option>Autre</option>
+          </select>
+
+        </div>
+
+        <div class="form-group">
+          <label for="phone">Numéro de téléphone</label>
+          <input
+            id="phone"
+            name="phone"
+            type="tel"
+            placeholder="+33..."
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="profile">Profil principal</label>
+
+          <select id="profile" name="profile" required>
+            <option value="">Choisir</option>
+            <option>Développement personnel</option>
+            <option>Professionnel</option>
+            <option>Étudiant</option>
+            <option>Lycéen</option>
+            <option>Parent</option>
+          </select>
+
+        </div>
+
+        <div class="form-group full">
+
+          <label>
+            Qu'aimerais-tu trouver sur Life Upgrade ?
+          </label>
+
+          <div class="interest-grid">
+
+            <div class="interest-option">
+              <input id="interestPersonal" type="checkbox" name="interests" value="Développement personnel">
+              <label for="interestPersonal">
+                Développement personnel
+              </label>
+            </div>
+
+            <div class="interest-option">
+              <input id="interestProfessional" type="checkbox" name="interests" value="Développement professionnel">
+              <label for="interestProfessional">
+                Développement professionnel
+              </label>
+            </div>
+
+            <div class="interest-option">
+              <input id="interestOrientation" type="checkbox" name="interests" value="Orientation & conseils">
+              <label for="interestOrientation">
+                Orientation & conseils
+              </label>
+            </div>
+
+            <div class="interest-option">
+              <input id="interestCourses" type="checkbox" name="interests" value="Cours & formations">
+              <label for="interestCourses">
+                Cours & formations
+              </label>
+            </div>
+
+            <div class="interest-option">
+              <input id="interestCulture" type="checkbox" name="interests" value="Culture générale">
+              <label for="interestCulture">
+                Culture générale
+              </label>
+            </div>
+
+            <div class="interest-option">
+              <input id="interestDiscussion" type="checkbox" name="interests" value="Discussions de groupe">
+              <label for="interestDiscussion">
+                Discussions de groupe
+              </label>
+            </div>
+
+            <div class="interest-option">
+              <input id="interestCoach" type="checkbox" name="interests" value="Coaching de vie">
+              <label for="interestCoach">
+                Coaching de vie
+              </label>
+            </div>
+
+            <div class="interest-option">
+              <input id="interestStudy" type="checkbox" name="interests" value="Études & employabilité">
+              <label for="interestStudy">
+                Études & employabilité
+              </label>
+            </div>
+
+            <div class="interest-option">
+              <input id="interestParent" type="checkbox" name="interests" value="Espace parent">
+              <label for="interestParent">
+                Espace parent
+              </label>
+            </div>
+
+            <div class="interest-option">
+              <input id="interestTests" type="checkbox" name="interests" value="Tests & simulateurs">
+              <label for="interestTests">
+                Tests & simulateurs
+              </label>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="form-group">
+          <label for="password">
+            Mot de passe
+          </label>
+
+          <input
+            id="password"
+            name="password"
+            type="password"
+            minlength="6"
+            required
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="passwordConfirm">
+            Confirmer le mot de passe
+          </label>
+
+          <input
+            id="passwordConfirm"
+            name="passwordConfirm"
+            type="password"
+            minlength="6"
+            required
+          >
+        </div>
+
+      </div>
+
+      <div id="accountFormError" class="form-error"></div>
+      <div id="accountFormSuccess" class="form-success"></div>
+
+      <div class="form-actions">
+
+        <button
+          type="button"
+          id="accountCancel"
+          class="btn btn-secondary btn-small"
+        >
+          Annuler
+        </button>
+
+        <button
+          type="submit"
+          class="btn btn-primary btn-small"
+        >
+          Créer mon compte
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+<!-- ========================= -->
+<!-- MODAL IQ -->
+<!-- ========================= -->
+
+<div id="iqModalBg" class="modal-bg">
+
+  <div class="modal wide">
+
+    <button id="iqModalClose" class="modal-close">×</button>
+
+    <div class="eyebrow">TEST LIBRE</div>
+
+    <h2 style="font-size:34px;">
+      Test de raisonnement
+    </h2>
+
+    <p>
+      Aucun compte nécessaire.
+      Le résultat est indicatif et ludique.
+      Il ne s'agit pas d'un test psychométrique officiel.
+    </p>
+
+    <div class="iq-progress">
+      <i id="iqModalProgress"></i>
+    </div>
+
+    <div id="iqModalQuestion"></div>
+
+    <div class="iq-nav">
+
+      <button
+        id="iqModalPrev"
+        class="btn btn-secondary btn-small"
+      >
+        Précédent
+      </button>
+
+      <button
+        id="iqModalNext"
+        class="btn btn-primary btn-small"
+      >
+        Suivant
+      </button>
+
+    </div>
+
+    <div id="iqModalResult" class="iq-result">
+
+      <div class="tag">
+        Résultat indicatif
+      </div>
+
+      <div class="iq-number" id="iqModalScore">
+        0
+      </div>
+
+      <h3 id="iqModalLabel"></h3>
+
+      <p id="iqModalAdvice"></p>
+
+      <div style="margin-top:16px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;">
+
+        <button
+          id="iqModalRestart"
+          class="btn btn-secondary btn-small"
+        >
+          Recommencer
+        </button>
+
+        <button
+          id="iqModalCreateAccount"
+          class="btn btn-primary btn-small"
+        >
+          Créer un compte pour sauvegarder
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ========================= -->
+<!-- MODAL COURS -->
+<!-- ========================= -->
+
+<div id="courseModalBg" class="modal-bg">
+
+  <div class="modal wide">
+
+    <button id="courseModalClose" class="modal-close">×</button>
+
+    <div class="eyebrow">COURS GRATUIT</div>
+
+    <h2 id="courseModalTitle" style="font-size:34px;"></h2>
+
+    <p id="courseModalDescription"></p>
+
+    <div id="courseModules" style="margin-top:18px;"></div>
+
+  </div>
+
+</div>
+
+<!-- ========================= -->
+<!-- MODAL GENERIQUE -->
+<!-- ========================= -->
+
+<div id="genericModalBg" class="modal-bg">
+
+  <div class="modal">
+
+    <button id="genericModalClose" class="modal-close">×</button>
+
+    <div class="eyebrow">LIFE UPGRADE</div>
+
+    <h2 id="genericModalTitle" style="font-size:32px;"></h2>
+
+    <p id="genericModalText"></p>
+
+    <div style="margin-top:18px;display:flex;gap:9px;flex-wrap:wrap;">
+
+      <button
+        id="genericModalAction"
+        class="btn btn-primary btn-small"
+      >
+        Compris
+      </button>
+
+      <button
+        id="genericModalSecondary"
+        class="btn btn-secondary btn-small"
+      >
+        Fermer
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+  /*
+   * ==============================================
+   * LIFE UPGRADE
+   * Prototype V2
+   * ==============================================
+   *
+   * IMPORTANT :
+   * Cette version ne contient pas encore de vrai serveur,
+   * de vraie authentification ou de vraie base de données.
+   *
+   * Les comptes sont sauvegardés uniquement dans localStorage.
+   *
+   * Les cours et le test de raisonnement sont accessibles
+   * sans inscription.
+   */
+
+  const $ = (selector) => document.querySelector(selector);
+  const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+
+  /* ==============================================
+     COMPTE UTILISATEUR
+     ============================================== */
+
+  const ACCOUNT_KEY = "lifeUpgradeAccount";
+
+  function initials(firstName, lastName) {
+    const a = (firstName || "").trim().charAt(0).toUpperCase();
+    const b = (lastName || "").trim().charAt(0).toUpperCase();
+    return (a + b) || "LU";
+  }
+
+  function loadAccount() {
+    try {
+      const raw = localStorage.getItem(ACCOUNT_KEY);
+
+      if (!raw) return null;
+
+      return JSON.parse(raw);
+    } catch (error) {
+      return null;
+    }
+  }
+
+  function renderAccount() {
+    const account = loadAccount();
+
+    const chip = $("#userChip");
+    const name = $("#userName");
+    const avatar = $("#userAvatar");
+
+    if (!account) {
+      chip.classList.remove("show");
+      name.textContent = "Mon compte";
+      avatar.textContent = "LU";
+      $("#openAccountBtn").textContent = "Créer un compte";
+      return;
+    }
+
+    chip.classList.add("show");
+    name.textContent = account.firstName;
+    avatar.textContent = initials(account.firstName, account.lastName);
+    $("#openAccountBtn").textContent = "Mon profil";
+  }
+
+  function openAccountModal() {
+    $("#accountModalBg").classList.add("open");
+  }
+
+  function closeAccountModal() {
+    $("#accountModalBg").classList.remove("open");
+  }
+
+  $("#openAccountBtn").addEventListener("click", () => {
+    const account = loadAccount();
+
+    if (account) {
+      openGenericModal(
+        "Ton compte",
+        `Bienvenue ${account.firstName}. Dans cette version du prototype, ton compte est sauvegardé sur cet appareil. La prochaine étape sera de connecter un vrai système de comptes et de synchronisation.`,
+        "Compris"
+      );
+      return;
+    }
+
+    openAccountModal();
+  });
+
+  $("#accountModalClose").addEventListener(
+    "click",
+    closeAccountModal
+  );
+
+  $("#accountCancel").addEventListener(
+    "click",
+    closeAccountModal
+  );
+
+  $("#accountModalBg").addEventListener("click", (event) => {
+    if (event.target === $("#accountModalBg")) {
+      closeAccountModal();
+    }
+  });
+
+  $("#accountForm").addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const form = event.currentTarget;
+
+    const firstName = $("#firstName").value.trim();
+    const lastName = $("#lastName").value.trim();
+    const country = $("#country").value;
+    const phone = $("#phone").value.trim();
+    const email = $("#email").value.trim();
+    const profile = $("#profile").value;
+    const password = $("#password").value;
+    const passwordConfirm = $("#passwordConfirm").value;
+
+    const interests = $$('input[name="interests"]:checked')
+      .map((input) => input.value);
+
+    const error = $("#accountFormError");
+    const success = $("#accountFormSuccess");
+
+    error.style.display = "none";
+    success.style.display = "none";
+
+    if (!firstName || !lastName || !country || !phone || !email || !profile) {
+      error.textContent =
+        "Merci de compléter tous les champs obligatoires.";
+      error.style.display = "block";
+      return;
+    }
+
+    if (interests.length === 0) {
+      error.textContent =
+        "Sélectionne au moins une chose que tu souhaites retrouver sur Life Upgrade.";
+      error.style.display = "block";
+      return;
+    }
+
+    if (password.length < 6) {
+      error.textContent =
+        "Le mot de passe doit contenir au moins 6 caractères.";
+      error.style.display = "block";
+      return;
+    }
+
+    if (password !== passwordConfirm) {
+      error.textContent =
+        "Les deux mots de passe ne correspondent pas.";
+      error.style.display = "block";
+      return;
+    }
+
+    const account = {
+      firstName,
+      lastName,
+      country,
+      phone,
+      email,
+      profile,
+      interests,
+      createdAt: new Date().toISOString()
     };
 
-    function formatHours(value) {
-      return value.toFixed(1).replace(".0", "") + " h";
-    }
+    localStorage.setItem(
+      ACCOUNT_KEY,
+      JSON.stringify(account)
+    );
 
-    function updateSimulator() {
-      const screen = Number(document.getElementById("screen").value);
-      const sport = Number(document.getElementById("sport").value);
-      const learning = Number(document.getElementById("learning").value);
-      const saving = Number(document.getElementById("saving").value);
-      const meeting = Number(document.getElementById("meeting").value);
+    success.textContent =
+      `Bienvenue ${firstName} ! Ton compte a été créé sur cet appareil.`;
 
-      // Annual projections
-      const phoneAnnual = screen * 365;
-      const sportAnnual = sport * 52;
-      const learningAnnual = learning * 52;
-      const savingAnnual = saving * 12;
-      const meetingAnnual = meeting * 52;
+    success.style.display = "block";
 
-      // A simple internal indicator for prototype purposes.
-      const score =
-        Math.round(
-          100 -
-          screen * 4 +
-          sport * 2 +
-          learning * 1.5 +
-          Math.min(saving / 100, 8)
-        );
+    renderAccount();
 
-      const safeScore = Math.max(0, Math.min(100, score));
+    setTimeout(() => {
+      closeAccountModal();
+    }, 1000);
+  });
 
-      // Update visible values
-      document.getElementById("screenValue").textContent =
-        screen.toFixed(2).replace(".00", "");
+  /* ==============================================
+     PROFILS
+     ============================================== */
 
-      document.getElementById("sportValue").textContent = sport;
+  $$(".profile-card").forEach((card) => {
 
-      document.getElementById("learningValue").textContent =
-        learning.toFixed(1).replace(".0", "");
+    card.addEventListener("click", () => {
 
-      document.getElementById("savingValue").textContent = saving;
+      $$(".profile-card").forEach((item) => {
+        item.classList.remove("active");
+      });
 
-      document.getElementById("meetingValue").textContent =
-        meeting.toFixed(1).replace(".0", "");
+      card.classList.add("active");
 
-      document.getElementById("phoneTotal").textContent =
-        Math.round(phoneAnnual) + " h";
+      const profile = card.dataset.profile;
 
-      document.getElementById("sportTotal").textContent =
-        sportAnnual;
+      const messages = {
+        personal:
+          "Ton parcours personnel mettra l'accent sur le temps, les habitudes, l'apprentissage et l'équilibre.",
+        professional:
+          "Ton parcours professionnel mettra l'accent sur la carrière, les compétences et les objectifs.",
+        student:
+          "Ton parcours étudiant mettra l'accent sur les études, les projets, les stages et l'employabilité.",
+        highschool:
+          "Ton parcours lycéen mettra l'accent sur l'orientation et la découverte des métiers.",
+        parent:
+          "Ton espace parent mettra l'accent sur l'accompagnement et les étapes que le jeune choisit de partager."
+      };
 
-      document.getElementById("learningTotal").textContent =
-        Math.round(learningAnnual) + " h";
-
-      document.getElementById("savingTotal").textContent =
-        Math.round(savingAnnual) + " €";
-
-      // Approximate bars
-      document.getElementById("phoneBar").style.width =
-        Math.min(100, (screen / 8) * 100) + "%";
-
-      document.getElementById("sportBar").style.width =
-        Math.min(100, (sport / 7) * 100) + "%";
-
-      document.getElementById("learningBar").style.width =
-        Math.min(100, (learning / 20) * 100) + "%";
-
-      document.getElementById("meetingBar").style.width =
-        Math.min(100, (meeting / 20) * 100) + "%";
-
-      document.getElementById("phoneBarLabel").textContent =
-        Math.round(phoneAnnual) + " h";
-
-      document.getElementById("sportBarLabel").textContent =
-        sportAnnual;
-
-      document.getElementById("learningBarLabel").textContent =
-        Math.round(learningAnnual) + " h";
-
-      document.getElementById("meetingBarLabel").textContent =
-        Math.round(meetingAnnual) + " h";
-
-      // Simple "time recovered" compared to 4h/day screen time baseline.
-      const baselineScreen = 4;
-      const recovered = Math.max(
-        0,
-        (baselineScreen - screen) * 365
+      openGenericModal(
+        "Profil sélectionné",
+        messages[profile] || messages.personal,
+        "Continuer"
       );
+    });
 
-      document.getElementById("recoveredHours").textContent =
-        Math.round(recovered) + " h récupérables/an";
+  });
 
-      let text;
+  /* ==============================================
+     SIMULATEUR
+     ============================================== */
 
-      if (recovered === 0) {
-        text =
-          "Commence par réduire une seule habitude et regarde l'effet cumulé.";
-      } else {
-        text =
-          "À ce rythme, le temps récupéré pourrait être réalloué à l'apprentissage, au sport, à un projet ou au repos.";
+  const screenInput = $("#screen");
+  const sportInput = $("#sport");
+  const learningInput = $("#learning");
+  const savingInput = $("#saving");
+  const meetingInput = $("#meeting");
+
+  function numberDisplay(value) {
+    return Number(value).toFixed(2).replace(".00", "").replace(".50", ".5");
+  }
+
+  function updateSimulator() {
+
+    const screen = Number(screenInput.value);
+    const sport = Number(sportInput.value);
+    const learning = Number(learningInput.value);
+    const saving = Number(savingInput.value);
+    const meeting = Number(meetingInput.value);
+
+    const screenAnnual = screen * 365;
+    const sportAnnual = sport * 52;
+    const learningAnnual = learning * 52;
+    const savingAnnual = saving * 12;
+    const meetingAnnual = meeting * 52;
+
+    const baselineScreen = 4;
+    const recovered = Math.max(
+      0,
+      (baselineScreen - screen) * 365
+    );
+
+    const scoreRaw =
+      60
+      - screen * 3
+      + sport * 2.4
+      + learning * 1.5
+      + Math.min(saving / 120, 8)
+      - Math.max(0, meeting - 7) * .7;
+
+    const score = Math.max(
+      0,
+      Math.min(100, Math.round(scoreRaw))
+    );
+
+    /*
+     * Valeurs des contrôles
+     */
+    $("#screenValue").textContent = numberDisplay(screen);
+    $("#sportValue").textContent = sport;
+    $("#learningValue").textContent = numberDisplay(learning);
+    $("#savingValue").textContent = saving;
+    $("#meetingValue").textContent = numberDisplay(meeting);
+
+    /*
+     * Résultats
+     */
+    $("#phoneTotal").textContent =
+      Math.round(screenAnnual) + " h";
+
+    $("#sportTotal").textContent =
+      Math.round(sportAnnual);
+
+    $("#learningTotal").textContent =
+      Math.round(learningAnnual) + " h";
+
+    $("#savingTotal").textContent =
+      Math.round(savingAnnual) + " €";
+
+    /*
+     * Barres
+     */
+    $("#phoneBar").style.width =
+      Math.min(100, screen / 8 * 100) + "%";
+
+    $("#sportBar").style.width =
+      Math.min(100, sport / 7 * 100) + "%";
+
+    $("#learningBar").style.width =
+      Math.min(100, learning / 20 * 100) + "%";
+
+    $("#meetingBar").style.width =
+      Math.min(100, meeting / 20 * 100) + "%";
+
+    $("#phoneBarLabel").textContent =
+      Math.round(screenAnnual) + " h";
+
+    $("#sportBarLabel").textContent =
+      Math.round(sportAnnual);
+
+    $("#learningBarLabel").textContent =
+      Math.round(learningAnnual) + " h";
+
+    $("#meetingBarLabel").textContent =
+      Math.round(meetingAnnual) + " h";
+
+    /*
+     * Scénario
+     */
+    $("#recoveredHours").textContent =
+      Math.round(recovered) + " h récupérables";
+
+    $("#scenarioDescription").textContent =
+      recovered > 0
+      ? "À ce rythme, tu pourrais réallouer une partie de ce temps au sport, à l'apprentissage, à un projet, à tes proches ou au repos."
+      : "Commence par réduire une seule variable et observe l'effet cumulé.";
+
+    /*
+     * Tableau
+     */
+    $("#tableScreenNow").textContent =
+      numberDisplay(screen) + " h/jour";
+
+    $("#tableScreenYear").textContent =
+      Math.round(screenAnnual) + " h";
+
+    $("#tableSportNow").textContent =
+      sport + " / semaine";
+
+    $("#tableSportYear").textContent =
+      Math.round(sportAnnual);
+
+    $("#tableLearningNow").textContent =
+      numberDisplay(learning) + " h/semaine";
+
+    $("#tableLearningYear").textContent =
+      Math.round(learningAnnual) + " h";
+
+    $("#tableSavingNow").textContent =
+      saving + " €/mois";
+
+    $("#tableSavingYear").textContent =
+      Math.round(savingAnnual) + " €";
+
+    /*
+     * Hero
+     */
+    $("#heroScore").textContent = score;
+    $("#heroRecovered").textContent =
+      Math.round(recovered) + " h";
+    $("#heroSavings").textContent =
+      Math.round(savingAnnual) + " €";
+    $("#heroLearning").textContent =
+      Math.round(learningAnnual) + " h";
+    $("#heroSport").textContent =
+      Math.round(sportAnnual);
+  }
+
+  [
+    screenInput,
+    sportInput,
+    learningInput,
+    savingInput,
+    meetingInput
+  ].forEach((input) => {
+    input.addEventListener("input", updateSimulator);
+  });
+
+  $("#upgradeTrajectoryBtn").addEventListener(
+    "click",
+    () => {
+      openGenericModal(
+        "Scénario enregistré",
+        "Dans cette version, le scénario est calculé localement. La prochaine étape permettra d'enregistrer plusieurs scénarios et de comparer leur évolution dans le temps.",
+        "Compris"
+      );
+    }
+  );
+
+  updateSimulator();
+
+  /* ==============================================
+     TEST DE RAISONNEMENT
+     ============================================== */
+
+  const iqQuestions = [
+    {
+      question: "Quelle suite complète le mieux : 2, 4, 8, 16, ... ?",
+      options: ["18", "24", "32", "36"],
+      answer: 2
+    },
+    {
+      question: "Si tous les A sont B et qu'aucun B n'est C, que peut-on conclure ?",
+      options: [
+        "Certains A sont C",
+        "Aucun A n'est C",
+        "Tous les C sont A",
+        "On ne peut rien dire"
+      ],
+      answer: 1
+    },
+    {
+      question: "Quel nombre manque : 3, 6, 11, 18, 27, ... ?",
+      options: ["36", "38", "40", "42"],
+      answer: 1
+    },
+    {
+      question: "Quel mot est différent des autres ?",
+      options: [
+        "Carré",
+        "Triangle",
+        "Cercle",
+        "Banane"
+      ],
+      answer: 3
+    },
+    {
+      question: "Un train parcourt 120 km en 2 heures. Combien parcourt-il en 3 heures au même rythme ?",
+      options: [
+        "150 km",
+        "160 km",
+        "180 km",
+        "200 km"
+      ],
+      answer: 2
+    },
+    {
+      question: "Quelle lettre suit : A, C, F, J, O, ... ?",
+      options: ["T", "U", "V", "W"],
+      answer: 1
+    },
+    {
+      question: "5 machines fabriquent 5 objets en 5 minutes. Combien de temps faut-il à 100 machines pour fabriquer 100 objets au même rythme ?",
+      options: [
+        "5 minutes",
+        "20 minutes",
+        "100 minutes",
+        "500 minutes"
+      ],
+      answer: 0
+    },
+    {
+      question: "Quel est 50 % de 90 ?",
+      options: ["35", "40", "45", "55"],
+      answer: 2
+    }
+  ];
+
+  let iqIndex = 0;
+  let iqAnswers = Array(iqQuestions.length).fill(null);
+
+  function openIQ() {
+    $("#iqModalBg").classList.add("open");
+    resetIQ();
+  }
+
+  function closeIQ() {
+    $("#iqModalBg").classList.remove("open");
+  }
+
+  function renderIQ() {
+
+    const item = iqQuestions[iqIndex];
+
+    $("#iqModalQuestion").innerHTML = `
+      <div class="iq-question active">
+        <div class="tag">Question ${iqIndex + 1} / ${iqQuestions.length}</div>
+        <h3 style="margin-top:14px;">
+          ${item.question}
+        </h3>
+
+        <div class="iq-options">
+          ${item.options.map((option, index) => `
+            <button
+              class="iq-option ${iqAnswers[iqIndex] === index ? "selected" : ""}"
+              data-iq-option="${index}"
+            >
+              ${String.fromCharCode(65 + index)}. ${option}
+            </button>
+          `).join("")}
+        </div>
+      </div>
+    `;
+
+    $$("#iqModalQuestion .iq-option").forEach((button) => {
+
+      button.addEventListener("click", () => {
+
+        iqAnswers[iqIndex] =
+          Number(button.dataset.iqOption);
+
+        $$("#iqModalQuestion .iq-option")
+          .forEach((b) => b.classList.remove("selected"));
+
+        button.classList.add("selected");
+
+      });
+
+    });
+
+    $("#iqModalProgress").style.width =
+      ((iqIndex + 1) / iqQuestions.length * 100) + "%";
+
+    $("#iqModalPrev").disabled =
+      iqIndex === 0;
+
+    $("#iqModalNext").textContent =
+      iqIndex === iqQuestions.length - 1
+        ? "Voir mon résultat"
+        : "Suivant";
+  }
+
+  function calculateIQResult() {
+
+    let score = 0;
+
+    iqQuestions.forEach((question, index) => {
+
+      if (iqAnswers[index] === question.answer) {
+        score++;
       }
 
-      document.getElementById("scenarioText").textContent = text;
-
-      // Hero
-      document.getElementById("heroHours").textContent =
-        Math.round(recovered) + " h";
-
-      document.getElementById("heroSavings").textContent =
-        Math.round(savingAnnual) + " €";
-
-      document.getElementById("heroLearning").textContent =
-        Math.round(learningAnnual) + " h";
-
-      document.getElementById("heroSport").textContent =
-        sportAnnual;
-
-      document.getElementById("heroScore").textContent =
-        safeScore;
-    }
-
-    // Inputs
-    [
-      "screen",
-      "sport",
-      "learning",
-      "saving",
-      "meeting"
-    ].forEach(id => {
-      document.getElementById(id).addEventListener("input", updateSimulator);
     });
 
-    // Profiles
-    document.querySelectorAll(".profile").forEach(card => {
-      card.addEventListener("click", () => {
-        document.querySelectorAll(".profile").forEach(item => {
-          item.classList.remove("active");
-        });
+    const estimated =
+      85 + score * 6;
 
-        card.classList.add("active");
+    $("#iqModalScore").textContent =
+      estimated;
 
-        state.profile = card.dataset.profile;
+    $("#iqModalLabel").textContent =
+      score >= 7
+        ? "Très bon résultat de raisonnement"
+        : score >= 5
+        ? "Bon résultat de raisonnement"
+        : score >= 3
+        ? "Résultat intermédiaire"
+        : "Résultat à interpréter avec prudence";
 
-        const messages = {
-          personal:
-            "Ton espace personnel mettra l'accent sur le temps, l'énergie, les habitudes et l'équilibre.",
-          professional:
-            "Ton espace professionnel mettra l'accent sur la carrière, les compétences et les objectifs.",
-          student:
-            "Ton espace étudiant mettra l'accent sur les études, les compétences, les stages et l'employabilité.",
-          highschool:
-            "Ton espace lycéen mettra l'accent sur l'orientation, les métiers et les choix d'études."
-        };
+    $("#iqModalAdvice").textContent =
+      `Tu as obtenu ${score} bonne(s) réponse(s) sur ${iqQuestions.length}. Le chiffre affiché est une estimation ludique basée sur ce mini-test. Il ne constitue pas un QI officiel.`;
 
-        document.getElementById("profileMessage").textContent =
-          messages[state.profile];
+    $("#iqModalResult").classList.add("show");
+    $("#iqModalQuestion").style.display = "none";
+    $("#iqModalNext").style.display = "none";
+    $("#iqModalPrev").style.display = "none";
+  }
 
-        window.scrollTo({
-          top: document.getElementById("trajectoire").offsetTop - 90,
-          behavior: "smooth"
-        });
-      });
-    });
+  function resetIQ() {
 
-    // Scroll buttons
-    document.querySelectorAll("[data-scroll]").forEach(button => {
-      button.addEventListener("click", () => {
-        const selector = button.dataset.scroll;
-        const element = document.querySelector(selector);
+    iqIndex = 0;
+    iqAnswers = Array(iqQuestions.length).fill(null);
 
-        if (element) {
-          element.scrollIntoView({
-            behavior: "smooth"
-          });
-        }
-      });
-    });
+    $("#iqModalResult").classList.remove("show");
+    $("#iqModalQuestion").style.display = "";
+    $("#iqModalNext").style.display = "";
+    $("#iqModalPrev").style.display = "";
 
-    // Upgrade button
-    document.getElementById("upgradeButton").addEventListener("click", () => {
-      document.getElementById("scenarioText").textContent =
-        "Scénario enregistré localement dans cette version prototype. La prochaine version permettra de comparer plusieurs trajectoires.";
-    });
+    renderIQ();
+  }
 
-    // Poll
-    document.querySelectorAll(".poll-option").forEach(option => {
-      option.addEventListener("click", () => {
-        document.querySelectorAll(".poll-option").forEach(item => {
-          item.classList.remove("selected");
-        });
+  $("#iqNext").addEventListener("click", () => {});
 
-        option.classList.add("selected");
+  $("#iqModalNext").addEventListener(
+    "click",
+    () => {
 
-        state.selectedPoll = option.dataset.poll;
+      if (iqAnswers[iqIndex] === null) {
 
-        document.getElementById("voteMessage").textContent =
-          "Sélection : " + state.selectedPoll;
-      });
-    });
+        openGenericModal(
+          "Choisis une réponse",
+          "Réponds à la question avant de continuer.",
+          "Compris"
+        );
 
-    document.getElementById("voteButton").addEventListener("click", () => {
-      if (!state.selectedPoll) {
-        document.getElementById("voteMessage").textContent =
-          "Choisis d'abord un sujet.";
         return;
       }
 
-      document.getElementById("voteMessage").textContent =
-        "Merci ! Ton vote pour « " +
-        state.selectedPoll +
-        " » est enregistré dans ce prototype.";
-    });
-
-    // Modal helpers
-    const modal = document.getElementById("modal");
-    const modalTitle = document.getElementById("modalTitle");
-    const modalText = document.getElementById("modalText");
-
-    function openModal(title, text) {
-      modalTitle.textContent = title;
-      modalText.textContent = text;
-      modal.classList.add("open");
-    }
-
-    function closeModal() {
-      modal.classList.remove("open");
-    }
-
-    document.getElementById("modalClose").addEventListener("click", closeModal);
-    document.getElementById("modalPrimary").addEventListener("click", closeModal);
-
-    modal.addEventListener("click", event => {
-      if (event.target === modal) {
-        closeModal();
+      if (iqIndex < iqQuestions.length - 1) {
+        iqIndex++;
+        renderIQ();
+        return;
       }
-    });
 
-    document.getElementById("profileButton").addEventListener("click", () => {
-      openModal(
-        "Ton profil",
-        "L'espace personnel sera développé dans la prochaine étape avec sauvegarde locale, objectifs, parcours et progression."
-      );
-    });
+      calculateIQResult();
+    }
+  );
 
-    document.getElementById("suggestButton").addEventListener("click", () => {
-      openModal(
-        "Proposer un sujet",
-        "La prochaine version permettra de proposer un sujet, puis de le soumettre au vote de la communauté."
-      );
-    });
+  $("#iqModalPrev").addEventListener(
+    "click",
+    () => {
 
-    document.getElementById("premiumButton").addEventListener("click", () => {
-      openModal(
-        "Coaching Premium",
-        "Le système de réservation et l'espace coach seront ajoutés après la mise en ligne de la V1 gratuite."
-      );
-    });
+      if (iqIndex > 0) {
+        iqIndex--;
+        renderIQ();
+      }
 
-    document.querySelectorAll(".course-button").forEach(button => {
-      button.addEventListener("click", () => {
-        openModal(
-          button.dataset.course,
-          "Ce parcours fera partie du moteur de formation Life Upgrade avec modules, exercices, évaluation finale et bilan de progression."
+    }
+  );
+
+  $("#iqModalRestart").addEventListener(
+    "click",
+    resetIQ
+  );
+
+  $("#openIQHero").addEventListener(
+    "click",
+    openIQ
+  );
+
+  $("#iqModalClose").addEventListener(
+    "click",
+    closeIQ
+  );
+
+  $("#iqModalBg").addEventListener(
+    "click",
+    (event) => {
+
+      if (event.target === $("#iqModalBg")) {
+        closeIQ();
+      }
+
+    }
+  );
+
+  $("#iqModalCreateAccount").addEventListener(
+    "click",
+    () => {
+      closeIQ();
+      openAccountModal();
+    }
+  );
+
+  $("#iqSaveResult").addEventListener(
+    "click",
+    () => {
+      openIQ();
+    }
+  );
+
+  /* ==============================================
+     COURS GRATUITS
+     ============================================== */
+
+  const freeCourses = {
+
+    "public-speaking": {
+      title: "Prendre la parole avec confiance",
+      description:
+        "Un parcours gratuit pour structurer une idée, poser sa voix et s'entraîner à parler devant un public.",
+      modules: [
+        [
+          "1. Structurer son idée",
+          "Commencer par une idée centrale, quelques points importants et une conclusion claire."
+        ],
+        [
+          "2. Parler sans lire",
+          "Utiliser des repères plutôt qu'apprendre un texte mot à mot."
+        ],
+        [
+          "3. Voix et rythme",
+          "Travailler les pauses, le débit et le volume."
+        ],
+        [
+          "4. Regard et posture",
+          "Adopter une posture stable et regarder différentes zones du public."
+        ],
+        [
+          "5. Répondre aux questions",
+          "Écouter, reformuler puis répondre de manière structurée."
+        ],
+        [
+          "6. Mise en situation",
+          "Faire une présentation courte avec un chronomètre."
+        ],
+        [
+          "7. Bilan",
+          "Identifier ce qui a progressé et décider du prochain entraînement."
+        ]
+      ]
+    },
+
+    "data-analyst": {
+      title: "Découvrir le métier de Data Analyst",
+      description:
+        "Un cours gratuit pour comprendre le métier, les outils, les compétences et le quotidien.",
+      modules: [
+        [
+          "1. Le rôle",
+          "Transformer des données en informations utiles à une décision."
+        ],
+        [
+          "2. Les outils",
+          "Découvrir Excel, SQL, visualisation et statistiques de base."
+        ],
+        [
+          "3. Une journée type",
+          "Explorer les tâches : collecte, nettoyage, analyse et restitution."
+        ],
+        [
+          "4. Les compétences",
+          "Rigueur, logique, communication, curiosité et compréhension du contexte."
+        ],
+        [
+          "5. Projet découverte",
+          "Imaginer une petite analyse et présenter une conclusion."
+        ]
+      ]
+    },
+
+    "learning-how": {
+      title: "Apprendre à apprendre",
+      description:
+        "Un parcours gratuit pour mieux organiser une période d'étude, mémoriser et suivre sa progression.",
+      modules: [
+        [
+          "1. Fixer un objectif",
+          "Définir précisément ce qui doit être acquis."
+        ],
+        [
+          "2. Découper",
+          "Transformer un gros sujet en petites unités travaillables."
+        ],
+        [
+          "3. Rappel actif",
+          "S'entraîner à retrouver une information plutôt qu'à simplement la relire."
+        ],
+        [
+          "4. Révisions espacées",
+          "Répartir les rappels dans le temps."
+        ],
+        [
+          "5. Bilan",
+          "Mesurer ce qui est acquis et ce qui doit encore être travaillé."
+        ]
+      ]
+    }
+
+  };
+
+  function openCourse(id) {
+
+    const course = freeCourses[id];
+
+    if (!course) return;
+
+    $("#courseModalTitle").textContent =
+      course.title;
+
+    $("#courseModalDescription").textContent =
+      course.description;
+
+    $("#courseModules").innerHTML =
+      course.modules.map(([title, description]) => `
+        <div class="course-module">
+          <strong>${title}</strong>
+          <p>${description}</p>
+        </div>
+      `).join("") + `
+        <div style="margin-top:18px;">
+          <button
+            id="finishCourseBtn"
+            class="btn btn-primary btn-small"
+          >
+            Terminer le cours
+          </button>
+        </div>
+      `;
+
+    $("#courseModalBg").classList.add("open");
+
+    $("#finishCourseBtn").addEventListener(
+      "click",
+      () => {
+
+        closeCourse();
+
+        openGenericModal(
+          "Cours terminé",
+          "Bravo. Le cours est terminé. Dans la prochaine version, ta progression pourra être enregistrée dans ton compte et intégrée à ta trajectoire.",
+          "Compris"
         );
-      });
-    });
 
-    // Initial render
-    updateSimulator();
-  </script>
+      }
+    );
+
+  }
+
+  function closeCourse() {
+    $("#courseModalBg").classList.remove("open");
+  }
+
+  $$(".free-course-btn").forEach((button) => {
+
+    button.addEventListener(
+      "click",
+      () => openCourse(button.dataset.course)
+    );
+
+  });
+
+  $("#courseModalClose").addEventListener(
+    "click",
+    closeCourse
+  );
+
+  $("#courseModalBg").addEventListener(
+    "click",
+    (event) => {
+
+      if (event.target === $("#courseModalBg")) {
+        closeCourse();
+      }
+
+    }
+  );
+
+  /* ==============================================
+     SONDAGE
+     ============================================== */
+
+  let selectedPoll = null;
+
+  $$(".poll-option").forEach((button) => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        $$(".poll-option").forEach((item) => {
+          item.classList.remove("selected");
+        });
+
+        button.classList.add("selected");
+
+        selectedPoll = button.dataset.poll;
+
+      }
+    );
+
+  });
+
+  $("#voteBtn").addEventListener(
+    "click",
+    () => {
+
+      if (!selectedPoll) {
+
+        $("#voteStatus").textContent =
+          "Choisis d'abord un sujet.";
+
+        return;
+      }
+
+      $("#voteStatus").textContent =
+        `Merci ! Ton vote pour « ${selectedPoll} » est enregistré dans ce prototype.`;
+    }
+  );
+
+  $("#suggestTopicBtn").addEventListener(
+    "click",
+    () => {
+
+      openGenericModal(
+        "Proposer un sujet",
+        "La prochaine version permettra de proposer un sujet, puis de le faire remonter au vote de la communauté.",
+        "Compris"
+      );
+
+    }
+  );
+
+  $("#experienceBtn").addEventListener(
+    "click",
+    () => {
+
+      openGenericModal(
+        "Partager une expérience",
+        "La communauté pourra bientôt publier des expériences sur les études, la carrière, les habitudes, les reconversions et les apprentissages.",
+        "Compris"
+      );
+
+    }
+  );
+
+  /* ==============================================
+     ORIENTATION
+     ============================================== */
+
+  $$(".orientation-btn").forEach((button) => {
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        openGenericModal(
+          button.dataset.title,
+          button.dataset.text,
+          "Compris"
+        );
+
+      }
+    );
+
+  });
+
+  /* ==============================================
+     CONSEIL PROFESSIONNEL
+     ============================================== */
+
+  $("#careerAdviceBtn").addEventListener(
+    "click",
+    () => {
+
+      openGenericModal(
+        "Conseil professionnel",
+        "Dans une version complète, Life Upgrade utilisera ton profil, ton objectif, tes compétences, tes expériences et les informations disponibles sur le marché pour proposer plusieurs options et expliquer les écarts à combler.",
+        "Compris"
+      );
+
+    }
+  );
+
+  /* ==============================================
+     PREMIUM
+     ============================================== */
+
+  $("#premiumInterestBtn").addEventListener(
+    "click",
+    () => {
+
+      const account = loadAccount();
+
+      if (!account) {
+
+        openGenericModal(
+          "Créer d'abord ton compte",
+          "Pour manifester ton intérêt pour le coaching Premium, commence par créer ton compte gratuitement.",
+          "Créer mon compte"
+        );
+
+        const genericAction = $("#genericModalAction");
+
+        genericAction.onclick = () => {
+          closeGenericModal();
+          openAccountModal();
+        };
+
+        return;
+      }
+
+      openGenericModal(
+        "Liste d'intérêt",
+        `Merci ${account.firstName}. Ton intérêt pour le coaching Premium est enregistré dans ce prototype.`,
+        "Compris"
+      );
+
+    }
+  );
+
+  /* ==============================================
+     MODAL GENERIQUE
+     ============================================== */
+
+  function openGenericModal(title, text, actionText) {
+
+    $("#genericModalTitle").textContent =
+      title;
+
+    $("#genericModalText").textContent =
+      text;
+
+    $("#genericModalAction").textContent =
+      actionText || "Compris";
+
+    $("#genericModalAction").onclick =
+      closeGenericModal;
+
+    $("#genericModalBg").classList.add("open");
+  }
+
+  function closeGenericModal() {
+    $("#genericModalBg").classList.remove("open");
+  }
+
+  $("#genericModalClose").addEventListener(
+    "click",
+    closeGenericModal
+  );
+
+  $("#genericModalSecondary").addEventListener(
+    "click",
+    closeGenericModal
+  );
+
+  $("#genericModalBg").addEventListener(
+    "click",
+    (event) => {
+
+      if (event.target === $("#genericModalBg")) {
+        closeGenericModal();
+      }
+
+    }
+  );
+
+  document.addEventListener(
+    "keydown",
+    (event) => {
+
+      if (event.key === "Escape") {
+        closeGenericModal();
+        closeCourse();
+        closeIQ();
+        closeAccountModal();
+      }
+
+    }
+  );
+
+  /* ==============================================
+     INITIALISATION
+     ============================================== */
+
+  renderAccount();
+
+</script>
 
 </body>
 </html>
