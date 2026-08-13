@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Tests & Exercices — Life Upgrade</title>
+
+  <meta
+    name="description"
+    content="Tests et exercices Life Upgrade : mémoire, concentration, raisonnement, logique et entraînement."
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .page-hero{
+      padding:65px 0 45px;
+    }
+
+    .page-hero-grid{
+      display:grid;
+      grid-template-columns:1fr 340px;
+      gap:25px;
+      align-items:center;
+    }
+
+    .page-hero p{
+      max-width:720px;
+      margin-top:15px;
+      font-size:16px;
+    }
+
+    .lab-summary{
+      background:#11172a;
+      color:white;
+      border-radius:22px;
+      padding:23px;
+    }
+
+    .lab-summary p{
+      color:#aeb7ca;
+      font-size:12px;
+    }
+
+    .summary-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:16px;
+    }
+
+    .summary-item{
+      padding:12px;
+      background:rgba(255,255,255,.07);
+      border-radius:12px;
+    }
+
+    .summary-item span{
+      display:block;
+      color:#aeb7ca;
+      font-size:10px;
+    }
+
+    .summary-item strong{
+      font-size:21px;
+    }
+
+    .category-nav{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:25px;
+    }
+
+    .category-nav a{
+      padding:8px 11px;
+      border-radius:999px;
+      background:white;
+      border:1px solid var(--border);
+      color:var(--muted);
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .category-nav a:hover{
+      color:var(--primary);
+      border-color:var(--primary);
+    }
+
+    .lab-section{
+      padding:65px 0;
+    }
+
+    .lab-section.white{
+      background:white;
+    }
+
+    .exercise-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:13px;
+    }
+
+    .exercise-card{
+      display:flex;
+      flex-direction:column;
+      min-height:260px;
+      padding:20px;
+      background:white;
+      border:1px solid var(--border);
+      border-radius:19px;
+      transition:.2s;
+    }
+
+    .white .exercise-card{
+      background:#f8f9fc;
+    }
+
+    .exercise-card:hover{
+      transform:translateY(-2px);
+      box-shadow:var(--shadow);
+    }
+
+    .exercise-card.disabled{
+      opacity:.65;
+    }
+
+    .exercise-card h3{
+      margin-top:4px;
+    }
+
+    .exercise-card p{
+      margin-top:8px;
+      font-size:12px;
+    }
+
+    .exercise-meta{
+      display:flex;
+      gap:6px;
+      flex-wrap:wrap;
+      margin:14px 0;
+    }
+
+    .exercise-meta span{
+      padding:5px 7px;
+      border-radius:999px;
+      background:#f0f2f7;
+      color:var(--muted);
+      font-size:9px;
+      font-weight:800;
+    }
+
+    .exercise-bottom{
+      margin-top:auto;
+      padding-top:12px;
+    }
+
+    .available{
+      color:#138963;
+      font-size:10px;
+      font-weight:900;
+      margin-bottom:8px;
+    }
+
+    .coming{
+      color:var(--muted);
+      font-size:10px;
+      font-weight:900;
+      margin-bottom:8px;
+    }
+
+    .lab-button{
+      width:100%;
+      border:0;
+      border-radius:10px;
+      padding:10px 12px;
+      font-weight:800;
+      background:var(--primary);
+      color:white;
+    }
+
+    .lab-button.secondary{
+      background:white;
+      color:var(--text);
+      border:1px solid var(--border);
+    }
+
+    .lab-button:disabled{
+      cursor:not-allowed;
+      background:#e7e9ef;
+      color:#9097a7;
+    }
+
+    .result-history{
+      margin-top:25px;
+      background:white;
+      border:1px solid var(--border);
+      border-radius:18px;
+      padding:20px;
+    }
+
+    .history-list{
+      margin-top:15px;
+      display:grid;
+      gap:8px;
+    }
+
+    .history-row{
+      display:grid;
+      grid-template-columns:1fr 110px 110px;
+      gap:10px;
+      align-items:center;
+      padding:10px 0;
+      border-bottom:1px solid var(--border);
+      font-size:11px;
+    }
+
+    .history-row:last-child{
+      border-bottom:0;
+    }
+
+    .history-empty{
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    /* MODAL EXERCICE */
+
+    .test-overlay{
+      position:fixed;
+      inset:0;
+      z-index:500;
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:15px;
+      background:rgba(7,10,20,.68);
+    }
+
+    .test-overlay.open{
+      display:flex;
+    }
+
+    .test-window{
+      position:relative;
+      width:min(860px,100%);
+      max-height:94vh;
+      overflow:auto;
+      padding:28px;
+      background:white;
+      border-radius:24px;
+      box-shadow:0 35px 100px rgba(0,0,0,.25);
+    }
+
+    .test-close{
+      position:absolute;
+      right:14px;
+      top:14px;
+      width:34px;
+      height:34px;
+      border:0;
+      border-radius:50%;
+      background:#eef0f4;
+      font-size:18px;
+    }
+
+    .test-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+      margin:18px 0;
+    }
+
+    .test-progress{
+      flex:1;
+      height:8px;
+      background:#e9edf4;
+      border-radius:999px;
+      overflow:hidden;
+    }
+
+    .test-progress i{
+      display:block;
+      height:100%;
+      width:0;
+      background:var(--primary);
+      border-radius:999px;
+      transition:.2s;
+    }
+
+    .timer-box{
+      min-width:90px;
+      text-align:center;
+      padding:9px;
+      border-radius:10px;
+      background:#11172a;
+      color:white;
+      font-weight:900;
+      font-variant-numeric:tabular-nums;
+    }
+
+    .timer-box.warning{
+      background:#d9952d;
+    }
+
+    .timer-box.danger{
+      background:#c8505d;
+    }
+
+    .question-number{
+      color:var(--muted);
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .question-title{
+      margin:18px 0;
+      font-size:23px;
+      font-weight:900;
+      line-height:1.25;
+    }
+
+    .answers{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:9px;
+    }
+
+    .answer-button{
+      padding:14px;
+      text-align:left;
+      background:white;
+      border:1px solid var(--border);
+      border-radius:12px;
+      font-weight:700;
+    }
+
+    .answer-button:hover{
+      border-color:var(--primary);
+      background:#f6f5ff;
+    }
+
+    .test-note{
+      margin-top:14px;
+      font-size:10px;
+      color:var(--muted);
+    }
+
+    .result-screen{
+      text-align:center;
+      padding:15px 0;
+    }
+
+    .result-score{
+      margin:16px 0 3px;
+      font-size:62px;
+      font-weight:900;
+      color:var(--primary);
+    }
+
+    .result-label{
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .result-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+      margin:24px 0;
+    }
+
+    .result-stat{
+      padding:14px;
+      background:#f2f4f8;
+      border-radius:13px;
+    }
+
+    .result-stat span{
+      display:block;
+      color:var(--muted);
+      font-size:9px;
+    }
+
+    .result-stat strong{
+      font-size:19px;
+    }
+
+    .result-actions{
+      display:flex;
+      justify-content:center;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:20px;
+    }
+
+    /* MEMORY */
+
+    .memory-stage{
+      min-height:230px;
+      display:grid;
+      place-items:center;
+      margin:20px 0;
+      padding:25px;
+      border-radius:18px;
+      background:#f5f6fb;
+      text-align:center;
+    }
+
+    .memory-sequence{
+      font-size:40px;
+      font-weight:900;
+      letter-spacing:10px;
+    }
+
+    .memory-input{
+      width:min(350px,100%);
+      padding:13px;
+      text-align:center;
+      border:1px solid var(--border);
+      border-radius:11px;
+      font-size:25px;
+    }
+
+    .memory-grid{
+      display:grid;
+      grid-template-columns:repeat(4,58px);
+      gap:7px;
+    }
+
+    .memory-cell{
+      width:58px;
+      height:58px;
+      border:1px solid var(--border);
+      border-radius:9px;
+      background:white;
+    }
+
+    .memory-cell.active{
+      background:var(--primary);
+    }
+
+    .memory-cell.selected{
+      background:var(--green);
+    }
+
+    .word-grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:8px;
+      width:100%;
+    }
+
+    .word-item{
+      padding:10px;
+      background:white;
+      border:1px solid var(--border);
+      border-radius:10px;
+      font-weight:800;
+    }
+
+    .word-choice{
+      padding:10px;
+      background:white;
+      border:1px solid var(--border);
+      border-radius:10px;
+    }
+
+    .word-choice.selected{
+      border-color:var(--primary);
+      background:#f2f1ff;
+    }
+
+    /* PAIRS */
+
+    .pairs-grid{
+      display:grid;
+      grid-template-columns:repeat(4,70px);
+      gap:8px;
+      justify-content:center;
+    }
+
+    .pair-card{
+      width:70px;
+      height:70px;
+      border:0;
+      border-radius:11px;
+      background:#171d31;
+      color:white;
+      font-size:25px;
+      font-weight:900;
+    }
+
+    .pair-card.revealed,
+    .pair-card.matched{
+      background:#efefff;
+      color:var(--primary);
+    }
+
+    .pair-card.matched{
+      outline:2px solid var(--green);
+    }
+
+    /* STROOP */
+
+    .stroop-word{
+      font-size:54px;
+      font-weight:900;
+      margin:25px 0;
+    }
+
+    .stroop-buttons{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:8px;
+    }
+
+    /* FOCUS */
+
+    .focus-clock{
+      margin:25px 0;
+      font-size:68px;
+      font-weight:900;
+      color:var(--primary);
+      font-variant-numeric:tabular-nums;
+    }
+
+    .focus-options{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:8px;
+      margin-top:20px;
+    }
+
+    @media(max-width:900px){
+      .page-hero-grid,
+      .exercise-grid{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .result-grid{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    @media(max-width:650px){
+      .page-hero-grid,
+      .exercise-grid,
+      .answers,
+      .focus-options{
+        grid-template-columns:1fr;
+      }
+
+      .history-row{
+        grid-template-columns:1fr;
+      }
+
+      .pairs-grid{
+        grid-template-columns:repeat(4,55px);
+      }
+
+      .pair-card{
+        width:55px;
+        height:55px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="container nav">
+
+    <a class="logo" href="index.html">
+      <span class="logo-icon">LU</span>
+      <span>Life Upgrade</span>
+    </a>
+
+    <nav class="menu">
+      <a href="index.html">Accueil</a>
+      <a href="developpement.html">Développement</a>
+      <a href="etudes.html">Études & Orientation</a>
+      <a class="active" href="tests.html">Tests & Exercices</a>
+      <a href="cours.html">Cours</a>
+      <a href="culture.html">Culture</a>
+      <a href="forum.html">Forum</a>
+      <a href="coaching.html">Coaching</a>
+    </nav>
+
+    <a class="account-button" href="dashboard.html">
+      Mon espace
+    </a>
+
+  </div>
+</header>
+
+
+<main>
+
+<section class="page-hero">
+
+  <div class="container page-hero-grid">
+
+    <div>
+      <div class="eyebrow">
+        TESTS & ENTRAÎNEMENT
+      </div>
+
+      <h1 style="font-size:clamp(42px,5vw,65px)">
+        Entraîne-toi.
+        Mesure.
+        Progresse.
+      </h1>
+
+      <p>
+        Mémoire, concentration et raisonnement réunis dans un même espace.
+        Les exercices sont accessibles sans inscription. Crée un compte plus tard
+        pour synchroniser ton historique entre plusieurs appareils.
+      </p>
+
+      <div class="category-nav">
+        <a href="#memoire">Mémoire</a>
+        <a href="#concentration">Concentration</a>
+        <a href="#raisonnement">Raisonnement</a>
+        <a href="#temps">Gestion du temps</a>
+        <a href="#stress">Gestion du stress</a>
+        <a href="#resultats">Mes résultats</a>
+      </div>
+    </div>
+
+    <div class="lab-summary">
+
+      <small>MES DONNÉES LOCALES</small>
+
+      <h3 style="margin-top:5px">
+        Cette session
+      </h3>
+
+      <p>
+        Les résultats sont actuellement conservés uniquement dans ce navigateur.
+      </p>
+
+      <div class="summary-grid">
+
+        <div class="summary-item">
+          <span>Tests</span>
+          <strong id="summaryTests">0</strong>
+        </div>
+
+        <div class="summary-item">
+          <span>Mémoire</span>
+          <strong id="summaryMemory">0</strong>
+        </div>
+
+        <div class="summary-item">
+          <span>Focus</span>
+          <strong id="summaryFocus">0m</strong>
+        </div>
+
+        <div class="summary-item">
+          <span>Meilleur score</span>
+          <strong id="summaryBest">—</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ======================================================
+     MÉMOIRE
+====================================================== -->
+
+<section id="memoire" class="lab-section white">
+
+  <div class="container">
+
+    <div class="section-title">
+      <span class="eyebrow">MEMORY LAB</span>
+      <h2>Entraîne ta mémoire.</h2>
+      <p>
+        Plusieurs types d'exercices pour travailler le rappel immédiat,
+        la mémoire visuelle et la mémoire de travail.
+      </p>
+    </div>
+
+    <div class="exercise-grid">
+
+      <article class="exercise-card">
+        <span class="badge">Mémoire immédiate</span>
+        <h3>1. Séquence de chiffres</h3>
+        <p>
+          Mémorise une suite de chiffres pendant quelques secondes puis reproduis-la.
+        </p>
+        <div class="exercise-meta">
+          <span>5 secondes</span>
+          <span>plusieurs manches</span>
+        </div>
+        <div class="exercise-bottom">
+          <div class="available">● DISPONIBLE</div>
+          <button class="lab-button" onclick="startDigitMemory(false)">
+            Commencer
+          </button>
+        </div>
+      </article>
+
+      <article class="exercise-card">
+        <span class="badge">Mémoire de travail</span>
+        <h3>2. Séquence inversée</h3>
+        <p>
+          Mémorise la séquence puis restitue-la dans l'ordre inverse.
+        </p>
+        <div class="exercise-meta">
+          <span>5 secondes</span>
+          <span>difficulté +</span>
+        </div>
+        <div class="exercise-bottom">
+          <div class="available">● DISPONIBLE</div>
+          <button class="lab-button" onclick="startDigitMemory(true)">
+            Commencer
+          </button>
+        </div>
+      </article>
+
+      <article class="exercise-card">
+        <span class="badge">Mémoire visuelle</span>
+        <h3>3. Grille visuelle</h3>
+        <p>
+          Mémorise les cases colorées puis retrouve leur position.
+        </p>
+        <div class="exercise-meta">
+          <span>4 secondes</span>
+          <span>grille 4×4</span>
+        </div>
+        <div class="exercise-bottom">
+          <div class="available">● DISPONIBLE</div>
+          <button class="lab-button" onclick="startGridMemory()">
+            Commencer
+          </button>
+        </div>
+      </article>
+
+      <article class="exercise-card">
+        <span class="badge">Mémoire verbale</span>
+        <h3>4. Liste de mots</h3>
+        <p>
+          Mémorise dix mots puis retrouve-les parmi des distracteurs.
+        </p>
+        <div class="exercise-meta">
+          <span>20 secondes</span>
+          <span>10 mots</span>
+        </div>
+        <div class="exercise-bottom">
+          <div class="available">● DISPONIBLE</div>
+          <button class="lab-button" onclick="startWordMemory()">
+            Commencer
+          </button>
+        </div>
+      </article>
+
+      <article class="exercise-card">
+        <span class="badge">Mémoire visuelle</span>
+        <h3>5. Jeu des paires</h3>
+        <p>
+          Retourne les cartes et retrouve toutes les paires en un minimum de coups.
+        </p>
+        <div class="exercise-meta">
+          <span>8 paires</span>
+          <span>chronométré</span>
+        </div>
+        <div class="exercise-bottom">
+          <div class="available">● DISPONIBLE</div>
+          <button class="lab-button" onclick="startPairs()">
+            Commencer
+          </button>
+        </div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Association</span>
+        <h3>6. Associations</h3>
+        <p>
+          Associer des personnes, lieux ou objets puis retrouver les correspondances.
+        </p>
+        <div class="exercise-bottom">
+          <div class="coming">PROCHAINE VERSION</div>
+          <button class="lab-button" disabled>En préparation</button>
+        </div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Position</span>
+        <h3>7. Images & positions</h3>
+        <p>
+          Mémoriser la position d'objets puis répondre à des questions spatiales.
+        </p>
+        <div class="exercise-bottom">
+          <div class="coming">PROCHAINE VERSION</div>
+          <button class="lab-button" disabled>En préparation</button>
+        </div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Lecture</span>
+        <h3>8. Mémoire de texte</h3>
+        <p>
+          Lire un court texte puis répondre à plusieurs questions de rappel.
+        </p>
+        <div class="exercise-bottom">
+          <div class="coming">PROCHAINE VERSION</div>
+          <button class="lab-button" disabled>En préparation</button>
+        </div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Mémoire de travail</span>
+        <h3>9. N-back</h3>
+        <p>
+          Identifier lorsqu'un élément correspond à celui présenté précédemment.
+        </p>
+        <div class="exercise-bottom">
+          <div class="coming">PROCHAINE VERSION</div>
+          <button class="lab-button" disabled>En préparation</button>
+        </div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Rappel</span>
+        <h3>10. Rappel différé</h3>
+        <p>
+          Mémoriser une liste puis la retrouver après une autre activité.
+        </p>
+        <div class="exercise-bottom">
+          <div class="coming">PROCHAINE VERSION</div>
+          <button class="lab-button" disabled>En préparation</button>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ======================================================
+     CONCENTRATION
+====================================================== -->
+
+<section id="concentration" class="lab-section">
+
+  <div class="container">
+
+    <div class="section-title">
+      <span class="eyebrow">FOCUS LAB</span>
+      <h2>Travaille ton attention.</h2>
+      <p>
+        Exercices de vitesse, attention sélective et sessions de concentration.
+      </p>
+    </div>
+
+    <div class="exercise-grid">
+
+      <article class="exercise-card">
+        <span class="badge">Attention</span>
+        <h3>1. Stroop</h3>
+        <p>
+          Choisis la couleur affichée sans te laisser distraire par le mot.
+        </p>
+        <div class="exercise-meta">
+          <span>15 essais</span>
+          <span>chronométré</span>
+        </div>
+        <div class="exercise-bottom">
+          <div class="available">● DISPONIBLE</div>
+          <button class="lab-button" onclick="startStroop()">
+            Commencer
+          </button>
+        </div>
+      </article>
+
+      <article class="exercise-card">
+        <span class="badge">Vitesse</span>
+        <h3>2. Comparaison rapide</h3>
+        <p>
+          Deux chaînes apparaissent. Décide rapidement si elles sont identiques.
+        </p>
+        <div class="exercise-meta">
+          <span>15 essais</span>
+          <span>5 sec / essai</span>
+        </div>
+        <div class="exercise-bottom">
+          <div class="available">● DISPONIBLE</div>
+          <button class="lab-button" onclick="startComparison()">
+            Commencer
+          </button>
+        </div>
+      </article>
+
+      <article class="exercise-card">
+        <span class="badge">Deep Work</span>
+        <h3>3. Focus Timer</h3>
+        <p>
+          Choisis une durée et travaille sur une seule tâche sans interruption.
+        </p>
+        <div class="exercise-meta">
+          <span>10 à 60 min</span>
+          <span>objectif</span>
+        </div>
+        <div class="exercise-bottom">
+          <div class="available">● DISPONIBLE</div>
+          <button class="lab-button" onclick="openFocusTimer()">
+            Commencer
+          </button>
+        </div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Attention</span>
+        <h3>4. Focus Target</h3>
+        <p>Réagir uniquement lorsqu'un symbole cible apparaît.</p>
+        <div class="exercise-bottom">
+          <div class="coming">PROCHAINE VERSION</div>
+          <button class="lab-button" disabled>En préparation</button>
+        </div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Recherche</span>
+        <h3>5. Trouver l'intrus</h3>
+        <p>Trouver rapidement un symbole différent dans une grille.</p>
+        <div class="exercise-bottom">
+          <div class="coming">PROCHAINE VERSION</div>
+          <button class="lab-button" disabled>En préparation</button>
+        </div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Sélection</span>
+        <h3>6. Attention sélective</h3>
+        <p>Réagir uniquement à une catégorie précise de stimuli.</p>
+        <div class="exercise-bottom">
+          <div class="coming">PROCHAINE VERSION</div>
+          <button class="lab-button" disabled>En préparation</button>
+        </div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Séquence</span>
+        <h3>7. Séquence cible</h3>
+        <p>Détecter une combinaison précise dans un flux d'éléments.</p>
+        <div class="exercise-bottom">
+          <div class="coming">PROCHAINE VERSION</div>
+          <button class="lab-button" disabled>En préparation</button>
+        </div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Multitâche</span>
+        <h3>8. Double tâche</h3>
+        <p>Mémoriser une information tout en réalisant une autre activité.</p>
+        <div class="exercise-bottom">
+          <div class="coming">PROCHAINE VERSION</div>
+          <button class="lab-button" disabled>En préparation</button>
+        </div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Recherche</span>
+        <h3>9. Recherche visuelle</h3>
+        <p>Trouver plusieurs éléments précis dans une grande grille.</p>
+        <div class="exercise-bottom">
+          <div class="coming">PROCHAINE VERSION</div>
+          <button class="lab-button" disabled>En préparation</button>
+        </div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Endurance</span>
+        <h3>10. Attention soutenue</h3>
+        <p>Maintenir une réponse précise pendant plusieurs minutes.</p>
+        <div class="exercise-bottom">
+          <div class="coming">PROCHAINE VERSION</div>
+          <button class="lab-button" disabled>En préparation</button>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ======================================================
+     RAISONNEMENT
+====================================================== -->
+
+<section id="raisonnement" class="lab-section white">
+
+  <div class="container">
+
+    <div class="section-title">
+      <span class="eyebrow">REASONING LAB</span>
+      <h2>Tests de raisonnement.</h2>
+      <p>
+        Les résultats sont des scores Life Upgrade. Ils ne constituent pas un test
+        de QI clinique ou une évaluation psychométrique officielle.
+      </p>
+    </div>
+
+    <div class="exercise-grid">
+
+      <article class="exercise-card">
+        <span class="badge">Logique</span>
+        <h3>Raisonnement logique</h3>
+        <p>Déductions, classements, conditions et relations logiques.</p>
+        <div class="exercise-meta">
+          <span>15 questions</span>
+          <span>45 sec/question</span>
+        </div>
+        <div class="exercise-bottom">
+          <div class="available">● DISPONIBLE</div>
+          <button class="lab-button" onclick="startReasoningTest('logic')">
+            Commencer
+          </button>
+        </div>
+      </article>
+
+      <article class="exercise-card">
+        <span class="badge">Numérique</span>
+        <h3>Raisonnement numérique</h3>
+        <p>Suites, proportions, calcul et problèmes numériques.</p>
+        <div class="exercise-meta">
+          <span>15 questions</span>
+          <span>45 sec/question</span>
+        </div>
+        <div class="exercise-bottom">
+          <div class="available">● DISPONIBLE</div>
+          <button class="lab-button" onclick="startReasoningTest('numeric')">
+            Commencer
+          </button>
+        </div>
+      </article>
+
+      <article class="exercise-card">
+        <span class="badge">Verbal</span>
+        <h3>Raisonnement verbal</h3>
+        <p>Analogies, catégories, relations et compréhension logique.</p>
+        <div class="exercise-meta">
+          <span>15 questions</span>
+          <span>45 sec/question</span>
+        </div>
+        <div class="exercise-bottom">
+          <div class="available">● DISPONIBLE</div>
+          <button class="lab-button" onclick="startReasoningTest('verbal')">
+            Commencer
+          </button>
+        </div>
+      </article>
+
+      <article class="exercise-card">
+        <span class="badge">Challenge</span>
+        <h3>Challenge mixte</h3>
+        <p>Un mélange de logique, numérique et verbal.</p>
+        <div class="exercise-meta">
+          <span>30 questions</span>
+          <span>45 sec/question</span>
+        </div>
+        <div class="exercise-bottom">
+          <div class="available">● DISPONIBLE</div>
+          <button class="lab-button" onclick="startReasoningTest('mixed')">
+            Commencer
+          </button>
+        </div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Spatial</span>
+        <h3>Raisonnement spatial</h3>
+        <p>Rotations, formes, symétries et relations spatiales.</p>
+        <div class="exercise-bottom">
+          <div class="coming">EN PRÉPARATION</div>
+          <button class="lab-button" disabled>À venir</button>
+        </div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Matrices</span>
+        <h3>Matrices</h3>
+        <p>Identifier la règle qui relie plusieurs formes abstraites.</p>
+        <div class="exercise-bottom">
+          <div class="coming">EN PRÉPARATION</div>
+          <button class="lab-button" disabled>À venir</button>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ======================================================
+     TEMPS
+====================================================== -->
+
+<section id="temps" class="lab-section">
+
+  <div class="container">
+
+    <div class="section-title">
+      <span class="eyebrow">TIME LAB</span>
+      <h2>Gestion du temps.</h2>
+      <p>
+        Ces exercices seront progressivement transformés en outils interactifs.
+      </p>
+    </div>
+
+    <div class="exercise-grid">
+
+      <article class="exercise-card disabled">
+        <span class="badge">Audit</span>
+        <h3>Audit 24 heures</h3>
+        <p>Répartir les 24 heures d'une journée et identifier les principaux postes.</p>
+        <div class="exercise-bottom"><div class="coming">EN PRÉPARATION</div></div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Priorités</span>
+        <h3>Urgent / Important</h3>
+        <p>Classer ses tâches pour distinguer urgence et impact réel.</p>
+        <div class="exercise-bottom"><div class="coming">EN PRÉPARATION</div></div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Planification</span>
+        <h3>Time Blocking</h3>
+        <p>Construire une journée en blocs de travail réalistes.</p>
+        <div class="exercise-bottom"><div class="coming">EN PRÉPARATION</div></div>
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ======================================================
+     STRESS
+====================================================== -->
+
+<section id="stress" class="lab-section white">
+
+  <div class="container">
+
+    <div class="section-title">
+      <span class="eyebrow">RESET</span>
+      <h2>Gestion de la pression quotidienne.</h2>
+      <p>
+        Exercices de bien-être et d'organisation. Ils ne constituent pas un traitement
+        médical, psychologique ou psychothérapeutique.
+      </p>
+    </div>
+
+    <div class="exercise-grid">
+
+      <article class="exercise-card disabled">
+        <span class="badge">1 minute</span>
+        <h3>Respiration guidée</h3>
+        <p>Une courte pause guidée pour ralentir le rythme et reprendre son activité.</p>
+        <div class="exercise-bottom"><div class="coming">EN PRÉPARATION</div></div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Réflexion</span>
+        <h3>Ce que je contrôle</h3>
+        <p>Séparer les éléments sur lesquels une action est possible des autres.</p>
+        <div class="exercise-bottom"><div class="coming">EN PRÉPARATION</div></div>
+      </article>
+
+      <article class="exercise-card disabled">
+        <span class="badge">Organisation</span>
+        <h3>Décomposer une situation</h3>
+        <p>Transformer une situation générale en petites actions concrètes.</p>
+        <div class="exercise-bottom"><div class="coming">EN PRÉPARATION</div></div>
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ======================================================
+     HISTORIQUE
+====================================================== -->
+
+<section id="resultats" class="lab-section">
+
+  <div class="container">
+
+    <div class="section-title">
+      <span class="eyebrow">MES RÉSULTATS</span>
+      <h2>Historique local.</h2>
+      <p>
+        Pour cette version, les résultats sont enregistrés uniquement dans ton navigateur.
+      </p>
+    </div>
+
+    <div class="result-history">
+
+      <div style="display:flex;justify-content:space-between;gap:15px;align-items:center">
+        <h3>Dernières activités</h3>
+
+        <button
+          class="button secondary"
+          onclick="clearHistory()"
+          style="border:1px solid var(--border);cursor:pointer"
+        >
+          Effacer
+        </button>
+      </div>
+
+      <div id="historyList" class="history-list"></div>
+
+    </div>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<footer>
+
+  <div class="container footer-grid">
+
+    <div>
+      <a class="logo" href="index.html">
+        <span class="logo-icon">LU</span>
+        <span>Life Upgrade</span>
+      </a>
+
+      <p>
+        Développement personnel, professionnel, études et apprentissage.
+      </p>
+    </div>
+
+    <div>
+      <strong>Explorer</strong>
+      <a href="developpement.html">Développement</a>
+      <a href="etudes.html">Études & Orientation</a>
+      <a href="cours.html">Cours</a>
+    </div>
+
+    <div>
+      <strong>Mon espace</strong>
+      <a href="tests.html">Tests</a>
+      <a href="dashboard.html">Tableau de bord</a>
+      <a href="forum.html">Forum</a>
+    </div>
+
+  </div>
+
+</footer>
+
+
+<!-- ======================================================
+     FENÊTRE EXERCICES
+====================================================== -->
+
+<div id="testOverlay" class="test-overlay">
+
+  <div class="test-window">
+
+    <button
+      class="test-close"
+      onclick="closeTestWindow()"
+      aria-label="Fermer"
+    >
+      ×
+    </button>
+
+    <div id="testWindowContent"></div>
+
+  </div>
+
+</div>
+
+
+<script src="tests.js"></script>
+
+</body>
+</html>
