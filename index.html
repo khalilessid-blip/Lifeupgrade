@@ -1,3852 +1,1258 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta
-    name="description"
-    content="Life Upgrade — développement personnel, professionnel, orientation, apprentissage et trajectoire de vie."
-  >
-  <title>Life Upgrade — Construis ta trajectoire</title>
-
-  <style>
-    :root{
-      --bg:#f5f6fa;
-      --surface:#ffffff;
-      --surface-2:#eef1f6;
-      --ink:#141827;
-      --muted:#6c7487;
-      --line:#e1e5ed;
-      --primary:#615df5;
-      --primary-dark:#4b47da;
-      --teal:#19b68e;
-      --gold:#d99b2b;
-      --danger:#c85b67;
-      --navy:#0e1220;
-      --navy-2:#1a2032;
-      --shadow:0 20px 60px rgba(21,28,51,.09);
-      --max:1200px;
-      --radius:22px;
-    }
-
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-    }
-
-    html{
-      scroll-behavior:smooth;
-    }
-
-    body{
-      font-family:Inter,Arial,sans-serif;
-      color:var(--ink);
-      background:var(--bg);
-      line-height:1.55;
-    }
-
-    h1,h2,h3,h4{
-      line-height:1.08;
-      letter-spacing:-.8px;
-    }
-
-    h1{
-      font-size:clamp(44px,6vw,76px);
-      letter-spacing:-3px;
-    }
-
-    h2{
-      font-size:clamp(30px,4vw,48px);
-      letter-spacing:-2px;
-    }
-
-    h3{
-      font-size:21px;
-    }
-
-    p{
-      color:var(--muted);
-    }
-
-    a{
-      color:inherit;
-      text-decoration:none;
-    }
-
-    button,
-    input,
-    select,
-    textarea{
-      font:inherit;
-    }
-
-    button{
-      cursor:pointer;
-    }
-
-    .container{
-      width:min(calc(100% - 32px),var(--max));
-      margin:0 auto;
-    }
-
-    .section{
-      padding:82px 0;
-    }
-
-    .section.light{
-      background:var(--surface);
-    }
-
-    .eyebrow{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      margin-bottom:14px;
-      color:var(--primary);
-      font-size:11px;
-      font-weight:800;
-      letter-spacing:1.4px;
-      text-transform:uppercase;
-    }
-
-    .eyebrow::before{
-      content:"";
-      width:22px;
-      height:2px;
-      background:var(--primary);
-      border-radius:999px;
-    }
-
-    .section-head{
-      margin-bottom:35px;
-      max-width:780px;
-    }
-
-    .section-head p{
-      margin-top:12px;
-      font-size:15px;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      min-height:44px;
-      padding:11px 17px;
-      border:0;
-      border-radius:12px;
-      font-weight:800;
-      transition:.2s ease;
-    }
-
-    .btn:hover{
-      transform:translateY(-1px);
-    }
-
-    .btn-primary{
-      background:var(--primary);
-      color:white;
-      box-shadow:0 12px 26px rgba(97,93,245,.22);
-    }
-
-    .btn-primary:hover{
-      background:var(--primary-dark);
-    }
-
-    .btn-secondary{
-      background:white;
-      color:var(--ink);
-      border:1px solid var(--line);
-    }
-
-    .btn-dark{
-      background:var(--navy);
-      color:white;
-    }
-
-    .btn-small{
-      padding:9px 12px;
-      min-height:38px;
-      font-size:13px;
-    }
-
-    .tag{
-      display:inline-flex;
-      align-items:center;
-      padding:6px 9px;
-      border-radius:999px;
-      background:#eff0ff;
-      color:var(--primary);
-      font-size:11px;
-      font-weight:800;
-    }
-
-    .pill{
-      display:inline-flex;
-      padding:6px 9px;
-      border-radius:999px;
-      background:var(--surface-2);
-      color:var(--muted);
-      font-size:11px;
-      font-weight:700;
-    }
-
-    /* NAVIGATION */
-
-    .topbar{
-      position:sticky;
-      top:0;
-      z-index:100;
-      backdrop-filter:blur(18px);
-      background:rgba(245,246,250,.9);
-      border-bottom:1px solid rgba(225,229,237,.9);
-    }
-
-    .topbar-inner{
-      min-height:74px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:18px;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      font-weight:900;
-      white-space:nowrap;
-    }
-
-    .brand-mark{
-      width:38px;
-      height:38px;
-      display:grid;
-      place-items:center;
-      border-radius:12px;
-      color:white;
-      background:linear-gradient(135deg,var(--primary),#8581ff);
-      font-size:12px;
-    }
-
-    .nav{
-      display:flex;
-      gap:17px;
-      align-items:center;
-      color:var(--muted);
-      font-size:12px;
-      font-weight:700;
-    }
-
-    .nav a:hover{
-      color:var(--ink);
-    }
-
-    .account-area{
-      display:flex;
-      align-items:center;
-      gap:8px;
-    }
-
-    .user-chip{
-      display:none;
-      align-items:center;
-      gap:8px;
-      padding:6px 10px;
-      background:white;
-      border:1px solid var(--line);
-      border-radius:999px;
-      font-size:12px;
-      font-weight:800;
-    }
-
-    .user-chip.show{
-      display:flex;
-    }
-
-    .avatar{
-      width:27px;
-      height:27px;
-      display:grid;
-      place-items:center;
-      border-radius:50%;
-      background:#eff0ff;
-      color:var(--primary);
-      font-size:11px;
-    }
-
-    /* HERO */
-
-    .hero{
-      padding:80px 0 68px;
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.08fr .92fr;
-      gap:52px;
-      align-items:center;
-    }
-
-    .hero-copy p{
-      max-width:680px;
-      margin-top:22px;
-      font-size:18px;
-    }
-
-    .hero-actions{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-      margin:28px 0 18px;
-    }
-
-    .hero-trust{
-      display:flex;
-      flex-wrap:wrap;
-      gap:13px 20px;
-      color:var(--muted);
-      font-size:12px;
-    }
-
-    .hero-card{
-      padding:27px;
-      color:white;
-      border-radius:28px;
-      background:linear-gradient(145deg,#101529,#1d2943);
-      box-shadow:0 28px 70px rgba(10,16,32,.2);
-    }
-
-    .hero-card-top{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:24px;
-    }
-
-    .hero-card-top small{
-      color:#9da8be;
-    }
-
-    .score{
-      display:flex;
-      align-items:end;
-      gap:8px;
-    }
-
-    .score strong{
-      font-size:56px;
-      line-height:1;
-    }
-
-    .score span{
-      color:#aeb9cf;
-      font-size:13px;
-      padding-bottom:7px;
-    }
-
-    .hero-graph{
-      height:120px;
-      margin:20px 0;
-      border-radius:18px;
-      background:rgba(255,255,255,.05);
-      overflow:hidden;
-    }
-
-    .hero-graph svg{
-      width:100%;
-      height:100%;
-    }
-
-    .hero-kpis{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:10px;
-    }
-
-    .hero-kpi{
-      padding:14px;
-      border-radius:16px;
-      background:rgba(255,255,255,.06);
-    }
-
-    .hero-kpi span{
-      display:block;
-      margin-bottom:4px;
-      color:#9da8be;
-      font-size:11px;
-    }
-
-    .hero-kpi strong{
-      font-size:17px;
-    }
-
-    /* PROFILE */
-
-    .profile-grid{
-      display:grid;
-      grid-template-columns:repeat(5,1fr);
-      gap:12px;
-    }
-
-    .profile-card{
-      padding:20px;
-      text-align:left;
-      border:1px solid var(--line);
-      background:white;
-      border-radius:18px;
-      transition:.2s;
-    }
-
-    .profile-card:hover,
-    .profile-card.active{
-      transform:translateY(-2px);
-      border-color:rgba(97,93,245,.4);
-      box-shadow:0 14px 32px rgba(97,93,245,.09);
-    }
-
-    .profile-icon{
-      width:42px;
-      height:42px;
-      display:grid;
-      place-items:center;
-      margin-bottom:15px;
-      border-radius:12px;
-      background:#eff0ff;
-      color:var(--primary);
-      font-weight:800;
-    }
-
-    .profile-card strong{
-      display:block;
-      margin-bottom:6px;
-      font-size:16px;
-    }
-
-    .profile-card small{
-      color:var(--muted);
-    }
-
-    /* GRID CARDS */
-
-    .grid-3{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:14px;
-    }
-
-    .grid-2{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:14px;
-    }
-
-    .grid-4{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:14px;
-    }
-
-    .card{
-      padding:23px;
-      border:1px solid var(--line);
-      background:white;
-      border-radius:20px;
-    }
-
-    .card p{
-      margin-top:8px;
-      font-size:13px;
-    }
-
-    .card ul{
-      display:grid;
-      gap:7px;
-      margin-top:14px;
-      list-style:none;
-      color:var(--muted);
-      font-size:12px;
-    }
-
-    .card li::before{
-      content:"✓";
-      margin-right:7px;
-      color:var(--teal);
-      font-weight:800;
-    }
-
-    /* SIMULATOR */
-
-    .simulator{
-      display:grid;
-      grid-template-columns:330px 1fr;
-      gap:16px;
-    }
-
-    .panel{
-      padding:24px;
-      border:1px solid var(--line);
-      background:white;
-      border-radius:22px;
-      box-shadow:0 10px 34px rgba(21,28,51,.04);
-    }
-
-    .panel-head{
-      display:flex;
-      justify-content:space-between;
-      gap:12px;
-      margin-bottom:22px;
-    }
-
-    .panel-head p{
-      margin-top:4px;
-      font-size:13px;
-    }
-
-    .control{
-      margin-bottom:21px;
-    }
-
-    .control label{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:8px;
-      font-size:12px;
-      font-weight:800;
-    }
-
-    .control label span:last-child{
-      color:var(--primary);
-    }
-
-    input[type="range"]{
-      width:100%;
-      accent-color:var(--primary);
-    }
-
-    .control small{
-      display:block;
-      margin-top:5px;
-      color:var(--muted);
-      font-size:11px;
-    }
-
-    .scenario-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-
-    .scenario{
-      padding:18px;
-      border-radius:18px;
-      background:var(--surface-2);
-    }
-
-    .scenario.green{
-      background:#ecfbf6;
-    }
-
-    .scenario small{
-      display:block;
-      margin-bottom:5px;
-      color:var(--muted);
-      font-size:10px;
-      font-weight:800;
-      text-transform:uppercase;
-    }
-
-    .scenario strong{
-      font-size:28px;
-    }
-
-    .scenario.green strong{
-      color:#148a68;
-    }
-
-    .bars{
-      display:grid;
-      gap:13px;
-      margin-top:22px;
-    }
-
-    .bar-row{
-      display:grid;
-      grid-template-columns:120px 1fr 80px;
-      gap:10px;
-      align-items:center;
-      font-size:12px;
-    }
-
-    .bar{
-      height:8px;
-      overflow:hidden;
-      border-radius:999px;
-      background:#e9edf4;
-    }
-
-    .bar i{
-      display:block;
-      height:100%;
-      border-radius:999px;
-      background:linear-gradient(90deg,var(--primary),#8b87ff);
-      transition:.2s;
-    }
-
-    .compare-table{
-      width:100%;
-      margin-top:22px;
-      border-collapse:collapse;
-      font-size:12px;
-    }
-
-    .compare-table th,
-    .compare-table td{
-      padding:10px 8px;
-      border-bottom:1px solid var(--line);
-      text-align:left;
-    }
-
-    .compare-table th{
-      color:var(--muted);
-    }
-
-    /* ORIENTATION */
-
-    .option-card{
-      padding:22px;
-      border:1px solid var(--line);
-      background:white;
-      border-radius:20px;
-    }
-
-    .option-card h3{
-      margin:13px 0 8px;
-    }
-
-    .option-card p{
-      font-size:13px;
-    }
-
-    .compatibility{
-      margin-top:15px;
-      font-size:12px;
-      font-weight:800;
-      color:var(--teal);
-    }
-
-    /* CAREER */
-
-    .skill-row{
-      display:grid;
-      grid-template-columns:120px 1fr 40px;
-      gap:10px;
-      align-items:center;
-      margin-top:12px;
-      font-size:12px;
-    }
-
-    .skill-track{
-      height:8px;
-      overflow:hidden;
-      border-radius:999px;
-      background:#e9edf4;
-    }
-
-    .skill-track i{
-      display:block;
-      height:100%;
-      border-radius:999px;
-      background:linear-gradient(90deg,var(--primary),#8b87ff);
-    }
-
-    .gap-box{
-      margin-top:18px;
-      padding:15px;
-      border:1px solid #f0e4bf;
-      border-radius:16px;
-      background:#faf8ef;
-    }
-
-    .gap-box strong{
-      display:block;
-      margin-bottom:4px;
-      font-size:13px;
-    }
-
-    .gap-box p{
-      font-size:12px;
-    }
-
-    /* COURSES */
-
-    .course-card{
-      display:flex;
-      flex-direction:column;
-      min-height:250px;
-      padding:22px;
-      border:1px solid var(--line);
-      background:white;
-      border-radius:20px;
-    }
-
-    .course-meta{
-      display:flex;
-      justify-content:space-between;
-      gap:8px;
-      color:var(--muted);
-      font-size:11px;
-      font-weight:800;
-    }
-
-    .course-card h3{
-      margin:17px 0 9px;
-    }
-
-    .course-card p{
-      font-size:13px;
-    }
-
-    .course-bottom{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:10px;
-      margin-top:auto;
-      padding-top:18px;
-    }
-
-    .free-label{
-      color:var(--teal);
-      font-size:11px;
-      font-weight:800;
-    }
-
-    /* CULTURE */
-
-    .culture-card{
-      min-height:190px;
-      display:flex;
-      flex-direction:column;
-      justify-content:end;
-      padding:20px;
-      border-radius:20px;
-      color:white;
-      background:linear-gradient(145deg,#1b2140,#0e1220);
-    }
-
-    .culture-card:nth-child(2){
-      background:linear-gradient(145deg,#173a33,#10201c);
-    }
-
-    .culture-card:nth-child(3){
-      background:linear-gradient(145deg,#462a1b,#22140d);
-    }
-
-    .culture-card:nth-child(4){
-      background:linear-gradient(145deg,#332347,#171120);
-    }
-
-    .culture-card p{
-      color:#b8c0d0;
-      margin-top:5px;
-      font-size:12px;
-    }
-
-    /* COMMUNITY */
-
-    .community{
-      display:grid;
-      grid-template-columns:1.2fr .8fr;
-      gap:16px;
-    }
-
-    .poll-options{
-      display:grid;
-      gap:9px;
-      margin-top:18px;
-    }
-
-    .poll-option{
-      width:100%;
-      padding:14px;
-      border:1px solid var(--line);
-      border-radius:14px;
-      background:white;
-      display:flex;
-      justify-content:space-between;
-      text-align:left;
-    }
-
-    .poll-option:hover,
-    .poll-option.selected{
-      border-color:rgba(97,93,245,.4);
-      background:#f8f8ff;
-    }
-
-    .poll-option b{
-      color:var(--primary);
-      font-size:11px;
-    }
-
-    /* COACHING */
-
-    .coaching{
-      color:white;
-      background:linear-gradient(145deg,#0f1425,#1c2741);
-    }
-
-    .coaching-grid{
-      display:grid;
-      grid-template-columns:1.15fr .85fr;
-      gap:18px;
-    }
-
-    .coaching-copy p{
-      margin-top:15px;
-      color:#b6bfd1;
-      max-width:650px;
-    }
-
-    .coach-workflow{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:10px;
-      margin-top:22px;
-    }
-
-    .coach-step{
-      padding:14px;
-      border:1px solid rgba(255,255,255,.09);
-      border-radius:16px;
-      background:rgba(255,255,255,.06);
-    }
-
-    .coach-step strong{
-      display:block;
-      font-size:13px;
-    }
-
-    .coach-step span{
-      display:block;
-      margin-top:4px;
-      color:#9eabc1;
-      font-size:11px;
-    }
-
-    .premium-card{
-      padding:25px;
-      border-radius:22px;
-      background:white;
-      color:var(--ink);
-    }
-
-    .premium-card .price{
-      display:block;
-      margin:5px 0 10px;
-      font-size:45px;
-      font-weight:900;
-    }
-
-    .premium-card .price span{
-      font-size:15px;
-      color:var(--muted);
-    }
-
-    .premium-card ul{
-      display:grid;
-      gap:9px;
-      margin:15px 0 20px;
-      list-style:none;
-      color:var(--muted);
-      font-size:12px;
-    }
-
-    .premium-card li::before{
-      content:"✓";
-      color:var(--teal);
-      font-weight:800;
-      margin-right:7px;
-    }
-
-    /* PARENT */
-
-    .privacy-box{
-      margin-top:15px;
-      padding:14px;
-      border:1px solid #e4e4ff;
-      border-radius:15px;
-      background:#f8f8ff;
-      color:var(--muted);
-      font-size:12px;
-    }
-
-    /* FOOTER */
-
-    footer{
-      padding:40px 0 55px;
-      border-top:1px solid var(--line);
-    }
-
-    .footer-inner{
-      display:flex;
-      justify-content:space-between;
-      gap:20px;
-      color:var(--muted);
-      font-size:12px;
-    }
-
-    /* MODALS */
-
-    .modal-bg{
-      position:fixed;
-      inset:0;
-      z-index:300;
-      display:none;
-      align-items:center;
-      justify-content:center;
-      padding:16px;
-      background:rgba(9,12,22,.58);
-    }
-
-    .modal-bg.open{
-      display:flex;
-    }
-
-    .modal{
-      position:relative;
-      width:min(100%,720px);
-      max-height:90vh;
-      overflow:auto;
-      padding:28px;
-      border-radius:24px;
-      background:white;
-      box-shadow:0 35px 100px rgba(0,0,0,.25);
-    }
-
-    .modal.wide{
-      width:min(100%,900px);
-    }
-
-    .modal-close{
-      position:absolute;
-      top:13px;
-      right:14px;
-      width:34px;
-      height:34px;
-      border:0;
-      border-radius:50%;
-      background:var(--surface-2);
-      font-size:18px;
-    }
-
-    .modal p{
-      margin-top:8px;
-      font-size:14px;
-    }
-
-    .form-grid{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:13px;
-      margin-top:20px;
-    }
-
-    .form-group{
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-    }
-
-    .form-group.full{
-      grid-column:1 / -1;
-    }
-
-    .form-group label{
-      font-size:12px;
-      font-weight:800;
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea{
-      width:100%;
-      padding:12px 13px;
-      border:1px solid var(--line);
-      border-radius:11px;
-      outline:none;
-      background:white;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus{
-      border-color:var(--primary);
-      box-shadow:0 0 0 3px rgba(97,93,245,.08);
-    }
-
-    .interest-grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:9px;
-      margin-top:10px;
-    }
-
-    .interest-option{
-      position:relative;
-    }
-
-    .interest-option input{
-      position:absolute;
-      opacity:0;
-      pointer-events:none;
-    }
-
-    .interest-option label{
-      display:block;
-      padding:11px 12px;
-      border:1px solid var(--line);
-      border-radius:12px;
-      cursor:pointer;
-      color:var(--muted);
-      font-size:12px;
-      font-weight:700;
-    }
-
-    .interest-option input:checked + label{
-      border-color:var(--primary);
-      background:#f5f4ff;
-      color:var(--primary);
-    }
-
-    .form-actions{
-      display:flex;
-      justify-content:flex-end;
-      gap:9px;
-      margin-top:20px;
-    }
-
-    .form-error{
-      display:none;
-      margin-top:12px;
-      padding:11px;
-      border-radius:11px;
-      background:#fff0f2;
-      color:var(--danger);
-      font-size:12px;
-    }
-
-    .form-success{
-      display:none;
-      margin-top:12px;
-      padding:11px;
-      border-radius:11px;
-      background:#ecfbf6;
-      color:#168a67;
-      font-size:12px;
-    }
-
-    /* IQ */
-
-    .iq-progress{
-      height:8px;
-      overflow:hidden;
-      margin:20px 0 22px;
-      border-radius:999px;
-      background:#e8ecf3;
-    }
-
-    .iq-progress i{
-      display:block;
-      width:0;
-      height:100%;
-      border-radius:inherit;
-      background:linear-gradient(90deg,var(--primary),#8b87ff);
-    }
-
-    .iq-question{
-      display:none;
-    }
-
-    .iq-question.active{
-      display:block;
-    }
-
-    .iq-options{
-      display:grid;
-      gap:9px;
-      margin-top:16px;
-    }
-
-    .iq-option{
-      padding:13px;
-      text-align:left;
-      border:1px solid var(--line);
-      border-radius:12px;
-      background:white;
-    }
-
-    .iq-option:hover,
-    .iq-option.selected{
-      border-color:var(--primary);
-      background:#f5f4ff;
-      color:var(--primary);
-    }
-
-    .iq-nav{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      margin-top:20px;
-    }
-
-    .iq-result{
-      display:none;
-      margin-top:20px;
-      padding:22px;
-      border-radius:18px;
-      background:#f7f7ff;
-      text-align:center;
-    }
-
-    .iq-result.show{
-      display:block;
-    }
-
-    .iq-number{
-      font-size:54px;
-      font-weight:900;
-      color:var(--primary);
-    }
-
-    /* COURSE VIEWER */
-
-    .course-module{
-      margin-top:11px;
-      padding:16px;
-      border:1px solid var(--line);
-      border-radius:15px;
-      background:#fbfbfd;
-    }
-
-    .course-module strong{
-      display:block;
-      font-size:13px;
-    }
-
-    .course-module p{
-      margin-top:5px;
-      font-size:12px;
-    }
-
-    @media(max-width:1050px){
-      .nav{
-        display:none;
-      }
-
-      .hero-grid,
-      .simulator,
-      .coaching-grid,
-      .community{
-        grid-template-columns:1fr;
-      }
-
-      .profile-grid{
-        grid-template-columns:repeat(3,1fr);
-      }
-
-      .grid-4{
-        grid-template-columns:repeat(2,1fr);
-      }
-    }
-
-    @media(max-width:760px){
-      .container{
-        width:min(calc(100% - 22px),var(--max));
-      }
-
-      .hero{
-        padding-top:50px;
-      }
-
-      .grid-3,
-      .grid-2,
-      .profile-grid,
-      .scenario-grid,
-      .interest-grid{
-        grid-template-columns:1fr;
-      }
-
-      .grid-4{
-        grid-template-columns:1fr;
-      }
-
-      .form-grid{
-        grid-template-columns:1fr;
-      }
-
-      .form-group.full{
-        grid-column:auto;
-      }
-
-      .coach-workflow{
-        grid-template-columns:1fr;
-      }
-
-      .bar-row{
-        grid-template-columns:95px 1fr 65px;
-      }
-
-      .footer-inner{
-        flex-direction:column;
-        align-items:flex-start;
-      }
-
-      .account-area .btn-secondary{
-        display:none;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Life Upgrade</title>
+
+<style>
+:root{
+  --bg:#f5f7fb;
+  --card:#fff;
+  --text:#151a2d;
+  --muted:#6e7689;
+  --line:#e3e7ef;
+  --primary:#625df5;
+  --primary2:#817df8;
+  --green:#18ad82;
+  --dark:#11172a;
+  --soft:#f0f1ff;
+  --warning:#f0a33a;
+  --danger:#d85f6a;
+  --radius:20px;
+  --shadow:0 16px 45px rgba(20,28,50,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:Inter,Arial,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  line-height:1.55;
+}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+a{text-decoration:none;color:inherit}
+.container{width:min(1180px,calc(100% - 28px));margin:auto}
+.hidden{display:none!important}
+
+header{
+  position:sticky;top:0;z-index:100;
+  background:rgba(245,247,251,.94);
+  backdrop-filter:blur(15px);
+  border-bottom:1px solid var(--line);
+}
+.navbar{
+  min-height:72px;
+  display:flex;align-items:center;justify-content:space-between;gap:15px;
+}
+.logo{display:flex;align-items:center;gap:10px;font-weight:900}
+.logoMark{
+  width:38px;height:38px;border-radius:12px;
+  display:grid;place-items:center;
+  color:#fff;background:linear-gradient(135deg,var(--primary),var(--primary2));
+}
+nav{display:flex;gap:17px;color:var(--muted);font-size:13px;font-weight:700}
+nav a:hover{color:var(--primary)}
+.actions{display:flex;gap:8px}
+
+.btn{
+  border:0;border-radius:11px;padding:11px 16px;
+  font-weight:800;transition:.2s;
+}
+.btn:hover{transform:translateY(-1px)}
+.primary{background:var(--primary);color:white}
+.secondary{background:white;border:1px solid var(--line);color:var(--text)}
+.dark{background:var(--dark);color:white}
+.small{padding:8px 11px;font-size:12px}
+
+section{padding:75px 0}
+.white{background:white}
+.eyebrow{
+  color:var(--primary);font-size:11px;font-weight:900;
+  letter-spacing:1.3px;text-transform:uppercase;margin-bottom:10px;
+}
+h1{font-size:clamp(43px,6vw,73px);line-height:.98;letter-spacing:-3px}
+h2{font-size:clamp(29px,4vw,45px);line-height:1.06;letter-spacing:-1.8px}
+h3{font-size:20px}
+p{color:var(--muted)}
+.sectionHead{max-width:760px;margin-bottom:32px}
+.sectionHead p{margin-top:11px}
+
+.hero{padding:80px 0}
+.heroGrid{display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:center}
+.heroText{font-size:18px;margin:22px 0;max-width:650px}
+.heroBtns{display:flex;flex-wrap:wrap;gap:9px}
+.heroNotes{display:flex;flex-wrap:wrap;gap:14px;margin-top:18px;font-size:12px;color:var(--muted)}
+.heroCard{
+  color:white;padding:27px;border-radius:27px;
+  background:linear-gradient(145deg,#10162a,#202b47);
+  box-shadow:0 28px 70px rgba(12,18,35,.2);
+}
+.heroCard small{color:#aeb7ca}
+.score{font-size:58px;font-weight:900;margin:18px 0}
+.score span{font-size:15px;color:#aeb7ca}
+.graph{height:100px;margin:15px 0}
+.graph svg{width:100%;height:100%}
+.kpis{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.kpi{background:rgba(255,255,255,.07);padding:13px;border-radius:14px}
+.kpi span{display:block;font-size:10px;color:#aeb7ca}
+.kpi strong{font-size:17px}
+
+.grid2{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.card{
+  background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius);padding:22px;box-shadow:0 8px 28px rgba(20,28,50,.03);
+}
+.card p{font-size:13px;margin-top:8px}
+.tag{
+  display:inline-block;background:var(--soft);color:var(--primary);
+  border-radius:999px;padding:5px 9px;font-size:10px;font-weight:900;margin-bottom:12px;
+}
+.cardList{list-style:none;margin-top:14px;display:grid;gap:7px;font-size:12px;color:var(--muted)}
+.cardList li:before{content:"✓";color:var(--green);font-weight:900;margin-right:7px}
+
+.quickNav{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}
+.quick{
+  background:white;border:1px solid var(--line);border-radius:17px;padding:18px;text-align:left;
+}
+.quick:hover{border-color:var(--primary)}
+.quickIcon{
+  width:40px;height:40px;border-radius:12px;background:var(--soft);
+  color:var(--primary);display:grid;place-items:center;font-weight:900;margin-bottom:12px;
+}
+.quick strong{display:block;font-size:14px}
+.quick small{color:var(--muted)}
+
+.trainingGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.trainingCard{
+  background:white;border:1px solid var(--line);border-radius:20px;padding:22px;
+}
+.trainingTop{display:flex;justify-content:space-between;gap:10px;margin-bottom:12px}
+.trainingCard p{font-size:13px}
+.trainingMeta{
+  display:flex;gap:8px;flex-wrap:wrap;margin:15px 0;
+}
+.meta{
+  background:#f2f4f8;border-radius:999px;padding:5px 8px;
+  font-size:10px;color:var(--muted);font-weight:800;
+}
+
+.exerciseList{display:grid;gap:8px;margin-top:15px}
+.exercise{
+  display:flex;align-items:center;justify-content:space-between;gap:10px;
+  border-top:1px solid var(--line);padding-top:9px;font-size:12px;
+}
+.exercise span:last-child{color:var(--muted)}
+
+.dashboard{
+  display:grid;grid-template-columns:230px 1fr;gap:16px;
+}
+.side{
+  background:var(--dark);color:white;border-radius:20px;padding:20px;
+}
+.side h3{margin-bottom:16px}
+.side button{
+  display:block;width:100%;text-align:left;background:transparent;color:#aeb8cc;
+  border:0;padding:10px;border-radius:9px;margin-bottom:4px;
+}
+.side button.active,.side button:hover{background:rgba(255,255,255,.08);color:white}
+.dashContent{display:grid;gap:14px}
+.statGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.stat{background:white;border:1px solid var(--line);padding:17px;border-radius:16px}
+.stat span{display:block;color:var(--muted);font-size:11px}
+.stat strong{font-size:25px}
+.progressRow{
+  display:grid;grid-template-columns:130px 1fr 55px;gap:10px;align-items:center;
+  font-size:12px;margin-top:13px;
+}
+.progress{height:8px;background:#e9edf4;border-radius:999px;overflow:hidden}
+.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--primary),var(--primary2));border-radius:999px}
+
+.forumLayout{display:grid;grid-template-columns:1fr 300px;gap:15px}
+.topic{
+  display:grid;grid-template-columns:1fr auto;gap:12px;
+  padding:15px 0;border-bottom:1px solid var(--line);
+}
+.topic:last-child{border:0}
+.topic h4{font-size:14px}
+.topic p{font-size:11px;margin-top:4px}
+.topicStats{text-align:right;font-size:10px;color:var(--muted)}
+
+.pollOption{
+  width:100%;display:flex;justify-content:space-between;
+  background:white;border:1px solid var(--line);padding:12px;border-radius:12px;margin-top:8px;
+}
+.pollOption.selected{border-color:var(--primary);background:var(--soft)}
+
+.coaching{
+  background:linear-gradient(145deg,#101628,#202b46);color:white;
+}
+.coachGrid{display:grid;grid-template-columns:1.1fr .9fr;gap:20px}
+.coaching p{color:#b3bdd0}
+.priceBox{background:white;color:var(--text);padding:25px;border-radius:22px}
+.price{font-size:45px;font-weight:900}
+.price span{font-size:14px;color:var(--muted)}
+
+.modalBg{
+  position:fixed;inset:0;z-index:300;background:rgba(8,12,23,.6);
+  display:none;align-items:center;justify-content:center;padding:15px;
+}
+.modalBg.open{display:flex}
+.modal{
+  width:min(780px,100%);max-height:92vh;overflow:auto;background:white;
+  border-radius:23px;padding:26px;position:relative;
+}
+.close{
+  position:absolute;right:13px;top:13px;border:0;background:#eef1f5;
+  width:34px;height:34px;border-radius:50%;font-size:18px;
+}
+
+.testHeader{
+  display:flex;justify-content:space-between;gap:15px;align-items:center;margin:18px 0;
+}
+.timer{
+  min-width:90px;text-align:center;background:var(--dark);color:white;
+  padding:9px;border-radius:10px;font-weight:900;font-variant-numeric:tabular-nums;
+}
+.timer.warning{background:var(--warning)}
+.timer.danger{background:var(--danger)}
+.testProgress{height:7px;background:#e8ecf3;border-radius:999px;overflow:hidden}
+.testProgress i{display:block;height:100%;background:var(--primary)}
+.question{font-size:21px;font-weight:800;margin:22px 0}
+.answers{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.answer{
+  border:1px solid var(--line);background:white;border-radius:12px;padding:13px;text-align:left;
+}
+.answer:hover,.answer.selected{border-color:var(--primary);background:var(--soft)}
+.result{text-align:center;padding:20px}
+.resultScore{font-size:58px;font-weight:900;color:var(--primary)}
+.resultGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-top:20px}
+.resultStat{background:#f3f5f9;padding:13px;border-radius:13px}
+.resultStat span{display:block;font-size:10px;color:var(--muted)}
+.resultStat strong{font-size:20px}
+
+.memoryDisplay{
+  min-height:160px;display:grid;place-items:center;text-align:center;
+  background:#f5f6fb;border-radius:18px;margin:20px 0;padding:20px;
+}
+.bigSequence{font-size:35px;font-weight:900;letter-spacing:8px}
+.memoryGrid{
+  display:grid;grid-template-columns:repeat(4,55px);gap:7px;justify-content:center;
+}
+.memoryCell{
+  width:55px;height:55px;border:1px solid var(--line);background:white;border-radius:9px;
+}
+.memoryCell.active{background:var(--primary)}
+.memoryCell.user{background:var(--green)}
+
+.formGrid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:18px}
+.field{display:grid;gap:5px}
+.field.full{grid-column:1/-1}
+.field label{font-size:11px;font-weight:800}
+.field input,.field select,.field textarea{
+  border:1px solid var(--line);border-radius:10px;padding:11px;width:100%;
+}
+.checkGrid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.check{
+  display:flex;gap:8px;border:1px solid var(--line);padding:10px;border-radius:10px;font-size:12px;
+}
+
+footer{padding:40px 0;border-top:1px solid var(--line);font-size:12px;color:var(--muted)}
+
+@media(max-width:1000px){
+  nav{display:none}
+  .heroGrid,.coachGrid,.dashboard,.forumLayout{grid-template-columns:1fr}
+  .quickNav{grid-template-columns:repeat(3,1fr)}
+  .trainingGrid,.grid3{grid-template-columns:repeat(2,1fr)}
+  .statGrid,.grid4{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:650px){
+  .quickNav,.trainingGrid,.grid2,.grid3,.grid4,.statGrid,.formGrid,.checkGrid,.answers{grid-template-columns:1fr}
+  .field.full{grid-column:auto}
+  .actions .secondary{display:none}
+  h1{font-size:44px}
+}
+</style>
 </head>
 
 <body>
 
-<header class="topbar">
-  <div class="container topbar-inner">
+<header>
+<div class="container navbar">
+  <a href="#home" class="logo">
+    <span class="logoMark">LU</span>
+    <span>Life Upgrade</span>
+  </a>
 
-    <a class="brand" href="#accueil">
-      <span class="brand-mark">LU</span>
-      <span>Life Upgrade</span>
-    </a>
+  <nav>
+    <a href="#developpement">Développement</a>
+    <a href="#etudes">Études & Orientation</a>
+    <a href="#training">Tests & Exercices</a>
+    <a href="#cours">Cours</a>
+    <a href="#forum">Forum</a>
+    <a href="#dashboard">Tableau de bord</a>
+  </nav>
 
-    <nav class="nav">
-      <a href="#trajectoire">Trajectoire</a>
-      <a href="#personnel">Personnel</a>
-      <a href="#professionnel">Professionnel</a>
-      <a href="#orientation">Orientation</a>
-      <a href="#cours">Cours</a>
-      <a href="#communaute">Communauté</a>
-    </nav>
-
-    <div class="account-area">
-
-      <div id="userChip" class="user-chip">
-        <span id="userAvatar" class="avatar">LU</span>
-        <span id="userName">Mon compte</span>
-      </div>
-
-      <button id="openAccountBtn" class="btn btn-primary btn-small">
-        Créer un compte
-      </button>
-
-    </div>
+  <div class="actions">
+    <button class="btn secondary small" onclick="scrollToId('training')">Tests gratuits</button>
+    <button class="btn primary small" onclick="openAccount()">Créer un compte</button>
   </div>
+</div>
 </header>
 
 <main>
 
-  <!-- ========================= -->
-  <!-- ACCUEIL -->
-  <!-- ========================= -->
-
-  <section id="accueil" class="hero">
-    <div class="container hero-grid">
-
-      <div class="hero-copy">
-
-        <div class="eyebrow">
-          PERSONNEL · PROFESSIONNEL · ÉTUDES
-        </div>
-
-        <h1>
-          Construis la trajectoire que tu veux vraiment.
-        </h1>
-
-        <p>
-          Life Upgrade t'aide à comprendre où tu en es, à visualiser où
-          tes habitudes peuvent te mener, à explorer tes options et à
-          construire ton prochain plan d'action.
-        </p>
-
-        <div class="hero-actions">
-          <a href="#trajectoire" class="btn btn-primary">
-            Simuler ma trajectoire
-          </a>
-
-          <button id="openIQHero" class="btn btn-secondary">
-            Faire le test de raisonnement
-          </button>
-
-          <a href="#cours" class="btn btn-secondary">
-            Voir les cours gratuits
-          </a>
-        </div>
-
-        <div class="hero-trust">
-          <span>✓ Gratuit pour commencer</span>
-          <span>✓ Aucun compte nécessaire pour les tests</span>
-          <span>✓ Cours gratuits sans inscription</span>
-          <span>✓ Personnel + professionnel</span>
-        </div>
-
-      </div>
-
-      <div class="hero-card">
-
-        <div class="hero-card-top">
-          <div>
-            <strong>TA TRAJECTOIRE</strong>
-            <small style="display:block;margin-top:4px;">
-              Projection illustrative à 365 jours
-            </small>
-          </div>
-
-          <span class="tag">365 jours</span>
-        </div>
-
-        <div class="score">
-          <strong id="heroScore">72</strong>
-          <span>/100</span>
-        </div>
-
-        <div class="hero-graph">
-          <svg viewBox="0 0 600 140" preserveAspectRatio="none">
-            <path
-              d="M0 120 C90 112 120 100 180 103 C250 110 285 72 335 81 C390 92 425 56 475 57 C530 58 560 34 600 17"
-              fill="none"
-              stroke="#8b87ff"
-              stroke-width="5"
-              stroke-linecap="round"
-            />
-            <circle cx="0" cy="120" r="6" fill="#8b87ff"/>
-            <circle cx="600" cy="17" r="6" fill="#63e7bf"/>
-          </svg>
-        </div>
-
-        <div class="hero-kpis">
-
-          <div class="hero-kpi">
-            <span>Temps récupérable</span>
-            <strong id="heroRecovered">0 h</strong>
-          </div>
-
-          <div class="hero-kpi">
-            <span>Épargne annuelle</span>
-            <strong id="heroSavings">0 €</strong>
-          </div>
-
-          <div class="hero-kpi">
-            <span>Apprentissage</span>
-            <strong id="heroLearning">0 h</strong>
-          </div>
-
-          <div class="hero-kpi">
-            <span>Sport</span>
-            <strong id="heroSport">0</strong>
-          </div>
-
-        </div>
-
-      </div>
-
+<section class="hero" id="home">
+<div class="container heroGrid">
+  <div>
+    <div class="eyebrow">Développement personnel · professionnel · études</div>
+    <h1>Progresse aujourd'hui. Construis ta trajectoire de demain.</h1>
+    <p class="heroText">
+      Développe tes compétences, entraîne ta mémoire et ta concentration,
+      explore ton orientation, suis tes progrès et transforme tes objectifs
+      en actions concrètes.
+    </p>
+    <div class="heroBtns">
+      <button class="btn primary" onclick="scrollToId('training')">Commencer gratuitement</button>
+      <button class="btn secondary" onclick="startReasoningTest('mixed')">Faire un test de raisonnement</button>
+      <button class="btn secondary" onclick="scrollToId('cours')">Explorer les cours</button>
     </div>
-  </section>
-
-  <!-- ========================= -->
-  <!-- PROFILS -->
-  <!-- ========================= -->
-
-  <section class="section light">
-
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">TON PROFIL</div>
-          <h2>Un même moteur, plusieurs trajectoires.</h2>
-          <p>
-            Le site s'adapte à la situation de chacun.
-          </p>
-        </div>
-      </div>
-
-      <div class="profile-grid">
-
-        <button class="profile-card active" data-profile="personal">
-          <div class="profile-icon">◎</div>
-          <strong>Personnel</strong>
-          <small>
-            Habitudes, temps, énergie, sommeil, apprentissage et équilibre.
-          </small>
-        </button>
-
-        <button class="profile-card" data-profile="professional">
-          <div class="profile-icon">↗</div>
-          <strong>Professionnel</strong>
-          <small>
-            Carrière, compétences, organisation, objectifs et évolution.
-          </small>
-        </button>
-
-        <button class="profile-card" data-profile="student">
-          <div class="profile-icon">▣</div>
-          <strong>Étudiant</strong>
-          <small>
-            Études, stages, compétences, employabilité et orientation.
-          </small>
-        </button>
-
-        <button class="profile-card" data-profile="highschool">
-          <div class="profile-icon">✦</div>
-          <strong>Lycéen</strong>
-          <small>
-            Découverte des métiers, études, orientation et préparation.
-          </small>
-        </button>
-
-        <button class="profile-card" data-profile="parent">
-          <div class="profile-icon">＋</div>
-          <strong>Parent</strong>
-          <small>
-            Accompagner un jeune sans transformer l'orientation en surveillance.
-          </small>
-        </button>
-
-      </div>
-
+    <div class="heroNotes">
+      <span>✓ Tests sans inscription</span>
+      <span>✓ Cours gratuits</span>
+      <span>✓ Exercices interactifs</span>
+      <span>✓ Compte gratuit pour le suivi</span>
     </div>
-  </section>
+  </div>
 
-  <!-- ========================= -->
-  <!-- TRAJECTOIRE -->
-  <!-- ========================= -->
-
-  <section id="trajectoire" class="section">
-
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">SIMULATEUR DE TRAJECTOIRE</div>
-          <h2>Change quelques variables et vois l'effet cumulé.</h2>
-          <p>
-            Les projections sont mathématiques et illustratives.
-            Elles ne prédisent pas le futur.
-          </p>
-        </div>
-      </div>
-
-      <div class="simulator">
-
-        <div class="panel">
-
-          <div class="panel-head">
-            <div>
-              <h3>Ton quotidien</h3>
-              <p>Modifie les curseurs.</p>
-            </div>
-
-            <span class="pill">365 jours</span>
-          </div>
-
-          <div class="control">
-
-            <label>
-              <span>Temps d'écran</span>
-              <span><span id="screenValue">4</span> h/jour</span>
-            </label>
-
-            <input
-              type="range"
-              id="screen"
-              min="0"
-              max="8"
-              step=".25"
-              value="4"
-            >
-
-            <small>
-              Exemple : réseaux sociaux, vidéos, navigation.
-            </small>
-
-          </div>
-
-          <div class="control">
-
-            <label>
-              <span>Sport</span>
-              <span><span id="sportValue">1</span> / semaine</span>
-            </label>
-
-            <input
-              type="range"
-              id="sport"
-              min="0"
-              max="7"
-              step="1"
-              value="1"
-            >
-
-          </div>
-
-          <div class="control">
-
-            <label>
-              <span>Apprentissage</span>
-              <span><span id="learningValue">1</span> h/semaine</span>
-            </label>
-
-            <input
-              type="range"
-              id="learning"
-              min="0"
-              max="20"
-              step=".5"
-              value="1"
-            >
-
-          </div>
-
-          <div class="control">
-
-            <label>
-              <span>Épargne</span>
-              <span><span id="savingValue">100</span> €/mois</span>
-            </label>
-
-            <input
-              type="range"
-              id="saving"
-              min="0"
-              max="1500"
-              step="25"
-              value="100"
-            >
-
-          </div>
-
-          <div class="control">
-
-            <label>
-              <span>Réunions</span>
-              <span><span id="meetingValue">7</span> h/semaine</span>
-            </label>
-
-            <input
-              type="range"
-              id="meeting"
-              min="0"
-              max="20"
-              step=".5"
-              value="7"
-            >
-
-          </div>
-
-          <button id="upgradeTrajectoryBtn" class="btn btn-primary" style="width:100%;">
-            Appliquer mon upgrade
-          </button>
-
-        </div>
-
-        <div class="panel">
-
-          <div class="panel-head">
-            <div>
-              <h3>Ta trajectoire à un an</h3>
-              <p id="trajectoryMessage">
-                Basée sur les habitudes que tu as déclarées.
-              </p>
-            </div>
-
-            <span class="tag">Simulation</span>
-          </div>
-
-          <div class="scenario-grid">
-
-            <div class="scenario">
-              <small>Temps d'écran / an</small>
-              <strong id="phoneTotal">0 h</strong>
-            </div>
-
-            <div class="scenario">
-              <small>Sport / an</small>
-              <strong id="sportTotal">0</strong>
-            </div>
-
-            <div class="scenario">
-              <small>Apprentissage / an</small>
-              <strong id="learningTotal">0 h</strong>
-            </div>
-
-            <div class="scenario">
-              <small>Épargne / an</small>
-              <strong id="savingTotal">0 €</strong>
-            </div>
-
-          </div>
-
-          <div class="scenario green">
-
-            <small>ET SI TU RÉDUISAIS LE TEMPS D'ÉCRAN ?</small>
-
-            <strong id="recoveredHours">
-              0 h récupérables
-            </strong>
-
-            <p id="scenarioDescription">
-              Le temps récupéré pourrait être réalloué à l'apprentissage,
-              au sport, à un projet personnel ou au repos.
-            </p>
-
-          </div>
-
-          <div class="bars">
-
-            <div class="bar-row">
-              <span>Temps écran</span>
-              <div class="bar">
-                <i id="phoneBar"></i>
-              </div>
-              <strong id="phoneBarLabel">0 h</strong>
-            </div>
-
-            <div class="bar-row">
-              <span>Sport</span>
-              <div class="bar">
-                <i id="sportBar"></i>
-              </div>
-              <strong id="sportBarLabel">0</strong>
-            </div>
-
-            <div class="bar-row">
-              <span>Apprentissage</span>
-              <div class="bar">
-                <i id="learningBar"></i>
-              </div>
-              <strong id="learningBarLabel">0 h</strong>
-            </div>
-
-            <div class="bar-row">
-              <span>Réunions</span>
-              <div class="bar">
-                <i id="meetingBar"></i>
-              </div>
-              <strong id="meetingBarLabel">0 h</strong>
-            </div>
-
-          </div>
-
-          <table class="compare-table">
-
-            <thead>
-              <tr>
-                <th>Indicateur</th>
-                <th>Aujourd'hui</th>
-                <th>Projection</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              <tr>
-                <td>Écran</td>
-                <td id="tableScreenNow">4 h/jour</td>
-                <td id="tableScreenYear">1460 h</td>
-              </tr>
-
-              <tr>
-                <td>Sport</td>
-                <td id="tableSportNow">1 / semaine</td>
-                <td id="tableSportYear">52</td>
-              </tr>
-
-              <tr>
-                <td>Apprentissage</td>
-                <td id="tableLearningNow">1 h/semaine</td>
-                <td id="tableLearningYear">52 h</td>
-              </tr>
-
-              <tr>
-                <td>Épargne</td>
-                <td id="tableSavingNow">100 €/mois</td>
-                <td id="tableSavingYear">1200 €</td>
-              </tr>
-
-            </tbody>
-
-          </table>
-
-        </div>
-
-      </div>
-
+  <div class="heroCard">
+    <small>EXEMPLE DE TRAJECTOIRE</small>
+    <div class="score">74 <span>/ 100 score Life Upgrade</span></div>
+    <div class="graph">
+      <svg viewBox="0 0 600 120" preserveAspectRatio="none">
+        <path d="M0 105 C80 100 120 90 180 94 C240 100 280 65 330 72 C390 82 420 48 470 51 C525 55 560 27 600 14"
+        fill="none" stroke="#8d89ff" stroke-width="5" stroke-linecap="round"/>
+      </svg>
     </div>
-  </section>
-
-  <!-- ========================= -->
-  <!-- PERSONNEL -->
-  <!-- ========================= -->
-
-  <section id="personnel" class="section light">
-
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">DÉVELOPPEMENT PERSONNEL</div>
-          <h2>Comprendre ta vie avant de vouloir tout changer.</h2>
-          <p>
-            Life Upgrade travaille sur les habitudes, le temps, l'apprentissage,
-            l'organisation et les objectifs personnels.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid-3">
-
-        <article class="card">
-          <span class="tag">Temps</span>
-          <h3>Ton budget de temps</h3>
-          <p>
-            Visualiser comment tes heures sont réellement réparties sur une semaine.
-          </p>
-          <ul>
-            <li>temps d'écran</li>
-            <li>temps personnel</li>
-            <li>temps de qualité</li>
-            <li>temps récupérable</li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <span class="tag">Habitudes</span>
-          <h3>Des petites actions</h3>
-          <p>
-            Les parcours privilégient les changements réalistes plutôt que
-            les grandes promesses.
-          </p>
-          <ul>
-            <li>missions quotidiennes</li>
-            <li>objectifs hebdomadaires</li>
-            <li>progression</li>
-            <li>bilan de fin de parcours</li>
-          </ul>
-        </article>
-
-        <article class="card">
-          <span class="tag">Apprentissage</span>
-          <h3>Continuer à apprendre</h3>
-          <p>
-            Développer des compétences et entretenir sa curiosité au quotidien.
-          </p>
-          <ul>
-            <li>mini-formations</li>
-            <li>culture générale</li>
-            <li>quiz</li>
-            <li>discussions</li>
-          </ul>
-        </article>
-
-      </div>
-
+    <div class="kpis">
+      <div class="kpi"><span>Focus cette semaine</span><strong>4 h 20</strong></div>
+      <div class="kpi"><span>Exercices</span><strong>18</strong></div>
+      <div class="kpi"><span>Parcours</span><strong>2</strong></div>
+      <div class="kpi"><span>Objectifs</span><strong>3 / 4</strong></div>
     </div>
-  </section>
+  </div>
+</div>
+</section>
 
-  <!-- ========================= -->
-  <!-- PROFESSIONNEL -->
-  <!-- ========================= -->
+<section class="white">
+<div class="container">
+  <div class="sectionHead">
+    <div class="eyebrow">Explorer Life Upgrade</div>
+    <h2>Que veux-tu améliorer ?</h2>
+  </div>
 
-  <section id="professionnel" class="section">
+  <div class="quickNav">
+    <button class="quick" onclick="scrollToId('developpement')">
+      <div class="quickIcon">◎</div><strong>Personnel</strong><small>Habitudes & équilibre</small>
+    </button>
+    <button class="quick" onclick="scrollToId('professionnel')">
+      <div class="quickIcon">↗</div><strong>Professionnel</strong><small>Carrière & compétences</small>
+    </button>
+    <button class="quick" onclick="scrollToId('etudes')">
+      <div class="quickIcon">▣</div><strong>Études</strong><small>Orientation & méthodes</small>
+    </button>
+    <button class="quick" onclick="scrollToId('training')">
+      <div class="quickIcon">◇</div><strong>S'entraîner</strong><small>Mémoire & concentration</small>
+    </button>
+    <button class="quick" onclick="scrollToId('cours')">
+      <div class="quickIcon">+</div><strong>Apprendre</strong><small>Cours & parcours</small>
+    </button>
+    <button class="quick" onclick="scrollToId('forum')">
+      <div class="quickIcon">?</div><strong>Échanger</strong><small>Forum & discussions</small>
+    </button>
+  </div>
+</div>
+</section>
 
-    <div class="container">
+<section id="developpement">
+<div class="container">
+  <div class="sectionHead">
+    <div class="eyebrow">Développement personnel</div>
+    <h2>Des compétences utiles dans la vraie vie.</h2>
+    <p>Des parcours courts, des exercices et un suivi concret.</p>
+  </div>
 
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">DÉVELOPPEMENT PROFESSIONNEL</div>
-          <h2>Construis ta prochaine étape professionnelle.</h2>
-          <p>
-            Compare ta situation actuelle avec ton objectif et travaille
-            progressivement sur les compétences nécessaires.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid-2">
-
-        <div class="card">
-
-          <span class="tag">Career Gap</span>
-
-          <h3 style="margin-top:13px;">
-            Exemple : Développeur Backend
-          </h3>
-
-          <div class="skill-row">
-            <span>Python</span>
-            <div class="skill-track"><i style="width:75%"></i></div>
-            <strong>7.5</strong>
-          </div>
-
-          <div class="skill-row">
-            <span>SQL</span>
-            <div class="skill-track"><i style="width:55%"></i></div>
-            <strong>5.5</strong>
-          </div>
-
-          <div class="skill-row">
-            <span>Cloud</span>
-            <div class="skill-track"><i style="width:28%"></i></div>
-            <strong>2.8</strong>
-          </div>
-
-          <div class="skill-row">
-            <span>Git</span>
-            <div class="skill-track"><i style="width:65%"></i></div>
-            <strong>6.5</strong>
-          </div>
-
-          <div class="gap-box">
-            <strong>Écart principal</strong>
-            <p>
-              Dans cet exemple, Cloud et SQL constituent les deux domaines
-              à renforcer en priorité pour se rapprocher de l'objectif.
-            </p>
-          </div>
-
-        </div>
-
-        <div class="card">
-
-          <span class="tag">Plan professionnel</span>
-
-          <h3 style="margin-top:13px;">
-            90 prochains jours
-          </h3>
-
-          <ul>
-            <li>terminer un projet portfolio</li>
-            <li>renforcer SQL</li>
-            <li>faire un module Cloud</li>
-            <li>mettre à jour CV et portfolio</li>
-            <li>préparer les entretiens</li>
-            <li>faire le bilan à J+90</li>
-          </ul>
-
-          <button
-            class="btn btn-primary btn-small"
-            style="margin-top:18px;"
-            id="careerAdviceBtn"
-          >
-            Obtenir un conseil
-          </button>
-
-        </div>
-
-      </div>
-
+  <div class="grid3">
+    <div class="card">
+      <span class="tag">Gestion du stress</span>
+      <h3>Mieux gérer la pression quotidienne</h3>
+      <p>Identifier les déclencheurs, organiser les priorités et utiliser des exercices simples de récupération.</p>
+      <ul class="cardList">
+        <li>comprendre ses déclencheurs</li>
+        <li>respiration guidée</li>
+        <li>pause récupération</li>
+        <li>ce que je contrôle</li>
+        <li>bilan avant / après</li>
+      </ul>
     </div>
-  </section>
 
-  <!-- ========================= -->
-  <!-- ETUDES / LYCEENS -->
-  <!-- ========================= -->
-
-  <section class="section light">
-
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">ÉTUDES · LYCÉENS · PARENTS</div>
-          <h2>Accompagner une trajectoire scolaire sans décider à la place du jeune.</h2>
-          <p>
-            L'objectif est d'explorer des possibilités, d'identifier des compétences
-            et de préparer les prochaines étapes.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid-3">
-
-        <article class="card">
-          <span class="tag">Lycéen</span>
-          <h3>Explorer les métiers</h3>
-          <p>
-            Comparer plusieurs métiers selon les intérêts, compétences,
-            études et contraintes déclarées.
-          </p>
-        </article>
-
-        <article class="card">
-          <span class="tag">Étudiant</span>
-          <h3>Préparer l'employabilité</h3>
-          <p>
-            Relier études, compétences, projets, stages et objectifs professionnels.
-          </p>
-        </article>
-
-        <article class="card">
-          <span class="tag">Parent</span>
-          <h3>Accompagner sans surveiller</h3>
-          <p>
-            Le jeune doit savoir ce qui est partagé. Le parent reçoit uniquement
-            les informations auxquelles il a accès.
-          </p>
-        </article>
-
-      </div>
-
+    <div class="card">
+      <span class="tag">Performance</span>
+      <h3>Améliorer sa concentration</h3>
+      <p>Apprendre à protéger son attention et développer progressivement des périodes de travail concentré.</p>
+      <ul class="cardList">
+        <li>Focus Timer</li>
+        <li>gestion des distractions</li>
+        <li>attention soutenue</li>
+        <li>travail mono-tâche</li>
+        <li>progression hebdomadaire</li>
+      </ul>
     </div>
-  </section>
 
-  <!-- ========================= -->
-  <!-- ORIENTATION -->
-  <!-- ========================= -->
-
-  <section id="orientation" class="section">
-
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">ORIENTATION & CONSEILS</div>
-          <h2>Explorer des options avant de choisir une direction.</h2>
-          <p>
-            Life Upgrade propose des pistes et explique pourquoi elles apparaissent.
-            Il ne décide pas à la place de l'utilisateur.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid-3">
-
-        <article class="option-card">
-          <span class="tag">Piste A</span>
-          <h3>Ingénierie</h3>
-          <p>
-            Peut correspondre à un profil attiré par les sciences,
-            la résolution de problèmes et les projets techniques.
-          </p>
-          <div class="compatibility">Compatibilité indicative : 87 %</div>
-          <button
-            class="btn btn-secondary btn-small orientation-btn"
-            data-title="Ingénierie"
-            data-text="Cette piste est donnée comme exemple. Elle devra ensuite être calculée à partir du profil, des compétences, des intérêts et des objectifs réels."
-            style="margin-top:15px;"
-          >
-            Voir la logique
-          </button>
-        </article>
-
-        <article class="option-card">
-          <span class="tag">Piste B</span>
-          <h3>Informatique</h3>
-          <p>
-            Pour un utilisateur intéressé par les technologies,
-            la logique, la création et la résolution de problèmes.
-          </p>
-          <div class="compatibility">Compatibilité indicative : 82 %</div>
-          <button
-            class="btn btn-secondary btn-small orientation-btn"
-            data-title="Informatique"
-            data-text="Une véritable recommandation devra expliquer les critères utilisés et rester présentée comme une piste à explorer, jamais comme une décision définitive."
-            style="margin-top:15px;"
-          >
-            Voir la logique
-          </button>
-        </article>
-
-        <article class="option-card">
-          <span class="tag">Piste C</span>
-          <h3>Marketing / Communication</h3>
-          <p>
-            Pour un profil attiré par la création, la communication,
-            les projets et les interactions humaines.
-          </p>
-          <div class="compatibility">Compatibilité indicative : 78 %</div>
-          <button
-            class="btn btn-secondary btn-small orientation-btn"
-            data-title="Marketing / Communication"
-            data-text="La recommandation finale devra tenir compte des intérêts, compétences, expérience, objectifs et réalités du parcours."
-            style="margin-top:15px;"
-          >
-            Voir la logique
-          </button>
-        </article>
-
-      </div>
-
+    <div class="card">
+      <span class="tag">Organisation</span>
+      <h3>Optimiser son temps</h3>
+      <p>Comprendre où part son temps et décider consciemment de sa répartition.</p>
+      <ul class="cardList">
+        <li>audit 24 heures</li>
+        <li>audit 168 heures</li>
+        <li>priorisation</li>
+        <li>time blocking</li>
+        <li>revue hebdomadaire</li>
+      </ul>
     </div>
-  </section>
+  </div>
+</div>
+</section>
 
-  <!-- ========================= -->
-  <!-- PARCOURS -->
-  <!-- ========================= -->
+<section class="white" id="professionnel">
+<div class="container">
+  <div class="sectionHead">
+    <div class="eyebrow">Développement professionnel</div>
+    <h2>Performance, compétences et évolution.</h2>
+  </div>
 
-  <section class="section light">
+  <div class="grid4">
+    <div class="card"><span class="tag">Travail</span><h3>Performance au travail</h3><p>Priorités, concentration, réunions et organisation.</p></div>
+    <div class="card"><span class="tag">Temps</span><h3>Optimisation du temps</h3><p>Identifier les interruptions et récupérer du temps utile.</p></div>
+    <div class="card"><span class="tag">Compétences</span><h3>Montée en compétences</h3><p>Définir un objectif métier et construire un plan d'apprentissage.</p></div>
+    <div class="card"><span class="tag">Soft Skills</span><h3>Compétences humaines</h3><p>Communication, leadership, écoute, négociation et décision.</p></div>
+  </div>
+</div>
+</section>
 
-    <div class="container">
+<section id="etudes">
+<div class="container">
+  <div class="sectionHead">
+    <div class="eyebrow">Études & Orientation</div>
+    <h2>Du lycée au premier emploi, un même espace.</h2>
+    <p>Lycéens et étudiants sont regroupés dans un seul univers qui s'adapte au niveau d'études.</p>
+  </div>
 
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">PARCOURS</div>
-          <h2>Un objectif. Un parcours. Un bilan.</h2>
-          <p>
-            Chaque parcours se termine par une évaluation et une nouvelle trajectoire.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid-3">
-
-        <article class="card">
-          <span class="tag">7 jours</span>
-          <h3>Prise de parole</h3>
-          <p>
-            Structurer son message, poser sa voix, s'entraîner, répondre
-            aux questions et réaliser une mini-présentation.
-          </p>
-          <button
-            class="btn btn-primary btn-small free-course-btn"
-            data-course="public-speaking"
-            style="margin-top:18px;"
-          >
-            Commencer gratuitement
-          </button>
-        </article>
-
-        <article class="card">
-          <span class="tag">30 min</span>
-          <h3>Découvrir un métier</h3>
-          <p>
-            Comprendre un métier, son quotidien, ses compétences,
-            ses outils et ses possibilités d'évolution.
-          </p>
-          <button
-            class="btn btn-primary btn-small free-course-btn"
-            data-course="data-analyst"
-            style="margin-top:18px;"
-          >
-            Commencer gratuitement
-          </button>
-        </article>
-
-        <article class="card">
-          <span class="tag">5 modules</span>
-          <h3>Apprendre à apprendre</h3>
-          <p>
-            Apprendre à organiser son travail, pratiquer le rappel actif,
-            réviser et mesurer sa progression.
-          </p>
-          <button
-            class="btn btn-primary btn-small free-course-btn"
-            data-course="learning-how"
-            style="margin-top:18px;"
-          >
-            Commencer gratuitement
-          </button>
-        </article>
-
-      </div>
-
+  <div class="grid3">
+    <div class="card">
+      <span class="tag">Orientation</span>
+      <h3>Explorer les métiers</h3>
+      <p>Centres d'intérêt, compétences, études possibles, environnement de travail et perspectives.</p>
+      <button class="btn secondary small" style="margin-top:15px" onclick="generic('Orientation','Le futur moteur comparera plusieurs trajectoires : études, compétences, métiers et prochaines étapes.')">Explorer</button>
     </div>
-  </section>
 
-  <!-- ========================= -->
-  <!-- CULTURE -->
-  <!-- ========================= -->
-
-  <section class="section">
-
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">CULTURE & CURIOSITÉ</div>
-          <h2>Apprendre parce que le monde est intéressant.</h2>
-          <p>
-            Astronomie, sciences de la vie, histoire, technologie, culture et société.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid-4">
-
-        <article class="culture-card">
-          <span class="tag">Astronomie</span>
-          <h3>Pourquoi les étoiles brillent-elles ?</h3>
-          <p>Une découverte courte suivie d'un mini-quiz.</p>
-        </article>
-
-        <article class="culture-card">
-          <span class="tag">Sciences de la vie</span>
-          <h3>Comment notre mémoire fonctionne-t-elle ?</h3>
-          <p>Comprendre les grands principes sans jargon inutile.</p>
-        </article>
-
-        <article class="culture-card">
-          <span class="tag">Histoire</span>
-          <h3>Les événements qui ont changé le monde</h3>
-          <p>Des récits courts pour replacer les grandes étapes dans leur contexte.</p>
-        </article>
-
-        <article class="culture-card">
-          <span class="tag">Sciences</span>
-          <h3>L'évolution des technologies</h3>
-          <p>Découvrir comment certaines innovations ont transformé nos usages.</p>
-        </article>
-
-      </div>
-
+    <div class="card">
+      <span class="tag">Méthodes</span>
+      <h3>Mieux apprendre</h3>
+      <p>Mémoire, concentration, rappel actif, planification et préparation des examens.</p>
+      <button class="btn secondary small" style="margin-top:15px" onclick="startMemoryMenu()">S'entraîner</button>
     </div>
-  </section>
 
-  <!-- ========================= -->
-  <!-- TEST IQ -->
-  <!-- ========================= -->
+    <div class="card">
+      <span class="tag">Employabilité</span>
+      <h3>Préparer l'après-études</h3>
+      <p>CV, stage, portfolio, entretiens, compétences métier et soft skills.</p>
+      <button class="btn secondary small" style="margin-top:15px" onclick="generic('Employabilité','Cette section réunira CV, portfolio, stages, préparation aux entretiens et Career Gap.')">Découvrir</button>
+    </div>
+  </div>
+</div>
+</section>
 
-  <section class="section light">
+<section class="white" id="training">
+<div class="container">
+  <div class="sectionHead">
+    <div class="eyebrow">Tests & Entraînement</div>
+    <h2>Entraîne-toi. Mesure. Progresse.</h2>
+    <p>Les scores décrivent tes performances aux exercices Life Upgrade. Ils ne constituent pas un diagnostic médical ou psychologique.</p>
+  </div>
 
-    <div class="container">
+  <div class="trainingGrid">
 
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">TEST LIBRE</div>
-          <h2>Un mini-test de raisonnement sans inscription.</h2>
-          <p>
-            Tu peux le faire immédiatement. Aucun compte n'est nécessaire.
-            Le résultat est ludique et indicatif, pas un test de QI officiel.
-          </p>
-        </div>
+    <div class="trainingCard">
+      <div class="trainingTop"><span class="tag">Mémoire</span><strong>10 exercices</strong></div>
+      <h3>Memory Lab</h3>
+      <p>Mémoire immédiate, visuelle, associative et mémoire de travail.</p>
+      <div class="trainingMeta"><span class="meta">10 exercices</span><span class="meta">3 niveaux</span><span class="meta">Chronométré</span></div>
+      <div class="exerciseList">
+        <div class="exercise"><span>1. Séquence de chiffres</span><span>10 niveaux</span></div>
+        <div class="exercise"><span>2. Séquence inversée</span><span>10 niveaux</span></div>
+        <div class="exercise"><span>3. Grille visuelle</span><span>10 manches</span></div>
+        <div class="exercise"><span>4. Liste de mots</span><span>5 séries</span></div>
+        <div class="exercise"><span>5. Paires</span><span>3 niveaux</span></div>
+        <div class="exercise"><span>6. Associations</span><span>10 questions</span></div>
+        <div class="exercise"><span>7. Images & positions</span><span>10 manches</span></div>
+        <div class="exercise"><span>8. Mémoire de texte</span><span>5 textes</span></div>
+        <div class="exercise"><span>9. N-back</span><span>3 niveaux</span></div>
+        <div class="exercise"><span>10. Rappel différé</span><span>10 min</span></div>
+      </div>
+      <button class="btn primary small" style="margin-top:17px" onclick="startMemoryMenu()">Ouvrir Memory Lab</button>
+    </div>
+
+    <div class="trainingCard">
+      <div class="trainingTop"><span class="tag">Concentration</span><strong>10 exercices</strong></div>
+      <h3>Focus Lab</h3>
+      <p>Attention sélective, soutenue, vitesse et contrôle des distractions.</p>
+      <div class="trainingMeta"><span class="meta">10 exercices</span><span class="meta">Réaction</span><span class="meta">Focus Timer</span></div>
+      <div class="exerciseList">
+        <div class="exercise"><span>1. Focus Target</span><span>60 sec</span></div>
+        <div class="exercise"><span>2. Trouver l'intrus</span><span>10 manches</span></div>
+        <div class="exercise"><span>3. Stroop</span><span>20 essais</span></div>
+        <div class="exercise"><span>4. Attention sélective</span><span>2 min</span></div>
+        <div class="exercise"><span>5. Comparaison rapide</span><span>20 essais</span></div>
+        <div class="exercise"><span>6. Séquence cible</span><span>2 min</span></div>
+        <div class="exercise"><span>7. Double tâche</span><span>10 essais</span></div>
+        <div class="exercise"><span>8. Recherche visuelle</span><span>chronométré</span></div>
+        <div class="exercise"><span>9. Attention soutenue</span><span>5 min</span></div>
+        <div class="exercise"><span>10. Focus Session</span><span>10–60 min</span></div>
+      </div>
+      <button class="btn primary small" style="margin-top:17px" onclick="startFocusTimer()">Lancer Focus Timer</button>
+    </div>
+
+    <div class="trainingCard">
+      <div class="trainingTop"><span class="tag">Raisonnement</span><strong>10 tests</strong></div>
+      <h3>Reasoning Lab</h3>
+      <p>Plusieurs tests avec minuteur, résultat détaillé et catégories.</p>
+      <div class="trainingMeta"><span class="meta">230+ questions prévues</span><span class="meta">Sans compte</span></div>
+      <div class="exerciseList">
+        <div class="exercise"><span>1. Logique</span><span>20 Q · 45s</span></div>
+        <div class="exercise"><span>2. Numérique</span><span>20 Q · 45s</span></div>
+        <div class="exercise"><span>3. Verbal</span><span>20 Q · 45s</span></div>
+        <div class="exercise"><span>4. Spatial</span><span>20 Q · 60s</span></div>
+        <div class="exercise"><span>5. Suites</span><span>20 Q · 45s</span></div>
+        <div class="exercise"><span>6. Matrices</span><span>20 Q · 60s</span></div>
+        <div class="exercise"><span>7. Analogies</span><span>20 Q · 40s</span></div>
+        <div class="exercise"><span>8. Calcul rapide</span><span>20 Q · 30s</span></div>
+        <div class="exercise"><span>9. Mixte</span><span>30 Q</span></div>
+        <div class="exercise"><span>10. Challenge</span><span>50 Q · 45 min</span></div>
+      </div>
+      <button class="btn primary small" style="margin-top:17px" onclick="openReasoningMenu()">Choisir un test</button>
+    </div>
+
+    <div class="trainingCard">
+      <div class="trainingTop"><span class="tag">Gestion du stress</span><strong>10 exercices</strong></div>
+      <h3>Reset</h3>
+      <p>Des exercices de gestion quotidienne et de récupération, sans visée thérapeutique.</p>
+      <div class="exerciseList">
+        <div class="exercise"><span>1. Respiration guidée</span><span>1 min</span></div>
+        <div class="exercise"><span>2. Respiration lente</span><span>3 min</span></div>
+        <div class="exercise"><span>3. Pause corporelle</span><span>3 min</span></div>
+        <div class="exercise"><span>4. Scan des tensions</span><span>5 min</span></div>
+        <div class="exercise"><span>5. Déconnexion écran</span><span>5 min</span></div>
+        <div class="exercise"><span>6. Marche consciente</span><span>10 min</span></div>
+        <div class="exercise"><span>7. Ce que je contrôle</span><span>5 min</span></div>
+        <div class="exercise"><span>8. Décomposer la situation</span><span>10 min</span></div>
+        <div class="exercise"><span>9. Préparation mentale</span><span>5 min</span></div>
+        <div class="exercise"><span>10. Routine récupération</span><span>10 min</span></div>
+      </div>
+    </div>
+
+    <div class="trainingCard">
+      <div class="trainingTop"><span class="tag">Gestion du temps</span><strong>10 exercices</strong></div>
+      <h3>Time Lab</h3>
+      <p>Comprendre où va ton temps et améliorer la planification.</p>
+      <div class="exerciseList">
+        <div class="exercise"><span>1. Audit 24 heures</span><span>10 min</span></div>
+        <div class="exercise"><span>2. Audit 168 heures</span><span>15 min</span></div>
+        <div class="exercise"><span>3. Urgent / important</span><span>10 tâches</span></div>
+        <div class="exercise"><span>4. Priorité unique</span><span>5 min</span></div>
+        <div class="exercise"><span>5. Estimation du temps</span><span>pratique</span></div>
+        <div class="exercise"><span>6. Décomposition</span><span>pratique</span></div>
+        <div class="exercise"><span>7. Time blocking</span><span>10 min</span></div>
+        <div class="exercise"><span>8. Voleurs de temps</span><span>diagnostic</span></div>
+        <div class="exercise"><span>9. Challenge 30 minutes</span><span>30 min</span></div>
+        <div class="exercise"><span>10. Revue hebdomadaire</span><span>15 min</span></div>
+      </div>
+    </div>
+
+    <div class="trainingCard">
+      <div class="trainingTop"><span class="tag">Soft Skills</span><strong>10 compétences</strong></div>
+      <h3>Skills Lab</h3>
+      <p>Des mises en situation professionnelles et personnelles.</p>
+      <div class="exerciseList">
+        <div class="exercise"><span>Communication</span><span>10 situations</span></div>
+        <div class="exercise"><span>Prise de parole</span><span>10 exercices</span></div>
+        <div class="exercise"><span>Leadership</span><span>10 scénarios</span></div>
+        <div class="exercise"><span>Écoute active</span><span>10 situations</span></div>
+        <div class="exercise"><span>Négociation</span><span>10 scénarios</span></div>
+        <div class="exercise"><span>Travail en équipe</span><span>10 scénarios</span></div>
+        <div class="exercise"><span>Gestion de conflit</span><span>10 scénarios</span></div>
+        <div class="exercise"><span>Décision</span><span>10 problèmes</span></div>
+        <div class="exercise"><span>Esprit critique</span><span>10 analyses</span></div>
+        <div class="exercise"><span>Adaptabilité</span><span>10 situations</span></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<section id="cours">
+<div class="container">
+  <div class="sectionHead">
+    <div class="eyebrow">Cours & Parcours</div>
+    <h2>Apprendre gratuitement, sans inscription.</h2>
+  </div>
+  <div class="grid3">
+    <div class="card"><span class="tag">7 jours</span><h3>Prise de parole</h3><p>Structure, voix, posture, improvisation et présentation finale.</p><button class="btn secondary small" style="margin-top:15px" onclick="course('Prise de parole',['Structurer son message','Parler sans lire','Voix et rythme','Regard et posture','Répondre aux questions','Improviser','Présentation finale'])">Ouvrir le cours</button></div>
+    <div class="card"><span class="tag">Personnel</span><h3>Gestion du stress quotidien</h3><p>Comprendre ses déclencheurs et construire une routine de récupération.</p><button class="btn secondary small" style="margin-top:15px" onclick="course('Gestion du stress',['Identifier les déclencheurs','Comprendre la surcharge','Respiration','Organisation préventive','Récupération','Plan personnel','Bilan'])">Ouvrir le cours</button></div>
+    <div class="card"><span class="tag">Professionnel</span><h3>Performance au travail</h3><p>Priorités, concentration, réunions, interruptions et organisation.</p><button class="btn secondary small" style="margin-top:15px" onclick="course('Performance au travail',['Audit du temps','Priorités','Focus','Réunions','Interruptions','Planification','Bilan'])">Ouvrir le cours</button></div>
+    <div class="card"><span class="tag">Compétences</span><h3>Montée en compétences</h3><p>Identifier l'écart entre ton niveau actuel et ton objectif.</p><button class="btn secondary small" style="margin-top:15px" onclick="course('Montée en compétences',['Objectif','Auto-évaluation','Career Gap','Plan apprentissage','Projet pratique','Évaluation','Bilan'])">Ouvrir le cours</button></div>
+    <div class="card"><span class="tag">Études</span><h3>Apprendre à apprendre</h3><p>Rappel actif, répétition espacée, concentration et planification.</p><button class="btn secondary small" style="margin-top:15px" onclick="course('Apprendre à apprendre',['Objectifs','Découpage','Rappel actif','Répétition espacée','Concentration','Révision','Bilan'])">Ouvrir le cours</button></div>
+    <div class="card"><span class="tag">Soft Skill</span><h3>Communication</h3><p>Exprimer une idée, écouter, reformuler et gérer les désaccords.</p><button class="btn secondary small" style="margin-top:15px" onclick="course('Communication',['Message clair','Écoute active','Reformulation','Questions','Feedback','Désaccord','Mise en situation'])">Ouvrir le cours</button></div>
+  </div>
+</div>
+</section>
+
+<section class="white" id="dashboard">
+<div class="container">
+  <div class="sectionHead">
+    <div class="eyebrow">Mon espace</div>
+    <h2>Tableau de bord & suivi.</h2>
+    <p>Le tableau de bord complet sera alimenté par les résultats sauvegardés lorsque le vrai compte utilisateur sera connecté.</p>
+  </div>
+
+  <div class="dashboard">
+    <div class="side">
+      <h3>Mon espace</h3>
+      <button class="active">Vue générale</button>
+      <button>Ma trajectoire</button>
+      <button>Mes objectifs</button>
+      <button>Mes parcours</button>
+      <button>Mes compétences</button>
+      <button>Mes résultats</button>
+      <button>Historique</button>
+    </div>
+
+    <div class="dashContent">
+      <div class="statGrid">
+        <div class="stat"><span>Focus semaine</span><strong id="dashFocus">0 min</strong></div>
+        <div class="stat"><span>Tests réalisés</span><strong id="dashTests">0</strong></div>
+        <div class="stat"><span>Meilleur raisonnement</span><strong id="dashReasoning">—</strong></div>
+        <div class="stat"><span>Exercices mémoire</span><strong id="dashMemory">0</strong></div>
       </div>
 
       <div class="card">
-
-        <div id="iqProgressWrap" class="iq-progress">
-          <i id="iqProgress"></i>
-        </div>
-
-        <div id="iqQuestions"></div>
-
-        <div class="iq-nav">
-          <button id="iqPrev" class="btn btn-secondary btn-small">
-            Précédent
-          </button>
-
-          <button id="iqNext" class="btn btn-primary btn-small">
-            Suivant
-          </button>
-        </div>
-
-        <div id="iqResult" class="iq-result">
-
-          <div class="tag">Résultat indicatif</div>
-
-          <div class="iq-number" id="iqScore">
-            0
-          </div>
-
-          <h3 id="iqLabel">
-            Résultat
-          </h3>
-
-          <p id="iqAdvice"></p>
-
-          <div style="margin-top:16px;">
-            <button id="iqRestart" class="btn btn-secondary btn-small">
-              Recommencer
-            </button>
-
-            <button id="iqSaveResult" class="btn btn-primary btn-small">
-              Créer un compte pour sauvegarder
-            </button>
-          </div>
-
-        </div>
-
+        <h3>Mes performances Life Upgrade</h3>
+        <div class="progressRow"><span>Mémoire</span><div class="progress"><i style="width:68%"></i></div><strong>68</strong></div>
+        <div class="progressRow"><span>Concentration</span><div class="progress"><i style="width:72%"></i></div><strong>72</strong></div>
+        <div class="progressRow"><span>Raisonnement</span><div class="progress"><i id="reasonProgress" style="width:0%"></i></div><strong id="reasonValue">—</strong></div>
+        <div class="progressRow"><span>Organisation</span><div class="progress"><i style="width:64%"></i></div><strong>64</strong></div>
+        <div class="progressRow"><span>Soft Skills</span><div class="progress"><i style="width:61%"></i></div><strong>61</strong></div>
       </div>
-
     </div>
-  </section>
+  </div>
+</div>
+</section>
 
-  <!-- ========================= -->
-  <!-- COMMUNAUTÉ / SONDAGES -->
-  <!-- ========================= -->
+<section id="forum">
+<div class="container">
+  <div class="sectionHead">
+    <div class="eyebrow">Forum & communauté</div>
+    <h2>Questions, réponses et discussions.</h2>
+  </div>
 
-  <section id="communaute" class="section">
-
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">COMMUNAUTÉ</div>
-          <h2>La communauté aide à choisir les prochains sujets.</h2>
-          <p>
-            Vote, propose un thème, partage une expérience ou participe à une discussion.
-          </p>
-        </div>
-      </div>
-
-      <div class="community">
-
-        <div class="card">
-
-          <span class="tag">Sondage de la semaine</span>
-
-          <h3 style="margin-top:13px;">
-            Quel sujet devrait être le prochain grand débat ?
-          </h3>
-
-          <div class="poll-options">
-
-            <button class="poll-option" data-poll="IA et métiers">
-              <span>IA et métiers</span>
-              <b>38 %</b>
-            </button>
-
-            <button class="poll-option" data-poll="Passion ou stabilité">
-              <span>Passion ou stabilité ?</span>
-              <b>27 %</b>
-            </button>
-
-            <button class="poll-option" data-poll="Pourquoi procrastinons-nous">
-              <span>Pourquoi procrastinons-nous ?</span>
-              <b>21 %</b>
-            </button>
-
-            <button class="poll-option" data-poll="Dépendance au téléphone">
-              <span>Sommes-nous dépendants du téléphone ?</span>
-              <b>14 %</b>
-            </button>
-
-          </div>
-
-          <div style="display:flex;gap:9px;flex-wrap:wrap;margin-top:18px;">
-
-            <button id="voteBtn" class="btn btn-primary btn-small">
-              Voter
-            </button>
-
-            <button id="suggestTopicBtn" class="btn btn-secondary btn-small">
-              Proposer un sujet
-            </button>
-
-          </div>
-
-          <p id="voteStatus" style="margin-top:12px;"></p>
-
-        </div>
-
-        <div class="card">
-
-          <span class="tag">Partage d'expérience</span>
-
-          <h3 style="margin-top:13px;">
-            « J'ai changé de métier à 31 ans. »
-          </h3>
-
-          <p style="margin-top:12px;font-size:14px;">
-            Une future bibliothèque d'expériences : reconversion,
-            études, premier stage, prise de parole, apprentissage,
-            organisation et projets personnels.
-          </p>
-
-          <div style="margin-top:18px;">
-            <button id="experienceBtn" class="btn btn-secondary btn-small">
-              Partager mon expérience
-            </button>
-          </div>
-
-        </div>
-
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ========================= -->
-  <!-- COACHING -->
-  <!-- ========================= -->
-
-  <section class="section coaching" id="coaching">
-
-    <div class="container coaching-grid">
-
-      <div class="coaching-copy">
-
-        <div class="eyebrow" style="color:#9ea5ff;">
-          COACHING PREMIUM
-        </div>
-
-        <h2>
-          Un coach de vie pour t'aider à transformer tes objectifs en actions.
-        </h2>
-
-        <p>
-          Avant chaque séance, le coach analyse ton évolution,
-          tes objectifs, tes habitudes et tes résultats.
-          Il arrive ensuite avec une préparation et construit avec toi
-          un plan personnalisé.
-        </p>
-
-        <div class="coach-workflow">
-
-          <div class="coach-step">
-            <strong>Analyse</strong>
-            <span>Le tableau de bord est préparé avant la séance.</span>
-          </div>
-
-          <div class="coach-step">
-            <strong>Séance</strong>
-            <span>2 rendez-vous mensuels dans l'offre envisagée.</span>
-          </div>
-
-          <div class="coach-step">
-            <strong>Plan</strong>
-            <span>Les objectifs et prochaines actions sont définis.</span>
-          </div>
-
-        </div>
-
-      </div>
-
-      <div class="premium-card">
-
-        <div class="tag">
-          Offre envisagée
-        </div>
-
-        <span class="price">
-          4,99 € <span>/ mois</span>
-        </span>
-
-        <ul>
-          <li>2 séances de coaching par mois</li>
-          <li>analyse du dashboard avant la séance</li>
-          <li>plan personnalisé</li>
-          <li>suivi des objectifs</li>
-          <li>Teams / Google Meet / WhatsApp selon préférence</li>
-          <li>coaching de vie et progression</li>
-        </ul>
-
-        <button
-          id="premiumInterestBtn"
-          class="btn btn-primary"
-          style="width:100%;"
-        >
-          Rejoindre la liste d'intérêt
-        </button>
-
-        <div class="privacy-box">
-          Life Upgrade propose du coaching de vie et de progression.
-          Ce service ne remplace pas un psychologue, un psychiatre,
-          un médecin ou un autre professionnel de santé.
-        </div>
-
-      </div>
-
+  <div class="forumLayout">
+    <div class="card">
+      <div class="topic"><div><span class="tag">Question</span><h4>Comment rester concentré quand je travaille chez moi ?</h4><p>Concentration · il y a 2 h</p></div><div class="topicStats">14 réponses<br>42 votes</div></div>
+      <div class="topic"><div><span class="tag">Discussion</span><h4>Passion ou stabilité : que privilégier dans sa carrière ?</h4><p>Carrière · aujourd'hui</p></div><div class="topicStats">31 réponses<br>76 votes</div></div>
+      <div class="topic"><div><span class="tag">Études</span><h4>Comment choisir entre deux orientations très différentes ?</h4><p>Orientation · hier</p></div><div class="topicStats">19 réponses<br>34 votes</div></div>
+      <div class="topic"><div><span class="tag">Expérience</span><h4>Ce que j'ai appris après ma reconversion professionnelle</h4><p>Carrière · 3 jours</p></div><div class="topicStats">22 réponses<br>88 votes</div></div>
+      <button class="btn primary small" style="margin-top:15px" onclick="generic('Créer un sujet','La publication réelle nécessitera le compte utilisateur et la future base de données Cloudflare.')">Créer un sujet</button>
     </div>
 
-  </section>
-
-  <!-- ========================= -->
-  <!-- PARENT -->
-  <!-- ========================= -->
-
-  <section class="section light">
-
-    <div class="container">
-
-      <div class="section-head">
-        <div>
-          <div class="eyebrow">ESPACE PARENT</div>
-          <h2>Accompagner sans surveiller.</h2>
-          <p>
-            Le futur espace parent permettra de suivre les grandes étapes
-            partagées volontairement par le jeune.
-          </p>
-        </div>
-      </div>
-
-      <div class="grid-2">
-
-        <div class="card">
-
-          <span class="tag">Ce qui peut être partagé</span>
-
-          <ul>
-            <li>objectif d'orientation</li>
-            <li>étapes de parcours</li>
-            <li>échéances importantes</li>
-            <li>progression générale</li>
-            <li>projets ou actions partagés</li>
-          </ul>
-
-        </div>
-
-        <div class="card">
-
-          <span class="tag">Ce qui doit rester protégé</span>
-
-          <ul>
-            <li>journal personnel privé</li>
-            <li>réponses personnelles non partagées</li>
-            <li>informations confidentielles</li>
-            <li>contenu privé du coaching</li>
-            <li>éléments non autorisés par le jeune</li>
-          </ul>
-
-        </div>
-
-      </div>
-
-      <div class="privacy-box">
-        Pour les mineurs, les règles de consentement, de partage et de protection
-        devront être définies précisément avant le lancement commercial.
-      </div>
-
+    <div class="card">
+      <span class="tag">Sondage</span>
+      <h3>Prochain débat ?</h3>
+      <button class="pollOption" onclick="selectPoll(this)"><span>IA et métiers</span><strong>38%</strong></button>
+      <button class="pollOption" onclick="selectPoll(this)"><span>Exploration spatiale</span><strong>26%</strong></button>
+      <button class="pollOption" onclick="selectPoll(this)"><span>Productivité</span><strong>21%</strong></button>
+      <button class="pollOption" onclick="selectPoll(this)"><span>Histoire</span><strong>15%</strong></button>
     </div>
-  </section>
+  </div>
+</div>
+</section>
+
+<section class="coaching">
+<div class="container coachGrid">
+  <div>
+    <div class="eyebrow" style="color:#a8a4ff">Life Upgrade Coaching</div>
+    <h2>Un coach de vie pour accompagner ta progression.</h2>
+    <p style="margin-top:15px">
+      Le coach analyse ton tableau de bord avant chaque séance,
+      prépare les points à travailler puis construit avec toi un plan d'action.
+      Les séances peuvent se faire via Teams, Google Meet ou WhatsApp.
+    </p>
+    <p style="margin-top:15px">
+      Life Upgrade Coaching est du coaching de vie, d'organisation et de progression.
+      Ce n'est pas un service médical, psychologique ou psychothérapeutique.
+    </p>
+  </div>
+
+  <div class="priceBox">
+    <span class="tag">Offre envisagée</span>
+    <div class="price">4,99 € <span>/ mois</span></div>
+    <ul class="cardList">
+      <li>2 séances / mois</li>
+      <li>analyse du tableau de bord</li>
+      <li>préparation avant séance</li>
+      <li>plan personnalisé</li>
+      <li>suivi des objectifs</li>
+    </ul>
+    <button class="btn primary" style="width:100%;margin-top:15px" onclick="openAccount()">Créer mon compte</button>
+  </div>
+</div>
+</section>
 
 </main>
 
 <footer>
-
-  <div class="container footer-inner">
-
-    <div>
-      <strong>Life Upgrade</strong>
-      <div style="margin-top:5px;">
-        Développement personnel · professionnel · orientation · apprentissage
-      </div>
-    </div>
-
-    <div>
-      Site prototype
-    </div>
-
-  </div>
-
+<div class="container">
+  <strong>Life Upgrade</strong>
+  <p style="margin-top:5px">Développement personnel · professionnel · études · apprentissage · communauté</p>
+</div>
 </footer>
 
-<!-- ========================= -->
-<!-- MODAL COMPTE -->
-<!-- ========================= -->
-
-<div id="accountModalBg" class="modal-bg">
-
-  <div class="modal">
-
-    <button id="accountModalClose" class="modal-close">×</button>
-
-    <div class="eyebrow">CRÉER UN COMPTE</div>
-
-    <h2 style="font-size:34px;">
-      Construisons ton espace Life Upgrade.
-    </h2>
-
-    <p>
-      Le compte permet de conserver ton profil et, plus tard,
-      ta progression. Pour l'instant les données sont stockées
-      localement sur cet appareil.
-    </p>
-
-    <form id="accountForm">
-
-      <div class="form-grid">
-
-        <div class="form-group">
-          <label for="firstName">Prénom</label>
-          <input id="firstName" name="firstName" required>
-        </div>
-
-        <div class="form-group">
-          <label for="lastName">Nom</label>
-          <input id="lastName" name="lastName" required>
-        </div>
-
-        <div class="form-group">
-          <label for="country">Pays</label>
-
-          <select id="country" name="country" required>
-            <option value="">Choisir</option>
-            <option>France</option>
-            <option>Belgique</option>
-            <option>Suisse</option>
-            <option>Canada</option>
-            <option>Luxembourg</option>
-            <option>Maroc</option>
-            <option>Algérie</option>
-            <option>Tunisie</option>
-            <option>Sénégal</option>
-            <option>Côte d'Ivoire</option>
-            <option>Autre</option>
-          </select>
-
-        </div>
-
-        <div class="form-group">
-          <label for="phone">Numéro de téléphone</label>
-          <input
-            id="phone"
-            name="phone"
-            type="tel"
-            placeholder="+33..."
-            required
-          >
-        </div>
-
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
-            required
-          >
-        </div>
-
-        <div class="form-group">
-          <label for="profile">Profil principal</label>
-
-          <select id="profile" name="profile" required>
-            <option value="">Choisir</option>
-            <option>Développement personnel</option>
-            <option>Professionnel</option>
-            <option>Étudiant</option>
-            <option>Lycéen</option>
-            <option>Parent</option>
-          </select>
-
-        </div>
-
-        <div class="form-group full">
-
-          <label>
-            Qu'aimerais-tu trouver sur Life Upgrade ?
-          </label>
-
-          <div class="interest-grid">
-
-            <div class="interest-option">
-              <input id="interestPersonal" type="checkbox" name="interests" value="Développement personnel">
-              <label for="interestPersonal">
-                Développement personnel
-              </label>
-            </div>
-
-            <div class="interest-option">
-              <input id="interestProfessional" type="checkbox" name="interests" value="Développement professionnel">
-              <label for="interestProfessional">
-                Développement professionnel
-              </label>
-            </div>
-
-            <div class="interest-option">
-              <input id="interestOrientation" type="checkbox" name="interests" value="Orientation & conseils">
-              <label for="interestOrientation">
-                Orientation & conseils
-              </label>
-            </div>
-
-            <div class="interest-option">
-              <input id="interestCourses" type="checkbox" name="interests" value="Cours & formations">
-              <label for="interestCourses">
-                Cours & formations
-              </label>
-            </div>
-
-            <div class="interest-option">
-              <input id="interestCulture" type="checkbox" name="interests" value="Culture générale">
-              <label for="interestCulture">
-                Culture générale
-              </label>
-            </div>
-
-            <div class="interest-option">
-              <input id="interestDiscussion" type="checkbox" name="interests" value="Discussions de groupe">
-              <label for="interestDiscussion">
-                Discussions de groupe
-              </label>
-            </div>
-
-            <div class="interest-option">
-              <input id="interestCoach" type="checkbox" name="interests" value="Coaching de vie">
-              <label for="interestCoach">
-                Coaching de vie
-              </label>
-            </div>
-
-            <div class="interest-option">
-              <input id="interestStudy" type="checkbox" name="interests" value="Études & employabilité">
-              <label for="interestStudy">
-                Études & employabilité
-              </label>
-            </div>
-
-            <div class="interest-option">
-              <input id="interestParent" type="checkbox" name="interests" value="Espace parent">
-              <label for="interestParent">
-                Espace parent
-              </label>
-            </div>
-
-            <div class="interest-option">
-              <input id="interestTests" type="checkbox" name="interests" value="Tests & simulateurs">
-              <label for="interestTests">
-                Tests & simulateurs
-              </label>
-            </div>
-
-          </div>
-
-        </div>
-
-        <div class="form-group">
-          <label for="password">
-            Mot de passe
-          </label>
-
-          <input
-            id="password"
-            name="password"
-            type="password"
-            minlength="6"
-            required
-          >
-        </div>
-
-        <div class="form-group">
-          <label for="passwordConfirm">
-            Confirmer le mot de passe
-          </label>
-
-          <input
-            id="passwordConfirm"
-            name="passwordConfirm"
-            type="password"
-            minlength="6"
-            required
-          >
-        </div>
-
-      </div>
-
-      <div id="accountFormError" class="form-error"></div>
-      <div id="accountFormSuccess" class="form-success"></div>
-
-      <div class="form-actions">
-
-        <button
-          type="button"
-          id="accountCancel"
-          class="btn btn-secondary btn-small"
-        >
-          Annuler
-        </button>
-
-        <button
-          type="submit"
-          class="btn btn-primary btn-small"
-        >
-          Créer mon compte
-        </button>
-
-      </div>
-
-    </form>
-
-  </div>
-
+<!-- TEST MODAL -->
+<div class="modalBg" id="testModal">
+<div class="modal">
+  <button class="close" onclick="closeModal('testModal')">×</button>
+  <div id="testContent"></div>
+</div>
 </div>
 
-<!-- ========================= -->
-<!-- MODAL IQ -->
-<!-- ========================= -->
-
-<div id="iqModalBg" class="modal-bg">
-
-  <div class="modal wide">
-
-    <button id="iqModalClose" class="modal-close">×</button>
-
-    <div class="eyebrow">TEST LIBRE</div>
-
-    <h2 style="font-size:34px;">
-      Test de raisonnement
-    </h2>
-
-    <p>
-      Aucun compte nécessaire.
-      Le résultat est indicatif et ludique.
-      Il ne s'agit pas d'un test psychométrique officiel.
-    </p>
-
-    <div class="iq-progress">
-      <i id="iqModalProgress"></i>
-    </div>
-
-    <div id="iqModalQuestion"></div>
-
-    <div class="iq-nav">
-
-      <button
-        id="iqModalPrev"
-        class="btn btn-secondary btn-small"
-      >
-        Précédent
-      </button>
-
-      <button
-        id="iqModalNext"
-        class="btn btn-primary btn-small"
-      >
-        Suivant
-      </button>
-
-    </div>
-
-    <div id="iqModalResult" class="iq-result">
-
-      <div class="tag">
-        Résultat indicatif
-      </div>
-
-      <div class="iq-number" id="iqModalScore">
-        0
-      </div>
-
-      <h3 id="iqModalLabel"></h3>
-
-      <p id="iqModalAdvice"></p>
-
-      <div style="margin-top:16px;display:flex;justify-content:center;gap:8px;flex-wrap:wrap;">
-
-        <button
-          id="iqModalRestart"
-          class="btn btn-secondary btn-small"
-        >
-          Recommencer
-        </button>
-
-        <button
-          id="iqModalCreateAccount"
-          class="btn btn-primary btn-small"
-        >
-          Créer un compte pour sauvegarder
-        </button>
-
-      </div>
-
-    </div>
-
-  </div>
-
+<!-- GENERIC MODAL -->
+<div class="modalBg" id="genericModal">
+<div class="modal">
+  <button class="close" onclick="closeModal('genericModal')">×</button>
+  <div class="eyebrow">Life Upgrade</div>
+  <h2 id="genericTitle" style="font-size:32px"></h2>
+  <p id="genericText" style="margin-top:10px"></p>
+  <button class="btn primary small" style="margin-top:20px" onclick="closeModal('genericModal')">Compris</button>
+</div>
 </div>
 
-<!-- ========================= -->
-<!-- MODAL COURS -->
-<!-- ========================= -->
+<!-- ACCOUNT MODAL -->
+<div class="modalBg" id="accountModal">
+<div class="modal">
+  <button class="close" onclick="closeModal('accountModal')">×</button>
+  <div class="eyebrow">Compte gratuit</div>
+  <h2 style="font-size:32px">Créer mon espace</h2>
+  <p style="margin-top:8px">Le prototype sauvegarde actuellement les informations uniquement sur cet appareil.</p>
 
-<div id="courseModalBg" class="modal-bg">
-
-  <div class="modal wide">
-
-    <button id="courseModalClose" class="modal-close">×</button>
-
-    <div class="eyebrow">COURS GRATUIT</div>
-
-    <h2 id="courseModalTitle" style="font-size:34px;"></h2>
-
-    <p id="courseModalDescription"></p>
-
-    <div id="courseModules" style="margin-top:18px;"></div>
-
-  </div>
-
-</div>
-
-<!-- ========================= -->
-<!-- MODAL GENERIQUE -->
-<!-- ========================= -->
-
-<div id="genericModalBg" class="modal-bg">
-
-  <div class="modal">
-
-    <button id="genericModalClose" class="modal-close">×</button>
-
-    <div class="eyebrow">LIFE UPGRADE</div>
-
-    <h2 id="genericModalTitle" style="font-size:32px;"></h2>
-
-    <p id="genericModalText"></p>
-
-    <div style="margin-top:18px;display:flex;gap:9px;flex-wrap:wrap;">
-
-      <button
-        id="genericModalAction"
-        class="btn btn-primary btn-small"
-      >
-        Compris
-      </button>
-
-      <button
-        id="genericModalSecondary"
-        class="btn btn-secondary btn-small"
-      >
-        Fermer
-      </button>
-
+  <form id="accountForm" class="formGrid">
+    <div class="field"><label>Prénom</label><input id="firstName" required></div>
+    <div class="field"><label>Nom</label><input id="lastName" required></div>
+    <div class="field"><label>Pays</label><input id="country" required></div>
+    <div class="field"><label>Téléphone</label><input id="phone" type="tel" required></div>
+    <div class="field"><label>Email</label><input id="email" type="email" required></div>
+    <div class="field">
+      <label>Profil</label>
+      <select id="profile" required>
+        <option value="">Choisir</option>
+        <option>Personnel</option>
+        <option>Professionnel</option>
+        <option>Études & Orientation</option>
+        <option>Parent</option>
+      </select>
     </div>
 
-  </div>
+    <div class="field full">
+      <label>Ce que je souhaite utiliser</label>
+      <div class="checkGrid">
+        <label class="check"><input type="checkbox" value="Personnel"> Développement personnel</label>
+        <label class="check"><input type="checkbox" value="Professionnel"> Développement professionnel</label>
+        <label class="check"><input type="checkbox" value="Orientation"> Études & orientation</label>
+        <label class="check"><input type="checkbox" value="Cours"> Cours & formations</label>
+        <label class="check"><input type="checkbox" value="Tests"> Tests & exercices</label>
+        <label class="check"><input type="checkbox" value="Culture"> Culture générale</label>
+        <label class="check"><input type="checkbox" value="Forum"> Forum</label>
+        <label class="check"><input type="checkbox" value="Coaching"> Coaching</label>
+      </div>
+    </div>
 
+    <div class="field full">
+      <button class="btn primary" type="submit">Créer mon compte</button>
+    </div>
+  </form>
+</div>
 </div>
 
 <script>
-  /*
-   * ==============================================
-   * LIFE UPGRADE
-   * Prototype V2
-   * ==============================================
-   *
-   * IMPORTANT :
-   * Cette version ne contient pas encore de vrai serveur,
-   * de vraie authentification ou de vraie base de données.
-   *
-   * Les comptes sont sauvegardés uniquement dans localStorage.
-   *
-   * Les cours et le test de raisonnement sont accessibles
-   * sans inscription.
-   */
-
-  const $ = (selector) => document.querySelector(selector);
-  const $$ = (selector) => Array.from(document.querySelectorAll(selector));
-
-  /* ==============================================
-     COMPTE UTILISATEUR
-     ============================================== */
-
-  const ACCOUNT_KEY = "lifeUpgradeAccount";
-
-  function initials(firstName, lastName) {
-    const a = (firstName || "").trim().charAt(0).toUpperCase();
-    const b = (lastName || "").trim().charAt(0).toUpperCase();
-    return (a + b) || "LU";
-  }
-
-  function loadAccount() {
-    try {
-      const raw = localStorage.getItem(ACCOUNT_KEY);
-
-      if (!raw) return null;
-
-      return JSON.parse(raw);
-    } catch (error) {
-      return null;
-    }
-  }
-
-  function renderAccount() {
-    const account = loadAccount();
-
-    const chip = $("#userChip");
-    const name = $("#userName");
-    const avatar = $("#userAvatar");
-
-    if (!account) {
-      chip.classList.remove("show");
-      name.textContent = "Mon compte";
-      avatar.textContent = "LU";
-      $("#openAccountBtn").textContent = "Créer un compte";
-      return;
-    }
-
-    chip.classList.add("show");
-    name.textContent = account.firstName;
-    avatar.textContent = initials(account.firstName, account.lastName);
-    $("#openAccountBtn").textContent = "Mon profil";
-  }
-
-  function openAccountModal() {
-    $("#accountModalBg").classList.add("open");
-  }
-
-  function closeAccountModal() {
-    $("#accountModalBg").classList.remove("open");
-  }
-
-  $("#openAccountBtn").addEventListener("click", () => {
-    const account = loadAccount();
-
-    if (account) {
-      openGenericModal(
-        "Ton compte",
-        `Bienvenue ${account.firstName}. Dans cette version du prototype, ton compte est sauvegardé sur cet appareil. La prochaine étape sera de connecter un vrai système de comptes et de synchronisation.`,
-        "Compris"
-      );
-      return;
-    }
-
-    openAccountModal();
-  });
-
-  $("#accountModalClose").addEventListener(
-    "click",
-    closeAccountModal
-  );
-
-  $("#accountCancel").addEventListener(
-    "click",
-    closeAccountModal
-  );
-
-  $("#accountModalBg").addEventListener("click", (event) => {
-    if (event.target === $("#accountModalBg")) {
-      closeAccountModal();
-    }
-  });
-
-  $("#accountForm").addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const form = event.currentTarget;
-
-    const firstName = $("#firstName").value.trim();
-    const lastName = $("#lastName").value.trim();
-    const country = $("#country").value;
-    const phone = $("#phone").value.trim();
-    const email = $("#email").value.trim();
-    const profile = $("#profile").value;
-    const password = $("#password").value;
-    const passwordConfirm = $("#passwordConfirm").value;
-
-    const interests = $$('input[name="interests"]:checked')
-      .map((input) => input.value);
-
-    const error = $("#accountFormError");
-    const success = $("#accountFormSuccess");
-
-    error.style.display = "none";
-    success.style.display = "none";
-
-    if (!firstName || !lastName || !country || !phone || !email || !profile) {
-      error.textContent =
-        "Merci de compléter tous les champs obligatoires.";
-      error.style.display = "block";
-      return;
-    }
-
-    if (interests.length === 0) {
-      error.textContent =
-        "Sélectionne au moins une chose que tu souhaites retrouver sur Life Upgrade.";
-      error.style.display = "block";
-      return;
-    }
-
-    if (password.length < 6) {
-      error.textContent =
-        "Le mot de passe doit contenir au moins 6 caractères.";
-      error.style.display = "block";
-      return;
-    }
-
-    if (password !== passwordConfirm) {
-      error.textContent =
-        "Les deux mots de passe ne correspondent pas.";
-      error.style.display = "block";
-      return;
-    }
-
-    const account = {
-      firstName,
-      lastName,
-      country,
-      phone,
-      email,
-      profile,
-      interests,
-      createdAt: new Date().toISOString()
-    };
-
-    localStorage.setItem(
-      ACCOUNT_KEY,
-      JSON.stringify(account)
-    );
-
-    success.textContent =
-      `Bienvenue ${firstName} ! Ton compte a été créé sur cet appareil.`;
-
-    success.style.display = "block";
-
-    renderAccount();
-
-    setTimeout(() => {
-      closeAccountModal();
-    }, 1000);
-  });
-
-  /* ==============================================
-     PROFILS
-     ============================================== */
-
-  $$(".profile-card").forEach((card) => {
-
-    card.addEventListener("click", () => {
-
-      $$(".profile-card").forEach((item) => {
-        item.classList.remove("active");
-      });
-
-      card.classList.add("active");
-
-      const profile = card.dataset.profile;
-
-      const messages = {
-        personal:
-          "Ton parcours personnel mettra l'accent sur le temps, les habitudes, l'apprentissage et l'équilibre.",
-        professional:
-          "Ton parcours professionnel mettra l'accent sur la carrière, les compétences et les objectifs.",
-        student:
-          "Ton parcours étudiant mettra l'accent sur les études, les projets, les stages et l'employabilité.",
-        highschool:
-          "Ton parcours lycéen mettra l'accent sur l'orientation et la découverte des métiers.",
-        parent:
-          "Ton espace parent mettra l'accent sur l'accompagnement et les étapes que le jeune choisit de partager."
-      };
-
-      openGenericModal(
-        "Profil sélectionné",
-        messages[profile] || messages.personal,
-        "Continuer"
-      );
-    });
-
-  });
-
-  /* ==============================================
-     SIMULATEUR
-     ============================================== */
-
-  const screenInput = $("#screen");
-  const sportInput = $("#sport");
-  const learningInput = $("#learning");
-  const savingInput = $("#saving");
-  const meetingInput = $("#meeting");
-
-  function numberDisplay(value) {
-    return Number(value).toFixed(2).replace(".00", "").replace(".50", ".5");
-  }
-
-  function updateSimulator() {
-
-    const screen = Number(screenInput.value);
-    const sport = Number(sportInput.value);
-    const learning = Number(learningInput.value);
-    const saving = Number(savingInput.value);
-    const meeting = Number(meetingInput.value);
-
-    const screenAnnual = screen * 365;
-    const sportAnnual = sport * 52;
-    const learningAnnual = learning * 52;
-    const savingAnnual = saving * 12;
-    const meetingAnnual = meeting * 52;
-
-    const baselineScreen = 4;
-    const recovered = Math.max(
-      0,
-      (baselineScreen - screen) * 365
-    );
-
-    const scoreRaw =
-      60
-      - screen * 3
-      + sport * 2.4
-      + learning * 1.5
-      + Math.min(saving / 120, 8)
-      - Math.max(0, meeting - 7) * .7;
-
-    const score = Math.max(
-      0,
-      Math.min(100, Math.round(scoreRaw))
-    );
-
-    /*
-     * Valeurs des contrôles
-     */
-    $("#screenValue").textContent = numberDisplay(screen);
-    $("#sportValue").textContent = sport;
-    $("#learningValue").textContent = numberDisplay(learning);
-    $("#savingValue").textContent = saving;
-    $("#meetingValue").textContent = numberDisplay(meeting);
-
-    /*
-     * Résultats
-     */
-    $("#phoneTotal").textContent =
-      Math.round(screenAnnual) + " h";
-
-    $("#sportTotal").textContent =
-      Math.round(sportAnnual);
-
-    $("#learningTotal").textContent =
-      Math.round(learningAnnual) + " h";
-
-    $("#savingTotal").textContent =
-      Math.round(savingAnnual) + " €";
-
-    /*
-     * Barres
-     */
-    $("#phoneBar").style.width =
-      Math.min(100, screen / 8 * 100) + "%";
-
-    $("#sportBar").style.width =
-      Math.min(100, sport / 7 * 100) + "%";
-
-    $("#learningBar").style.width =
-      Math.min(100, learning / 20 * 100) + "%";
-
-    $("#meetingBar").style.width =
-      Math.min(100, meeting / 20 * 100) + "%";
-
-    $("#phoneBarLabel").textContent =
-      Math.round(screenAnnual) + " h";
-
-    $("#sportBarLabel").textContent =
-      Math.round(sportAnnual);
-
-    $("#learningBarLabel").textContent =
-      Math.round(learningAnnual) + " h";
-
-    $("#meetingBarLabel").textContent =
-      Math.round(meetingAnnual) + " h";
-
-    /*
-     * Scénario
-     */
-    $("#recoveredHours").textContent =
-      Math.round(recovered) + " h récupérables";
-
-    $("#scenarioDescription").textContent =
-      recovered > 0
-      ? "À ce rythme, tu pourrais réallouer une partie de ce temps au sport, à l'apprentissage, à un projet, à tes proches ou au repos."
-      : "Commence par réduire une seule variable et observe l'effet cumulé.";
-
-    /*
-     * Tableau
-     */
-    $("#tableScreenNow").textContent =
-      numberDisplay(screen) + " h/jour";
-
-    $("#tableScreenYear").textContent =
-      Math.round(screenAnnual) + " h";
-
-    $("#tableSportNow").textContent =
-      sport + " / semaine";
-
-    $("#tableSportYear").textContent =
-      Math.round(sportAnnual);
-
-    $("#tableLearningNow").textContent =
-      numberDisplay(learning) + " h/semaine";
-
-    $("#tableLearningYear").textContent =
-      Math.round(learningAnnual) + " h";
-
-    $("#tableSavingNow").textContent =
-      saving + " €/mois";
-
-    $("#tableSavingYear").textContent =
-      Math.round(savingAnnual) + " €";
-
-    /*
-     * Hero
-     */
-    $("#heroScore").textContent = score;
-    $("#heroRecovered").textContent =
-      Math.round(recovered) + " h";
-    $("#heroSavings").textContent =
-      Math.round(savingAnnual) + " €";
-    $("#heroLearning").textContent =
-      Math.round(learningAnnual) + " h";
-    $("#heroSport").textContent =
-      Math.round(sportAnnual);
-  }
-
-  [
-    screenInput,
-    sportInput,
-    learningInput,
-    savingInput,
-    meetingInput
-  ].forEach((input) => {
-    input.addEventListener("input", updateSimulator);
-  });
-
-  $("#upgradeTrajectoryBtn").addEventListener(
-    "click",
-    () => {
-      openGenericModal(
-        "Scénario enregistré",
-        "Dans cette version, le scénario est calculé localement. La prochaine étape permettra d'enregistrer plusieurs scénarios et de comparer leur évolution dans le temps.",
-        "Compris"
-      );
-    }
-  );
-
-  updateSimulator();
-
-  /* ==============================================
-     TEST DE RAISONNEMENT
-     ============================================== */
-
-  const iqQuestions = [
-    {
-      question: "Quelle suite complète le mieux : 2, 4, 8, 16, ... ?",
-      options: ["18", "24", "32", "36"],
-      answer: 2
-    },
-    {
-      question: "Si tous les A sont B et qu'aucun B n'est C, que peut-on conclure ?",
-      options: [
-        "Certains A sont C",
-        "Aucun A n'est C",
-        "Tous les C sont A",
-        "On ne peut rien dire"
-      ],
-      answer: 1
-    },
-    {
-      question: "Quel nombre manque : 3, 6, 11, 18, 27, ... ?",
-      options: ["36", "38", "40", "42"],
-      answer: 1
-    },
-    {
-      question: "Quel mot est différent des autres ?",
-      options: [
-        "Carré",
-        "Triangle",
-        "Cercle",
-        "Banane"
-      ],
-      answer: 3
-    },
-    {
-      question: "Un train parcourt 120 km en 2 heures. Combien parcourt-il en 3 heures au même rythme ?",
-      options: [
-        "150 km",
-        "160 km",
-        "180 km",
-        "200 km"
-      ],
-      answer: 2
-    },
-    {
-      question: "Quelle lettre suit : A, C, F, J, O, ... ?",
-      options: ["T", "U", "V", "W"],
-      answer: 1
-    },
-    {
-      question: "5 machines fabriquent 5 objets en 5 minutes. Combien de temps faut-il à 100 machines pour fabriquer 100 objets au même rythme ?",
-      options: [
-        "5 minutes",
-        "20 minutes",
-        "100 minutes",
-        "500 minutes"
-      ],
-      answer: 0
-    },
-    {
-      question: "Quel est 50 % de 90 ?",
-      options: ["35", "40", "45", "55"],
-      answer: 2
-    }
-  ];
-
-  let iqIndex = 0;
-  let iqAnswers = Array(iqQuestions.length).fill(null);
-
-  function openIQ() {
-    $("#iqModalBg").classList.add("open");
-    resetIQ();
-  }
-
-  function closeIQ() {
-    $("#iqModalBg").classList.remove("open");
-  }
-
-  function renderIQ() {
-
-    const item = iqQuestions[iqIndex];
-
-    $("#iqModalQuestion").innerHTML = `
-      <div class="iq-question active">
-        <div class="tag">Question ${iqIndex + 1} / ${iqQuestions.length}</div>
-        <h3 style="margin-top:14px;">
-          ${item.question}
-        </h3>
-
-        <div class="iq-options">
-          ${item.options.map((option, index) => `
-            <button
-              class="iq-option ${iqAnswers[iqIndex] === index ? "selected" : ""}"
-              data-iq-option="${index}"
-            >
-              ${String.fromCharCode(65 + index)}. ${option}
-            </button>
-          `).join("")}
-        </div>
-      </div>
-    `;
-
-    $$("#iqModalQuestion .iq-option").forEach((button) => {
-
-      button.addEventListener("click", () => {
-
-        iqAnswers[iqIndex] =
-          Number(button.dataset.iqOption);
-
-        $$("#iqModalQuestion .iq-option")
-          .forEach((b) => b.classList.remove("selected"));
-
-        button.classList.add("selected");
-
-      });
-
-    });
-
-    $("#iqModalProgress").style.width =
-      ((iqIndex + 1) / iqQuestions.length * 100) + "%";
-
-    $("#iqModalPrev").disabled =
-      iqIndex === 0;
-
-    $("#iqModalNext").textContent =
-      iqIndex === iqQuestions.length - 1
-        ? "Voir mon résultat"
-        : "Suivant";
-  }
-
-  function calculateIQResult() {
-
-    let score = 0;
-
-    iqQuestions.forEach((question, index) => {
-
-      if (iqAnswers[index] === question.answer) {
-        score++;
-      }
-
-    });
-
-    const estimated =
-      85 + score * 6;
-
-    $("#iqModalScore").textContent =
-      estimated;
-
-    $("#iqModalLabel").textContent =
-      score >= 7
-        ? "Très bon résultat de raisonnement"
-        : score >= 5
-        ? "Bon résultat de raisonnement"
-        : score >= 3
-        ? "Résultat intermédiaire"
-        : "Résultat à interpréter avec prudence";
-
-    $("#iqModalAdvice").textContent =
-      `Tu as obtenu ${score} bonne(s) réponse(s) sur ${iqQuestions.length}. Le chiffre affiché est une estimation ludique basée sur ce mini-test. Il ne constitue pas un QI officiel.`;
-
-    $("#iqModalResult").classList.add("show");
-    $("#iqModalQuestion").style.display = "none";
-    $("#iqModalNext").style.display = "none";
-    $("#iqModalPrev").style.display = "none";
-  }
-
-  function resetIQ() {
-
-    iqIndex = 0;
-    iqAnswers = Array(iqQuestions.length).fill(null);
-
-    $("#iqModalResult").classList.remove("show");
-    $("#iqModalQuestion").style.display = "";
-    $("#iqModalNext").style.display = "";
-    $("#iqModalPrev").style.display = "";
-
-    renderIQ();
-  }
-
-  $("#iqNext").addEventListener("click", () => {});
-
-  $("#iqModalNext").addEventListener(
-    "click",
-    () => {
-
-      if (iqAnswers[iqIndex] === null) {
-
-        openGenericModal(
-          "Choisis une réponse",
-          "Réponds à la question avant de continuer.",
-          "Compris"
-        );
-
-        return;
-      }
-
-      if (iqIndex < iqQuestions.length - 1) {
-        iqIndex++;
-        renderIQ();
-        return;
-      }
-
-      calculateIQResult();
-    }
-  );
-
-  $("#iqModalPrev").addEventListener(
-    "click",
-    () => {
-
-      if (iqIndex > 0) {
-        iqIndex--;
-        renderIQ();
-      }
-
-    }
-  );
-
-  $("#iqModalRestart").addEventListener(
-    "click",
-    resetIQ
-  );
-
-  $("#openIQHero").addEventListener(
-    "click",
-    openIQ
-  );
-
-  $("#iqModalClose").addEventListener(
-    "click",
-    closeIQ
-  );
-
-  $("#iqModalBg").addEventListener(
-    "click",
-    (event) => {
-
-      if (event.target === $("#iqModalBg")) {
-        closeIQ();
-      }
-
-    }
-  );
-
-  $("#iqModalCreateAccount").addEventListener(
-    "click",
-    () => {
-      closeIQ();
-      openAccountModal();
-    }
-  );
-
-  $("#iqSaveResult").addEventListener(
-    "click",
-    () => {
-      openIQ();
-    }
-  );
-
-  /* ==============================================
-     COURS GRATUITS
-     ============================================== */
-
-  const freeCourses = {
-
-    "public-speaking": {
-      title: "Prendre la parole avec confiance",
-      description:
-        "Un parcours gratuit pour structurer une idée, poser sa voix et s'entraîner à parler devant un public.",
-      modules: [
-        [
-          "1. Structurer son idée",
-          "Commencer par une idée centrale, quelques points importants et une conclusion claire."
-        ],
-        [
-          "2. Parler sans lire",
-          "Utiliser des repères plutôt qu'apprendre un texte mot à mot."
-        ],
-        [
-          "3. Voix et rythme",
-          "Travailler les pauses, le débit et le volume."
-        ],
-        [
-          "4. Regard et posture",
-          "Adopter une posture stable et regarder différentes zones du public."
-        ],
-        [
-          "5. Répondre aux questions",
-          "Écouter, reformuler puis répondre de manière structurée."
-        ],
-        [
-          "6. Mise en situation",
-          "Faire une présentation courte avec un chronomètre."
-        ],
-        [
-          "7. Bilan",
-          "Identifier ce qui a progressé et décider du prochain entraînement."
-        ]
-      ]
-    },
-
-    "data-analyst": {
-      title: "Découvrir le métier de Data Analyst",
-      description:
-        "Un cours gratuit pour comprendre le métier, les outils, les compétences et le quotidien.",
-      modules: [
-        [
-          "1. Le rôle",
-          "Transformer des données en informations utiles à une décision."
-        ],
-        [
-          "2. Les outils",
-          "Découvrir Excel, SQL, visualisation et statistiques de base."
-        ],
-        [
-          "3. Une journée type",
-          "Explorer les tâches : collecte, nettoyage, analyse et restitution."
-        ],
-        [
-          "4. Les compétences",
-          "Rigueur, logique, communication, curiosité et compréhension du contexte."
-        ],
-        [
-          "5. Projet découverte",
-          "Imaginer une petite analyse et présenter une conclusion."
-        ]
-      ]
-    },
-
-    "learning-how": {
-      title: "Apprendre à apprendre",
-      description:
-        "Un parcours gratuit pour mieux organiser une période d'étude, mémoriser et suivre sa progression.",
-      modules: [
-        [
-          "1. Fixer un objectif",
-          "Définir précisément ce qui doit être acquis."
-        ],
-        [
-          "2. Découper",
-          "Transformer un gros sujet en petites unités travaillables."
-        ],
-        [
-          "3. Rappel actif",
-          "S'entraîner à retrouver une information plutôt qu'à simplement la relire."
-        ],
-        [
-          "4. Révisions espacées",
-          "Répartir les rappels dans le temps."
-        ],
-        [
-          "5. Bilan",
-          "Mesurer ce qui est acquis et ce qui doit encore être travaillé."
-        ]
-      ]
-    }
-
+const $=s=>document.querySelector(s);
+const $$=s=>Array.from(document.querySelectorAll(s));
+
+function scrollToId(id){document.getElementById(id)?.scrollIntoView({behavior:"smooth"})}
+function openModal(id){document.getElementById(id).classList.add("open")}
+function closeModal(id){document.getElementById(id).classList.remove("open")}
+function generic(title,text){
+  $("#genericTitle").textContent=title;
+  $("#genericText").textContent=text;
+  openModal("genericModal");
+}
+function selectPoll(el){
+  $$(".pollOption").forEach(x=>x.classList.remove("selected"));
+  el.classList.add("selected");
+}
+function openAccount(){openModal("accountModal")}
+
+$("#accountForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const account={
+    firstName:$("#firstName").value,
+    lastName:$("#lastName").value,
+    country:$("#country").value,
+    phone:$("#phone").value,
+    email:$("#email").value,
+    profile:$("#profile").value
   };
+  localStorage.setItem("lifeUpgradeAccount",JSON.stringify(account));
+  closeModal("accountModal");
+  generic("Compte créé","Bienvenue "+account.firstName+". Ton profil est sauvegardé localement sur cet appareil pour cette version prototype.");
+});
 
-  function openCourse(id) {
+/* ============================
+   REASONING TEST ENGINE
+============================ */
 
-    const course = freeCourses[id];
+const reasoningTests={
+logic:{
+ title:"Raisonnement logique",
+ time:45,
+ questions:[
+  ["Tous les tulipes sont des fleurs. Certaines fleurs fanent vite. Peut-on conclure que toutes les tulipes fanent vite ?",["Oui","Non","Seulement au printemps","Impossible à savoir"],3],
+  ["Si A > B et B > C, alors :",["C > A","A > C","A = C","Impossible"],1],
+  ["Paul est avant Léa. Léa est avant Marc. Qui est dernier ?",["Paul","Léa","Marc","Impossible"],2],
+  ["Tous les X sont Y. Aucun Y n'est Z. Un X peut-il être Z ?",["Oui","Non","Toujours","Parfois"],1],
+  ["Si aujourd'hui est mardi, dans 10 jours nous serons :",["Jeudi","Vendredi","Samedi","Dimanche"],1],
+  ["A implique B. B est faux. Que peut-on conclure sur A ?",["A est vrai","A est faux","Rien","A et B sont vrais"],1],
+  ["Trois boîtes : rouge avant bleue, verte après bleue. Ordre ?",["R-B-V","V-B-R","B-R-V","R-V-B"],0],
+  ["Tous les chats sont mammifères. Félix est un chat. Félix est :",["Oiseau","Mammifère","Poisson","Impossible"],1],
+  ["Si aucun A n'est B et C est A, C peut-il être B ?",["Oui","Non","Toujours","Seulement parfois"],1],
+  ["Marie est plus âgée que Luc. Luc est plus âgé que Tom. Le plus jeune ?",["Marie","Luc","Tom","Impossible"],2]
+ ]
+},
+numeric:{
+ title:"Raisonnement numérique",
+ time:45,
+ questions:[
+  ["2, 4, 8, 16, ?",["24","30","32","36"],2],
+  ["3, 6, 11, 18, 27, ?",["36","38","40","42"],1],
+  ["5, 10, 20, 40, ?",["50","60","70","80"],3],
+  ["100 diminué de 25 % =",["65","70","75","80"],2],
+  ["3 personnes font 3 tâches en 3 h au même rythme. 6 personnes font 6 tâches en :",["3 h","6 h","9 h","12 h"],0],
+  ["1, 4, 9, 16, ?",["20","24","25","36"],2],
+  ["50 % de 240 =",["100","110","120","140"],2],
+  ["12 × 8 =",["84","92","96","108"],2],
+  ["Une voiture fait 180 km en 3 h. Vitesse moyenne ?",["50","60","70","80"],1],
+  ["2, 5, 10, 17, 26, ?",["35","36","37","38"],2]
+ ]
+},
+verbal:{
+ title:"Raisonnement verbal",
+ time:45,
+ questions:[
+  ["Livre est à lire ce que musique est à :",["voir","écouter","courir","dessiner"],1],
+  ["Quel mot est l'intrus ?",["chien","chat","cheval","table"],3],
+  ["Rapide est l'opposé de :",["lent","court","grand","fort"],0],
+  ["Main est à gant ce que pied est à :",["chapeau","chaussure","chemise","ceinture"],1],
+  ["Médecin est à hôpital ce que professeur est à :",["gare","école","usine","banque"],1],
+  ["Quel mot se rapproche le plus de 'précis' ?",["vague","exact","lent","large"],1],
+  ["Jour est à nuit ce que chaud est à :",["froid","soleil","été","feu"],0],
+  ["Oiseau est à voler ce que poisson est à :",["courir","nager","sauter","marcher"],1],
+  ["Lequel appartient à une autre catégorie ?",["rouge","bleu","vert","cercle"],3],
+  ["Cause est à conséquence ce que question est à :",["réponse","problème","doute","silence"],0]
+ ]
+},
+mixed:{
+ title:"Challenge de raisonnement",
+ time:45,
+ questions:[]
+}
+};
 
-    if (!course) return;
+reasoningTests.mixed.questions=[
+ ...reasoningTests.logic.questions.slice(0,5),
+ ...reasoningTests.numeric.questions.slice(0,5),
+ ...reasoningTests.verbal.questions.slice(0,5)
+];
 
-    $("#courseModalTitle").textContent =
-      course.title;
+let testState=null;
+let timerInterval=null;
 
-    $("#courseModalDescription").textContent =
-      course.description;
+function openReasoningMenu(){
+ let html=`
+ <div class="eyebrow">Reasoning Lab</div>
+ <h2 style="font-size:32px">Choisis ton test</h2>
+ <p style="margin-top:8px">Tests gratuits sans inscription. Le score est un score Life Upgrade de raisonnement, pas un QI clinique.</p>
+ <div class="grid2" style="margin-top:20px">
+   <button class="card" onclick="startReasoningTest('logic')"><h3>Logique</h3><p>10 questions · 45 s/question</p></button>
+   <button class="card" onclick="startReasoningTest('numeric')"><h3>Numérique</h3><p>10 questions · 45 s/question</p></button>
+   <button class="card" onclick="startReasoningTest('verbal')"><h3>Verbal</h3><p>10 questions · 45 s/question</p></button>
+   <button class="card" onclick="startReasoningTest('mixed')"><h3>Challenge mixte</h3><p>15 questions · 45 s/question</p></button>
+ </div>`;
+ $("#testContent").innerHTML=html;
+ openModal("testModal");
+}
 
-    $("#courseModules").innerHTML =
-      course.modules.map(([title, description]) => `
-        <div class="course-module">
-          <strong>${title}</strong>
-          <p>${description}</p>
-        </div>
-      `).join("") + `
-        <div style="margin-top:18px;">
-          <button
-            id="finishCourseBtn"
-            class="btn btn-primary btn-small"
-          >
-            Terminer le cours
-          </button>
-        </div>
-      `;
+function startReasoningTest(type){
+ const test=reasoningTests[type];
+ testState={
+  type,
+  index:0,
+  answers:Array(test.questions.length).fill(null),
+  times:Array(test.questions.length).fill(0),
+  remaining:test.time,
+  started:Date.now()
+ };
+ openModal("testModal");
+ renderQuestion();
+}
 
-    $("#courseModalBg").classList.add("open");
+function renderQuestion(){
+ clearInterval(timerInterval);
+ const test=reasoningTests[testState.type];
+ const q=test.questions[testState.index];
+ testState.remaining=test.time;
 
-    $("#finishCourseBtn").addEventListener(
-      "click",
-      () => {
+ $("#testContent").innerHTML=`
+ <div class="eyebrow">${test.title}</div>
+ <div class="testHeader">
+   <div>
+     <strong>Question ${testState.index+1} / ${test.questions.length}</strong>
+     <div class="testProgress" style="width:250px;margin-top:8px"><i style="width:${((testState.index+1)/test.questions.length)*100}%"></i></div>
+   </div>
+   <div class="timer" id="timer">${test.time}s</div>
+ </div>
+ <div class="question">${q[0]}</div>
+ <div class="answers">
+   ${q[1].map((a,i)=>`<button class="answer" onclick="answerQuestion(${i})">${String.fromCharCode(65+i)}. ${a}</button>`).join("")}
+ </div>
+ <p style="margin-top:15px;font-size:11px">Temps conseillé : ${test.time} secondes. À 0, la question sera comptée comme non répondue.</p>
+ `;
 
-        closeCourse();
-
-        openGenericModal(
-          "Cours terminé",
-          "Bravo. Le cours est terminé. Dans la prochaine version, ta progression pourra être enregistrée dans ton compte et intégrée à ta trajectoire.",
-          "Compris"
-        );
-
-      }
-    );
-
+ timerInterval=setInterval(()=>{
+  testState.remaining--;
+  const timer=$("#timer");
+  if(!timer)return;
+  timer.textContent=testState.remaining+"s";
+  if(testState.remaining<=10)timer.classList.add("danger");
+  else if(testState.remaining<=20)timer.classList.add("warning");
+  if(testState.remaining<=0){
+   clearInterval(timerInterval);
+   testState.times[testState.index]=test.time;
+   nextQuestion();
   }
+ },1000);
+}
 
-  function closeCourse() {
-    $("#courseModalBg").classList.remove("open");
+function answerQuestion(i){
+ const test=reasoningTests[testState.type];
+ testState.answers[testState.index]=i;
+ testState.times[testState.index]=test.time-testState.remaining;
+ clearInterval(timerInterval);
+ setTimeout(nextQuestion,200);
+}
+
+function nextQuestion(){
+ const test=reasoningTests[testState.type];
+ if(testState.index<test.questions.length-1){
+  testState.index++;
+  renderQuestion();
+ }else{
+  showReasoningResult();
+ }
+}
+
+function showReasoningResult(){
+ clearInterval(timerInterval);
+ const test=reasoningTests[testState.type];
+ let correct=0, unanswered=0;
+ test.questions.forEach((q,i)=>{
+  if(testState.answers[i]===null)unanswered++;
+  else if(testState.answers[i]===q[2])correct++;
+ });
+ const total=test.questions.length;
+ const pct=Math.round(correct/total*100);
+ const totalTime=testState.times.reduce((a,b)=>a+b,0);
+ const avg=Math.round(totalTime/total);
+
+ let saved=JSON.parse(localStorage.getItem("luStats")||'{"tests":0,"memory":0,"focus":0,"best":0}');
+ saved.tests++;
+ saved.best=Math.max(saved.best,pct);
+ localStorage.setItem("luStats",JSON.stringify(saved));
+ updateDashboard();
+
+ $("#testContent").innerHTML=`
+ <div class="result">
+  <div class="eyebrow">Résultat</div>
+  <h2>${test.title}</h2>
+  <div class="resultScore">${pct}/100</div>
+  <p>Score Life Upgrade de raisonnement</p>
+  <div class="resultGrid">
+    <div class="resultStat"><span>Bonnes réponses</span><strong>${correct}/${total}</strong></div>
+    <div class="resultStat"><span>Non répondues</span><strong>${unanswered}</strong></div>
+    <div class="resultStat"><span>Temps moyen</span><strong>${avg}s</strong></div>
+  </div>
+  <p style="margin-top:20px">Ce résultat décrit ta performance à ce test. Il ne constitue pas une mesure clinique ou officielle du QI.</p>
+  <div style="margin-top:18px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+   <button class="btn secondary" onclick="startReasoningTest('${testState.type}')">Recommencer</button>
+   <button class="btn primary" onclick="openReasoningMenu()">Autre test</button>
+  </div>
+ </div>`;
+}
+
+/* ============================
+   MEMORY LAB
+============================ */
+
+let memoryState=null;
+
+function startMemoryMenu(){
+ $("#testContent").innerHTML=`
+ <div class="eyebrow">Memory Lab</div>
+ <h2 style="font-size:32px">Entraîne ta mémoire</h2>
+ <p style="margin-top:8px">Voici une première version interactive de plusieurs exercices.</p>
+ <div class="grid2" style="margin-top:20px">
+   <button class="card" onclick="startDigitMemory(false)"><h3>Séquence de chiffres</h3><p>Mémorise puis reproduis la séquence.</p></button>
+   <button class="card" onclick="startDigitMemory(true)"><h3>Séquence inversée</h3><p>Reproduis la séquence dans l'ordre inverse.</p></button>
+   <button class="card" onclick="startGridMemory()"><h3>Grille visuelle</h3><p>Mémorise les cases colorées.</p></button>
+   <button class="card" onclick="generic('Autres exercices','Les exercices Liste de mots, Paires, Associations, Images & positions, Mémoire de texte, N-back et rappel différé sont prévus dans la bibliothèque complète.')"><h3>7 autres exercices</h3><p>Voir le programme complet.</p></button>
+ </div>`;
+ openModal("testModal");
+}
+
+function startDigitMemory(reverse=false){
+ const level=5;
+ const digits=Array.from({length:level},()=>Math.floor(Math.random()*10));
+ memoryState={digits,reverse};
+ $("#testContent").innerHTML=`
+ <div class="eyebrow">Memory Lab</div>
+ <h2>${reverse?"Séquence inversée":"Séquence de chiffres"}</h2>
+ <p>Mémorise cette séquence. Elle disparaît dans 5 secondes.</p>
+ <div class="memoryDisplay"><div class="bigSequence">${digits.join(" ")}</div></div>
+ <div class="timer" id="memoryTimer">5s</div>`;
+ let n=5;
+ const interval=setInterval(()=>{
+  n--;
+  const el=$("#memoryTimer");
+  if(el)el.textContent=n+"s";
+  if(n<=0){
+   clearInterval(interval);
+   askDigitMemory();
   }
+ },1000);
+}
 
-  $$(".free-course-btn").forEach((button) => {
+function askDigitMemory(){
+ $("#testContent").innerHTML=`
+ <div class="eyebrow">Memory Lab</div>
+ <h2>À toi</h2>
+ <p>${memoryState.reverse?"Entre la séquence dans l'ordre inverse.":"Entre la séquence dans le même ordre."}</p>
+ <div class="memoryDisplay">
+   <input id="memoryAnswer" style="font-size:25px;text-align:center;padding:12px;border:1px solid #ddd;border-radius:10px" maxlength="10" autofocus>
+ </div>
+ <button class="btn primary" onclick="checkDigitMemory()">Valider</button>`;
+}
 
-    button.addEventListener(
-      "click",
-      () => openCourse(button.dataset.course)
-    );
+function checkDigitMemory(){
+ const expected=(memoryState.reverse?[...memoryState.digits].reverse():memoryState.digits).join("");
+ const answer=$("#memoryAnswer").value.replace(/\D/g,"");
+ const ok=answer===expected;
 
-  });
+ let saved=JSON.parse(localStorage.getItem("luStats")||'{"tests":0,"memory":0,"focus":0,"best":0}');
+ saved.memory++;
+ localStorage.setItem("luStats",JSON.stringify(saved));
+ updateDashboard();
 
-  $("#courseModalClose").addEventListener(
-    "click",
-    closeCourse
-  );
+ $("#testContent").innerHTML=`
+ <div class="result">
+  <div class="resultScore">${ok?"✓":"✕"}</div>
+  <h2>${ok?"Bonne réponse":"À retravailler"}</h2>
+  <p>Réponse attendue : ${expected}</p>
+  <button class="btn primary" style="margin-top:18px" onclick="startDigitMemory(${memoryState.reverse})">Nouvelle séquence</button>
+  <button class="btn secondary" style="margin-top:18px" onclick="startMemoryMenu()">Memory Lab</button>
+ </div>`;
+}
 
-  $("#courseModalBg").addEventListener(
-    "click",
-    (event) => {
+function startGridMemory(){
+ const cells=[...Array(16).keys()];
+ const active=[];
+ while(active.length<5){
+  const n=Math.floor(Math.random()*16);
+  if(!active.includes(n))active.push(n);
+ }
+ memoryState={active,user:[]};
+ $("#testContent").innerHTML=`
+ <div class="eyebrow">Mémoire visuelle</div>
+ <h2>Mémorise les cases</h2>
+ <p>Elles disparaissent dans 4 secondes.</p>
+ <div class="memoryDisplay"><div class="memoryGrid">
+ ${cells.map(i=>`<div class="memoryCell ${active.includes(i)?"active":""}"></div>`).join("")}
+ </div></div>`;
+ setTimeout(askGridMemory,4000);
+}
 
-      if (event.target === $("#courseModalBg")) {
-        closeCourse();
-      }
+function askGridMemory(){
+ $("#testContent").innerHTML=`
+ <div class="eyebrow">Mémoire visuelle</div>
+ <h2>Retrouve les 5 cases</h2>
+ <div class="memoryDisplay"><div class="memoryGrid">
+ ${[...Array(16).keys()].map(i=>`<button class="memoryCell" data-cell="${i}" onclick="selectMemoryCell(this,${i})"></button>`).join("")}
+ </div></div>
+ <button class="btn primary" onclick="checkGridMemory()">Valider</button>`;
+}
 
-    }
-  );
+function selectMemoryCell(el,i){
+ if(memoryState.user.includes(i)){
+  memoryState.user=memoryState.user.filter(x=>x!==i);
+  el.classList.remove("user");
+ }else if(memoryState.user.length<5){
+  memoryState.user.push(i);
+  el.classList.add("user");
+ }
+}
 
-  /* ==============================================
-     SONDAGE
-     ============================================== */
+function checkGridMemory(){
+ const correct=memoryState.user.filter(x=>memoryState.active.includes(x)).length;
+ let saved=JSON.parse(localStorage.getItem("luStats")||'{"tests":0,"memory":0,"focus":0,"best":0}');
+ saved.memory++;
+ localStorage.setItem("luStats",JSON.stringify(saved));
+ updateDashboard();
+ $("#testContent").innerHTML=`
+ <div class="result">
+  <div class="resultScore">${correct}/5</div>
+  <h2>Mémoire visuelle</h2>
+  <p>${correct===5?"Parfait.":correct>=3?"Bon résultat.":"Essaie une nouvelle série."}</p>
+  <button class="btn primary" style="margin-top:18px" onclick="startGridMemory()">Recommencer</button>
+ </div>`;
+}
 
-  let selectedPoll = null;
+/* ============================
+   FOCUS TIMER
+============================ */
 
-  $$(".poll-option").forEach((button) => {
+let focusInterval=null;
+let focusSeconds=0;
 
-    button.addEventListener(
-      "click",
-      () => {
+function startFocusTimer(){
+ $("#testContent").innerHTML=`
+ <div class="eyebrow">Focus Lab</div>
+ <h2>Focus Timer</h2>
+ <p>Choisis une durée. Le prototype utilise des durées courtes pour permettre de tester le fonctionnement.</p>
+ <div class="grid2" style="margin-top:20px">
+  <button class="card" onclick="runFocus(10)"><h3>Focus rapide</h3><p>10 minutes</p></button>
+  <button class="card" onclick="runFocus(25)"><h3>Focus</h3><p>25 minutes</p></button>
+  <button class="card" onclick="runFocus(45)"><h3>Focus long</h3><p>45 minutes</p></button>
+  <button class="card" onclick="runFocus(60)"><h3>Deep Work</h3><p>60 minutes</p></button>
+ </div>`;
+ openModal("testModal");
+}
 
-        $$(".poll-option").forEach((item) => {
-          item.classList.remove("selected");
-        });
-
-        button.classList.add("selected");
-
-        selectedPoll = button.dataset.poll;
-
-      }
-    );
-
-  });
-
-  $("#voteBtn").addEventListener(
-    "click",
-    () => {
-
-      if (!selectedPoll) {
-
-        $("#voteStatus").textContent =
-          "Choisis d'abord un sujet.";
-
-        return;
-      }
-
-      $("#voteStatus").textContent =
-        `Merci ! Ton vote pour « ${selectedPoll} » est enregistré dans ce prototype.`;
-    }
-  );
-
-  $("#suggestTopicBtn").addEventListener(
-    "click",
-    () => {
-
-      openGenericModal(
-        "Proposer un sujet",
-        "La prochaine version permettra de proposer un sujet, puis de le faire remonter au vote de la communauté.",
-        "Compris"
-      );
-
-    }
-  );
-
-  $("#experienceBtn").addEventListener(
-    "click",
-    () => {
-
-      openGenericModal(
-        "Partager une expérience",
-        "La communauté pourra bientôt publier des expériences sur les études, la carrière, les habitudes, les reconversions et les apprentissages.",
-        "Compris"
-      );
-
-    }
-  );
-
-  /* ==============================================
-     ORIENTATION
-     ============================================== */
-
-  $$(".orientation-btn").forEach((button) => {
-
-    button.addEventListener(
-      "click",
-      () => {
-
-        openGenericModal(
-          button.dataset.title,
-          button.dataset.text,
-          "Compris"
-        );
-
-      }
-    );
-
-  });
-
-  /* ==============================================
-     CONSEIL PROFESSIONNEL
-     ============================================== */
-
-  $("#careerAdviceBtn").addEventListener(
-    "click",
-    () => {
-
-      openGenericModal(
-        "Conseil professionnel",
-        "Dans une version complète, Life Upgrade utilisera ton profil, ton objectif, tes compétences, tes expériences et les informations disponibles sur le marché pour proposer plusieurs options et expliquer les écarts à combler.",
-        "Compris"
-      );
-
-    }
-  );
-
-  /* ==============================================
-     PREMIUM
-     ============================================== */
-
-  $("#premiumInterestBtn").addEventListener(
-    "click",
-    () => {
-
-      const account = loadAccount();
-
-      if (!account) {
-
-        openGenericModal(
-          "Créer d'abord ton compte",
-          "Pour manifester ton intérêt pour le coaching Premium, commence par créer ton compte gratuitement.",
-          "Créer mon compte"
-        );
-
-        const genericAction = $("#genericModalAction");
-
-        genericAction.onclick = () => {
-          closeGenericModal();
-          openAccountModal();
-        };
-
-        return;
-      }
-
-      openGenericModal(
-        "Liste d'intérêt",
-        `Merci ${account.firstName}. Ton intérêt pour le coaching Premium est enregistré dans ce prototype.`,
-        "Compris"
-      );
-
-    }
-  );
-
-  /* ==============================================
-     MODAL GENERIQUE
-     ============================================== */
-
-  function openGenericModal(title, text, actionText) {
-
-    $("#genericModalTitle").textContent =
-      title;
-
-    $("#genericModalText").textContent =
-      text;
-
-    $("#genericModalAction").textContent =
-      actionText || "Compris";
-
-    $("#genericModalAction").onclick =
-      closeGenericModal;
-
-    $("#genericModalBg").classList.add("open");
+function runFocus(minutes){
+ clearInterval(focusInterval);
+ focusSeconds=minutes*60;
+ $("#testContent").innerHTML=`
+ <div class="result">
+  <div class="eyebrow">Focus Session</div>
+  <h2>Une seule tâche.</h2>
+  <p>Éloigne les distractions et travaille uniquement sur ton objectif.</p>
+  <div class="resultScore" id="focusClock">${formatClock(focusSeconds)}</div>
+  <button class="btn secondary" onclick="finishFocus(${minutes})">Terminer maintenant</button>
+ </div>`;
+ focusInterval=setInterval(()=>{
+  focusSeconds--;
+  const el=$("#focusClock");
+  if(el)el.textContent=formatClock(focusSeconds);
+  if(focusSeconds<=0){
+   clearInterval(focusInterval);
+   finishFocus(minutes);
   }
+ },1000);
+}
 
-  function closeGenericModal() {
-    $("#genericModalBg").classList.remove("open");
-  }
+function formatClock(s){
+ const m=Math.floor(s/60).toString().padStart(2,"0");
+ const sec=(s%60).toString().padStart(2,"0");
+ return m+":"+sec;
+}
 
-  $("#genericModalClose").addEventListener(
-    "click",
-    closeGenericModal
-  );
+function finishFocus(minutes){
+ clearInterval(focusInterval);
+ const completed=Math.max(1,Math.round(minutes-focusSeconds/60));
+ let saved=JSON.parse(localStorage.getItem("luStats")||'{"tests":0,"memory":0,"focus":0,"best":0}');
+ saved.focus+=completed;
+ localStorage.setItem("luStats",JSON.stringify(saved));
+ updateDashboard();
+ $("#testContent").innerHTML=`
+ <div class="result">
+  <div class="resultScore">+${completed}</div>
+  <h2>minutes de focus</h2>
+  <p>Cette session est enregistrée localement dans ton tableau de bord.</p>
+  <button class="btn primary" style="margin-top:18px" onclick="startFocusTimer()">Nouvelle session</button>
+ </div>`;
+}
 
-  $("#genericModalSecondary").addEventListener(
-    "click",
-    closeGenericModal
-  );
+/* ============================
+   COURSES
+============================ */
 
-  $("#genericModalBg").addEventListener(
-    "click",
-    (event) => {
+function course(title,modules){
+ $("#testContent").innerHTML=`
+ <div class="eyebrow">Cours gratuit</div>
+ <h2 style="font-size:32px">${title}</h2>
+ <p style="margin-top:8px">Accessible sans inscription.</p>
+ <div style="margin-top:18px">
+ ${modules.map((m,i)=>`
+  <div class="card" style="margin-top:8px">
+   <span class="tag">Module ${i+1}</span>
+   <h3>${m}</h3>
+   <p>Contenu pédagogique, exercice pratique et point clé à retenir seront développés dans ce module.</p>
+  </div>`).join("")}
+ </div>
+ <button class="btn primary" style="margin-top:18px" onclick="generic('Parcours terminé','La version finale proposera un quiz complet et un bilan avant/après pour chaque parcours.')">Terminer le parcours</button>`;
+ openModal("testModal");
+}
 
-      if (event.target === $("#genericModalBg")) {
-        closeGenericModal();
-      }
+/* ============================
+   DASHBOARD
+============================ */
 
-    }
-  );
+function updateDashboard(){
+ const s=JSON.parse(localStorage.getItem("luStats")||'{"tests":0,"memory":0,"focus":0,"best":0}');
+ $("#dashFocus").textContent=s.focus+" min";
+ $("#dashTests").textContent=s.tests;
+ $("#dashReasoning").textContent=s.best?s.best+"/100":"—";
+ $("#dashMemory").textContent=s.memory;
+ $("#reasonValue").textContent=s.best||"—";
+ $("#reasonProgress").style.width=(s.best||0)+"%";
+}
+updateDashboard();
 
-  document.addEventListener(
-    "keydown",
-    (event) => {
-
-      if (event.key === "Escape") {
-        closeGenericModal();
-        closeCourse();
-        closeIQ();
-        closeAccountModal();
-      }
-
-    }
-  );
-
-  /* ==============================================
-     INITIALISATION
-     ============================================== */
-
-  renderAccount();
-
+document.addEventListener("keydown",e=>{
+ if(e.key==="Escape"){
+  ["testModal","genericModal","accountModal"].forEach(closeModal);
+  clearInterval(timerInterval);
+ }
+});
 </script>
 
 </body>
