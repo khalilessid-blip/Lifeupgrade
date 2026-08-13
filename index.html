@@ -1,0 +1,1820 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Life Upgrade — Ta trajectoire commence maintenant</title>
+  <meta
+    name="description"
+    content="Life Upgrade : développement personnel, professionnel, orientation, apprentissage et trajectoire de vie."
+  >
+
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --surface-2: #eef2f7;
+      --text: #172033;
+      --muted: #6d7687;
+      --primary: #5b5cf0;
+      --primary-dark: #4546d8;
+      --accent: #21c69a;
+      --border: #e1e6ef;
+      --shadow: 0 18px 50px rgba(20, 31, 56, 0.08);
+      --radius: 22px;
+      --max: 1180px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Inter, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .container {
+      width: min(100% - 32px, var(--max));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      background: rgba(245, 247, 251, 0.9);
+      border-bottom: 1px solid rgba(225, 230, 239, 0.9);
+    }
+
+    .topbar-inner {
+      min-height: 76px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+      font-weight: 800;
+      font-size: 19px;
+      letter-spacing: -0.4px;
+      white-space: nowrap;
+    }
+
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      color: white;
+      background: linear-gradient(135deg, var(--primary), #7e6cf4);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .nav a:hover {
+      color: var(--text);
+    }
+
+    .button {
+      border: 0;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: 700;
+      transition: transform .2s, box-shadow .2s, background .2s;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 10px 25px rgba(91, 92, 240, .23);
+    }
+
+    .button-primary:hover {
+      background: var(--primary-dark);
+    }
+
+    .button-secondary {
+      background: white;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .button-ghost {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .hero {
+      padding: 80px 0 70px;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.08fr .92fr;
+      gap: 56px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 1.4px;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 2px;
+      border-radius: 99px;
+      background: var(--primary);
+    }
+
+    h1 {
+      font-size: clamp(42px, 6vw, 74px);
+      line-height: .98;
+      letter-spacing: -3.4px;
+      max-width: 780px;
+      margin-bottom: 24px;
+    }
+
+    .hero-text {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 650px;
+      margin-bottom: 28px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .hero-note {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px 20px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .hero-card {
+      background: linear-gradient(145deg, #13192b, #212b49);
+      border-radius: 28px;
+      padding: 26px;
+      color: white;
+      box-shadow: 0 25px 60px rgba(10, 16, 35, .18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::after {
+      content: "";
+      position: absolute;
+      width: 240px;
+      height: 240px;
+      right: -80px;
+      top: -90px;
+      border-radius: 50%;
+      background: rgba(91, 92, 240, .2);
+      filter: blur(20px);
+    }
+
+    .hero-card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 26px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-card-title {
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 7px 10px;
+      font-size: 11px;
+      font-weight: 800;
+      background: rgba(255,255,255,.1);
+      color: #dce3ff;
+    }
+
+    .trajectory-score {
+      font-size: 54px;
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -2px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .trajectory-score span {
+      font-size: 18px;
+      color: #aab5cf;
+      margin-left: 5px;
+    }
+
+    .trajectory-line {
+      height: 110px;
+      margin: 28px 0;
+      border-radius: 18px;
+      background:
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.015)),
+        repeating-linear-gradient(
+          to bottom,
+          transparent 0,
+          transparent 27px,
+          rgba(255,255,255,.05) 28px
+        );
+      position: relative;
+      overflow: hidden;
+    }
+
+    .trajectory-svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .hero-metrics {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero-metric {
+      border-radius: 15px;
+      background: rgba(255,255,255,.07);
+      padding: 14px;
+    }
+
+    .hero-metric span {
+      display: block;
+      color: #aab5cf;
+      font-size: 11px;
+      margin-bottom: 4px;
+    }
+
+    .hero-metric strong {
+      font-size: 18px;
+    }
+
+    section {
+      padding: 82px 0;
+    }
+
+    section:nth-of-type(even) {
+      background: var(--surface);
+    }
+
+    .section-title {
+      max-width: 720px;
+      margin-bottom: 36px;
+    }
+
+    h2 {
+      font-size: clamp(30px, 4vw, 46px);
+      letter-spacing: -1.8px;
+      line-height: 1.08;
+      margin-bottom: 14px;
+    }
+
+    .section-text {
+      color: var(--muted);
+      max-width: 710px;
+    }
+
+    .profile-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 14px;
+    }
+
+    .profile {
+      border: 1px solid var(--border);
+      background: white;
+      border-radius: 18px;
+      padding: 22px;
+      text-align: left;
+      transition: .2s;
+      box-shadow: 0 10px 25px rgba(20, 31, 56, 0.03);
+    }
+
+    .profile:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow);
+    }
+
+    .profile.active {
+      border-color: rgba(91,92,240,.45);
+      box-shadow: 0 12px 32px rgba(91,92,240,.12);
+    }
+
+    .profile-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 13px;
+      background: #eef0ff;
+      display: grid;
+      place-items: center;
+      margin-bottom: 16px;
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 19px;
+    }
+
+    .profile h3 {
+      margin-bottom: 7px;
+      font-size: 18px;
+    }
+
+    .profile p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .simulator {
+      display: grid;
+      grid-template-columns: 330px 1fr;
+      gap: 18px;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      box-shadow: 0 10px 30px rgba(20, 31, 56, .04);
+    }
+
+    .panel-padding {
+      padding: 24px;
+    }
+
+    .panel-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 15px;
+      margin-bottom: 25px;
+    }
+
+    .panel-title h3 {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+
+    .panel-title p {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .control {
+      margin-bottom: 23px;
+    }
+
+    .control label {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 9px;
+    }
+
+    .control-value {
+      color: var(--primary);
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--primary);
+    }
+
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 13px;
+    }
+
+    .stat-card {
+      border-radius: 18px;
+      background: var(--surface-2);
+      padding: 19px;
+    }
+
+    .stat-card span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      margin-bottom: 6px;
+    }
+
+    .stat-card strong {
+      font-size: 27px;
+      letter-spacing: -1px;
+    }
+
+    .scenario-box {
+      margin-top: 17px;
+      padding: 18px;
+      border-radius: 17px;
+      background: #f0fff9;
+      border: 1px solid #d1f5e9;
+    }
+
+    .scenario-box small {
+      color: #4a7a6a;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .scenario-box strong {
+      font-size: 23px;
+      color: #158966;
+    }
+
+    .bar-list {
+      margin-top: 22px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .bar-item {
+      display: grid;
+      grid-template-columns: 120px 1fr 90px;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+    }
+
+    .bar-bg {
+      height: 9px;
+      border-radius: 99px;
+      background: #e9edf4;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      width: 0;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--primary), #7d72f6);
+      transition: width .25s;
+    }
+
+    .feature-grid,
+    .course-grid,
+    .community-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    .feature,
+    .course,
+    .community-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 21px;
+      padding: 23px;
+    }
+
+    .feature h3,
+    .course h3,
+    .community-card h3 {
+      margin-bottom: 9px;
+      font-size: 20px;
+    }
+
+    .feature p,
+    .course p,
+    .community-card p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .tag {
+      display: inline-flex;
+      padding: 6px 9px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--primary);
+      background: #eef0ff;
+      margin-bottom: 13px;
+    }
+
+    .course-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .course-time {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .course-bottom {
+      margin-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .course-status {
+      color: #168a67;
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .poll {
+      display: grid;
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .poll-option {
+      border: 1px solid var(--border);
+      background: white;
+      padding: 15px;
+      border-radius: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 15px;
+      text-align: left;
+    }
+
+    .poll-option:hover,
+    .poll-option.selected {
+      border-color: var(--primary);
+      background: #f7f7ff;
+    }
+
+    .poll-option small {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .community-grid {
+      grid-template-columns: 1.35fr .65fr;
+    }
+
+    .premium {
+      background: linear-gradient(135deg, #151b2f, #252f50);
+      color: white;
+      border-radius: 26px;
+      padding: 38px;
+      box-shadow: 0 25px 60px rgba(16, 24, 44, .2);
+    }
+
+    .premium-grid {
+      display: grid;
+      grid-template-columns: 1fr .7fr;
+      gap: 30px;
+      align-items: center;
+    }
+
+    .premium h2 {
+      margin-bottom: 12px;
+    }
+
+    .premium p {
+      color: #b5bfd4;
+      max-width: 690px;
+    }
+
+    .premium-list {
+      margin-top: 22px;
+      display: grid;
+      gap: 9px;
+      list-style: none;
+      color: #d9dfec;
+    }
+
+    .premium-list li::before {
+      content: "✓";
+      margin-right: 9px;
+      color: #63e7bf;
+      font-weight: 800;
+    }
+
+    .price-card {
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 20px;
+      padding: 24px;
+    }
+
+    .price-card small {
+      color: #abb5cb;
+    }
+
+    .price-card strong {
+      display: block;
+      font-size: 42px;
+      letter-spacing: -1px;
+      margin: 6px 0 16px;
+    }
+
+    .price-note {
+      color: #aeb8cc;
+      font-size: 12px;
+      margin-top: 10px;
+    }
+
+    .footer {
+      padding: 34px 0 50px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      background: rgba(11,16,32,.52);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      z-index: 100;
+    }
+
+    .modal.open {
+      display: flex;
+    }
+
+    .modal-card {
+      background: white;
+      max-width: 560px;
+      width: 100%;
+      border-radius: 24px;
+      padding: 28px;
+      box-shadow: 0 25px 80px rgba(0,0,0,.2);
+    }
+
+    .modal-card h3 {
+      font-size: 28px;
+      margin-bottom: 10px;
+    }
+
+    .modal-card p {
+      color: var(--muted);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 10px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    @media (max-width: 980px) {
+      .nav {
+        display: none;
+      }
+
+      .hero-grid,
+      .premium-grid,
+      .simulator,
+      .community-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .profile-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .dashboard-grid,
+      .feature-grid,
+      .course-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .container {
+        width: min(100% - 22px, var(--max));
+      }
+
+      .topbar-inner {
+        min-height: 68px;
+      }
+
+      .topbar .button {
+        display: none;
+      }
+
+      .hero {
+        padding-top: 50px;
+      }
+
+      h1 {
+        font-size: 43px;
+        letter-spacing: -2.4px;
+      }
+
+      section {
+        padding: 58px 0;
+      }
+
+      .profile-grid,
+      .dashboard-grid,
+      .feature-grid,
+      .course-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .bar-item {
+        grid-template-columns: 90px 1fr 68px;
+      }
+
+      .footer-inner {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a href="#accueil" class="brand">
+        <span class="brand-mark">LU</span>
+        <span>Life Upgrade</span>
+      </a>
+
+      <nav class="nav">
+        <a href="#trajectoire">Trajectoire</a>
+        <a href="#orientation">Orientation</a>
+        <a href="#parcours">Parcours</a>
+        <a href="#communaute">Communauté</a>
+        <a href="#coaching">Coaching</a>
+      </nav>
+
+      <button class="button button-ghost" id="profileButton">
+        Mon profil
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- HERO -->
+    <section class="hero" id="accueil">
+      <div class="container hero-grid">
+
+        <div>
+          <div class="eyebrow">PERSONNEL · PROFESSIONNEL · ÉTUDES</div>
+
+          <h1>
+            Vois où tes habitudes te mènent.
+          </h1>
+
+          <p class="hero-text">
+            Life Upgrade transforme tes habitudes, tes objectifs et tes choix
+            en trajectoires concrètes. Comprends où tu vas, explore d'autres
+            scénarios et construis la suite.
+          </p>
+
+          <div class="hero-actions">
+            <button class="button button-primary" data-scroll="#trajectoire">
+              Calculer ma trajectoire
+            </button>
+
+            <button class="button button-secondary" data-scroll="#orientation">
+              Découvrir l'orientation
+            </button>
+          </div>
+
+          <div class="hero-note">
+            <span>✓ Gratuit pour commencer</span>
+            <span>✓ Sans compte obligatoire</span>
+            <span>✓ Personnel + Professionnel</span>
+          </div>
+        </div>
+
+        <div class="hero-card">
+
+          <div class="hero-card-top">
+            <span class="hero-card-title">TA TRAJECTOIRE</span>
+            <span class="badge">365 jours</span>
+          </div>
+
+          <div class="trajectory-score">
+            <span id="heroScore">72</span>
+            <span>/100</span>
+          </div>
+
+          <div class="trajectory-line">
+            <svg class="trajectory-svg" viewBox="0 0 600 140" preserveAspectRatio="none">
+              <path
+                d="M0 122 C80 112 120 100 170 105 C230 110 255 75 310 82 C365 90 392 52 440 57 C505 65 540 28 600 18"
+                fill="none"
+                stroke="#8b87ff"
+                stroke-width="5"
+                stroke-linecap="round"
+              />
+              <circle cx="0" cy="122" r="6" fill="#8b87ff"/>
+              <circle cx="600" cy="18" r="6" fill="#63e7bf"/>
+            </svg>
+          </div>
+
+          <div class="hero-metrics">
+            <div class="hero-metric">
+              <span>Temps récupérable</span>
+              <strong id="heroHours">0 h</strong>
+            </div>
+
+            <div class="hero-metric">
+              <span>Épargne annuelle</span>
+              <strong id="heroSavings">0 €</strong>
+            </div>
+
+            <div class="hero-metric">
+              <span>Apprentissage</span>
+              <strong id="heroLearning">0 h</strong>
+            </div>
+
+            <div class="hero-metric">
+              <span>Sport</span>
+              <strong id="heroSport">0</strong>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PROFILS -->
+    <section>
+      <div class="container">
+
+        <div class="section-title">
+          <div class="eyebrow">COMMENCE PAR TOI</div>
+
+          <h2>
+            Une plateforme, plusieurs trajectoires.
+          </h2>
+
+          <p class="section-text">
+            Le moteur reste le même. L'expérience s'adapte à ton profil,
+            à tes objectifs et à ta situation.
+          </p>
+        </div>
+
+        <div class="profile-grid">
+
+          <button class="profile active" data-profile="personal">
+            <div class="profile-icon">◎</div>
+            <h3>Vie personnelle</h3>
+            <p>
+              Habitudes, temps, énergie, sommeil, apprentissage et équilibre.
+            </p>
+          </button>
+
+          <button class="profile" data-profile="professional">
+            <div class="profile-icon">↗</div>
+            <h3>Professionnel</h3>
+            <p>
+              Carrière, organisation, compétences, objectifs et évolution.
+            </p>
+          </button>
+
+          <button class="profile" data-profile="student">
+            <div class="profile-icon">▣</div>
+            <h3>Étudiant</h3>
+            <p>
+              Études, compétences, stages, orientation et employabilité.
+            </p>
+          </button>
+
+          <button class="profile" data-profile="highschool">
+            <div class="profile-icon">✦</div>
+            <h3>Lycéen</h3>
+            <p>
+              Orientation, métiers, études et premières trajectoires.
+            </p>
+          </button>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- SIMULATEUR -->
+    <section id="trajectoire">
+      <div class="container">
+
+        <div class="section-title">
+          <div class="eyebrow">SIMULATEUR DE TRAJECTOIRE</div>
+
+          <h2>
+            Change une habitude. Regarde la trajectoire changer.
+          </h2>
+
+          <p class="section-text">
+            Ces chiffres sont des projections mathématiques basées sur les
+            données que tu déclares. Ils ne prédisent pas ton avenir.
+          </p>
+        </div>
+
+        <div class="simulator">
+
+          <!-- CONTROLES -->
+          <div class="panel panel-padding">
+
+            <div class="panel-title">
+              <div>
+                <h3>Ton quotidien</h3>
+                <p>Modifie les curseurs.</p>
+              </div>
+            </div>
+
+            <div class="control">
+              <label>
+                <span>Temps d'écran</span>
+                <span class="control-value">
+                  <span id="screenValue">4h00</span>/jour
+                </span>
+              </label>
+
+              <input
+                id="screen"
+                type="range"
+                min="0"
+                max="8"
+                step="0.25"
+                value="4"
+              >
+            </div>
+
+            <div class="control">
+              <label>
+                <span>Sport</span>
+                <span class="control-value">
+                  <span id="sportValue">1</span> séance/semaine
+                </span>
+              </label>
+
+              <input
+                id="sport"
+                type="range"
+                min="0"
+                max="7"
+                step="1"
+                value="1"
+              >
+            </div>
+
+            <div class="control">
+              <label>
+                <span>Apprentissage</span>
+                <span class="control-value">
+                  <span id="learningValue">1</span> h/semaine
+                </span>
+              </label>
+
+              <input
+                id="learning"
+                type="range"
+                min="0"
+                max="20"
+                step="0.5"
+                value="1"
+              >
+            </div>
+
+            <div class="control">
+              <label>
+                <span>Épargne</span>
+                <span class="control-value">
+                  <span id="savingValue">100</span> €/mois
+                </span>
+              </label>
+
+              <input
+                id="saving"
+                type="range"
+                min="0"
+                max="1000"
+                step="25"
+                value="100"
+              >
+            </div>
+
+            <div class="control">
+              <label>
+                <span>Réunions</span>
+                <span class="control-value">
+                  <span id="meetingValue">7</span> h/semaine
+                </span>
+              </label>
+
+              <input
+                id="meeting"
+                type="range"
+                min="0"
+                max="20"
+                step="0.5"
+                value="7"
+              >
+            </div>
+
+            <button class="button button-primary" style="width:100%;" id="upgradeButton">
+              Appliquer mon upgrade
+            </button>
+
+          </div>
+
+          <!-- RESULTATS -->
+          <div class="panel panel-padding">
+
+            <div class="panel-title">
+              <div>
+                <h3>Ta trajectoire à 365 jours</h3>
+                <p id="profileMessage">
+                  Projection basée sur tes habitudes déclarées.
+                </p>
+              </div>
+
+              <span class="badge" style="background:#eef8f4;color:#168a67;">
+                Active
+              </span>
+            </div>
+
+            <div class="dashboard-grid">
+
+              <div class="stat-card">
+                <span>Téléphone</span>
+                <strong id="phoneTotal">0 h</strong>
+              </div>
+
+              <div class="stat-card">
+                <span>Sport</span>
+                <strong id="sportTotal">0</strong>
+              </div>
+
+              <div class="stat-card">
+                <span>Apprentissage</span>
+                <strong id="learningTotal">0 h</strong>
+              </div>
+
+              <div class="stat-card">
+                <span>Épargne</span>
+                <strong id="savingTotal">0 €</strong>
+              </div>
+
+            </div>
+
+            <div class="scenario-box">
+              <small>ET SI TU CHANGEAIS 3 CHOSES ?</small>
+              <strong id="recoveredHours">0 h récupérables/an</strong>
+              <p id="scenarioText" style="margin-top:5px;color:#4a7a6a;">
+                Compare ensuite avec un scénario d'upgrade.
+              </p>
+            </div>
+
+            <div class="bar-list">
+
+              <div class="bar-item">
+                <span>Temps écran</span>
+                <div class="bar-bg">
+                  <div class="bar-fill" id="phoneBar"></div>
+                </div>
+                <strong id="phoneBarLabel">0 h</strong>
+              </div>
+
+              <div class="bar-item">
+                <span>Sport</span>
+                <div class="bar-bg">
+                  <div class="bar-fill" id="sportBar"></div>
+                </div>
+                <strong id="sportBarLabel">0</strong>
+              </div>
+
+              <div class="bar-item">
+                <span>Apprentissage</span>
+                <div class="bar-bg">
+                  <div class="bar-fill" id="learningBar"></div>
+                </div>
+                <strong id="learningBarLabel">0 h</strong>
+              </div>
+
+              <div class="bar-item">
+                <span>Réunions</span>
+                <div class="bar-bg">
+                  <div class="bar-fill" id="meetingBar"></div>
+                </div>
+                <strong id="meetingBarLabel">0 h</strong>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ORIENTATION -->
+    <section id="orientation">
+      <div class="container">
+
+        <div class="section-title">
+          <div class="eyebrow">ORIENTATION & CONSEILS</div>
+
+          <h2>
+            Comprendre tes options avant de choisir.
+          </h2>
+
+          <p class="section-text">
+            Life Upgrade peut t'aider à comparer des trajectoires,
+            identifier des compétences à développer et construire
+            un plan d'action.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+
+          <article class="feature">
+            <span class="tag">Lycéen</span>
+            <h3>Explorer des métiers</h3>
+            <p>
+              Compare plusieurs possibilités selon tes intérêts,
+              tes points forts et les études à envisager.
+            </p>
+          </article>
+
+          <article class="feature">
+            <span class="tag">Étudiant</span>
+            <h3>Construire ton Career Gap</h3>
+            <p>
+              Identifie les compétences qui te séparent actuellement
+              du métier que tu vises.
+            </p>
+          </article>
+
+          <article class="feature">
+            <span class="tag">Professionnel</span>
+            <h3>Comparer des scénarios</h3>
+            <p>
+              Évolution, spécialisation, reconversion ou projet :
+              compare plusieurs trajectoires avant d'agir.
+            </p>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- PARCOURS -->
+    <section id="parcours">
+      <div class="container">
+
+        <div class="section-title">
+          <div class="eyebrow">PARCOURS & MINI-FORMATIONS</div>
+
+          <h2>
+            Apprendre, pratiquer, évaluer, progresser.
+          </h2>
+
+          <p class="section-text">
+            De petits parcours permettent de travailler une compétence
+            puis de terminer par un bilan.
+          </p>
+        </div>
+
+        <div class="course-grid">
+
+          <article class="course">
+            <div class="course-top">
+              <span class="tag">Développement personnel</span>
+              <span class="course-time">7 jours</span>
+            </div>
+
+            <h3>Prendre la parole avec confiance</h3>
+
+            <p>
+              Structure, voix, regard, gestion des questions et mise en situation.
+            </p>
+
+            <div class="course-bottom">
+              <span class="course-status">Évaluation finale</span>
+              <button
+                class="button button-secondary course-button"
+                data-course="Prendre la parole avec confiance"
+              >
+                Découvrir
+              </button>
+            </div>
+          </article>
+
+          <article class="course">
+            <div class="course-top">
+              <span class="tag">Métier</span>
+              <span class="course-time">30 min</span>
+            </div>
+
+            <h3>Découvrir le métier de Data Analyst</h3>
+
+            <p>
+              Missions, compétences, outils, quotidien et perspectives.
+            </p>
+
+            <div class="course-bottom">
+              <span class="course-status">Mini-quiz</span>
+              <button
+                class="button button-secondary course-button"
+                data-course="Découvrir le métier de Data Analyst"
+              >
+                Découvrir
+              </button>
+            </div>
+          </article>
+
+          <article class="course">
+            <div class="course-top">
+              <span class="tag">Curiosité</span>
+              <span class="course-time">5 min/jour</span>
+            </div>
+
+            <h3>Pourquoi les étoiles brillent-elles ?</h3>
+
+            <p>
+              Une découverte courte pour apprendre, tester et partager.
+            </p>
+
+            <div class="course-bottom">
+              <span class="course-status">Quiz</span>
+              <button
+                class="button button-secondary course-button"
+                data-course="Pourquoi les étoiles brillent-elles ?"
+              >
+                Commencer
+              </button>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- COMMUNAUTE -->
+    <section id="communaute">
+      <div class="container">
+
+        <div class="section-title">
+          <div class="eyebrow">COMMUNAUTÉ</div>
+
+          <h2>
+            Décider ensemble de quoi parler ensuite.
+          </h2>
+
+          <p class="section-text">
+            Propose un sujet, vote, partage une expérience ou participe
+            plus tard à des ateliers et discussions de groupe.
+          </p>
+        </div>
+
+        <div class="community-grid">
+
+          <div class="community-card">
+
+            <span class="tag">Sondage de la semaine</span>
+
+            <h3>
+              Quel sujet devrait être le prochain grand débat ?
+            </h3>
+
+            <div class="poll">
+
+              <button class="poll-option" data-poll="IA et métiers">
+                <span>IA et métiers</span>
+                <small>38%</small>
+              </button>
+
+              <button class="poll-option" data-poll="Passion ou stabilité">
+                <span>Passion ou stabilité ?</span>
+                <small>27%</small>
+              </button>
+
+              <button class="poll-option" data-poll="Pourquoi procrastinons-nous">
+                <span>Pourquoi procrastinons-nous ?</span>
+                <small>21%</small>
+              </button>
+
+              <button class="poll-option" data-poll="Dépendance au téléphone">
+                <span>Sommes-nous dépendants du téléphone ?</span>
+                <small>14%</small>
+              </button>
+
+            </div>
+
+            <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;">
+              <button class="button button-primary" id="voteButton">
+                Voter
+              </button>
+
+              <button class="button button-secondary" id="suggestButton">
+                Proposer un sujet
+              </button>
+            </div>
+
+            <p id="voteMessage" style="margin-top:14px;color:var(--muted);font-size:13px;"></p>
+
+          </div>
+
+          <div class="community-card">
+
+            <span class="tag">Expérience membre</span>
+
+            <h3>
+              « J'ai changé de métier à 31 ans. »
+            </h3>
+
+            <p>
+              Une histoire de reconversion, ce qui a réellement aidé,
+              ce qui a été difficile et ce qui aurait pu être fait différemment.
+            </p>
+
+            <div style="margin-top:18px;color:var(--muted);font-size:13px;">
+              — Exemple de future expérience communautaire
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- COACHING -->
+    <section id="coaching">
+      <div class="container">
+
+        <div class="premium">
+
+          <div class="premium-grid">
+
+            <div>
+
+              <div class="eyebrow" style="color:#93a0ff;">
+                COACHING PREMIUM
+              </div>
+
+              <h2>
+                Quand tu veux aller plus loin, tu n'avances plus seul.
+              </h2>
+
+              <p>
+                Le coach Life Upgrade analyse ton tableau de bord avant
+                chaque séance, arrive avec une synthèse et construit avec
+                toi un plan personnalisé.
+              </p>
+
+              <ul class="premium-list">
+                <li>2 séances de coaching par mois</li>
+                <li>Analyse de progression avant chaque séance</li>
+                <li>Plan personnalisé</li>
+                <li>Suivi des objectifs</li>
+                <li>Teams, Google Meet ou WhatsApp selon ta préférence</li>
+                <li>Coaching de vie et de progression</li>
+              </ul>
+
+            </div>
+
+            <div class="price-card">
+
+              <small>Projet d'offre</small>
+
+              <strong>
+                4,99 €
+                <span style="font-size:16px;font-weight:600;">/mois</span>
+              </strong>
+
+              <button
+                class="button button-primary"
+                style="width:100%;"
+                id="premiumButton"
+              >
+                Rejoindre la liste d'intérêt
+              </button>
+
+              <div class="price-note">
+                Le coaching Life Upgrade n'est pas un service médical,
+                psychologique ou psychothérapeutique.
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Life Upgrade</strong>
+        <div style="margin-top:4px;">
+          Développement personnel · professionnel · orientation · apprentissage
+        </div>
+      </div>
+
+      <div>
+        Prototype V1
+      </div>
+    </div>
+  </footer>
+
+  <!-- MODAL -->
+  <div class="modal" id="modal">
+    <div class="modal-card">
+
+      <div class="eyebrow">LIFE UPGRADE</div>
+
+      <h3 id="modalTitle">Ton profil</h3>
+
+      <p id="modalText">
+        Cette fonctionnalité sera développée dans la prochaine étape.
+      </p>
+
+      <div class="modal-actions">
+
+        <button class="button button-primary" id="modalPrimary">
+          Compris
+        </button>
+
+        <button class="button button-secondary" id="modalClose">
+          Fermer
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // ---------------------------------------
+    // LIFE UPGRADE — Prototype V1
+    // ---------------------------------------
+
+    const state = {
+      profile: "personal",
+      selectedPoll: null
+    };
+
+    function formatHours(value) {
+      return value.toFixed(1).replace(".0", "") + " h";
+    }
+
+    function updateSimulator() {
+      const screen = Number(document.getElementById("screen").value);
+      const sport = Number(document.getElementById("sport").value);
+      const learning = Number(document.getElementById("learning").value);
+      const saving = Number(document.getElementById("saving").value);
+      const meeting = Number(document.getElementById("meeting").value);
+
+      // Annual projections
+      const phoneAnnual = screen * 365;
+      const sportAnnual = sport * 52;
+      const learningAnnual = learning * 52;
+      const savingAnnual = saving * 12;
+      const meetingAnnual = meeting * 52;
+
+      // A simple internal indicator for prototype purposes.
+      const score =
+        Math.round(
+          100 -
+          screen * 4 +
+          sport * 2 +
+          learning * 1.5 +
+          Math.min(saving / 100, 8)
+        );
+
+      const safeScore = Math.max(0, Math.min(100, score));
+
+      // Update visible values
+      document.getElementById("screenValue").textContent =
+        screen.toFixed(2).replace(".00", "");
+
+      document.getElementById("sportValue").textContent = sport;
+
+      document.getElementById("learningValue").textContent =
+        learning.toFixed(1).replace(".0", "");
+
+      document.getElementById("savingValue").textContent = saving;
+
+      document.getElementById("meetingValue").textContent =
+        meeting.toFixed(1).replace(".0", "");
+
+      document.getElementById("phoneTotal").textContent =
+        Math.round(phoneAnnual) + " h";
+
+      document.getElementById("sportTotal").textContent =
+        sportAnnual;
+
+      document.getElementById("learningTotal").textContent =
+        Math.round(learningAnnual) + " h";
+
+      document.getElementById("savingTotal").textContent =
+        Math.round(savingAnnual) + " €";
+
+      // Approximate bars
+      document.getElementById("phoneBar").style.width =
+        Math.min(100, (screen / 8) * 100) + "%";
+
+      document.getElementById("sportBar").style.width =
+        Math.min(100, (sport / 7) * 100) + "%";
+
+      document.getElementById("learningBar").style.width =
+        Math.min(100, (learning / 20) * 100) + "%";
+
+      document.getElementById("meetingBar").style.width =
+        Math.min(100, (meeting / 20) * 100) + "%";
+
+      document.getElementById("phoneBarLabel").textContent =
+        Math.round(phoneAnnual) + " h";
+
+      document.getElementById("sportBarLabel").textContent =
+        sportAnnual;
+
+      document.getElementById("learningBarLabel").textContent =
+        Math.round(learningAnnual) + " h";
+
+      document.getElementById("meetingBarLabel").textContent =
+        Math.round(meetingAnnual) + " h";
+
+      // Simple "time recovered" compared to 4h/day screen time baseline.
+      const baselineScreen = 4;
+      const recovered = Math.max(
+        0,
+        (baselineScreen - screen) * 365
+      );
+
+      document.getElementById("recoveredHours").textContent =
+        Math.round(recovered) + " h récupérables/an";
+
+      let text;
+
+      if (recovered === 0) {
+        text =
+          "Commence par réduire une seule habitude et regarde l'effet cumulé.";
+      } else {
+        text =
+          "À ce rythme, le temps récupéré pourrait être réalloué à l'apprentissage, au sport, à un projet ou au repos.";
+      }
+
+      document.getElementById("scenarioText").textContent = text;
+
+      // Hero
+      document.getElementById("heroHours").textContent =
+        Math.round(recovered) + " h";
+
+      document.getElementById("heroSavings").textContent =
+        Math.round(savingAnnual) + " €";
+
+      document.getElementById("heroLearning").textContent =
+        Math.round(learningAnnual) + " h";
+
+      document.getElementById("heroSport").textContent =
+        sportAnnual;
+
+      document.getElementById("heroScore").textContent =
+        safeScore;
+    }
+
+    // Inputs
+    [
+      "screen",
+      "sport",
+      "learning",
+      "saving",
+      "meeting"
+    ].forEach(id => {
+      document.getElementById(id).addEventListener("input", updateSimulator);
+    });
+
+    // Profiles
+    document.querySelectorAll(".profile").forEach(card => {
+      card.addEventListener("click", () => {
+        document.querySelectorAll(".profile").forEach(item => {
+          item.classList.remove("active");
+        });
+
+        card.classList.add("active");
+
+        state.profile = card.dataset.profile;
+
+        const messages = {
+          personal:
+            "Ton espace personnel mettra l'accent sur le temps, l'énergie, les habitudes et l'équilibre.",
+          professional:
+            "Ton espace professionnel mettra l'accent sur la carrière, les compétences et les objectifs.",
+          student:
+            "Ton espace étudiant mettra l'accent sur les études, les compétences, les stages et l'employabilité.",
+          highschool:
+            "Ton espace lycéen mettra l'accent sur l'orientation, les métiers et les choix d'études."
+        };
+
+        document.getElementById("profileMessage").textContent =
+          messages[state.profile];
+
+        window.scrollTo({
+          top: document.getElementById("trajectoire").offsetTop - 90,
+          behavior: "smooth"
+        });
+      });
+    });
+
+    // Scroll buttons
+    document.querySelectorAll("[data-scroll]").forEach(button => {
+      button.addEventListener("click", () => {
+        const selector = button.dataset.scroll;
+        const element = document.querySelector(selector);
+
+        if (element) {
+          element.scrollIntoView({
+            behavior: "smooth"
+          });
+        }
+      });
+    });
+
+    // Upgrade button
+    document.getElementById("upgradeButton").addEventListener("click", () => {
+      document.getElementById("scenarioText").textContent =
+        "Scénario enregistré localement dans cette version prototype. La prochaine version permettra de comparer plusieurs trajectoires.";
+    });
+
+    // Poll
+    document.querySelectorAll(".poll-option").forEach(option => {
+      option.addEventListener("click", () => {
+        document.querySelectorAll(".poll-option").forEach(item => {
+          item.classList.remove("selected");
+        });
+
+        option.classList.add("selected");
+
+        state.selectedPoll = option.dataset.poll;
+
+        document.getElementById("voteMessage").textContent =
+          "Sélection : " + state.selectedPoll;
+      });
+    });
+
+    document.getElementById("voteButton").addEventListener("click", () => {
+      if (!state.selectedPoll) {
+        document.getElementById("voteMessage").textContent =
+          "Choisis d'abord un sujet.";
+        return;
+      }
+
+      document.getElementById("voteMessage").textContent =
+        "Merci ! Ton vote pour « " +
+        state.selectedPoll +
+        " » est enregistré dans ce prototype.";
+    });
+
+    // Modal helpers
+    const modal = document.getElementById("modal");
+    const modalTitle = document.getElementById("modalTitle");
+    const modalText = document.getElementById("modalText");
+
+    function openModal(title, text) {
+      modalTitle.textContent = title;
+      modalText.textContent = text;
+      modal.classList.add("open");
+    }
+
+    function closeModal() {
+      modal.classList.remove("open");
+    }
+
+    document.getElementById("modalClose").addEventListener("click", closeModal);
+    document.getElementById("modalPrimary").addEventListener("click", closeModal);
+
+    modal.addEventListener("click", event => {
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+
+    document.getElementById("profileButton").addEventListener("click", () => {
+      openModal(
+        "Ton profil",
+        "L'espace personnel sera développé dans la prochaine étape avec sauvegarde locale, objectifs, parcours et progression."
+      );
+    });
+
+    document.getElementById("suggestButton").addEventListener("click", () => {
+      openModal(
+        "Proposer un sujet",
+        "La prochaine version permettra de proposer un sujet, puis de le soumettre au vote de la communauté."
+      );
+    });
+
+    document.getElementById("premiumButton").addEventListener("click", () => {
+      openModal(
+        "Coaching Premium",
+        "Le système de réservation et l'espace coach seront ajoutés après la mise en ligne de la V1 gratuite."
+      );
+    });
+
+    document.querySelectorAll(".course-button").forEach(button => {
+      button.addEventListener("click", () => {
+        openModal(
+          button.dataset.course,
+          "Ce parcours fera partie du moteur de formation Life Upgrade avec modules, exercices, évaluation finale et bilan de progression."
+        );
+      });
+    });
+
+    // Initial render
+    updateSimulator();
+  </script>
+
+</body>
+</html>
