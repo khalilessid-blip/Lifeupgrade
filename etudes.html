@@ -1,0 +1,3083 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1"
+  >
+
+  <title>
+    Études & Orientation — Life Upgrade
+  </title>
+
+  <meta
+    name="description"
+    content="Orientation, études, métiers, méthodes de travail, examens, stages, CV, entretiens et employabilité avec Life Upgrade."
+  >
+
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+
+    .page-hero{
+      padding:70px 0 48px;
+    }
+
+    .page-hero-grid{
+      display:grid;
+      grid-template-columns:1fr 360px;
+      gap:28px;
+      align-items:center;
+    }
+
+    .page-hero p{
+      max-width:760px;
+      margin-top:15px;
+      font-size:17px;
+    }
+
+    .student-card{
+      padding:24px;
+      border-radius:22px;
+      color:white;
+      background:linear-gradient(145deg,#11172b,#24314f);
+    }
+
+    .student-card p{
+      color:#b5bed1;
+      font-size:12px;
+    }
+
+    .student-options{
+      display:grid;
+      gap:8px;
+      margin-top:18px;
+    }
+
+    .student-option{
+      padding:11px;
+      border-radius:11px;
+      background:rgba(255,255,255,.07);
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .section-nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:24px;
+    }
+
+    .section-nav a{
+      padding:8px 11px;
+      border-radius:999px;
+      border:1px solid var(--border);
+      background:white;
+      color:var(--muted);
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .section-nav a:hover{
+      color:var(--primary);
+      border-color:var(--primary);
+    }
+
+    .study-section{
+      padding:72px 0;
+    }
+
+    .study-section.white{
+      background:white;
+    }
+
+    .study-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+    }
+
+    .study-card{
+      display:flex;
+      flex-direction:column;
+      min-height:255px;
+      padding:22px;
+      border-radius:20px;
+      background:white;
+      border:1px solid var(--border);
+    }
+
+    .white .study-card{
+      background:#f8f9fc;
+    }
+
+    .study-card p{
+      margin-top:8px;
+      font-size:13px;
+    }
+
+    .study-card ul{
+      list-style:none;
+      display:grid;
+      gap:6px;
+      margin:14px 0;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .study-card li::before{
+      content:"✓";
+      margin-right:7px;
+      color:var(--green);
+      font-weight:900;
+    }
+
+    .study-actions{
+      margin-top:auto;
+      padding-top:14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .orientation-layout{
+      display:grid;
+      grid-template-columns:330px 1fr;
+      gap:15px;
+    }
+
+    .orientation-panel{
+      padding:22px;
+      border-radius:20px;
+      background:white;
+      border:1px solid var(--border);
+    }
+
+    .orientation-panel h3{
+      margin-bottom:11px;
+    }
+
+    .orientation-question{
+      margin-top:15px;
+    }
+
+    .orientation-question label{
+      display:block;
+      margin-bottom:6px;
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .orientation-question select,
+    .orientation-question input{
+      width:100%;
+      padding:11px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      background:white;
+    }
+
+    .interest-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:7px;
+      margin-top:8px;
+    }
+
+    .interest{
+      display:flex;
+      gap:8px;
+      padding:9px;
+      border:1px solid var(--border);
+      border-radius:10px;
+      font-size:11px;
+    }
+
+    .orientation-results{
+      display:grid;
+      gap:10px;
+    }
+
+    .career-option{
+      padding:19px;
+      border-radius:17px;
+      border:1px solid var(--border);
+      background:#f8f9fc;
+    }
+
+    .career-option-top{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+
+    .career-option p{
+      margin-top:7px;
+      font-size:12px;
+    }
+
+    .match{
+      color:var(--green);
+      font-size:11px;
+      font-weight:900;
+    }
+
+    .jobs-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:12px;
+    }
+
+    .job-card{
+      display:flex;
+      flex-direction:column;
+      min-height:235px;
+      padding:18px;
+      background:white;
+      border:1px solid var(--border);
+      border-radius:18px;
+    }
+
+    .job-card h3{
+      margin-top:5px;
+      font-size:17px;
+    }
+
+    .job-card p{
+      margin-top:7px;
+      font-size:11px;
+    }
+
+    .job-meta{
+      display:flex;
+      flex-wrap:wrap;
+      gap:5px;
+      margin-top:12px;
+    }
+
+    .job-meta span{
+      padding:5px 7px;
+      border-radius:999px;
+      background:#f0f2f7;
+      color:var(--muted);
+      font-size:9px;
+      font-weight:800;
+    }
+
+    .job-card .button{
+      margin-top:auto;
+    }
+
+    .compare-table{
+      width:100%;
+      margin-top:20px;
+      border-collapse:collapse;
+      background:white;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid var(--border);
+    }
+
+    .compare-table th,
+    .compare-table td{
+      padding:13px;
+      border-bottom:1px solid var(--border);
+      text-align:left;
+      font-size:11px;
+    }
+
+    .compare-table th{
+      background:#f4f5fa;
+      color:var(--muted);
+    }
+
+    .method-path{
+      display:grid;
+      grid-template-columns:repeat(5,1fr);
+      gap:10px;
+    }
+
+    .method-step{
+      padding:18px;
+      border-radius:17px;
+      background:white;
+      border:1px solid var(--border);
+    }
+
+    .method-step span{
+      color:var(--primary);
+      font-size:10px;
+      font-weight:900;
+    }
+
+    .method-step h3{
+      margin:7px 0;
+      font-size:15px;
+    }
+
+    .method-step p{
+      font-size:11px;
+    }
+
+    .exam-layout{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .exam-card{
+      padding:22px;
+      border-radius:20px;
+      background:white;
+      border:1px solid var(--border);
+    }
+
+    .exam-checklist{
+      display:grid;
+      gap:8px;
+      margin-top:14px;
+    }
+
+    .exam-check{
+      display:flex;
+      gap:9px;
+      padding:10px;
+      border-radius:11px;
+      background:#f6f7fa;
+      font-size:11px;
+    }
+
+    .employability-layout{
+      display:grid;
+      grid-template-columns:1fr 360px;
+      gap:15px;
+    }
+
+    .readiness{
+      display:grid;
+      gap:12px;
+      margin-top:18px;
+    }
+
+    .readiness-row{
+      display:grid;
+      grid-template-columns:140px 1fr 55px;
+      gap:10px;
+      align-items:center;
+      font-size:11px;
+    }
+
+    .readiness-track{
+      height:8px;
+      border-radius:999px;
+      background:#e8ebf2;
+      overflow:hidden;
+    }
+
+    .readiness-track i{
+      display:block;
+      height:100%;
+      border-radius:999px;
+      background:linear-gradient(90deg,var(--primary),#8c88ff);
+    }
+
+    .readiness-summary{
+      padding:22px;
+      border-radius:20px;
+      background:linear-gradient(145deg,#141a30,#263452);
+      color:white;
+    }
+
+    .readiness-summary p{
+      color:#b6c0d2;
+    }
+
+    .readiness-score{
+      margin:15px 0;
+      font-size:54px;
+      font-weight:900;
+    }
+
+    .parent-layout{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:14px;
+    }
+
+    .parent-box{
+      padding:22px;
+      border-radius:20px;
+      background:white;
+      border:1px solid var(--border);
+    }
+
+    .parent-box ul{
+      margin-top:14px;
+      display:grid;
+      gap:7px;
+      list-style:none;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .parent-box li::before{
+      content:"✓";
+      margin-right:7px;
+      color:var(--green);
+      font-weight:900;
+    }
+
+    .parent-warning{
+      margin-top:16px;
+      padding:15px;
+      border-radius:14px;
+      background:#f4f3ff;
+      color:var(--muted);
+      font-size:11px;
+    }
+
+    @media(max-width:1000px){
+
+      .page-hero-grid,
+      .orientation-layout,
+      .employability-layout{
+        grid-template-columns:1fr;
+      }
+
+      .study-grid,
+      .jobs-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .method-path{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+    }
+
+    @media(max-width:650px){
+
+      .study-grid,
+      .jobs-grid,
+      .method-path,
+      .exam-layout,
+      .parent-layout,
+      .interest-grid{
+        grid-template-columns:1fr;
+      }
+
+      .compare-table{
+        display:block;
+        overflow-x:auto;
+      }
+
+      .readiness-row{
+        grid-template-columns:110px 1fr 45px;
+      }
+
+    }
+
+  </style>
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+  <div class="container nav">
+
+    <a class="logo" href="index.html">
+
+      <span class="logo-icon">
+        LU
+      </span>
+
+      <span>
+        Life Upgrade
+      </span>
+
+    </a>
+
+
+    <nav class="menu">
+
+      <a href="index.html">
+        Accueil
+      </a>
+
+      <a href="developpement.html">
+        Développement
+      </a>
+
+      <a
+        class="active"
+        href="etudes.html"
+      >
+        Études & Orientation
+      </a>
+
+      <a href="tests.html">
+        Tests & Exercices
+      </a>
+
+      <a href="cours.html">
+        Cours
+      </a>
+
+      <a href="culture.html">
+        Culture
+      </a>
+
+      <a href="forum.html">
+        Forum
+      </a>
+
+      <a href="coaching.html">
+        Coaching
+      </a>
+
+    </nav>
+
+
+    <a
+      class="account-button"
+      href="dashboard.html"
+    >
+      Mon espace
+    </a>
+
+  </div>
+
+</header>
+
+
+
+<main>
+
+
+<!-- ==========================================================
+     HERO
+========================================================== -->
+
+<section class="page-hero">
+
+  <div class="container page-hero-grid">
+
+
+    <div>
+
+      <div class="eyebrow">
+        ÉTUDES · ORIENTATION · EMPLOYABILITÉ
+      </div>
+
+
+      <h1 style="font-size:clamp(44px,5vw,67px)">
+        Construis ton parcours,
+        pas seulement ton prochain choix.
+      </h1>
+
+
+      <p>
+
+        Life Upgrade accompagne les lycéens, étudiants,
+        personnes en formation et jeunes actifs dans leurs méthodes de travail,
+        leur orientation et leur préparation au monde professionnel.
+
+      </p>
+
+
+      <div class="section-nav">
+
+        <a href="#orientation">
+          Orientation
+        </a>
+
+        <a href="#metiers">
+          Métiers
+        </a>
+
+        <a href="#methodes">
+          Méthodes
+        </a>
+
+        <a href="#examens">
+          Examens
+        </a>
+
+        <a href="#stages">
+          Stages & CV
+        </a>
+
+        <a href="#employabilite">
+          Employabilité
+        </a>
+
+        <a href="#parents">
+          Parents
+        </a>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="student-card">
+
+      <span class="badge">
+        TON POINT DE DÉPART
+      </span>
+
+      <h3 style="margin-top:9px">
+        Où en es-tu actuellement ?
+      </h3>
+
+      <p style="margin-top:7px">
+        Le futur compte Life Upgrade adaptera l'expérience selon cette situation.
+      </p>
+
+      <div class="student-options">
+
+        <div class="student-option">
+          Lycée
+        </div>
+
+        <div class="student-option">
+          Études supérieures
+        </div>
+
+        <div class="student-option">
+          Formation professionnelle
+        </div>
+
+        <div class="student-option">
+          Recherche de stage
+        </div>
+
+        <div class="student-option">
+          Préparation premier emploi
+        </div>
+
+        <div class="student-option">
+          Transition / réorientation
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ==========================================================
+     UNIVERS ETUDES
+========================================================== -->
+
+<section class="study-section white">
+
+  <div class="container">
+
+
+    <div class="section-title">
+
+      <span class="eyebrow">
+        TON ESPACE
+      </span>
+
+      <h2>
+        Tout ce qui compte autour des études.
+      </h2>
+
+      <p>
+        Orientation, méthodes, mémoire, concentration, examens,
+        stages et préparation professionnelle sont reliés dans un seul parcours.
+      </p>
+
+    </div>
+
+
+
+    <div class="study-grid">
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Orientation
+        </span>
+
+        <h3>
+          Comprendre mes possibilités
+        </h3>
+
+        <p>
+          Explorer plusieurs directions plutôt que recevoir une réponse unique.
+        </p>
+
+        <ul>
+          <li>centres d'intérêt</li>
+          <li>préférences</li>
+          <li>compétences</li>
+          <li>contraintes</li>
+          <li>objectifs</li>
+        </ul>
+
+        <div class="study-actions">
+
+          <a
+            class="button primary"
+            href="#orientation"
+          >
+            Commencer
+          </a>
+
+        </div>
+
+      </article>
+
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Métiers
+        </span>
+
+        <h3>
+          Découvrir des métiers
+        </h3>
+
+        <p>
+          Comprendre le quotidien, les compétences, les études et les possibilités.
+        </p>
+
+        <ul>
+          <li>missions</li>
+          <li>outils</li>
+          <li>soft skills</li>
+          <li>études</li>
+          <li>évolutions</li>
+        </ul>
+
+        <div class="study-actions">
+
+          <a
+            class="button secondary"
+            href="#metiers"
+          >
+            Explorer
+          </a>
+
+        </div>
+
+      </article>
+
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Méthodes
+        </span>
+
+        <h3>
+          Apprendre plus efficacement
+        </h3>
+
+        <p>
+          Organisation, mémorisation, concentration et préparation.
+        </p>
+
+        <ul>
+          <li>rappel actif</li>
+          <li>répétition espacée</li>
+          <li>prise de notes</li>
+          <li>planification</li>
+          <li>focus</li>
+        </ul>
+
+        <div class="study-actions">
+
+          <a
+            class="button secondary"
+            href="#methodes"
+          >
+            Découvrir
+          </a>
+
+        </div>
+
+      </article>
+
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Examens
+        </span>
+
+        <h3>
+          Préparer une échéance
+        </h3>
+
+        <p>
+          Transformer une date d'examen en plan concret.
+        </p>
+
+        <ul>
+          <li>programme</li>
+          <li>priorités</li>
+          <li>révisions</li>
+          <li>simulation</li>
+          <li>bilan</li>
+        </ul>
+
+        <div class="study-actions">
+
+          <a
+            class="button secondary"
+            href="#examens"
+          >
+            Préparer
+          </a>
+
+        </div>
+
+      </article>
+
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Stage
+        </span>
+
+        <h3>
+          Préparer ma première expérience
+        </h3>
+
+        <p>
+          CV, candidatures, entretien et préparation du stage.
+        </p>
+
+        <ul>
+          <li>CV</li>
+          <li>recherche</li>
+          <li>candidature</li>
+          <li>entretien</li>
+          <li>bilan de stage</li>
+        </ul>
+
+        <div class="study-actions">
+
+          <a
+            class="button secondary"
+            href="#stages"
+          >
+            Préparer
+          </a>
+
+        </div>
+
+      </article>
+
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Premier emploi
+        </span>
+
+        <h3>
+          Préparer l'après-études
+        </h3>
+
+        <p>
+          Transformer ses études en compétences lisibles pour un employeur.
+        </p>
+
+        <ul>
+          <li>compétences</li>
+          <li>portfolio</li>
+          <li>CV</li>
+          <li>entretiens</li>
+          <li>plan de carrière</li>
+        </ul>
+
+        <div class="study-actions">
+
+          <a
+            class="button primary"
+            href="#employabilite"
+          >
+            Voir mon plan
+          </a>
+
+        </div>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ==========================================================
+     ORIENTATION
+========================================================== -->
+
+<section
+  id="orientation"
+  class="study-section"
+>
+
+  <div class="container">
+
+
+    <div class="section-title">
+
+      <span class="eyebrow">
+        ORIENTATION
+      </span>
+
+      <h2>
+        Explorer avant de choisir.
+      </h2>
+
+      <p>
+
+        L'objectif de Life Upgrade n'est pas de dire
+        « tu dois faire ce métier », mais d'expliquer plusieurs pistes
+        cohérentes avec les informations fournies.
+
+      </p>
+
+    </div>
+
+
+
+    <div class="orientation-layout">
+
+
+      <!-- QUESTIONNAIRE -->
+
+      <div class="orientation-panel">
+
+        <h3>
+          Exemple de profil
+        </h3>
+
+        <p>
+          Le futur questionnaire complet sera beaucoup plus détaillé.
+        </p>
+
+
+        <div class="orientation-question">
+
+          <label>
+            Situation
+          </label>
+
+          <select>
+
+            <option>
+              Lycée
+            </option>
+
+            <option>
+              Études supérieures
+            </option>
+
+            <option>
+              Formation
+            </option>
+
+            <option>
+              Réorientation
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <div class="orientation-question">
+
+          <label>
+            Matière préférée
+          </label>
+
+          <select>
+
+            <option>
+              Mathématiques
+            </option>
+
+            <option>
+              Sciences
+            </option>
+
+            <option>
+              Informatique
+            </option>
+
+            <option>
+              Économie
+            </option>
+
+            <option>
+              Littérature
+            </option>
+
+            <option>
+              Histoire
+            </option>
+
+            <option>
+              Arts
+            </option>
+
+          </select>
+
+        </div>
+
+
+
+        <div class="orientation-question">
+
+          <label>
+            Domaines qui t'intéressent
+          </label>
+
+          <div class="interest-grid">
+
+            <label class="interest">
+              <input type="checkbox">
+              Technologie
+            </label>
+
+            <label class="interest">
+              <input type="checkbox">
+              Sciences
+            </label>
+
+            <label class="interest">
+              <input type="checkbox">
+              Création
+            </label>
+
+            <label class="interest">
+              <input type="checkbox">
+              Commerce
+            </label>
+
+            <label class="interest">
+              <input type="checkbox">
+              Humain
+            </label>
+
+            <label class="interest">
+              <input type="checkbox">
+              Environnement
+            </label>
+
+          </div>
+
+        </div>
+
+
+
+        <div class="orientation-question">
+
+          <label>
+            Environnement préféré
+          </label>
+
+          <select>
+
+            <option>
+              Bureau
+            </option>
+
+            <option>
+              Terrain
+            </option>
+
+            <option>
+              Mixte
+            </option>
+
+            <option>
+              Créatif
+            </option>
+
+            <option>
+              Technique
+            </option>
+
+            <option>
+              Contact humain
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <button
+          class="button primary"
+          style="margin-top:18px;border:0;cursor:pointer"
+          onclick="alert('Le moteur de profil personnalisé sera branché lors de la phase JavaScript / compte utilisateur.')"
+        >
+          Explorer mes pistes
+        </button>
+
+      </div>
+
+
+
+      <!-- RESULTATS -->
+
+      <div class="orientation-results">
+
+
+        <article class="career-option">
+
+          <div class="career-option-top">
+
+            <h3>
+              Informatique & Data
+            </h3>
+
+            <span class="match">
+              Piste forte
+            </span>
+
+          </div>
+
+          <p>
+            Peut correspondre à un profil intéressé par la logique,
+            la technologie, l'analyse et la résolution de problèmes.
+          </p>
+
+          <div class="job-meta">
+
+            <span>
+              Data
+            </span>
+
+            <span>
+              Développement
+            </span>
+
+            <span>
+              IA
+            </span>
+
+            <span>
+              Cybersécurité
+            </span>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="career-option">
+
+          <div class="career-option-top">
+
+            <h3>
+              Ingénierie
+            </h3>
+
+            <span class="match">
+              À explorer
+            </span>
+
+          </div>
+
+          <p>
+            Pour les profils appréciant les sciences,
+            la conception, la résolution de problèmes et les projets techniques.
+          </p>
+
+          <div class="job-meta">
+
+            <span>
+              Industrie
+            </span>
+
+            <span>
+              Énergie
+            </span>
+
+            <span>
+              Génie civil
+            </span>
+
+            <span>
+              R&D
+            </span>
+
+          </div>
+
+        </article>
+
+
+
+        <article class="career-option">
+
+          <div class="career-option-top">
+
+            <h3>
+              Commerce & Marketing
+            </h3>
+
+            <span class="match">
+              À comparer
+            </span>
+
+          </div>
+
+          <p>
+            Pour des profils attirés par les projets,
+            le marché, la communication et la compréhension des besoins.
+          </p>
+
+          <div class="job-meta">
+
+            <span>
+              Marketing
+            </span>
+
+            <span>
+              Vente
+            </span>
+
+            <span>
+              Produit
+            </span>
+
+            <span>
+              Communication
+            </span>
+
+          </div>
+
+        </article>
+
+
+        <div class="parent-warning">
+
+          Les résultats d'orientation doivent être présentés comme
+          des pistes d'exploration basées sur les réponses de l'utilisateur,
+          jamais comme une orientation obligatoire ou une prédiction.
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ==========================================================
+     METIERS
+========================================================== -->
+
+<section
+  id="metiers"
+  class="study-section white"
+>
+
+  <div class="container">
+
+
+    <div class="section-title">
+
+      <span class="eyebrow">
+        EXPLORER LES MÉTIERS
+      </span>
+
+      <h2>
+        Comprendre un métier avant de l'idéaliser.
+      </h2>
+
+      <p>
+
+        Chaque fiche métier finale contiendra missions,
+        compétences, outils, études possibles, contraintes,
+        environnement de travail et évolutions.
+
+      </p>
+
+    </div>
+
+
+
+    <div class="jobs-grid">
+
+
+      <article class="job-card">
+
+        <span class="badge">
+          Data
+        </span>
+
+        <h3>
+          Data Analyst
+        </h3>
+
+        <p>
+          Analyse des données pour aider les organisations à prendre des décisions.
+        </p>
+
+        <div class="job-meta">
+
+          <span>
+            SQL
+          </span>
+
+          <span>
+            Excel
+          </span>
+
+          <span>
+            Data viz
+          </span>
+
+          <span>
+            Analyse
+          </span>
+
+        </div>
+
+        <a
+          class="button secondary"
+          href="cours.html"
+        >
+          Découvrir
+        </a>
+
+      </article>
+
+
+
+      <article class="job-card">
+
+        <span class="badge">
+          Technologie
+        </span>
+
+        <h3>
+          Développeur
+        </h3>
+
+        <p>
+          Conçoit, développe et maintient des applications ou services numériques.
+        </p>
+
+        <div class="job-meta">
+
+          <span>
+            Code
+          </span>
+
+          <span>
+            Logique
+          </span>
+
+          <span>
+            Git
+          </span>
+
+          <span>
+            Projet
+          </span>
+
+        </div>
+
+        <a
+          class="button secondary"
+          href="cours.html"
+        >
+          Découvrir
+        </a>
+
+      </article>
+
+
+
+      <article class="job-card">
+
+        <span class="badge">
+          Ingénierie
+        </span>
+
+        <h3>
+          Ingénieur industriel
+        </h3>
+
+        <p>
+          Travaille sur la conception, l'optimisation et l'amélioration de systèmes industriels.
+        </p>
+
+        <div class="job-meta">
+
+          <span>
+            Technique
+          </span>
+
+          <span>
+            Process
+          </span>
+
+          <span>
+            Projet
+          </span>
+
+        </div>
+
+        <a
+          class="button secondary"
+          href="cours.html"
+        >
+          Découvrir
+        </a>
+
+      </article>
+
+
+
+      <article class="job-card">
+
+        <span class="badge">
+          Marketing
+        </span>
+
+        <h3>
+          Chef de produit
+        </h3>
+
+        <p>
+          Analyse les besoins, coordonne les équipes et pilote l'évolution d'un produit.
+        </p>
+
+        <div class="job-meta">
+
+          <span>
+            Marché
+          </span>
+
+          <span>
+            Projet
+          </span>
+
+          <span>
+            Communication
+          </span>
+
+        </div>
+
+        <a
+          class="button secondary"
+          href="cours.html"
+        >
+          Découvrir
+        </a>
+
+      </article>
+
+
+
+      <article class="job-card">
+
+        <span class="badge">
+          Finance
+        </span>
+
+        <h3>
+          Analyste financier
+        </h3>
+
+        <p>
+          Analyse des données financières et aide à comprendre la performance d'une organisation.
+        </p>
+
+        <div class="job-meta">
+
+          <span>
+            Finance
+          </span>
+
+          <span>
+            Excel
+          </span>
+
+          <span>
+            Analyse
+          </span>
+
+        </div>
+
+        <a
+          class="button secondary"
+          href="cours.html"
+        >
+          Découvrir
+        </a>
+
+      </article>
+
+
+
+      <article class="job-card">
+
+        <span class="badge">
+          Communication
+        </span>
+
+        <h3>
+          Chargé de communication
+        </h3>
+
+        <p>
+          Produit et coordonne les communications d'une organisation.
+        </p>
+
+        <div class="job-meta">
+
+          <span>
+            Rédaction
+          </span>
+
+          <span>
+            Réseaux
+          </span>
+
+          <span>
+            Création
+          </span>
+
+        </div>
+
+        <a
+          class="button secondary"
+          href="cours.html"
+        >
+          Découvrir
+        </a>
+
+      </article>
+
+
+
+      <article class="job-card">
+
+        <span class="badge">
+          RH
+        </span>
+
+        <h3>
+          Ressources humaines
+        </h3>
+
+        <p>
+          Recrutement, développement des collaborateurs et accompagnement des organisations.
+        </p>
+
+        <div class="job-meta">
+
+          <span>
+            Humain
+          </span>
+
+          <span>
+            Communication
+          </span>
+
+          <span>
+            Organisation
+          </span>
+
+        </div>
+
+        <a
+          class="button secondary"
+          href="cours.html"
+        >
+          Découvrir
+        </a>
+
+      </article>
+
+
+
+      <article class="job-card">
+
+        <span class="badge">
+          Design
+        </span>
+
+        <h3>
+          UX / UI Designer
+        </h3>
+
+        <p>
+          Conçoit des interfaces et expériences numériques adaptées aux utilisateurs.
+        </p>
+
+        <div class="job-meta">
+
+          <span>
+            Design
+          </span>
+
+          <span>
+            Recherche
+          </span>
+
+          <span>
+            Produit
+          </span>
+
+        </div>
+
+        <a
+          class="button secondary"
+          href="cours.html"
+        >
+          Découvrir
+        </a>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ==========================================================
+     COMPARATEUR
+========================================================== -->
+
+<section class="study-section">
+
+  <div class="container">
+
+
+    <div class="section-title">
+
+      <span class="eyebrow">
+        COMPARATEUR
+      </span>
+
+      <h2>
+        Comparer plusieurs trajectoires.
+      </h2>
+
+      <p>
+        Le futur comparateur permettra de sélectionner jusqu'à trois métiers.
+      </p>
+
+    </div>
+
+
+
+    <table class="compare-table">
+
+      <thead>
+
+        <tr>
+
+          <th>
+            Critère
+          </th>
+
+          <th>
+            Data Analyst
+          </th>
+
+          <th>
+            Ingénieur
+          </th>
+
+          <th>
+            Chef de produit
+          </th>
+
+        </tr>
+
+      </thead>
+
+
+      <tbody>
+
+        <tr>
+
+          <td>
+            Analyse
+          </td>
+
+          <td>
+            Forte
+          </td>
+
+          <td>
+            Forte
+          </td>
+
+          <td>
+            Moyenne
+          </td>
+
+        </tr>
+
+        <tr>
+
+          <td>
+            Technique
+          </td>
+
+          <td>
+            Élevée
+          </td>
+
+          <td>
+            Très élevée
+          </td>
+
+          <td>
+            Moyenne
+          </td>
+
+        </tr>
+
+        <tr>
+
+          <td>
+            Communication
+          </td>
+
+          <td>
+            Importante
+          </td>
+
+          <td>
+            Importante
+          </td>
+
+          <td>
+            Très importante
+          </td>
+
+        </tr>
+
+        <tr>
+
+          <td>
+            Créativité
+          </td>
+
+          <td>
+            Moyenne
+          </td>
+
+          <td>
+            Variable
+          </td>
+
+          <td>
+            Forte
+          </td>
+
+        </tr>
+
+        <tr>
+
+          <td>
+            Travail en équipe
+          </td>
+
+          <td>
+            Oui
+          </td>
+
+          <td>
+            Oui
+          </td>
+
+          <td>
+            Très fréquent
+          </td>
+
+        </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</section>
+
+
+
+<!-- ==========================================================
+     METHODES DE TRAVAIL
+========================================================== -->
+
+<section
+  id="methodes"
+  class="study-section white"
+>
+
+  <div class="container">
+
+
+    <div class="section-title">
+
+      <span class="eyebrow">
+        MÉTHODES DE TRAVAIL
+      </span>
+
+      <h2>
+        Apprendre n'est pas seulement relire.
+      </h2>
+
+      <p>
+        Life Upgrade proposera cours, exercices et plans d'étude autour
+        des méthodes d'apprentissage.
+      </p>
+
+    </div>
+
+
+
+    <div class="method-path">
+
+
+      <div class="method-step">
+
+        <span>
+          01
+        </span>
+
+        <h3>
+          Comprendre
+        </h3>
+
+        <p>
+          Identifier ce qui doit réellement être appris.
+        </p>
+
+      </div>
+
+
+
+      <div class="method-step">
+
+        <span>
+          02
+        </span>
+
+        <h3>
+          Découper
+        </h3>
+
+        <p>
+          Transformer un programme en petites unités de travail.
+        </p>
+
+      </div>
+
+
+
+      <div class="method-step">
+
+        <span>
+          03
+        </span>
+
+        <h3>
+          Rappel actif
+        </h3>
+
+        <p>
+          Essayer de retrouver l'information sans la regarder.
+        </p>
+
+      </div>
+
+
+
+      <div class="method-step">
+
+        <span>
+          04
+        </span>
+
+        <h3>
+          Espacer
+        </h3>
+
+        <p>
+          Répartir les révisions dans le temps.
+        </p>
+
+      </div>
+
+
+
+      <div class="method-step">
+
+        <span>
+          05
+        </span>
+
+        <h3>
+          Tester
+        </h3>
+
+        <p>
+          Utiliser exercices et quiz pour vérifier l'acquisition.
+        </p>
+
+      </div>
+
+
+    </div>
+
+
+
+    <div class="study-grid" style="margin-top:18px">
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Mémoire
+        </span>
+
+        <h3>
+          Rappel actif
+        </h3>
+
+        <p>
+          Se tester plutôt que relire passivement ses notes.
+        </p>
+
+        <div class="study-actions">
+
+          <a
+            class="button secondary"
+            href="tests.html#memoire"
+          >
+            Exercices mémoire
+          </a>
+
+        </div>
+
+      </article>
+
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Concentration
+        </span>
+
+        <h3>
+          Sessions de travail
+        </h3>
+
+        <p>
+          Travailler sur une seule tâche avec un objectif défini.
+        </p>
+
+        <div class="study-actions">
+
+          <a
+            class="button secondary"
+            href="tests.html#concentration"
+          >
+            Focus Lab
+          </a>
+
+        </div>
+
+      </article>
+
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Organisation
+        </span>
+
+        <h3>
+          Planning d'étude
+        </h3>
+
+        <p>
+          Transformer une échéance en programme réaliste.
+        </p>
+
+        <div class="study-actions">
+
+          <a
+            class="button secondary"
+            href="cours.html"
+          >
+            Voir le cours
+          </a>
+
+        </div>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ==========================================================
+     EXAMENS
+========================================================== -->
+
+<section
+  id="examens"
+  class="study-section"
+>
+
+  <div class="container">
+
+
+    <div class="section-title">
+
+      <span class="eyebrow">
+        PRÉPARATION AUX EXAMENS
+      </span>
+
+      <h2>
+        Passer d'une date à un plan.
+      </h2>
+
+    </div>
+
+
+
+    <div class="exam-layout">
+
+
+      <div class="exam-card">
+
+        <span class="badge">
+          Exemple
+        </span>
+
+        <h3>
+          Examen dans 30 jours
+        </h3>
+
+        <p>
+          Le futur outil construira un planning selon les matières,
+          le temps disponible et le niveau déclaré.
+        </p>
+
+        <div class="exam-checklist">
+
+          <div class="exam-check">
+            ✓ Lister les chapitres
+          </div>
+
+          <div class="exam-check">
+            ✓ Identifier les priorités
+          </div>
+
+          <div class="exam-check">
+            ✓ Répartir les sessions
+          </div>
+
+          <div class="exam-check">
+            ✓ Prévoir du rappel actif
+          </div>
+
+          <div class="exam-check">
+            ✓ Faire des examens blancs
+          </div>
+
+          <div class="exam-check">
+            ✓ Prévoir une révision finale
+          </div>
+
+        </div>
+
+      </div>
+
+
+
+      <div class="exam-card">
+
+        <span class="badge">
+          Suivi
+        </span>
+
+        <h3>
+          Exemple de progression
+        </h3>
+
+        <p>
+          Les matières ou chapitres pourront être suivis individuellement.
+        </p>
+
+
+        <div class="readiness">
+
+          <div class="readiness-row">
+
+            <span>
+              Mathématiques
+            </span>
+
+            <div class="readiness-track">
+              <i style="width:72%"></i>
+            </div>
+
+            <strong>
+              72 %
+            </strong>
+
+          </div>
+
+
+          <div class="readiness-row">
+
+            <span>
+              Physique
+            </span>
+
+            <div class="readiness-track">
+              <i style="width:58%"></i>
+            </div>
+
+            <strong>
+              58 %
+            </strong>
+
+          </div>
+
+
+          <div class="readiness-row">
+
+            <span>
+              Histoire
+            </span>
+
+            <div class="readiness-track">
+              <i style="width:84%"></i>
+            </div>
+
+            <strong>
+              84 %
+            </strong>
+
+          </div>
+
+
+          <div class="readiness-row">
+
+            <span>
+              Anglais
+            </span>
+
+            <div class="readiness-track">
+              <i style="width:67%"></i>
+            </div>
+
+            <strong>
+              67 %
+            </strong>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ==========================================================
+     STAGES CV ENTRETIENS
+========================================================== -->
+
+<section
+  id="stages"
+  class="study-section white"
+>
+
+  <div class="container">
+
+
+    <div class="section-title">
+
+      <span class="eyebrow">
+        STAGES · CV · ENTRETIENS
+      </span>
+
+      <h2>
+        Préparer sa première expérience professionnelle.
+      </h2>
+
+    </div>
+
+
+
+    <div class="study-grid">
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          CV
+        </span>
+
+        <h3>
+          Construire son CV
+        </h3>
+
+        <p>
+          Présenter clairement études, projets, expériences et compétences.
+        </p>
+
+        <ul>
+          <li>titre</li>
+          <li>formation</li>
+          <li>expériences</li>
+          <li>projets</li>
+          <li>compétences</li>
+        </ul>
+
+        <div class="study-actions">
+
+          <a
+            class="button secondary"
+            href="cours.html"
+          >
+            Cours CV
+          </a>
+
+        </div>
+
+      </article>
+
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Recherche
+        </span>
+
+        <h3>
+          Trouver un stage
+        </h3>
+
+        <p>
+          Construire une stratégie plutôt qu'envoyer des candidatures au hasard.
+        </p>
+
+        <ul>
+          <li>entreprises cibles</li>
+          <li>réseau</li>
+          <li>candidature</li>
+          <li>suivi</li>
+          <li>relance</li>
+        </ul>
+
+      </article>
+
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Entretien
+        </span>
+
+        <h3>
+          Préparer les entretiens
+        </h3>
+
+        <p>
+          Comprendre son parcours et apprendre à l'expliquer.
+        </p>
+
+        <ul>
+          <li>présentation</li>
+          <li>motivations</li>
+          <li>expériences</li>
+          <li>questions</li>
+          <li>mise en situation</li>
+        </ul>
+
+        <div class="study-actions">
+
+          <a
+            class="button secondary"
+            href="cours.html"
+          >
+            Préparer
+          </a>
+
+        </div>
+
+      </article>
+
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Portfolio
+        </span>
+
+        <h3>
+          Montrer ses projets
+        </h3>
+
+        <p>
+          Transformer projets scolaires et personnels en preuves de compétences.
+        </p>
+
+        <ul>
+          <li>problème</li>
+          <li>rôle</li>
+          <li>méthode</li>
+          <li>résultat</li>
+          <li>apprentissage</li>
+        </ul>
+
+      </article>
+
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Communication
+        </span>
+
+        <h3>
+          Présenter son parcours
+        </h3>
+
+        <p>
+          Construire une présentation courte et cohérente de son profil.
+        </p>
+
+        <ul>
+          <li>30 secondes</li>
+          <li>1 minute</li>
+          <li>3 minutes</li>
+          <li>questions</li>
+          <li>adaptation</li>
+        </ul>
+
+      </article>
+
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Après le stage
+        </span>
+
+        <h3>
+          Faire le bilan
+        </h3>
+
+        <p>
+          Identifier ce qui a été appris et ce qui doit être développé ensuite.
+        </p>
+
+        <ul>
+          <li>missions</li>
+          <li>compétences</li>
+          <li>difficultés</li>
+          <li>retours</li>
+          <li>prochaine étape</li>
+        </ul>
+
+      </article>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ==========================================================
+     EMPLOYABILITE
+========================================================== -->
+
+<section
+  id="employabilite"
+  class="study-section"
+>
+
+  <div class="container">
+
+
+    <div class="section-title">
+
+      <span class="eyebrow">
+        EMPLOYABILITÉ
+      </span>
+
+      <h2>
+        Mes études me préparent-elles à mon objectif ?
+      </h2>
+
+      <p>
+
+        Le futur dashboard pourra suivre plusieurs dimensions
+        de préparation à l'entrée sur le marché du travail.
+
+      </p>
+
+    </div>
+
+
+
+    <div class="employability-layout">
+
+
+      <div class="exam-card">
+
+        <h3>
+          Ma préparation professionnelle
+        </h3>
+
+        <div class="readiness">
+
+
+          <div class="readiness-row">
+
+            <span>
+              CV
+            </span>
+
+            <div class="readiness-track">
+              <i style="width:90%"></i>
+            </div>
+
+            <strong>
+              90
+            </strong>
+
+          </div>
+
+
+          <div class="readiness-row">
+
+            <span>
+              Portfolio
+            </span>
+
+            <div class="readiness-track">
+              <i style="width:60%"></i>
+            </div>
+
+            <strong>
+              60
+            </strong>
+
+          </div>
+
+
+          <div class="readiness-row">
+
+            <span>
+              Entretiens
+            </span>
+
+            <div class="readiness-track">
+              <i style="width:45%"></i>
+            </div>
+
+            <strong>
+              45
+            </strong>
+
+          </div>
+
+
+          <div class="readiness-row">
+
+            <span>
+              Compétences métier
+            </span>
+
+            <div class="readiness-track">
+              <i style="width:68%"></i>
+            </div>
+
+            <strong>
+              68
+            </strong>
+
+          </div>
+
+
+          <div class="readiness-row">
+
+            <span>
+              Soft Skills
+            </span>
+
+            <div class="readiness-track">
+              <i style="width:72%"></i>
+            </div>
+
+            <strong>
+              72
+            </strong>
+
+          </div>
+
+
+          <div class="readiness-row">
+
+            <span>
+              Expérience
+            </span>
+
+            <div class="readiness-track">
+              <i style="width:55%"></i>
+            </div>
+
+            <strong>
+              55
+            </strong>
+
+          </div>
+
+
+        </div>
+
+      </div>
+
+
+
+      <div class="readiness-summary">
+
+        <span class="badge">
+          EXEMPLE
+        </span>
+
+        <h3 style="margin-top:8px">
+          Readiness Life Upgrade
+        </h3>
+
+        <div class="readiness-score">
+          65
+        </div>
+
+        <p>
+          Cet indicateur futur servira seulement à synthétiser
+          les activités et auto-évaluations réalisées sur Life Upgrade.
+          Il ne garantit évidemment pas l'obtention d'un emploi.
+        </p>
+
+        <a
+          class="button primary"
+          href="dashboard.html"
+          style="margin-top:17px"
+        >
+          Voir mon suivi
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ==========================================================
+     TESTS PERSONNALISES
+========================================================== -->
+
+<section class="study-section white">
+
+  <div class="container">
+
+
+    <div class="section-title">
+
+      <span class="eyebrow">
+        TESTS PERSONNALISÉS
+      </span>
+
+      <h2>
+        Les membres inscrits n'auront pas tous le même diagnostic.
+      </h2>
+
+      <p>
+
+        Les évaluations personnalisées seront distinctes
+        des tests publics accessibles sans compte.
+
+      </p>
+
+    </div>
+
+
+
+    <div class="study-grid">
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Lycée
+        </span>
+
+        <h3>
+          Profil Orientation
+        </h3>
+
+        <ul>
+          <li>intérêts</li>
+          <li>matières</li>
+          <li>préférences</li>
+          <li>compétences déclarées</li>
+          <li>environnement</li>
+        </ul>
+
+      </article>
+
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Étudiant
+        </span>
+
+        <h3>
+          Profil Études
+        </h3>
+
+        <ul>
+          <li>organisation</li>
+          <li>concentration</li>
+          <li>mémoire</li>
+          <li>méthodes</li>
+          <li>objectifs</li>
+        </ul>
+
+      </article>
+
+
+
+      <article class="study-card">
+
+        <span class="badge">
+          Fin d'études
+        </span>
+
+        <h3>
+          Profil Employabilité
+        </h3>
+
+        <ul>
+          <li>compétences</li>
+          <li>soft skills</li>
+          <li>CV</li>
+          <li>expériences</li>
+          <li>objectif métier</li>
+        </ul>
+
+      </article>
+
+
+    </div>
+
+
+    <div style="margin-top:22px">
+
+      <a
+        class="button primary"
+        href="inscription.html"
+      >
+        Créer mon profil gratuitement
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ==========================================================
+     ESPACE PARENTS
+========================================================== -->
+
+<section
+  id="parents"
+  class="study-section"
+>
+
+  <div class="container">
+
+
+    <div class="section-title">
+
+      <span class="eyebrow">
+        ESPACE PARENT
+      </span>
+
+      <h2>
+        Accompagner sans transformer Life Upgrade en outil de surveillance.
+      </h2>
+
+      <p>
+
+        Le jeune doit comprendre ce qui est partagé
+        et conserver un espace personnel adapté à son âge
+        et aux règles applicables.
+
+      </p>
+
+    </div>
+
+
+
+    <div class="parent-layout">
+
+
+      <div class="parent-box">
+
+        <span class="badge">
+          PARTAGE POSSIBLE
+        </span>
+
+        <h3>
+          Informations de progression
+        </h3>
+
+        <ul>
+          <li>objectif d'orientation</li>
+          <li>échéances importantes</li>
+          <li>progression générale</li>
+          <li>parcours terminés</li>
+          <li>actions volontairement partagées</li>
+        </ul>
+
+      </div>
+
+
+
+      <div class="parent-box">
+
+        <span class="badge">
+          ESPACE PROTÉGÉ
+        </span>
+
+        <h3>
+          Ce qui ne doit pas être automatiquement partagé
+        </h3>
+
+        <ul>
+          <li>notes personnelles</li>
+          <li>réponses privées</li>
+          <li>messages privés</li>
+          <li>contenu du coaching</li>
+          <li>informations non autorisées</li>
+        </ul>
+
+      </div>
+
+    </div>
+
+
+    <div class="parent-warning">
+
+      La gestion des comptes mineurs, du consentement parental,
+      de la protection des données et du coaching devra être adaptée
+      aux règles des pays dans lesquels Life Upgrade sera lancé.
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ==========================================================
+     PARCOURS GLOBAL
+========================================================== -->
+
+<section class="study-section white">
+
+  <div class="container">
+
+
+    <div class="section-title">
+
+      <span class="eyebrow">
+        PARCOURS GLOBAL
+      </span>
+
+      <h2>
+        Études → compétences → expérience → carrière.
+      </h2>
+
+    </div>
+
+
+
+    <div class="method-path">
+
+
+      <div class="method-step">
+
+        <span>
+          01
+        </span>
+
+        <h3>
+          Explorer
+        </h3>
+
+        <p>
+          Intérêts, métiers et formations.
+        </p>
+
+      </div>
+
+
+
+      <div class="method-step">
+
+        <span>
+          02
+        </span>
+
+        <h3>
+          Apprendre
+        </h3>
+
+        <p>
+          Méthodes, cours et compétences.
+        </p>
+
+      </div>
+
+
+
+      <div class="method-step">
+
+        <span>
+          03
+        </span>
+
+        <h3>
+          Pratiquer
+        </h3>
+
+        <p>
+          Exercices, projets et stages.
+        </p>
+
+      </div>
+
+
+
+      <div class="method-step">
+
+        <span>
+          04
+        </span>
+
+        <h3>
+          Préparer
+        </h3>
+
+        <p>
+          CV, portfolio et entretiens.
+        </p>
+
+      </div>
+
+
+
+      <div class="method-step">
+
+        <span>
+          05
+        </span>
+
+        <h3>
+          Évoluer
+        </h3>
+
+        <p>
+          Premier emploi et montée en compétences.
+        </p>
+
+      </div>
+
+
+    </div>
+
+  </div>
+
+</section>
+
+
+</main>
+
+
+
+<footer>
+
+  <div class="container footer-grid">
+
+
+    <div>
+
+      <a
+        class="logo"
+        href="index.html"
+      >
+
+        <span class="logo-icon">
+          LU
+        </span>
+
+        <span>
+          Life Upgrade
+        </span>
+
+      </a>
+
+      <p>
+        Développement personnel, professionnel,
+        études, apprentissage et trajectoire.
+      </p>
+
+    </div>
+
+
+    <div>
+
+      <strong>
+        Études
+      </strong>
+
+      <a href="#orientation">
+        Orientation
+      </a>
+
+      <a href="#metiers">
+        Métiers
+      </a>
+
+      <a href="#methodes">
+        Méthodes
+      </a>
+
+      <a href="#employabilite">
+        Employabilité
+      </a>
+
+    </div>
+
+
+    <div>
+
+      <strong>
+        Life Upgrade
+      </strong>
+
+      <a href="tests.html">
+        Tests
+      </a>
+
+      <a href="cours.html">
+        Cours
+      </a>
+
+      <a href="forum.html">
+        Forum
+      </a>
+
+      <a href="dashboard.html">
+        Mon espace
+      </a>
+
+    </div>
+
+
+  </div>
+
+</footer>
+
+
+</body>
+
+</html>
