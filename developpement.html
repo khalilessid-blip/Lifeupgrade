@@ -1,0 +1,1239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Développement personnel & professionnel — Life Upgrade</title>
+  <meta
+    name="description"
+    content="Développement personnel, professionnel, intelligence émotionnelle, soft skills, concentration, gestion du temps et carrière."
+  >
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .page-hero{
+      padding:70px 0 45px;
+    }
+
+    .page-hero p{
+      max-width:760px;
+      margin-top:14px;
+      font-size:17px;
+    }
+
+    .section-nav{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:24px;
+    }
+
+    .section-nav a{
+      padding:8px 11px;
+      border-radius:999px;
+      background:white;
+      border:1px solid var(--border);
+      color:var(--muted);
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .section-nav a:hover{
+      color:var(--primary);
+      border-color:var(--primary);
+    }
+
+    .domain-section{
+      padding:72px 0;
+    }
+
+    .domain-section.white{
+      background:white;
+    }
+
+    .domain-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+    }
+
+    .domain-card{
+      min-height:250px;
+      display:flex;
+      flex-direction:column;
+      padding:22px;
+      background:white;
+      border:1px solid var(--border);
+      border-radius:20px;
+    }
+
+    .white .domain-card{
+      background:#f8f9fc;
+    }
+
+    .domain-card p{
+      margin-top:8px;
+      font-size:13px;
+    }
+
+    .domain-card ul{
+      display:grid;
+      gap:6px;
+      margin:14px 0;
+      padding:0;
+      list-style:none;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .domain-card li::before{
+      content:"✓";
+      margin-right:7px;
+      color:var(--green);
+      font-weight:900;
+    }
+
+    .domain-actions{
+      margin-top:auto;
+      padding-top:14px;
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+
+    .skills-map{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:13px;
+    }
+
+    .skills-block{
+      padding:20px;
+      border-radius:18px;
+      background:white;
+      border:1px solid var(--border);
+    }
+
+    .skills-block h3{
+      margin-bottom:11px;
+    }
+
+    .skills-block ul{
+      list-style:none;
+      display:grid;
+      gap:6px;
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .skills-block li::before{
+      content:"•";
+      color:var(--primary);
+      margin-right:7px;
+      font-weight:900;
+    }
+
+    .emotional-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:16px;
+    }
+
+    .emotion-flow{
+      padding:23px;
+      border-radius:20px;
+      background:linear-gradient(145deg,#151b32,#273251);
+      color:white;
+    }
+
+    .emotion-flow p{
+      color:#b8c2d4;
+    }
+
+    .flow-line{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top:18px;
+    }
+
+    .flow-line span{
+      padding:9px 11px;
+      border-radius:11px;
+      background:rgba(255,255,255,.07);
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .assessment-card{
+      padding:23px;
+      background:white;
+      border:1px solid var(--border);
+      border-radius:20px;
+    }
+
+    .assessment-row{
+      margin-top:14px;
+    }
+
+    .assessment-label{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:6px;
+      font-size:11px;
+      font-weight:800;
+    }
+
+    .assessment-track{
+      height:8px;
+      background:#e8ecf3;
+      border-radius:999px;
+      overflow:hidden;
+    }
+
+    .assessment-track i{
+      display:block;
+      height:100%;
+      background:linear-gradient(90deg,var(--primary),#8884ff);
+      border-radius:999px;
+    }
+
+    .pathway{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      margin-top:20px;
+    }
+
+    .pathway-step{
+      padding:16px;
+      border-radius:16px;
+      background:white;
+      border:1px solid var(--border);
+    }
+
+    .pathway-step span{
+      color:var(--primary);
+      font-size:10px;
+      font-weight:900;
+    }
+
+    .pathway-step h3{
+      margin:6px 0;
+      font-size:16px;
+    }
+
+    .pathway-step p{
+      font-size:11px;
+    }
+
+    @media(max-width:950px){
+      .domain-grid,
+      .skills-map,
+      .emotional-grid,
+      .pathway{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    @media(max-width:650px){
+      .domain-grid,
+      .skills-map,
+      .emotional-grid,
+      .pathway{
+        grid-template-columns:1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="container nav">
+
+    <a class="logo" href="index.html">
+      <span class="logo-icon">LU</span>
+      <span>Life Upgrade</span>
+    </a>
+
+    <nav class="menu">
+      <a href="index.html">Accueil</a>
+      <a class="active" href="developpement.html">Développement</a>
+      <a href="etudes.html">Études & Orientation</a>
+      <a href="tests.html">Tests & Exercices</a>
+      <a href="cours.html">Cours</a>
+      <a href="culture.html">Culture</a>
+      <a href="forum.html">Forum</a>
+      <a href="coaching.html">Coaching</a>
+    </nav>
+
+    <a class="account-button" href="dashboard.html">
+      Mon espace
+    </a>
+
+  </div>
+</header>
+
+
+<main>
+
+<section class="page-hero">
+  <div class="container">
+
+    <div class="eyebrow">
+      DÉVELOPPEMENT
+    </div>
+
+    <h1 style="font-size:clamp(44px,5vw,66px)">
+      Développe ce qui te sert vraiment.
+    </h1>
+
+    <p>
+      Life Upgrade réunit développement personnel, performance professionnelle,
+      intelligence émotionnelle, soft skills, organisation, carrière et
+      apprentissage dans un seul espace.
+    </p>
+
+    <div class="section-nav">
+      <a href="#personnel">Personnel</a>
+      <a href="#intelligence-emotionnelle">Intelligence émotionnelle</a>
+      <a href="#professionnel">Professionnel</a>
+      <a href="#soft-skills">Soft Skills</a>
+      <a href="#carriere">Carrière</a>
+      <a href="#plan">Plan personnalisé</a>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =====================================================
+     PERSONNEL
+===================================================== -->
+
+<section id="personnel" class="domain-section white">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <span class="eyebrow">
+        DÉVELOPPEMENT PERSONNEL
+      </span>
+
+      <h2>
+        Comprendre son fonctionnement avant de vouloir tout changer.
+      </h2>
+
+      <p>
+        Chaque domaine peut proposer un cours, des exercices, une auto-évaluation,
+        des missions et un suivi dans le tableau de bord.
+      </p>
+
+    </div>
+
+    <div class="domain-grid">
+
+      <article class="domain-card">
+        <span class="badge">Temps</span>
+        <h3>Gestion du temps</h3>
+        <p>
+          Comprendre où part son temps et mieux décider de son utilisation.
+        </p>
+        <ul>
+          <li>audit 24 heures</li>
+          <li>audit 168 heures</li>
+          <li>priorités</li>
+          <li>time blocking</li>
+          <li>revue hebdomadaire</li>
+        </ul>
+        <div class="domain-actions">
+          <a class="button secondary" href="tests.html#temps">
+            Exercices
+          </a>
+          <a class="button secondary" href="cours.html">
+            Cours
+          </a>
+        </div>
+      </article>
+
+
+      <article class="domain-card">
+        <span class="badge">Organisation</span>
+        <h3>Organisation personnelle</h3>
+        <p>
+          Transformer objectifs et responsabilités en actions claires.
+        </p>
+        <ul>
+          <li>priorités</li>
+          <li>routines</li>
+          <li>planification</li>
+          <li>procrastination</li>
+          <li>revue de progression</li>
+        </ul>
+        <div class="domain-actions">
+          <a class="button secondary" href="cours.html">
+            Voir les parcours
+          </a>
+        </div>
+      </article>
+
+
+      <article class="domain-card">
+        <span class="badge">Focus</span>
+        <h3>Concentration & attention</h3>
+        <p>
+          Protéger son attention et développer progressivement son temps de focus.
+        </p>
+        <ul>
+          <li>notifications</li>
+          <li>interruptions</li>
+          <li>mono-tâche</li>
+          <li>Focus Timer</li>
+          <li>exercices d'attention</li>
+        </ul>
+        <div class="domain-actions">
+          <a class="button primary" href="tests.html#concentration">
+            S'entraîner
+          </a>
+        </div>
+      </article>
+
+
+      <article class="domain-card">
+        <span class="badge">Mémoire</span>
+        <h3>Mémoire & apprentissage</h3>
+        <p>
+          Entraîner le rappel, structurer les connaissances et apprendre plus efficacement.
+        </p>
+        <ul>
+          <li>mémoire immédiate</li>
+          <li>mémoire visuelle</li>
+          <li>mémoire de travail</li>
+          <li>rappel actif</li>
+          <li>répétition espacée</li>
+        </ul>
+        <div class="domain-actions">
+          <a class="button primary" href="tests.html#memoire">
+            Memory Lab
+          </a>
+        </div>
+      </article>
+
+
+      <article class="domain-card">
+        <span class="badge">Habitudes</span>
+        <h3>Habitudes & discipline</h3>
+        <p>
+          Construire des comportements réalistes et mesurer leur régularité.
+        </p>
+        <ul>
+          <li>déclencheurs</li>
+          <li>petites actions</li>
+          <li>friction</li>
+          <li>régularité</li>
+          <li>bilan hebdomadaire</li>
+        </ul>
+        <div class="domain-actions">
+          <a class="button secondary" href="cours.html">
+            Parcours habitudes
+          </a>
+        </div>
+      </article>
+
+
+      <article class="domain-card">
+        <span class="badge">Pression quotidienne</span>
+        <h3>Gestion du stress quotidien</h3>
+        <p>
+          Des outils de bien-être, récupération et organisation sans visée thérapeutique.
+        </p>
+        <ul>
+          <li>respiration guidée</li>
+          <li>pause récupération</li>
+          <li>charge quotidienne</li>
+          <li>ce que je contrôle</li>
+          <li>préparation</li>
+        </ul>
+        <div class="domain-actions">
+          <a class="button secondary" href="tests.html#stress">
+            Exercices Reset
+          </a>
+        </div>
+      </article>
+
+
+      <article class="domain-card">
+        <span class="badge">Confiance</span>
+        <h3>Confiance & affirmation</h3>
+        <p>
+          Apprendre à exprimer une demande, une limite ou une opinion plus clairement.
+        </p>
+        <ul>
+          <li>assertivité</li>
+          <li>savoir dire non</li>
+          <li>demander</li>
+          <li>recevoir une critique</li>
+          <li>poser ses limites</li>
+        </ul>
+        <div class="domain-actions">
+          <a class="button secondary" href="cours.html">
+            Voir le parcours
+          </a>
+        </div>
+      </article>
+
+
+      <article class="domain-card">
+        <span class="badge">Connaissance de soi</span>
+        <h3>Valeurs & motivations</h3>
+        <p>
+          Clarifier ce qui compte réellement pour mieux choisir ses objectifs.
+        </p>
+        <ul>
+          <li>valeurs</li>
+          <li>motivations</li>
+          <li>priorités</li>
+          <li>forces</li>
+          <li>objectifs personnels</li>
+        </ul>
+        <div class="domain-actions">
+          <a class="button secondary" href="dashboard.html">
+            Mon profil
+          </a>
+        </div>
+      </article>
+
+
+      <article class="domain-card">
+        <span class="badge">Relations</span>
+        <h3>Relations interpersonnelles</h3>
+        <p>
+          Écoute, coopération, empathie, limites et conversations difficiles.
+        </p>
+        <ul>
+          <li>écoute active</li>
+          <li>empathie</li>
+          <li>désaccord</li>
+          <li>feedback</li>
+          <li>communication</li>
+        </ul>
+        <div class="domain-actions">
+          <a class="button secondary" href="#soft-skills">
+            Voir les compétences
+          </a>
+        </div>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =====================================================
+     INTELLIGENCE EMOTIONNELLE
+===================================================== -->
+
+<section id="intelligence-emotionnelle" class="domain-section">
+
+  <div class="container">
+
+    <div class="section-title">
+      <span class="eyebrow">
+        INTELLIGENCE ÉMOTIONNELLE
+      </span>
+
+      <h2>
+        Comprendre ses réactions et mieux interagir avec les autres.
+      </h2>
+
+      <p>
+        Life Upgrade traite ici de compétences d'observation, communication et
+        régulation du quotidien. Il ne s'agit pas d'une évaluation psychologique clinique.
+      </p>
+    </div>
+
+    <div class="emotional-grid">
+
+      <div class="emotion-flow">
+
+        <span class="badge">Modèle d'entraînement</span>
+
+        <h3 style="margin-top:8px;font-size:25px">
+          De la réaction automatique à la réponse choisie.
+        </h3>
+
+        <p style="margin-top:9px">
+          Les exercices aident à distinguer une situation, l'émotion ressentie,
+          l'interprétation et la réponse possible.
+        </p>
+
+        <div class="flow-line">
+          <span>Situation</span>
+          <span>→</span>
+          <span>Émotion</span>
+          <span>→</span>
+          <span>Pensée</span>
+          <span>→</span>
+          <span>Pause</span>
+          <span>→</span>
+          <span>Réponse choisie</span>
+        </div>
+
+      </div>
+
+
+      <div class="assessment-card">
+
+        <span class="badge">
+          Exemple de profil
+        </span>
+
+        <h3>
+          Intelligence émotionnelle — Life Upgrade
+        </h3>
+
+        <p>
+          Exemple illustratif de résultats issus de questionnaires et scénarios.
+        </p>
+
+        <div class="assessment-row">
+          <div class="assessment-label">
+            <span>Conscience de soi</span>
+            <span>78</span>
+          </div>
+          <div class="assessment-track">
+            <i style="width:78%"></i>
+          </div>
+        </div>
+
+        <div class="assessment-row">
+          <div class="assessment-label">
+            <span>Régulation</span>
+            <span>65</span>
+          </div>
+          <div class="assessment-track">
+            <i style="width:65%"></i>
+          </div>
+        </div>
+
+        <div class="assessment-row">
+          <div class="assessment-label">
+            <span>Empathie</span>
+            <span>82</span>
+          </div>
+          <div class="assessment-track">
+            <i style="width:82%"></i>
+          </div>
+        </div>
+
+        <div class="assessment-row">
+          <div class="assessment-label">
+            <span>Communication</span>
+            <span>71</span>
+          </div>
+          <div class="assessment-track">
+            <i style="width:71%"></i>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="domain-grid" style="margin-top:16px">
+
+      <article class="domain-card">
+        <span class="badge">1</span>
+        <h3>Conscience émotionnelle</h3>
+        <p>
+          Reconnaître ce que l'on ressent et distinguer émotion, pensée et comportement.
+        </p>
+        <ul>
+          <li>identifier l'émotion</li>
+          <li>intensité déclarée</li>
+          <li>déclencheurs</li>
+          <li>journal court</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">2</span>
+        <h3>Régulation</h3>
+        <p>
+          Prendre du recul avant de choisir une réponse.
+        </p>
+        <ul>
+          <li>pause</li>
+          <li>reformulation</li>
+          <li>choix de réaction</li>
+          <li>analyse de conséquence</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">3</span>
+        <h3>Empathie</h3>
+        <p>
+          Comprendre plusieurs interprétations possibles avant de conclure.
+        </p>
+        <ul>
+          <li>écoute</li>
+          <li>contexte</li>
+          <li>questions</li>
+          <li>perspective</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">4</span>
+        <h3>Communication émotionnelle</h3>
+        <p>
+          Exprimer clairement un besoin ou un désaccord sans attaque personnelle.
+        </p>
+        <ul>
+          <li>faits</li>
+          <li>ressenti</li>
+          <li>besoin</li>
+          <li>demande</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">5</span>
+        <h3>Compréhension des autres</h3>
+        <p>
+          Observer le contexte et éviter les conclusions hâtives.
+        </p>
+        <ul>
+          <li>signaux verbaux</li>
+          <li>contexte</li>
+          <li>écoute</li>
+          <li>reformulation</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">6</span>
+        <h3>Relations & conflits</h3>
+        <p>
+          Utiliser intelligence émotionnelle et communication dans les désaccords.
+        </p>
+        <ul>
+          <li>désaccord</li>
+          <li>feedback</li>
+          <li>limites</li>
+          <li>compromis</li>
+        </ul>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =====================================================
+     PROFESSIONNEL
+===================================================== -->
+
+<section id="professionnel" class="domain-section white">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <span class="eyebrow">
+        DÉVELOPPEMENT PROFESSIONNEL
+      </span>
+
+      <h2>
+        Développe tes compétences, pas seulement ta productivité.
+      </h2>
+
+      <p>
+        L'espace professionnel couvre performance, organisation, carrière,
+        compétences humaines et évolution.
+      </p>
+
+    </div>
+
+    <div class="domain-grid">
+
+      <article class="domain-card" id="performance">
+        <span class="badge">Performance</span>
+        <h3>Performance au travail</h3>
+        <p>
+          Mieux structurer ses journées et concentrer son énergie sur les tâches à impact.
+        </p>
+        <ul>
+          <li>priorités</li>
+          <li>focus</li>
+          <li>interruptions</li>
+          <li>objectifs</li>
+          <li>bilan</li>
+        </ul>
+      </article>
+
+      <article class="domain-card" id="temps">
+        <span class="badge">Temps</span>
+        <h3>Optimisation du temps</h3>
+        <p>
+          Comprendre réunions, emails, tâches administratives et travail concentré.
+        </p>
+        <ul>
+          <li>budget temps</li>
+          <li>réunions</li>
+          <li>emails</li>
+          <li>deep work</li>
+          <li>planning</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">Communication</span>
+        <h3>Communication professionnelle</h3>
+        <p>
+          Présenter une idée, donner du feedback et conduire des conversations difficiles.
+        </p>
+        <ul>
+          <li>message clair</li>
+          <li>écoute</li>
+          <li>feedback</li>
+          <li>assertivité</li>
+          <li>présentation</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">IE au travail</span>
+        <h3>Intelligence émotionnelle professionnelle</h3>
+        <p>
+          Comprendre ses réactions et celles des autres dans un contexte professionnel.
+        </p>
+        <ul>
+          <li>feedback</li>
+          <li>pression</li>
+          <li>désaccord</li>
+          <li>empathie managériale</li>
+          <li>prise de recul</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">Leadership</span>
+        <h3>Leadership</h3>
+        <p>
+          Donner une direction, communiquer, décider et accompagner le changement.
+        </p>
+        <ul>
+          <li>vision</li>
+          <li>influence</li>
+          <li>décision</li>
+          <li>délégation</li>
+          <li>changement</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">Management</span>
+        <h3>Management</h3>
+        <p>
+          Organiser l'activité, déléguer, suivre et développer une équipe.
+        </p>
+        <ul>
+          <li>objectifs</li>
+          <li>délégation</li>
+          <li>réunions</li>
+          <li>feedback</li>
+          <li>développement</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">Négociation</span>
+        <h3>Négociation</h3>
+        <p>
+          Préparer une discussion et rechercher un accord réaliste.
+        </p>
+        <ul>
+          <li>objectifs</li>
+          <li>intérêts</li>
+          <li>alternatives</li>
+          <li>compromis</li>
+          <li>conclusion</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">Conflits</span>
+        <h3>Gestion des conflits</h3>
+        <p>
+          Distinguer positions, intérêts, faits et interprétations.
+        </p>
+        <ul>
+          <li>écoute</li>
+          <li>désaccord</li>
+          <li>reformulation</li>
+          <li>options</li>
+          <li>accord</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">Décision</span>
+        <h3>Prise de décision</h3>
+        <p>
+          Structurer une décision sous contrainte de temps et d'information.
+        </p>
+        <ul>
+          <li>options</li>
+          <li>risques</li>
+          <li>conséquences</li>
+          <li>réversibilité</li>
+          <li>bilan</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">Problèmes</span>
+        <h3>Résolution de problèmes</h3>
+        <p>
+          Définir le problème avant de chercher des solutions.
+        </p>
+        <ul>
+          <li>cause</li>
+          <li>hypothèses</li>
+          <li>solutions</li>
+          <li>choix</li>
+          <li>test</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">Esprit critique</span>
+        <h3>Esprit critique</h3>
+        <p>
+          Évaluer arguments, sources, données et conclusions.
+        </p>
+        <ul>
+          <li>fait / opinion</li>
+          <li>source</li>
+          <li>corrélation</li>
+          <li>biais</li>
+          <li>argumentation</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">Adaptabilité</span>
+        <h3>Adaptabilité & changement</h3>
+        <p>
+          Apprendre à évoluer lorsqu'un contexte, une équipe ou une priorité change.
+        </p>
+        <ul>
+          <li>nouveaux outils</li>
+          <li>nouveau poste</li>
+          <li>réorganisation</li>
+          <li>incertitude</li>
+          <li>apprentissage</li>
+        </ul>
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     SOFT SKILLS
+===================================================== -->
+
+<section id="soft-skills" class="domain-section">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <span class="eyebrow">
+        SKILLS MAP
+      </span>
+
+      <h2>
+        Le référentiel Soft Skills Life Upgrade.
+      </h2>
+
+      <p>
+        Chaque famille pourra ensuite contenir cours, scénarios, tests personnalisés,
+        exercices et recommandations.
+      </p>
+
+    </div>
+
+
+    <div class="skills-map">
+
+      <div class="skills-block">
+        <h3>Communication</h3>
+        <ul>
+          <li>expression</li>
+          <li>écoute</li>
+          <li>feedback</li>
+          <li>présentation</li>
+          <li>assertivité</li>
+        </ul>
+      </div>
+
+      <div class="skills-block">
+        <h3>Intelligence émotionnelle</h3>
+        <ul>
+          <li>conscience de soi</li>
+          <li>régulation</li>
+          <li>empathie</li>
+          <li>relations</li>
+          <li>réactions</li>
+        </ul>
+      </div>
+
+      <div class="skills-block">
+        <h3>Leadership</h3>
+        <ul>
+          <li>influence</li>
+          <li>décision</li>
+          <li>délégation</li>
+          <li>vision</li>
+          <li>changement</li>
+        </ul>
+      </div>
+
+      <div class="skills-block">
+        <h3>Collaboration</h3>
+        <ul>
+          <li>équipe</li>
+          <li>coopération</li>
+          <li>conflits</li>
+          <li>négociation</li>
+          <li>feedback</li>
+        </ul>
+      </div>
+
+      <div class="skills-block">
+        <h3>Efficacité</h3>
+        <ul>
+          <li>temps</li>
+          <li>organisation</li>
+          <li>concentration</li>
+          <li>priorités</li>
+          <li>objectifs</li>
+        </ul>
+      </div>
+
+      <div class="skills-block">
+        <h3>Réflexion</h3>
+        <ul>
+          <li>logique</li>
+          <li>esprit critique</li>
+          <li>problèmes</li>
+          <li>créativité</li>
+          <li>décision</li>
+        </ul>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =====================================================
+     CARRIERE
+===================================================== -->
+
+<section id="carriere" class="domain-section white">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <span class="eyebrow">
+        CARRIÈRE
+      </span>
+
+      <h2>
+        Construis ta prochaine étape professionnelle.
+      </h2>
+
+      <p>
+        Career Gap, montée en compétences, reconversion et préparation
+        de nouveaux objectifs professionnels.
+      </p>
+
+    </div>
+
+    <div class="domain-grid">
+
+      <article class="domain-card" id="competences">
+        <span class="badge">Skills</span>
+        <h3>Montée en compétences</h3>
+        <p>
+          Comparer niveau actuel, objectif et temps d'apprentissage disponible.
+        </p>
+        <ul>
+          <li>niveau actuel</li>
+          <li>niveau cible</li>
+          <li>plan</li>
+          <li>cours</li>
+          <li>projet pratique</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">Career Gap</span>
+        <h3>Écart avec l'objectif</h3>
+        <p>
+          Identifier les compétences à renforcer avant une évolution de rôle.
+        </p>
+        <ul>
+          <li>objectif métier</li>
+          <li>compétences techniques</li>
+          <li>soft skills</li>
+          <li>priorités</li>
+          <li>plan 90 jours</li>
+        </ul>
+      </article>
+
+      <article class="domain-card">
+        <span class="badge">Reconversion</span>
+        <h3>Changer de trajectoire</h3>
+        <p>
+          Explorer motivations, compétences transférables et environnements recherchés.
+        </p>
+        <ul>
+          <li>motivations</li>
+          <li>transférabilité</li>
+          <li>métiers</li>
+          <li>écarts</li>
+          <li>plan de transition</li>
+        </ul>
+      </article>
+
+    </div>
+
+  </div>
+</section>
+
+
+<!-- =====================================================
+     PLAN PERSONNALISÉ
+===================================================== -->
+
+<section id="plan" class="domain-section">
+
+  <div class="container">
+
+    <div class="section-title">
+
+      <span class="eyebrow">
+        PLAN PERSONNALISÉ
+      </span>
+
+      <h2>
+        Les compétences doivent mener à des actions.
+      </h2>
+
+      <p>
+        Après inscription, tests et objectifs permettent de construire
+        un plan personnalisé adapté au profil de l'utilisateur.
+      </p>
+
+    </div>
+
+    <div class="pathway">
+
+      <div class="pathway-step">
+        <span>ÉTAPE 1</span>
+        <h3>Profil</h3>
+        <p>
+          Situation, objectifs et domaines prioritaires.
+        </p>
+      </div>
+
+      <div class="pathway-step">
+        <span>ÉTAPE 2</span>
+        <h3>Évaluation</h3>
+        <p>
+          Tests personnalisés selon le profil.
+        </p>
+      </div>
+
+      <div class="pathway-step">
+        <span>ÉTAPE 3</span>
+        <h3>Plan</h3>
+        <p>
+          Cours, exercices, missions et objectifs.
+        </p>
+      </div>
+
+      <div class="pathway-step">
+        <span>ÉTAPE 4</span>
+        <h3>Suivi</h3>
+        <p>
+          Progression, bilan et ajustement de trajectoire.
+        </p>
+      </div>
+
+    </div>
+
+    <div style="margin-top:22px">
+      <a class="button primary" href="inscription.html">
+        Créer mon profil gratuitement
+      </a>
+    </div>
+
+  </div>
+</section>
+
+</main>
+
+
+<footer>
+  <div class="container footer-grid">
+
+    <div>
+      <a class="logo" href="index.html">
+        <span class="logo-icon">LU</span>
+        <span>Life Upgrade</span>
+      </a>
+
+      <p>
+        Développement personnel, professionnel, études,
+        apprentissage et trajectoire.
+      </p>
+    </div>
+
+    <div>
+      <strong>Explorer</strong>
+      <a href="developpement.html">Développement</a>
+      <a href="etudes.html">Études & Orientation</a>
+      <a href="tests.html">Tests</a>
+      <a href="cours.html">Cours</a>
+    </div>
+
+    <div>
+      <strong>Mon espace</strong>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="coaching.html">Coaching</a>
+      <a href="forum.html">Forum</a>
+    </div>
+
+  </div>
+</footer>
+
+</body>
+</html>
