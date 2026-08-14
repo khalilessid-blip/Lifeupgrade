@@ -1,0 +1,2714 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Mon espace — Life Upgrade</title>
+
+<meta
+  name="description"
+  content="Tableau de bord Life Upgrade : profil, trajectoire, tests, cours, objectifs, sessions et progression."
+>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* ============================================================
+   PAGE
+============================================================ */
+
+.dashboard-page{
+  padding:55px 0 80px;
+}
+
+.dashboard-hero{
+  display:grid;
+  grid-template-columns:1fr 330px;
+  gap:18px;
+  align-items:stretch;
+}
+
+.welcome-card{
+  padding:26px;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:white;
+}
+
+.welcome-card p{
+  margin-top:8px;
+}
+
+.plan-card{
+  padding:24px;
+  border-radius:22px;
+  color:white;
+  background:linear-gradient(145deg,#11172b,#263452);
+}
+
+.plan-card p{
+  color:#b8c1d3;
+  font-size:11px;
+}
+
+.plan-status{
+  margin-top:14px;
+  padding:12px;
+  border-radius:12px;
+  background:rgba(255,255,255,.07);
+}
+
+.plan-status span{
+  display:block;
+  color:#adb8cb;
+  font-size:9px;
+}
+
+.plan-status strong{
+  display:block;
+  margin-top:4px;
+  font-size:18px;
+}
+
+
+/* ============================================================
+   NAV TABS
+============================================================ */
+
+.dashboard-tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:20px;
+}
+
+.dashboard-tab{
+  padding:9px 12px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  background:white;
+  color:var(--muted);
+  cursor:pointer;
+  font-size:11px;
+  font-weight:800;
+}
+
+.dashboard-tab.active,
+.dashboard-tab:hover{
+  border-color:var(--primary);
+  background:var(--soft);
+  color:var(--primary);
+}
+
+
+/* ============================================================
+   SECTIONS
+============================================================ */
+
+.dashboard-section{
+  padding-top:28px;
+}
+
+.dashboard-view{
+  display:none;
+}
+
+.dashboard-view.active{
+  display:block;
+}
+
+.section-header{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  align-items:flex-end;
+  margin-bottom:16px;
+}
+
+.section-header p{
+  font-size:11px;
+}
+
+.dashboard-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.dashboard-grid-2{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.dashboard-card{
+  padding:20px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:white;
+}
+
+.dashboard-card p{
+  margin-top:7px;
+  font-size:11px;
+}
+
+.dashboard-card h3{
+  margin-top:5px;
+}
+
+
+/* ============================================================
+   STATS
+============================================================ */
+
+.stat-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-top:18px;
+}
+
+.stat-card{
+  padding:17px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:white;
+}
+
+.stat-card span{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:800;
+}
+
+.stat-card strong{
+  display:block;
+  margin-top:4px;
+  font-size:24px;
+}
+
+.stat-card p{
+  margin-top:3px;
+  font-size:9px;
+}
+
+
+/* ============================================================
+   PROGRESS
+============================================================ */
+
+.progress-row{
+  margin-top:14px;
+}
+
+.progress-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:6px;
+  font-size:10px;
+  font-weight:800;
+}
+
+.progress-track{
+  height:8px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#e8ebf1;
+}
+
+.progress-track i{
+  display:block;
+  height:100%;
+  border-radius:999px;
+  background:var(--primary);
+}
+
+
+/* ============================================================
+   ACTION CARDS
+============================================================ */
+
+.action-card{
+  padding:20px;
+  border-radius:18px;
+  background:linear-gradient(145deg,#151b31,#293653);
+  color:white;
+}
+
+.action-card p{
+  margin-top:8px;
+  color:#bcc5d5;
+  font-size:11px;
+}
+
+.action-buttons{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:14px;
+}
+
+
+/* ============================================================
+   TEST PLAN
+============================================================ */
+
+.test-plan-list{
+  display:grid;
+  gap:8px;
+  margin-top:14px;
+}
+
+.test-plan-item{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:10px;
+  align-items:center;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:#f8f9fc;
+}
+
+.test-plan-item strong{
+  display:block;
+  font-size:11px;
+}
+
+.test-plan-item span{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.test-count{
+  color:var(--primary);
+  font-size:13px;
+  font-weight:900;
+}
+
+
+/* ============================================================
+   OBJECTIVES
+============================================================ */
+
+.goal-card{
+  padding:18px;
+  border:1px solid var(--border);
+  border-radius:16px;
+  background:white;
+}
+
+.goal-card span{
+  color:var(--muted);
+  font-size:9px;
+  font-weight:800;
+}
+
+.goal-card p{
+  margin-top:8px;
+  min-height:44px;
+}
+
+.goal-empty{
+  color:var(--muted);
+  font-style:italic;
+}
+
+
+/* ============================================================
+   RESULTS
+============================================================ */
+
+.result-list{
+  display:grid;
+  gap:8px;
+  margin-top:12px;
+}
+
+.result-row{
+  display:grid;
+  grid-template-columns:1fr 90px 130px;
+  gap:10px;
+  align-items:center;
+  padding:11px;
+  border-radius:11px;
+  background:#f7f8fb;
+}
+
+.result-row p{
+  margin:0;
+  font-size:9px;
+}
+
+.result-score{
+  text-align:right;
+  color:var(--primary);
+  font-weight:900;
+}
+
+
+/* ============================================================
+   SESSIONS
+============================================================ */
+
+.session-row{
+  display:grid;
+  grid-template-columns:1fr 120px 100px;
+  gap:10px;
+  align-items:center;
+  padding:12px;
+  border-radius:11px;
+  background:#f7f8fb;
+  margin-top:8px;
+}
+
+.session-status{
+  font-size:9px;
+  font-weight:900;
+}
+
+.status-confirmed{
+  color:#16815f;
+}
+
+.status-waiting{
+  color:#b07b21;
+}
+
+
+/* ============================================================
+   PROFILE
+============================================================ */
+
+.profile-info-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  margin-top:12px;
+}
+
+.profile-info{
+  padding:13px;
+  border-radius:12px;
+  background:#f6f7fa;
+}
+
+.profile-info span{
+  display:block;
+  color:var(--muted);
+  font-size:8px;
+  font-weight:800;
+}
+
+.profile-info strong{
+  display:block;
+  margin-top:4px;
+  font-size:12px;
+}
+
+
+/* ============================================================
+   EMPTY ACCOUNT
+============================================================ */
+
+.no-account{
+  padding:45px;
+  text-align:center;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:white;
+}
+
+.no-account h2{
+  margin-top:10px;
+}
+
+.no-account p{
+  max-width:600px;
+  margin:10px auto 0;
+}
+
+.no-account-actions{
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:20px;
+}
+
+
+/* ============================================================
+   PREMIUM
+============================================================ */
+
+.premium-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.premium-card{
+  padding:22px;
+  border:1px solid var(--border);
+  border-radius:19px;
+  background:white;
+}
+
+.premium-card.featured{
+  color:white;
+  background:linear-gradient(145deg,#151b31,#293653);
+  border:0;
+}
+
+.premium-card.featured p{
+  color:#bbc4d4;
+}
+
+.premium-feature{
+  display:flex;
+  gap:8px;
+  margin-top:8px;
+  font-size:11px;
+}
+
+.premium-feature strong{
+  color:#16815f;
+}
+
+.featured .premium-feature strong{
+  color:#aaa7ff;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media(max-width:950px){
+
+  .dashboard-hero,
+  .dashboard-grid,
+  .dashboard-grid-2,
+  .premium-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .stat-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:650px){
+
+  .dashboard-hero,
+  .dashboard-grid,
+  .dashboard-grid-2,
+  .premium-grid,
+  .stat-grid,
+  .profile-info-grid{
+    grid-template-columns:1fr;
+  }
+
+  .result-row,
+  .session-row{
+    grid-template-columns:1fr;
+  }
+
+  .section-header{
+    align-items:flex-start;
+    flex-direction:column;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="lifeUpgradeHeader"></div>
+
+
+<main class="dashboard-page">
+
+<div class="container">
+
+<div id="dashboardApp"></div>
+
+</div>
+
+</main>
+
+
+<div id="lifeUpgradeFooter"></div>
+
+
+<script src="common.js"></script>
+
+<script>
+
+/* ============================================================
+   KEYS
+============================================================ */
+
+const DASH_PROFILE_KEY =
+  "lifeUpgradeProfile";
+
+const DASH_ACCOUNT_KEY =
+  "lifeUpgradePrototypeAccount";
+
+const DASH_TRAJECTORY_KEY =
+  "lifeUpgradeTrajectory";
+
+const DASH_COURSE_RESULTS_KEY =
+  "lifeUpgradeCourseResults";
+
+const DASH_CULTURE_RESULTS_KEY =
+  "lifeUpgradeCultureResults";
+
+const DASH_SESSION_KEY =
+  "lifeUpgradeSessionRegistrations";
+
+
+/* ============================================================
+   STATIC SESSION DATA
+   Même IDs que sessions.html
+============================================================ */
+
+const dashboardSessionData = [
+
+{
+  id:"speaking",
+  title:"Prise de parole : structurer un message clair",
+  date:"12 septembre",
+  time:"18:00",
+  platform:"Google Meet"
+},
+
+{
+  id:"data",
+  title:"Découvrir le métier de Data Analyst",
+  date:"17 septembre",
+  time:"19:00",
+  platform:"Microsoft Teams"
+},
+
+{
+  id:"aiwork",
+  title:"IA et avenir des métiers",
+  date:"20 septembre",
+  time:"17:00",
+  platform:"Google Meet"
+},
+
+{
+  id:"astronomy",
+  title:"Étoiles, galaxies et trous noirs",
+  date:"24 septembre",
+  time:"20:00",
+  platform:"Google Meet"
+},
+
+{
+  id:"orientation",
+  title:"Comment explorer plusieurs pistes métiers ?",
+  date:"27 septembre",
+  time:"16:00",
+  platform:"Microsoft Teams"
+},
+
+{
+  id:"emotional",
+  title:"Communication et intelligence émotionnelle au travail",
+  date:"2 octobre",
+  time:"18:30",
+  platform:"Google Meet"
+}
+
+];
+
+
+/* ============================================================
+   INIT
+============================================================ */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    renderDashboard();
+
+  }
+);
+
+
+/* ============================================================
+   MAIN
+============================================================ */
+
+function renderDashboard(){
+
+  const profile =
+    lifeUpgradeGetStorage(
+      DASH_PROFILE_KEY,
+      null
+    );
+
+  const account =
+    lifeUpgradeGetStorage(
+      DASH_ACCOUNT_KEY,
+      null
+    );
+
+
+  const app =
+    document.getElementById(
+      "dashboardApp"
+    );
+
+
+  if(
+    !profile ||
+    !account
+  ){
+
+    app.innerHTML =
+      renderNoAccount();
+
+    return;
+
+  }
+
+
+  app.innerHTML =
+    renderDashboardShell(
+      profile,
+      account
+    );
+
+
+  renderOverview(
+    profile,
+    account
+  );
+
+}
+
+
+/* ============================================================
+   NO ACCOUNT
+============================================================ */
+
+function renderNoAccount(){
+
+  return `
+
+    <div class="no-account">
+
+      <div
+        class="logo-icon"
+        style="
+          width:70px;
+          height:70px;
+          margin:auto;
+          font-size:20px
+        "
+      >
+        LU
+      </div>
+
+      <h2>
+        Crée ton espace Life Upgrade
+      </h2>
+
+      <p>
+        Le dashboard rassemble ta trajectoire,
+        tes évaluations personnalisées,
+        tes cours, tes sessions,
+        tes objectifs et ta progression.
+      </p>
+
+      <div class="no-account-actions">
+
+        <a
+          class="button primary"
+          href="inscription.html"
+        >
+          Créer mon compte gratuit
+        </a>
+
+        <a
+          class="button secondary"
+          href="tests.html"
+        >
+          Continuer sans compte
+        </a>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* ============================================================
+   SHELL
+============================================================ */
+
+function renderDashboardShell(
+  profile,
+  account
+){
+
+  return `
+
+    <section class="dashboard-hero">
+
+
+      <div class="welcome-card">
+
+        <span class="eyebrow">
+          MON ESPACE
+        </span>
+
+        <h1
+          style="
+            font-size:clamp(36px,4vw,53px);
+            margin-top:6px
+          "
+        >
+          Bonjour
+          ${escapeHTML(profile.firstName)}.
+        </h1>
+
+        <p>
+          Voici ton point de départ Life Upgrade.
+          Ton espace évoluera avec les tests,
+          cours, sessions et objectifs réalisés.
+        </p>
+
+
+        <div class="stat-grid">
+
+          <div class="stat-card">
+            <span>OFFRE</span>
+            <strong>
+              ${
+                account.subscription === "FREE"
+                ?
+                "Gratuit"
+                :
+                account.subscription
+              }
+            </strong>
+            <p>
+              Compte membre
+            </p>
+          </div>
+
+          <div class="stat-card">
+            <span>ÉVALUATION</span>
+            <strong>50 Q</strong>
+            <p>
+              Diagnostic personnalisé
+            </p>
+          </div>
+
+          <div class="stat-card">
+            <span>OBJECTIFS</span>
+            <strong>
+              ${
+                countGoals(profile)
+              }
+            </strong>
+            <p>
+              déclarés
+            </p>
+          </div>
+
+          <div class="stat-card">
+            <span>DOMAINES</span>
+            <strong>
+              ${
+                profile.interests?.length || 0
+              }
+            </strong>
+            <p>
+              sélectionnés
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <aside class="plan-card">
+
+        <span class="badge">
+          PLAN ACTUEL
+        </span>
+
+        <h3 style="margin-top:8px;color:white">
+          Profil gratuit
+        </h3>
+
+        <p>
+          Tu as accès aux tests personnalisés,
+          au dashboard, aux cours gratuits,
+          aux sessions et à la communauté.
+        </p>
+
+        <div class="plan-status">
+
+          <span>
+            PROCHAINE ÉTAPE
+          </span>
+
+          <strong>
+            Faire l'évaluation personnalisée
+          </strong>
+
+        </div>
+
+        <div style="margin-top:14px">
+
+          <a
+            class="button primary"
+            href="tests.html"
+          >
+            Commencer
+          </a>
+
+        </div>
+
+      </aside>
+
+
+    </section>
+
+
+    <div class="dashboard-tabs">
+
+      <button
+        class="dashboard-tab active"
+        onclick="showDashboardView('overview',this)"
+      >
+        Vue générale
+      </button>
+
+      <button
+        class="dashboard-tab"
+        onclick="showDashboardView('profile',this)"
+      >
+        Profil
+      </button>
+
+      <button
+        class="dashboard-tab"
+        onclick="showDashboardView('trajectory',this)"
+      >
+        Trajectoire
+      </button>
+
+      <button
+        class="dashboard-tab"
+        onclick="showDashboardView('tests',this)"
+      >
+        Tests
+      </button>
+
+      <button
+        class="dashboard-tab"
+        onclick="showDashboardView('learning',this)"
+      >
+        Cours
+      </button>
+
+      <button
+        class="dashboard-tab"
+        onclick="showDashboardView('sessions',this)"
+      >
+        Sessions
+      </button>
+
+      <button
+        class="dashboard-tab"
+        onclick="showDashboardView('premium',this)"
+      >
+        Coaching
+      </button>
+
+    </div>
+
+
+    <section
+      id="view-overview"
+      class="dashboard-view active"
+    ></section>
+
+    <section
+      id="view-profile"
+      class="dashboard-view"
+    ></section>
+
+    <section
+      id="view-trajectory"
+      class="dashboard-view"
+    ></section>
+
+    <section
+      id="view-tests"
+      class="dashboard-view"
+    ></section>
+
+    <section
+      id="view-learning"
+      class="dashboard-view"
+    ></section>
+
+    <section
+      id="view-sessions"
+      class="dashboard-view"
+    ></section>
+
+    <section
+      id="view-premium"
+      class="dashboard-view"
+    ></section>
+
+  `;
+
+}
+
+
+/* ============================================================
+   TABS
+============================================================ */
+
+function showDashboardView(
+  view,
+  button
+){
+
+  document
+    .querySelectorAll(
+      ".dashboard-view"
+    )
+    .forEach(
+      item =>
+        item.classList.remove(
+          "active"
+        )
+    );
+
+
+  document
+    .querySelectorAll(
+      ".dashboard-tab"
+    )
+    .forEach(
+      item =>
+        item.classList.remove(
+          "active"
+        )
+    );
+
+
+  document
+    .getElementById(
+      "view-" + view
+    )
+    .classList.add(
+      "active"
+    );
+
+
+  button.classList.add(
+    "active"
+  );
+
+
+  const profile =
+    lifeUpgradeGetStorage(
+      DASH_PROFILE_KEY,
+      null
+    );
+
+  const account =
+    lifeUpgradeGetStorage(
+      DASH_ACCOUNT_KEY,
+      null
+    );
+
+
+  if(
+    view === "overview"
+  ){
+
+    renderOverview(
+      profile,
+      account
+    );
+
+  }
+
+  if(
+    view === "profile"
+  ){
+
+    renderProfile(
+      profile,
+      account
+    );
+
+  }
+
+  if(
+    view === "trajectory"
+  ){
+
+    renderTrajectory();
+
+  }
+
+  if(
+    view === "tests"
+  ){
+
+    renderTests(
+      account
+    );
+
+  }
+
+  if(
+    view === "learning"
+  ){
+
+    renderLearning();
+
+  }
+
+  if(
+    view === "sessions"
+  ){
+
+    renderSessions();
+
+  }
+
+  if(
+    view === "premium"
+  ){
+
+    renderPremium();
+
+  }
+
+}
+
+
+/* ============================================================
+   OVERVIEW
+============================================================ */
+
+function renderOverview(
+  profile,
+  account
+){
+
+  const trajectory =
+    lifeUpgradeGetStorage(
+      DASH_TRAJECTORY_KEY,
+      null
+    );
+
+  const courseResults =
+    lifeUpgradeGetStorage(
+      DASH_COURSE_RESULTS_KEY,
+      []
+    );
+
+  const cultureResults =
+    lifeUpgradeGetStorage(
+      DASH_CULTURE_RESULTS_KEY,
+      []
+    );
+
+  const sessionRegistrations =
+    lifeUpgradeGetStorage(
+      DASH_SESSION_KEY,
+      []
+    );
+
+
+  document
+    .getElementById(
+      "view-overview"
+    )
+    .innerHTML = `
+
+      <div class="dashboard-section">
+
+        <div class="section-header">
+
+          <div>
+            <span class="eyebrow">
+              AUJOURD'HUI
+            </span>
+            <h2>
+              Ton prochain pas.
+            </h2>
+          </div>
+
+        </div>
+
+
+        <div class="dashboard-grid">
+
+
+          <article class="action-card">
+
+            <span class="badge">
+              PRIORITÉ
+            </span>
+
+            <h3 style="margin-top:8px;color:white">
+              Évaluation personnalisée
+            </h3>
+
+            <p>
+              50 questions/épreuves adaptées
+              à ta situation et tes objectifs.
+            </p>
+
+            <div class="action-buttons">
+
+              <a
+                class="button primary"
+                href="tests.html"
+              >
+                Commencer
+              </a>
+
+            </div>
+
+          </article>
+
+
+          <article class="dashboard-card">
+
+            <span class="badge">
+              TRAJECTOIRE
+            </span>
+
+            <h3>
+              ${
+                trajectory
+                ?
+                "Scénario sauvegardé"
+                :
+                "Construis ta trajectoire"
+              }
+            </h3>
+
+            <p>
+              ${
+                trajectory
+                ?
+                "Tu as déjà sauvegardé un scénario personnel."
+                :
+                "Compare ta situation actuelle avec une trajectoire alternative."
+              }
+            </p>
+
+            <div style="margin-top:14px">
+
+              <a
+                class="button secondary"
+                href="trajectoire.html"
+              >
+                ${
+                  trajectory
+                  ?
+                  "Modifier"
+                  :
+                  "Commencer"
+                }
+              </a>
+
+            </div>
+
+          </article>
+
+
+          <article class="dashboard-card">
+
+            <span class="badge">
+              OBJECTIF
+            </span>
+
+            <h3>
+              3 prochains mois
+            </h3>
+
+            <p>
+              ${
+                profile.goal90
+                ?
+                escapeHTML(profile.goal90)
+                :
+                "Aucun objectif détaillé pour le moment."
+              }
+            </p>
+
+            <div style="margin-top:14px">
+
+              <a
+                class="button secondary"
+                href="inscription.html"
+              >
+                Modifier mon profil
+              </a>
+
+            </div>
+
+          </article>
+
+
+        </div>
+
+      </div>
+
+
+      <div class="dashboard-section">
+
+        <div class="section-header">
+
+          <div>
+            <span class="eyebrow">
+              ACTIVITÉ
+            </span>
+            <h2>
+              Ce que tu as déjà commencé.
+            </h2>
+          </div>
+
+        </div>
+
+
+        <div class="stat-grid">
+
+          <div class="stat-card">
+            <span>COURS TERMINÉS</span>
+            <strong>
+              ${courseResults.length}
+            </strong>
+            <p>
+              résultats enregistrés
+            </p>
+          </div>
+
+          <div class="stat-card">
+            <span>QUIZ CULTURE</span>
+            <strong>
+              ${cultureResults.length}
+            </strong>
+            <p>
+              réalisés
+            </p>
+          </div>
+
+          <div class="stat-card">
+            <span>SESSIONS</span>
+            <strong>
+              ${sessionRegistrations.length}
+            </strong>
+            <p>
+              inscriptions locales
+            </p>
+          </div>
+
+          <div class="stat-card">
+            <span>PARCOURS</span>
+            <strong>
+              ${
+                trajectory
+                ?
+                "1"
+                :
+                "0"
+              }
+            </strong>
+            <p>
+              trajectoire sauvegardée
+            </p>
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="dashboard-section">
+
+        <div class="section-header">
+
+          <div>
+            <span class="eyebrow">
+              PLAN PERSONNALISÉ
+            </span>
+
+            <h2>
+              Tes domaines de départ.
+            </h2>
+
+          </div>
+
+        </div>
+
+
+        <div class="dashboard-grid">
+
+          ${
+            (
+              account.assessmentPlan ||
+              []
+            )
+            .slice(0,3)
+            .map(
+              (
+                item,
+                index
+              ) => `
+
+                <article class="dashboard-card">
+
+                  <span class="badge">
+                    ${index + 1}
+                  </span>
+
+                  <h3>
+                    ${escapeHTML(item.label)}
+                  </h3>
+
+                  <p>
+                    ${escapeHTML(item.description)}
+                  </p>
+
+                  <div class="progress-row">
+
+                    <div class="progress-head">
+                      <span>Évaluation prévue</span>
+                      <strong>
+                        ${item.questions || 10} questions
+                      </strong>
+                    </div>
+
+                    <div class="progress-track">
+                      <i style="width:0%"></i>
+                    </div>
+
+                  </div>
+
+                </article>
+
+              `
+            )
+            .join("")
+          }
+
+        </div>
+
+      </div>
+
+    `;
+
+}
+
+
+/* ============================================================
+   PROFILE
+============================================================ */
+
+function renderProfile(
+  profile,
+  account
+){
+
+  const situationLabels = {
+
+    lyceen:
+      "Lycée",
+
+    etudiant:
+      "Études supérieures",
+
+    salarie:
+      "Salarié",
+
+    independant:
+      "Indépendant / entrepreneur",
+
+    "recherche-emploi":
+      "Recherche d'emploi",
+
+    reconversion:
+      "Reconversion",
+
+    parent:
+      "Parent",
+
+    autre:
+      "Autre"
+
+  };
+
+
+  document
+    .getElementById(
+      "view-profile"
+    )
+    .innerHTML = `
+
+      <div class="dashboard-section">
+
+        <div class="section-header">
+
+          <div>
+            <span class="eyebrow">
+              MON PROFIL
+            </span>
+            <h2>
+              Informations principales.
+            </h2>
+          </div>
+
+          <a
+            class="button secondary"
+            href="inscription.html"
+          >
+            Modifier
+          </a>
+
+        </div>
+
+
+        <div class="dashboard-grid-2">
+
+
+          <div class="dashboard-card">
+
+            <h3>
+              Profil
+            </h3>
+
+            <div class="profile-info-grid">
+
+              <div class="profile-info">
+                <span>PRÉNOM</span>
+                <strong>
+                  ${escapeHTML(profile.firstName)}
+                </strong>
+              </div>
+
+              <div class="profile-info">
+                <span>NOM</span>
+                <strong>
+                  ${escapeHTML(profile.lastName)}
+                </strong>
+              </div>
+
+              <div class="profile-info">
+                <span>PAYS</span>
+                <strong>
+                  ${escapeHTML(profile.country)}
+                </strong>
+              </div>
+
+              <div class="profile-info">
+                <span>SITUATION</span>
+                <strong>
+                  ${
+                    situationLabels[
+                      profile.situation
+                    ]
+                    ||
+                    escapeHTML(
+                      profile.situation
+                    )
+                  }
+                </strong>
+              </div>
+
+              <div class="profile-info">
+                <span>EMAIL</span>
+                <strong>
+                  ${escapeHTML(profile.email)}
+                </strong>
+              </div>
+
+              <div class="profile-info">
+                <span>TÉLÉPHONE</span>
+                <strong>
+                  ${escapeHTML(profile.phone)}
+                </strong>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="dashboard-card">
+
+            <h3>
+              Mes domaines
+            </h3>
+
+            <div
+              style="
+                display:flex;
+                flex-wrap:wrap;
+                gap:6px;
+                margin-top:12px
+              "
+            >
+
+              ${
+                (
+                  profile.interests ||
+                  []
+                )
+                .map(
+                  interest => `
+
+                    <span class="badge">
+                      ${prettyInterest(interest)}
+                    </span>
+
+                  `
+                )
+                .join("")
+              }
+
+            </div>
+
+            <p style="margin-top:16px">
+              Temps disponible déclaré :
+              <strong>
+                environ
+                ${profile.weeklyTime}
+                h/semaine
+              </strong>.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="dashboard-section">
+
+        <div class="section-header">
+
+          <div>
+            <span class="eyebrow">
+              OBJECTIFS
+            </span>
+            <h2>
+              Ma direction.
+            </h2>
+          </div>
+
+        </div>
+
+
+        <div class="dashboard-grid-2">
+
+          <div class="goal-card">
+
+            <span>
+              3 PROCHAINS MOIS
+            </span>
+
+            <p
+              class="${
+                profile.goal90
+                ?
+                ""
+                :
+                "goal-empty"
+              }"
+            >
+              ${
+                profile.goal90
+                ?
+                escapeHTML(profile.goal90)
+                :
+                "Aucun objectif renseigné."
+              }
+            </p>
+
+          </div>
+
+
+          <div class="goal-card">
+
+            <span>
+              DANS UN AN
+            </span>
+
+            <p
+              class="${
+                profile.goal365
+                ?
+                ""
+                :
+                "goal-empty"
+              }"
+            >
+              ${
+                profile.goal365
+                ?
+                escapeHTML(profile.goal365)
+                :
+                "Aucun objectif renseigné."
+              }
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+}
+
+
+/* ============================================================
+   TRAJECTORY
+============================================================ */
+
+function renderTrajectory(){
+
+  const trajectory =
+    lifeUpgradeGetStorage(
+      DASH_TRAJECTORY_KEY,
+      null
+    );
+
+
+  const container =
+    document.getElementById(
+      "view-trajectory"
+    );
+
+
+  if(!trajectory){
+
+    container.innerHTML = `
+
+      <div class="dashboard-section">
+
+        <div class="no-account">
+
+          <span class="eyebrow">
+            TRAJECTOIRE
+          </span>
+
+          <h2>
+            Aucun scénario sauvegardé.
+          </h2>
+
+          <p>
+            Utilise le simulateur pour comparer
+            ta situation actuelle à un scénario alternatif.
+          </p>
+
+          <div class="no-account-actions">
+
+            <a
+              class="button primary"
+              href="trajectoire.html"
+            >
+              Construire ma trajectoire
+            </a>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const current =
+    trajectory.current || {};
+
+  const target =
+    trajectory.target || {};
+
+
+  container.innerHTML = `
+
+    <div class="dashboard-section">
+
+      <div class="section-header">
+
+        <div>
+          <span class="eyebrow">
+            MA TRAJECTOIRE
+          </span>
+          <h2>
+            Scénario sauvegardé.
+          </h2>
+        </div>
+
+        <a
+          class="button secondary"
+          href="trajectoire.html"
+        >
+          Modifier
+        </a>
+
+      </div>
+
+
+      <div class="dashboard-grid">
+
+
+        <article class="dashboard-card">
+          <span class="badge">ÉCRAN</span>
+          <h3>
+            ${minutesToHours(current.phone)}
+            →
+            ${minutesToHours(target.phone)}
+          </h3>
+          <p>
+            Temps écran loisir déclaré par jour.
+          </p>
+        </article>
+
+
+        <article class="dashboard-card">
+          <span class="badge">APPRENTISSAGE</span>
+          <h3>
+            ${current.learning || 0}h
+            →
+            ${target.learning || 0}h
+          </h3>
+          <p>
+            Heures par semaine.
+          </p>
+        </article>
+
+
+        <article class="dashboard-card">
+          <span class="badge">FOCUS</span>
+          <h3>
+            ${current.focus || 0}h
+            →
+            ${target.focus || 0}h
+          </h3>
+          <p>
+            Travail concentré par semaine.
+          </p>
+        </article>
+
+
+        <article class="dashboard-card">
+          <span class="badge">ACTIVITÉ</span>
+          <h3>
+            ${current.sport || 0}×
+            →
+            ${target.sport || 0}×
+          </h3>
+          <p>
+            Séances hebdomadaires.
+          </p>
+        </article>
+
+
+        <article class="dashboard-card">
+          <span class="badge">ÉPARGNE</span>
+          <h3>
+            ${formatCurrency(current.saving || 0)}
+            →
+            ${formatCurrency(target.saving || 0)}
+          </h3>
+          <p>
+            Montant mensuel déclaré.
+          </p>
+        </article>
+
+
+        <article class="dashboard-card">
+          <span class="badge">LECTURE</span>
+          <h3>
+            ${current.reading || 0} min
+            →
+            ${target.reading || 0} min
+          </h3>
+          <p>
+            Lecture quotidienne.
+          </p>
+        </article>
+
+
+      </div>
+
+    </div>
+
+
+    <div class="dashboard-section">
+
+      <div class="dashboard-card">
+
+        <span class="eyebrow">
+          RÉFÉRENCE
+        </span>
+
+        <h3>
+          Projection sur
+          ${trajectory.period || 365}
+          jours
+        </h3>
+
+        <p>
+          Cette trajectoire est une projection
+          mathématique basée sur les valeurs déclarées.
+          Elle ne prédit pas ton avenir.
+        </p>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* ============================================================
+   TESTS
+============================================================ */
+
+function renderTests(
+  account
+){
+
+  document
+    .getElementById(
+      "view-tests"
+    )
+    .innerHTML = `
+
+      <div class="dashboard-section">
+
+        <div class="section-header">
+
+          <div>
+            <span class="eyebrow">
+              ÉVALUATION PERSONNALISÉE
+            </span>
+
+            <h2>
+              Ton diagnostic de 50 questions.
+            </h2>
+
+            <p>
+              Cette évaluation est réservée
+              aux membres inscrits, y compris gratuits.
+            </p>
+
+          </div>
+
+          <a
+            class="button primary"
+            href="tests.html"
+          >
+            Ouvrir les tests
+          </a>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+          <div class="test-plan-list">
+
+            ${
+              (
+                account.assessmentPlan ||
+                []
+              )
+              .map(
+                item => `
+
+                  <div class="test-plan-item">
+
+                    <div>
+
+                      <strong>
+                        ${escapeHTML(item.label)}
+                      </strong>
+
+                      <span>
+                        ${escapeHTML(item.description)}
+                      </span>
+
+                    </div>
+
+                    <div class="test-count">
+                      ${item.questions || 10} Q
+                    </div>
+
+                  </div>
+
+                `
+              )
+              .join("")
+            }
+
+
+            <div
+              class="test-plan-item"
+              style="
+                background:#f5f4ff;
+                border-color:#cbc8ff
+              "
+            >
+
+              <div>
+
+                <strong>
+                  TOTAL
+                </strong>
+
+                <span>
+                  Évaluation personnalisée
+                </span>
+
+              </div>
+
+              <div class="test-count">
+                50 Q
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="dashboard-section">
+
+        <div class="section-header">
+
+          <div>
+            <span class="eyebrow">
+              TESTS PUBLICS
+            </span>
+            <h2>
+              Continue à t'entraîner librement.
+            </h2>
+          </div>
+
+        </div>
+
+
+        <div class="dashboard-grid">
+
+          <div class="dashboard-card">
+            <h3>Mémoire</h3>
+            <p>
+              Tests et entraînements mémoire.
+            </p>
+            <div style="margin-top:12px">
+              <a
+                class="button secondary"
+                href="tests.html#memoire"
+              >
+                Ouvrir
+              </a>
+            </div>
+          </div>
+
+          <div class="dashboard-card">
+            <h3>Concentration</h3>
+            <p>
+              Attention, focus et exercices chronométrés.
+            </p>
+            <div style="margin-top:12px">
+              <a
+                class="button secondary"
+                href="tests.html#concentration"
+              >
+                Ouvrir
+              </a>
+            </div>
+          </div>
+
+          <div class="dashboard-card">
+            <h3>Raisonnement</h3>
+            <p>
+              Logique, numérique et verbal.
+            </p>
+            <div style="margin-top:12px">
+              <a
+                class="button secondary"
+                href="tests.html"
+              >
+                Ouvrir
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    `;
+
+}
+
+
+/* ============================================================
+   LEARNING
+============================================================ */
+
+function renderLearning(){
+
+  const courseResults =
+    lifeUpgradeGetStorage(
+      DASH_COURSE_RESULTS_KEY,
+      []
+    );
+
+  const cultureResults =
+    lifeUpgradeGetStorage(
+      DASH_CULTURE_RESULTS_KEY,
+      []
+    );
+
+
+  document
+    .getElementById(
+      "view-learning"
+    )
+    .innerHTML = `
+
+      <div class="dashboard-section">
+
+        <div class="section-header">
+
+          <div>
+            <span class="eyebrow">
+              COURS
+            </span>
+            <h2>
+              Mes résultats enregistrés.
+            </h2>
+          </div>
+
+          <a
+            class="button primary"
+            href="cours.html"
+          >
+            Voir les cours
+          </a>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+          ${
+            courseResults.length
+            ?
+            `
+
+              <div class="result-list">
+
+                ${courseResults.map(
+                  item => `
+
+                    <div class="result-row">
+
+                      <div>
+                        <strong>
+                          ${escapeHTML(item.course)}
+                        </strong>
+                      </div>
+
+                      <div class="result-score">
+                        ${item.score}/100
+                      </div>
+
+                      <p>
+                        ${escapeHTML(item.date)}
+                      </p>
+
+                    </div>
+
+                  `
+                ).join("")}
+
+              </div>
+
+            `
+            :
+            `
+
+              <p>
+                Aucun cours terminé
+                sur cet appareil pour le moment.
+              </p>
+
+            `
+          }
+
+        </div>
+
+      </div>
+
+
+      <div class="dashboard-section">
+
+        <div class="section-header">
+
+          <div>
+            <span class="eyebrow">
+              CULTURE
+            </span>
+            <h2>
+              Quiz réalisés.
+            </h2>
+          </div>
+
+          <a
+            class="button secondary"
+            href="culture.html"
+          >
+            Explorer Culture
+          </a>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+          ${
+            cultureResults.length
+            ?
+            `
+
+              <div class="result-list">
+
+                ${cultureResults.map(
+                  item => `
+
+                    <div class="result-row">
+
+                      <div>
+                        <strong>
+                          ${escapeHTML(item.title)}
+                        </strong>
+                      </div>
+
+                      <div class="result-score">
+                        ${item.score}/100
+                      </div>
+
+                      <p>
+                        ${escapeHTML(item.date)}
+                      </p>
+
+                    </div>
+
+                  `
+                ).join("")}
+
+              </div>
+
+            `
+            :
+            `
+
+              <p>
+                Aucun quiz Culture réalisé
+                sur cet appareil pour le moment.
+              </p>
+
+            `
+          }
+
+        </div>
+
+      </div>
+
+    `;
+
+}
+
+
+/* ============================================================
+   SESSIONS
+============================================================ */
+
+function renderSessions(){
+
+  const registrations =
+    lifeUpgradeGetStorage(
+      DASH_SESSION_KEY,
+      []
+    );
+
+
+  document
+    .getElementById(
+      "view-sessions"
+    )
+    .innerHTML = `
+
+      <div class="dashboard-section">
+
+        <div class="section-header">
+
+          <div>
+            <span class="eyebrow">
+              MES SESSIONS
+            </span>
+            <h2>
+              Inscriptions à venir.
+            </h2>
+          </div>
+
+          <a
+            class="button primary"
+            href="sessions.html"
+          >
+            Voir les sessions
+          </a>
+
+        </div>
+
+
+        <div class="dashboard-card">
+
+          ${
+            registrations.length
+            ?
+            registrations.map(
+              registration => {
+
+                const session =
+                  dashboardSessionData.find(
+                    item =>
+                      item.id ===
+                      registration.sessionId
+                  );
+
+
+                if(!session){
+                  return "";
+                }
+
+
+                return `
+
+                  <div class="session-row">
+
+                    <div>
+
+                      <strong>
+                        ${escapeHTML(session.title)}
+                      </strong>
+
+                      <p>
+                        ${session.date}
+                        · ${session.time}
+                        · ${session.platform}
+                      </p>
+
+                    </div>
+
+
+                    <div
+                      class="
+                        session-status
+                        ${
+                          registration.status === "confirmed"
+                          ?
+                          "status-confirmed"
+                          :
+                          "status-waiting"
+                        }
+                      "
+                    >
+
+                      ${
+                        registration.status === "confirmed"
+                        ?
+                        "✓ CONFIRMÉ"
+                        :
+                        "LISTE D'ATTENTE"
+                      }
+
+                    </div>
+
+
+                    <a
+                      class="button secondary"
+                      href="sessions.html"
+                    >
+                      Voir
+                    </a>
+
+                  </div>
+
+                `;
+
+              }
+            ).join("")
+            :
+            `
+
+              <p>
+                Tu n'es inscrit à aucune session
+                sur cet appareil pour le moment.
+              </p>
+
+            `
+          }
+
+        </div>
+
+      </div>
+
+    `;
+
+}
+
+
+/* ============================================================
+   PREMIUM
+============================================================ */
+
+function renderPremium(){
+
+  document
+    .getElementById(
+      "view-premium"
+    )
+    .innerHTML = `
+
+      <div class="dashboard-section">
+
+        <div class="section-header">
+
+          <div>
+            <span class="eyebrow">
+              COACHING
+            </span>
+
+            <h2>
+              Accompagnement humain.
+            </h2>
+
+            <p>
+              Les fonctionnalités gratuites restent disponibles.
+              Premium ajoute principalement le suivi humain.
+            </p>
+
+          </div>
+
+        </div>
+
+
+        <div class="premium-grid">
+
+
+          <div class="premium-card">
+
+            <span class="badge">
+              PREMIUM
+            </span>
+
+            <h2 style="margin-top:8px">
+              À partir de 4,99 €
+            </h2>
+
+            <p>
+              Plan personnalisé et accompagnement régulier.
+            </p>
+
+            <div class="premium-feature">
+              <strong>✓</strong>
+              <span>
+                2 séances de coaching par mois
+              </span>
+            </div>
+
+            <div class="premium-feature">
+              <strong>✓</strong>
+              <span>
+                Séances de 20 à 30 minutes
+              </span>
+            </div>
+
+            <div class="premium-feature">
+              <strong>✓</strong>
+              <span>
+                Plan personnalisé suivi
+              </span>
+            </div>
+
+            <div class="premium-feature">
+              <strong>✓</strong>
+              <span>
+                Accès anticipé à certaines sessions
+              </span>
+            </div>
+
+            <div style="margin-top:16px">
+
+              <a
+                class="button secondary"
+                href="coaching.html"
+              >
+                Découvrir Premium
+              </a>
+
+            </div>
+
+          </div>
+
+
+          <div class="premium-card featured">
+
+            <span class="badge">
+              PREMIUM+
+            </span>
+
+            <h2
+              style="
+                margin-top:8px;
+                color:white
+              "
+            >
+              Premium + 2 €/mois
+            </h2>
+
+            <p>
+              Suivi plus rapproché et priorité
+              sur les expériences à capacité limitée.
+            </p>
+
+            <div class="premium-feature">
+              <strong>✓</strong>
+              <span>
+                1 séance de coaching par semaine
+              </span>
+            </div>
+
+            <div class="premium-feature">
+              <strong>✓</strong>
+              <span>
+                20 à 30 minutes
+              </span>
+            </div>
+
+            <div class="premium-feature">
+              <strong>✓</strong>
+              <span>
+                Plan suivi chaque semaine
+              </span>
+            </div>
+
+            <div class="premium-feature">
+              <strong>✓</strong>
+              <span>
+                Priorité aux ateliers et sessions limités
+              </span>
+            </div>
+
+            <div style="margin-top:16px">
+
+              <a
+                class="button primary"
+                href="coaching.html"
+              >
+                Découvrir Premium+
+              </a>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div
+          style="
+            margin-top:15px;
+            padding:14px;
+            border-radius:13px;
+            background:#f5f4ff;
+            color:var(--muted);
+            font-size:11px
+          "
+        >
+
+          Life Upgrade Coaching est un accompagnement
+          de vie, d'organisation, d'études et de carrière.
+          Il ne remplace pas un professionnel de santé
+          et n'a pas vocation à traiter des problématiques
+          médicales ou psychologiques.
+
+        </div>
+
+      </div>
+
+    `;
+
+}
+
+
+/* ============================================================
+   HELPERS
+============================================================ */
+
+function countGoals(
+  profile
+){
+
+  let count = 0;
+
+  if(
+    profile.goal90
+  ){
+    count++;
+  }
+
+  if(
+    profile.goal365
+  ){
+    count++;
+  }
+
+  return count;
+
+}
+
+
+function prettyInterest(
+  key
+){
+
+  const labels = {
+
+    organisation:"Organisation",
+    "gestion-temps":"Gestion du temps",
+    concentration:"Concentration",
+    memoire:"Mémoire",
+    habitudes:"Habitudes",
+    stress:"Gestion du stress",
+    "intelligence-emotionnelle":"Intelligence émotionnelle",
+    communication:"Communication",
+    "prise-parole":"Prise de parole",
+    confiance:"Confiance",
+    leadership:"Leadership",
+    management:"Management",
+    negociation:"Négociation",
+    "gestion-conflit":"Gestion des conflits",
+    decision:"Prise de décision",
+    "esprit-critique":"Esprit critique",
+    carriere:"Carrière",
+    reconversion:"Reconversion",
+    orientation:"Orientation",
+    etudes:"Études",
+    employabilite:"Employabilité",
+    culture:"Culture"
+
+  };
+
+
+  return labels[key] || key;
+
+}
+
+
+function minutesToHours(
+  minutes
+){
+
+  const number =
+    Number(
+      minutes || 0
+    );
+
+
+  const hours =
+    Math.floor(
+      number / 60
+    );
+
+
+  const rest =
+    number % 60;
+
+
+  return rest
+    ?
+    `${hours}h${String(rest).padStart(2,"0")}`
+    :
+    `${hours}h`;
+
+}
+
+
+function formatCurrency(
+  value
+){
+
+  return new Intl.NumberFormat(
+    "fr-FR",
+    {
+      style:"currency",
+      currency:"EUR",
+      maximumFractionDigits:0
+    }
+  ).format(value);
+
+}
+
+</script>
+
+</body>
+</html>
