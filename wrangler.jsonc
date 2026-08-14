@@ -1,7 +1,16 @@
 {
   "name": "lifeupgrade1",
   "compatibility_date": "2026-08-13",
+
   "assets": {
     "directory": "."
-  }
+  },
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "life-upgrade-db",
+      "database_id": "bf14dffd-d134-4495-8461-f6dea1d9caa9"
+    }
+  ]
 }
