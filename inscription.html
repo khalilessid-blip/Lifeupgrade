@@ -1482,16 +1482,42 @@ function showStep(step){
 
 function nextStep(){
 
-  if(
-    !validateCurrentStep()
-  ){
-    return;
-  }
-
-
-  showStep(
-    currentStep + 1
+  console.log(
+    "Life Upgrade - étape actuelle:",
+    currentStep
   );
+
+  try{
+
+    if(
+      !validateCurrentStep()
+    ){
+      return;
+    }
+
+    if(
+      currentStep < TOTAL_STEPS
+    ){
+
+      showStep(
+        currentStep + 1
+      );
+
+    }
+
+  }catch(error){
+
+    console.error(
+      "Erreur inscription:",
+      error
+    );
+
+    alert(
+      "Erreur technique dans le formulaire : " +
+      error.message
+    );
+
+  }
 
 }
 
