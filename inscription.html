@@ -2294,34 +2294,269 @@ function renderProfilePreview(){
    CREATE LOCAL ACCOUNT
 ============================================================ */
 
-function createPrototypeAccount(){
+/* ============================================================
+   CREATE REAL ACCOUNT
+============================================================ */
 
-  const profile =
-    getProfileData();
+async function createPrototypeAccount(){
+
+  const button =
+    event?.currentTarget;
+
+  if(button){
+
+    button.disabled = true;
+    button.textContent =
+      "Création du compte...";
+
+  }
 
 
-  const account = {
+  try{
 
-    id:
-      "LU-" +
-      Date.now(),
+    const profile =
+      getProfileData();
 
-    role:"MEMBER",
 
-    subscription:"FREE",
+    const password =
+      document
+        .getElementById(
+          "password"
+        )
+        .value;
 
-    profile:profile,
 
-    assessmentPlan:
-      buildPersonalizedAssessment(
-        profile
-      ),
+    const response =
+      await fetch(
+        "/api/auth/register",
+        {
+          method:"POST",
 
-    createdAt:
-      new Date()
-        .toISOString()
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          credentials:"same-origin",
+
+          body:
+            JSON.stringify({
+
+              firstName:
+                profile.firstName,
+
+              lastName:
+                profile.lastName,
+
+              country:
+                profile.country,
+
+              phone:
+                profile.phone,
+
+              email:
+                profile.email,
+
+              password:
+                password,
+
+              situation:
+                profile.situation,
+
+              interests:
+                profile.interests,
+
+              goal90:
+                profile.goal90,
+
+              goal365:
+                profile.goal365,
+
+              weeklyTime:
+                profile.weeklyTime
+
+            })
+
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(
+      !response.ok ||
+      !data.ok
+    ){
+
+      throw new Error(
+        data.message ||
+        "Impossible de créer le compte."
+      );
+
+    }
+
+
+    /*
+      On garde temporairement une petite copie
+      locale pour assurer la compatibilité avec
+      les anciennes parties du dashboard.
+
+      La source officielle devient désormais D1.
+    */
+
+    lifeUpgradeSetStorage(
+      PROFILE_KEY,
+      profile
+    );
+
+
+    lifeUpgradeSetStorage(
+      ACCOUNT_KEY,
+      {
+        id:
+          data.user.id,
+
+        role:"MEMBER",
+
+        subscription:
+          data.user.subscription,
+
+        profile:
+          profile,
+
+        assessmentPlan:
+          data.assessment
+            ?.configuration
+            ?.domains
+            ?.map(
+              item => ({
+
+                key:
+                  item.domain,
+
+                label:
+                  prettyAssessmentDomain(
+                    item.domain
+                  ),
+
+                description:
+                  "Évaluation personnalisée Life Upgrade.",
+
+                questions:
+                  item.questions
+
+              })
+            )
+            || [],
+
+        source:"D1",
+
+        createdAt:
+          new Date()
+            .toISOString()
+      }
+    );
+
+
+    document
+      .getElementById(
+        "signupFormArea"
+      )
+      .style.display =
+        "none";
+
+
+    document
+      .getElementById(
+        "signupSuccess"
+      )
+      .classList.add(
+        "show"
+      );
+
+
+    window.scrollTo({
+      top:0,
+      behavior:"smooth"
+    });
+
+
+  }catch(error){
+
+    alert(
+      error.message ||
+      "Une erreur est survenue."
+    );
+
+
+    if(button){
+
+      button.disabled = false;
+
+      button.textContent =
+        "Créer mon espace";
+
+    }
+
+  }
+
+}
+
+
+/* ============================================================
+   ASSESSMENT DOMAIN LABELS
+============================================================ */
+
+function prettyAssessmentDomain(
+  key
+){
+
+  const labels = {
+
+    organisation:
+      "Organisation",
+
+    concentration:
+      "Concentration",
+
+    memoire:
+      "Mémoire & apprentissage",
+
+    "gestion-temps":
+      "Gestion du temps",
+
+    orientation:
+      "Orientation",
+
+    communication:
+      "Communication",
+
+    "intelligence-emotionnelle":
+      "Intelligence émotionnelle",
+
+    decision:
+      "Prise de décision",
+
+    carriere:
+      "Carrière & compétences",
+
+    reconversion:
+      "Compétences transférables",
+
+    adaptabilite:
+      "Adaptabilité",
+
+    objectifs:
+      "Objectifs & progression"
 
   };
+
+
+  return labels[key] || key;
+
+}
 
 
   /*
