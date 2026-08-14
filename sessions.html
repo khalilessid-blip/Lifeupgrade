@@ -1,0 +1,2433 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Sessions en ligne — Life Upgrade</title>
+
+<meta
+  name="description"
+  content="Sessions en ligne Life Upgrade : formations métier, ateliers soft skills, orientation, culture, discussions et partage d'expérience."
+>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* =========================================================
+   PAGE
+========================================================= */
+
+.page-hero{
+  padding:70px 0 48px;
+}
+
+.page-hero-grid{
+  display:grid;
+  grid-template-columns:1fr 360px;
+  gap:28px;
+  align-items:center;
+}
+
+.page-hero p{
+  max-width:760px;
+  margin-top:15px;
+  font-size:17px;
+}
+
+.hero-card{
+  padding:24px;
+  border-radius:22px;
+  color:white;
+  background:linear-gradient(145deg,#11172b,#263452);
+}
+
+.hero-card p{
+  color:#b8c1d3;
+  font-size:12px;
+}
+
+.hero-card-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:16px;
+}
+
+.hero-stat{
+  padding:12px;
+  border-radius:12px;
+  background:rgba(255,255,255,.07);
+}
+
+.hero-stat span{
+  display:block;
+  color:#adb8cb;
+  font-size:9px;
+}
+
+.hero-stat strong{
+  display:block;
+  margin-top:3px;
+  font-size:20px;
+}
+
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+.session-section{
+  padding:72px 0;
+}
+
+.session-section.white{
+  background:white;
+}
+
+.filters{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:20px;
+}
+
+.filter-button{
+  padding:8px 11px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:white;
+  color:var(--muted);
+  cursor:pointer;
+  font-size:11px;
+  font-weight:800;
+}
+
+.filter-button:hover,
+.filter-button.active{
+  border-color:var(--primary);
+  background:var(--soft);
+  color:var(--primary);
+}
+
+
+/* =========================================================
+   FEATURED
+========================================================= */
+
+.featured-session{
+  display:grid;
+  grid-template-columns:1fr 350px;
+  gap:20px;
+  padding:28px;
+  border-radius:24px;
+  color:white;
+  background:linear-gradient(145deg,#11172a,#283553);
+}
+
+.featured-session p{
+  margin-top:10px;
+  color:#bbc4d5;
+}
+
+.featured-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:17px;
+}
+
+.featured-meta span{
+  padding:6px 8px;
+  border-radius:999px;
+  background:rgba(255,255,255,.08);
+  color:#d4d9e4;
+  font-size:10px;
+}
+
+.featured-side{
+  padding:20px;
+  border-radius:18px;
+  background:rgba(255,255,255,.07);
+}
+
+.capacity-line{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  font-size:11px;
+}
+
+.capacity-bar{
+  height:8px;
+  margin:8px 0 13px;
+  overflow:hidden;
+  border-radius:999px;
+  background:rgba(255,255,255,.12);
+}
+
+.capacity-bar i{
+  display:block;
+  height:100%;
+  border-radius:999px;
+  background:#8e8aff;
+}
+
+
+/* =========================================================
+   CARDS
+========================================================= */
+
+.sessions-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.session-card{
+  display:flex;
+  flex-direction:column;
+  min-height:365px;
+  padding:21px;
+  border-radius:20px;
+  border:1px solid var(--border);
+  background:white;
+  transition:.2s;
+}
+
+.white .session-card{
+  background:#f8f9fc;
+}
+
+.session-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
+}
+
+.session-date{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:14px 0;
+}
+
+.date-box{
+  width:55px;
+  min-width:55px;
+  padding:8px;
+  border-radius:12px;
+  text-align:center;
+  background:var(--soft);
+  color:var(--primary);
+}
+
+.date-box strong{
+  display:block;
+  font-size:21px;
+}
+
+.date-box span{
+  display:block;
+  font-size:9px;
+  font-weight:900;
+}
+
+.session-time strong{
+  display:block;
+  font-size:13px;
+}
+
+.session-time span{
+  color:var(--muted);
+  font-size:10px;
+}
+
+.session-card p{
+  font-size:12px;
+}
+
+.session-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:5px;
+  margin:14px 0;
+}
+
+.session-meta span{
+  padding:5px 7px;
+  border-radius:999px;
+  background:#f0f2f7;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:800;
+}
+
+.card-capacity{
+  margin-top:auto;
+  padding-top:12px;
+}
+
+.card-capacity-top{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.card-capacity-bar{
+  height:7px;
+  margin:6px 0 12px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#e8ebf1;
+}
+
+.card-capacity-bar i{
+  display:block;
+  height:100%;
+  border-radius:999px;
+  background:var(--primary);
+}
+
+.session-actions{
+  display:flex;
+  gap:7px;
+}
+
+.session-actions button{
+  border:0;
+  cursor:pointer;
+}
+
+.full-badge{
+  color:#b34b56;
+  font-size:10px;
+  font-weight:900;
+}
+
+.priority-badge{
+  color:#755fc6;
+  font-size:10px;
+  font-weight:900;
+}
+
+
+/* =========================================================
+   PRIORITY
+========================================================= */
+
+.priority-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.priority-card{
+  padding:21px;
+  border:1px solid var(--border);
+  border-radius:19px;
+  background:white;
+}
+
+.priority-card strong{
+  display:block;
+  margin-bottom:7px;
+}
+
+.priority-card p{
+  font-size:12px;
+}
+
+
+/* =========================================================
+   MY SESSIONS
+========================================================= */
+
+.my-sessions{
+  padding:22px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:white;
+}
+
+.my-session-list{
+  display:grid;
+  gap:8px;
+  margin-top:15px;
+}
+
+.my-session-row{
+  display:grid;
+  grid-template-columns:1fr 140px 110px;
+  gap:12px;
+  align-items:center;
+  padding:12px;
+  border-radius:12px;
+  background:#f6f7fa;
+}
+
+.my-session-row p{
+  font-size:10px;
+}
+
+.status-confirmed{
+  color:#16815f;
+  font-size:10px;
+  font-weight:900;
+}
+
+.status-waiting{
+  color:#b17b24;
+  font-size:10px;
+  font-weight:900;
+}
+
+.empty-state{
+  padding:25px;
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.session-overlay{
+  position:fixed;
+  inset:0;
+  z-index:600;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+  background:rgba(8,11,20,.7);
+}
+
+.session-overlay.open{
+  display:flex;
+}
+
+.session-modal{
+  position:relative;
+  width:min(720px,100%);
+  max-height:94vh;
+  overflow:auto;
+  padding:28px;
+  border-radius:23px;
+  background:white;
+  box-shadow:0 35px 100px rgba(0,0,0,.25);
+}
+
+.modal-close{
+  position:absolute;
+  right:14px;
+  top:14px;
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:50%;
+  background:#eef0f4;
+  cursor:pointer;
+  font-size:18px;
+}
+
+.modal-info{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:9px;
+  margin:20px 0;
+}
+
+.modal-info-box{
+  padding:12px;
+  border-radius:12px;
+  background:#f4f5f8;
+}
+
+.modal-info-box span{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.modal-info-box strong{
+  display:block;
+  margin-top:3px;
+  font-size:13px;
+}
+
+.modal-notice{
+  margin-top:16px;
+  padding:14px;
+  border-radius:13px;
+  background:#f4f3ff;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.registration-success{
+  padding:25px 0;
+  text-align:center;
+}
+
+.success-icon{
+  width:70px;
+  height:70px;
+  display:grid;
+  place-items:center;
+  margin:0 auto 15px;
+  border-radius:50%;
+  background:#e8f7f1;
+  color:#158361;
+  font-size:30px;
+  font-weight:900;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media(max-width:950px){
+
+  .page-hero-grid,
+  .featured-session,
+  .sessions-grid,
+  .priority-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:650px){
+
+  .page-hero-grid,
+  .featured-session,
+  .sessions-grid,
+  .priority-grid,
+  .modal-info{
+    grid-template-columns:1fr;
+  }
+
+  .my-session-row{
+    grid-template-columns:1fr;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVIGATION
+========================================================= -->
+
+<header class="header">
+
+<div class="container nav">
+
+  <a class="logo" href="index.html">
+    <span class="logo-icon">LU</span>
+    <span>Life Upgrade</span>
+  </a>
+
+  <nav class="menu">
+
+    <a href="index.html">
+      Accueil
+    </a>
+
+    <a href="developpement.html">
+      Développement
+    </a>
+
+    <a href="etudes.html">
+      Études & Orientation
+    </a>
+
+    <a href="tests.html">
+      Tests
+    </a>
+
+    <a href="cours.html">
+      Cours
+    </a>
+
+    <a
+      class="active"
+      href="sessions.html"
+    >
+      Sessions
+    </a>
+
+    <a href="culture.html">
+      Culture
+    </a>
+
+    <a href="forum.html">
+      Forum
+    </a>
+
+    <a href="coaching.html">
+      Coaching
+    </a>
+
+  </nav>
+
+  <a
+    class="account-button"
+    href="dashboard.html"
+  >
+    Mon espace
+  </a>
+
+</div>
+
+</header>
+
+
+
+<main>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="page-hero">
+
+<div class="container page-hero-grid">
+
+  <div>
+
+    <div class="eyebrow">
+      LIVE · ATELIERS · FORMATIONS · DISCUSSIONS
+    </div>
+
+    <h1 style="font-size:clamp(44px,5vw,67px)">
+      Apprendre et échanger en direct.
+    </h1>
+
+    <p>
+      Participe à des formations métier, ateliers de développement,
+      discussions, sessions d'orientation, rencontres culturelles
+      et partages d'expérience.
+    </p>
+
+    <div class="filters">
+
+      <button
+        class="filter-button active"
+        onclick="filterSessions('all',this)"
+      >
+        Toutes
+      </button>
+
+      <button
+        class="filter-button"
+        onclick="filterSessions('metier',this)"
+      >
+        Métiers
+      </button>
+
+      <button
+        class="filter-button"
+        onclick="filterSessions('softskills',this)"
+      >
+        Soft Skills
+      </button>
+
+      <button
+        class="filter-button"
+        onclick="filterSessions('orientation',this)"
+      >
+        Orientation
+      </button>
+
+      <button
+        class="filter-button"
+        onclick="filterSessions('culture',this)"
+      >
+        Culture
+      </button>
+
+      <button
+        class="filter-button"
+        onclick="filterSessions('discussion',this)"
+      >
+        Discussions
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="hero-card">
+
+    <span class="badge">
+      SESSIONS LIFE UPGRADE
+    </span>
+
+    <h3 style="margin-top:8px">
+      Plusieurs formats
+    </h3>
+
+    <p>
+      Certaines sessions sont ouvertes à tous,
+      d'autres utilisent un nombre de places limité.
+    </p>
+
+    <div class="hero-card-grid">
+
+      <div class="hero-stat">
+        <span>FORMATIONS</span>
+        <strong>Métiers</strong>
+      </div>
+
+      <div class="hero-stat">
+        <span>ATELIERS</span>
+        <strong>Pratique</strong>
+      </div>
+
+      <div class="hero-stat">
+        <span>DISCUSSIONS</span>
+        <strong>Groupe</strong>
+      </div>
+
+      <div class="hero-stat">
+        <span>CULTURE</span>
+        <strong>Live</strong>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SESSION A LA UNE
+========================================================= -->
+
+<section class="session-section white">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      À LA UNE
+    </span>
+
+    <h2>
+      Prochaine session.
+    </h2>
+
+  </div>
+
+
+  <div class="featured-session">
+
+    <div>
+
+      <span class="badge">
+        ATELIER SOFT SKILLS
+      </span>
+
+      <h2 style="margin-top:10px;color:white">
+        Prise de parole :
+        structurer un message clair
+      </h2>
+
+      <p>
+        Une session pratique en petit groupe :
+        structure du message, présentation courte,
+        exercices et échanges entre participants.
+      </p>
+
+      <div class="featured-meta">
+
+        <span>
+          Samedi 12 septembre
+        </span>
+
+        <span>
+          18:00
+        </span>
+
+        <span>
+          60 minutes
+        </span>
+
+        <span>
+          Google Meet
+        </span>
+
+        <span>
+          Tous niveaux
+        </span>
+
+      </div>
+
+    </div>
+
+
+    <div class="featured-side">
+
+      <div class="capacity-line">
+
+        <span>
+          Participants
+        </span>
+
+        <strong>
+          12 / 15
+        </strong>
+
+      </div>
+
+      <div class="capacity-bar">
+        <i style="width:80%"></i>
+      </div>
+
+      <p style="font-size:11px">
+        3 places restantes.
+      </p>
+
+      <button
+        class="button primary"
+        style="
+          width:100%;
+          margin-top:14px;
+          border:0;
+          cursor:pointer
+        "
+        onclick="openSession('speaking')"
+      >
+        Voir & s'inscrire
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     SESSIONS A VENIR
+========================================================= -->
+
+<section class="session-section">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      CALENDRIER
+    </span>
+
+    <h2>
+      Sessions à venir.
+    </h2>
+
+    <p>
+      Le calendrier sera ensuite alimenté depuis
+      le compte administrateur.
+    </p>
+
+  </div>
+
+
+  <div
+    id="sessionsGrid"
+    class="sessions-grid"
+  ></div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     PRIORITES
+========================================================= -->
+
+<section class="session-section white">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      INSCRIPTIONS
+    </span>
+
+    <h2>
+      Comment fonctionne la priorité ?
+    </h2>
+
+    <p>
+      Premium et Premium+ disposent d'un accès anticipé
+      aux sessions à capacité limitée.
+    </p>
+
+  </div>
+
+
+  <div class="priority-grid">
+
+    <div class="priority-card">
+
+      <span class="badge">
+        GRATUIT
+      </span>
+
+      <strong style="margin-top:10px">
+        Membres Life Upgrade
+      </strong>
+
+      <p>
+        Accès aux inscriptions dès l'ouverture générale,
+        dans la limite des places disponibles.
+      </p>
+
+    </div>
+
+
+    <div class="priority-card">
+
+      <span class="badge">
+        PREMIUM
+      </span>
+
+      <strong style="margin-top:10px">
+        Accès anticipé
+      </strong>
+
+      <p>
+        Certaines sessions ouvrent leurs inscriptions
+        plus tôt aux membres Premium.
+      </p>
+
+    </div>
+
+
+    <div class="priority-card">
+
+      <span class="badge">
+        PREMIUM+
+      </span>
+
+      <strong style="margin-top:10px">
+        Priorité d'inscription
+      </strong>
+
+      <p>
+        Premium+ obtient l'ouverture la plus précoce
+        pour les ateliers et groupes à capacité limitée.
+      </p>
+
+    </div>
+
+  </div>
+
+
+  <div
+    style="
+      margin-top:17px;
+      padding:15px;
+      border-radius:14px;
+      background:#f5f4ff;
+      color:var(--muted);
+      font-size:11px
+    "
+  >
+    La priorité donne accès plus tôt à l'inscription.
+    Elle ne constitue pas une garantie de place.
+  </div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     MES SESSIONS
+========================================================= -->
+
+<section class="session-section">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      MON AGENDA
+    </span>
+
+    <h2>
+      Mes sessions.
+    </h2>
+
+    <p>
+      Pour le prototype actuel, les inscriptions sont
+      conservées uniquement sur cet appareil.
+    </p>
+
+  </div>
+
+
+  <div class="my-sessions">
+
+    <div
+      style="
+        display:flex;
+        justify-content:space-between;
+        gap:15px;
+        align-items:center
+      "
+    >
+
+      <h3>
+        Inscriptions
+      </h3>
+
+      <button
+        class="button secondary"
+        style="
+          border:1px solid var(--border);
+          cursor:pointer
+        "
+        onclick="clearRegistrations()"
+      >
+        Effacer
+      </button>
+
+    </div>
+
+
+    <div
+      id="mySessionList"
+      class="my-session-list"
+    ></div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+
+<!-- =========================================================
+     TYPES DE SESSIONS
+========================================================= -->
+
+<section class="session-section white">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      FORMATS
+    </span>
+
+    <h2>
+      Ce que Life Upgrade pourra organiser.
+    </h2>
+
+  </div>
+
+
+  <div class="sessions-grid">
+
+
+    <article class="session-card">
+
+      <span class="badge">
+        MÉTIER
+      </span>
+
+      <h3 style="margin-top:8px">
+        Formation métier
+      </h3>
+
+      <p>
+        Découvrir un métier avec une personne
+        qui connaît réellement le domaine.
+      </p>
+
+      <div class="session-meta">
+        <span>Présentation</span>
+        <span>Questions</span>
+        <span>Orientation</span>
+      </div>
+
+    </article>
+
+
+    <article class="session-card">
+
+      <span class="badge">
+        SOFT SKILLS
+      </span>
+
+      <h3 style="margin-top:8px">
+        Atelier pratique
+      </h3>
+
+      <p>
+        Petit groupe autour de la prise de parole,
+        communication, leadership ou autres compétences.
+      </p>
+
+      <div class="session-meta">
+        <span>Pratique</span>
+        <span>Petit groupe</span>
+        <span>Feedback</span>
+      </div>
+
+    </article>
+
+
+    <article class="session-card">
+
+      <span class="badge">
+        DISCUSSION
+      </span>
+
+      <h3 style="margin-top:8px">
+        Discussion de groupe
+      </h3>
+
+      <p>
+        Débattre d'un sujet proposé par la communauté
+        avec un cadre et une modération.
+      </p>
+
+      <div class="session-meta">
+        <span>Échange</span>
+        <span>Forum</span>
+        <span>Sondage</span>
+      </div>
+
+    </article>
+
+
+    <article class="session-card">
+
+      <span class="badge">
+        CULTURE
+      </span>
+
+      <h3 style="margin-top:8px">
+        Culture générale live
+      </h3>
+
+      <p>
+        Astronomie, sciences, histoire,
+        technologie et autres thèmes.
+      </p>
+
+      <div class="session-meta">
+        <span>Culture</span>
+        <span>Questions</span>
+      </div>
+
+    </article>
+
+
+    <article class="session-card">
+
+      <span class="badge">
+        EXPÉRIENCE
+      </span>
+
+      <h3 style="margin-top:8px">
+        Partage d'expérience
+      </h3>
+
+      <p>
+        Reconversion, études, carrière,
+        entrepreneuriat ou apprentissage.
+      </p>
+
+      <div class="session-meta">
+        <span>Témoignage</span>
+        <span>Questions</span>
+      </div>
+
+    </article>
+
+
+    <article class="session-card">
+
+      <span class="badge">
+        ORIENTATION
+      </span>
+
+      <h3 style="margin-top:8px">
+        Orientation & questions
+      </h3>
+
+      <p>
+        Sessions destinées aux lycéens,
+        étudiants et éventuellement aux parents.
+      </p>
+
+      <div class="session-meta">
+        <span>Études</span>
+        <span>Métiers</span>
+        <span>Parents</span>
+      </div>
+
+    </article>
+
+
+  </div>
+
+</div>
+
+</section>
+
+</main>
+
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+<div class="container footer-grid">
+
+  <div>
+
+    <a
+      class="logo"
+      href="index.html"
+    >
+      <span class="logo-icon">
+        LU
+      </span>
+
+      <span>
+        Life Upgrade
+      </span>
+    </a>
+
+    <p>
+      Développement personnel,
+      professionnel, études et apprentissage.
+    </p>
+
+  </div>
+
+
+  <div>
+
+    <strong>
+      Sessions
+    </strong>
+
+    <a href="#">
+      À venir
+    </a>
+
+    <a href="cours.html">
+      Cours
+    </a>
+
+    <a href="culture.html">
+      Culture
+    </a>
+
+  </div>
+
+
+  <div>
+
+    <strong>
+      Life Upgrade
+    </strong>
+
+    <a href="forum.html">
+      Forum
+    </a>
+
+    <a href="coaching.html">
+      Coaching
+    </a>
+
+    <a href="dashboard.html">
+      Mon espace
+    </a>
+
+  </div>
+
+</div>
+
+</footer>
+
+
+
+<!-- =========================================================
+     SESSION MODAL
+========================================================= -->
+
+<div
+  id="sessionOverlay"
+  class="session-overlay"
+>
+
+  <div class="session-modal">
+
+    <button
+      class="modal-close"
+      onclick="closeSession()"
+    >
+      ×
+    </button>
+
+    <div id="sessionModalContent"></div>
+
+  </div>
+
+</div>
+
+
+
+<script>
+
+/* =========================================================
+   DATA
+========================================================= */
+
+const sessionData = [
+
+{
+  id:"speaking",
+
+  category:"softskills",
+
+  type:"Atelier Soft Skills",
+
+  title:"Prise de parole : structurer un message clair",
+
+  description:
+    "Atelier pratique en petit groupe autour de la structure du message, de la présentation courte et des questions.",
+
+  day:"12",
+
+  month:"SEP",
+
+  dateText:"Samedi 12 septembre",
+
+  time:"18:00",
+
+  duration:"60 min",
+
+  platform:"Google Meet",
+
+  host:"Équipe Life Upgrade",
+
+  capacity:15,
+
+  registered:12,
+
+  access:"Tous les membres",
+
+  priority:"Premium+ prioritaire",
+
+  status:"open"
+},
+
+{
+  id:"data",
+
+  category:"metier",
+
+  type:"Formation métier",
+
+  title:"Découvrir le métier de Data Analyst",
+
+  description:
+    "Missions, compétences, outils, parcours possibles et questions-réponses.",
+
+  day:"17",
+
+  month:"SEP",
+
+  dateText:"Jeudi 17 septembre",
+
+  time:"19:00",
+
+  duration:"45 min",
+
+  platform:"Microsoft Teams",
+
+  host:"Invité Life Upgrade",
+
+  capacity:30,
+
+  registered:21,
+
+  access:"Tous les membres",
+
+  priority:"Premium accès anticipé",
+
+  status:"open"
+},
+
+{
+  id:"aiwork",
+
+  category:"discussion",
+
+  type:"Discussion",
+
+  title:"IA et avenir des métiers",
+
+  description:
+    "Discussion collective autour de l'évolution du travail, des compétences et de l'automatisation.",
+
+  day:"20",
+
+  month:"SEP",
+
+  dateText:"Dimanche 20 septembre",
+
+  time:"17:00",
+
+  duration:"60 min",
+
+  platform:"Google Meet",
+
+  host:"Life Upgrade",
+
+  capacity:50,
+
+  registered:50,
+
+  access:"Tous les membres",
+
+  priority:"",
+
+  status:"full"
+},
+
+{
+  id:"astronomy",
+
+  category:"culture",
+
+  type:"Culture",
+
+  title:"Étoiles, galaxies et trous noirs",
+
+  description:
+    "Une session de culture générale suivie d'un temps de questions et de discussion.",
+
+  day:"24",
+
+  month:"SEP",
+
+  dateText:"Jeudi 24 septembre",
+
+  time:"20:00",
+
+  duration:"45 min",
+
+  platform:"Google Meet",
+
+  host:"Life Upgrade Culture",
+
+  capacity:40,
+
+  registered:26,
+
+  access:"Tous les membres",
+
+  priority:"",
+
+  status:"open"
+},
+
+{
+  id:"orientation",
+
+  category:"orientation",
+
+  type:"Orientation",
+
+  title:"Comment explorer plusieurs pistes métiers ?",
+
+  description:
+    "Session destinée aux lycéens, étudiants et parents pour comprendre comment explorer une orientation.",
+
+  day:"27",
+
+  month:"SEP",
+
+  dateText:"Dimanche 27 septembre",
+
+  time:"16:00",
+
+  duration:"60 min",
+
+  platform:"Microsoft Teams",
+
+  host:"Life Upgrade Orientation",
+
+  capacity:50,
+
+  registered:31,
+
+  access:"Tous les membres",
+
+  priority:"Premium accès anticipé",
+
+  status:"open"
+},
+
+{
+  id:"emotional",
+
+  category:"softskills",
+
+  type:"Intelligence émotionnelle",
+
+  title:"Communication et intelligence émotionnelle au travail",
+
+  description:
+    "Situations professionnelles, feedback, désaccord et prise de recul.",
+
+  day:"02",
+
+  month:"OCT",
+
+  dateText:"Vendredi 2 octobre",
+
+  time:"18:30",
+
+  duration:"60 min",
+
+  platform:"Google Meet",
+
+  host:"Life Upgrade",
+
+  capacity:20,
+
+  registered:8,
+
+  access:"Tous les membres",
+
+  priority:"Premium+ prioritaire",
+
+  status:"open"
+}
+
+];
+
+
+/* =========================================================
+   RENDER
+========================================================= */
+
+function renderSessions(filter="all"){
+
+  const grid =
+    document.getElementById(
+      "sessionsGrid"
+    );
+
+  const sessions =
+    filter === "all"
+    ?
+    sessionData
+    :
+    sessionData.filter(
+      session =>
+        session.category === filter
+    );
+
+
+  grid.innerHTML =
+    sessions.map(
+      session =>
+        sessionCard(session)
+    ).join("");
+
+}
+
+
+function sessionCard(session){
+
+  const percentage =
+    Math.min(
+      100,
+      Math.round(
+        (
+          session.registered /
+          session.capacity
+        ) * 100
+      )
+    );
+
+
+  const remaining =
+    Math.max(
+      0,
+      session.capacity -
+      session.registered
+    );
+
+
+  return `
+
+    <article
+      class="session-card"
+      data-category="${session.category}"
+    >
+
+      <span class="badge">
+        ${session.type}
+      </span>
+
+
+      <div class="session-date">
+
+        <div class="date-box">
+
+          <strong>
+            ${session.day}
+          </strong>
+
+          <span>
+            ${session.month}
+          </span>
+
+        </div>
+
+
+        <div class="session-time">
+
+          <strong>
+            ${session.time}
+          </strong>
+
+          <span>
+            ${session.duration}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <h3>
+        ${session.title}
+      </h3>
+
+
+      <p>
+        ${session.description}
+      </p>
+
+
+      <div class="session-meta">
+
+        <span>
+          ${session.platform}
+        </span>
+
+        <span>
+          ${session.access}
+        </span>
+
+      </div>
+
+
+      ${
+        session.priority
+        ?
+        `
+        <div class="priority-badge">
+          ★ ${session.priority}
+        </div>
+        `
+        :
+        ""
+      }
+
+
+      <div class="card-capacity">
+
+        <div class="card-capacity-top">
+
+          <span>
+            ${session.registered}
+            / ${session.capacity}
+          </span>
+
+          <span>
+            ${
+              remaining > 0
+              ?
+              remaining + " places"
+              :
+              "Complet"
+            }
+          </span>
+
+        </div>
+
+
+        <div class="card-capacity-bar">
+
+          <i style="width:${percentage}%"></i>
+
+        </div>
+
+
+        ${
+          session.status === "full"
+          ?
+          `
+          <div class="full-badge">
+            SESSION COMPLÈTE
+          </div>
+          `
+          :
+          ""
+        }
+
+
+        <div class="session-actions">
+
+          <button
+            class="button ${
+              session.status === "full"
+              ?
+              "secondary"
+              :
+              "primary"
+            }"
+            onclick="openSession('${session.id}')"
+          >
+            ${
+              session.status === "full"
+              ?
+              "Liste d'attente"
+              :
+              "Voir & s'inscrire"
+            }
+          </button>
+
+        </div>
+
+      </div>
+
+    </article>
+
+  `;
+
+}
+
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+function filterSessions(
+  filter,
+  button
+){
+
+  document
+    .querySelectorAll(
+      ".filter-button"
+    )
+    .forEach(
+      item =>
+        item.classList.remove(
+          "active"
+        )
+    );
+
+
+  button.classList.add(
+    "active"
+  );
+
+
+  renderSessions(filter);
+
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+function openSession(id){
+
+  const session =
+    sessionData.find(
+      item => item.id === id
+    );
+
+
+  if(!session){
+    return;
+  }
+
+
+  const registrations =
+    getRegistrations();
+
+
+  const existing =
+    registrations.find(
+      item =>
+        item.sessionId === id
+    );
+
+
+  document
+    .getElementById(
+      "sessionOverlay"
+    )
+    .classList.add(
+      "open"
+    );
+
+
+  renderSessionModal(
+    session,
+    existing
+  );
+
+}
+
+
+function closeSession(){
+
+  document
+    .getElementById(
+      "sessionOverlay"
+    )
+    .classList.remove(
+      "open"
+    );
+
+}
+
+
+document
+  .getElementById(
+    "sessionOverlay"
+  )
+  .addEventListener(
+    "click",
+    function(event){
+
+      if(
+        event.target === this
+      ){
+
+        closeSession();
+
+      }
+
+    }
+  );
+
+
+function renderSessionModal(
+  session,
+  existing
+){
+
+  const remaining =
+    Math.max(
+      0,
+      session.capacity -
+      session.registered
+    );
+
+
+  document
+    .getElementById(
+      "sessionModalContent"
+    )
+    .innerHTML = `
+
+      <div class="eyebrow">
+        ${session.type}
+      </div>
+
+
+      <h2>
+        ${session.title}
+      </h2>
+
+
+      <p style="margin-top:10px">
+        ${session.description}
+      </p>
+
+
+      <div class="modal-info">
+
+
+        <div class="modal-info-box">
+
+          <span>
+            DATE
+          </span>
+
+          <strong>
+            ${session.dateText}
+          </strong>
+
+        </div>
+
+
+        <div class="modal-info-box">
+
+          <span>
+            HEURE
+          </span>
+
+          <strong>
+            ${session.time}
+          </strong>
+
+        </div>
+
+
+        <div class="modal-info-box">
+
+          <span>
+            DURÉE
+          </span>
+
+          <strong>
+            ${session.duration}
+          </strong>
+
+        </div>
+
+
+        <div class="modal-info-box">
+
+          <span>
+            PLATEFORME
+          </span>
+
+          <strong>
+            ${session.platform}
+          </strong>
+
+        </div>
+
+
+        <div class="modal-info-box">
+
+          <span>
+            ANIMATEUR
+          </span>
+
+          <strong>
+            ${session.host}
+          </strong>
+
+        </div>
+
+
+        <div class="modal-info-box">
+
+          <span>
+            PLACES
+          </span>
+
+          <strong>
+            ${session.registered}
+            / ${session.capacity}
+          </strong>
+
+        </div>
+
+
+      </div>
+
+
+      ${
+        session.priority
+        ?
+        `
+        <div class="modal-notice">
+
+          <strong>
+            Priorité :
+          </strong>
+
+          ${session.priority}.
+
+          La priorité correspond à une ouverture
+          anticipée des inscriptions et ne garantit
+          pas une place.
+
+        </div>
+        `
+        :
+        ""
+      }
+
+
+      ${
+        existing
+        ?
+        `
+
+        <div class="registration-success">
+
+          <div class="success-icon">
+            ✓
+          </div>
+
+          <h3>
+            ${
+              existing.status === "confirmed"
+              ?
+              "Tu es inscrit"
+              :
+              "Tu es sur la liste d'attente"
+            }
+          </h3>
+
+          <p style="margin-top:8px">
+
+            ${
+              existing.status === "confirmed"
+              ?
+              "Cette session apparaît maintenant dans ton agenda local."
+              :
+              "Une place pourra t'être proposée si un participant se désiste."
+            }
+
+          </p>
+
+          <button
+            class="button secondary"
+            style="
+              margin-top:15px;
+              border:1px solid var(--border);
+              cursor:pointer
+            "
+            onclick="cancelRegistration('${session.id}')"
+          >
+            Annuler mon inscription
+          </button>
+
+        </div>
+
+        `
+        :
+        `
+
+        <div style="margin-top:20px">
+
+          <h3>
+            ${
+              session.status === "full"
+              ?
+              "Rejoindre la liste d'attente"
+              :
+              "Réserver ma place"
+            }
+          </h3>
+
+
+          <p style="margin-top:7px">
+
+            ${
+              session.status === "full"
+              ?
+              "La session est complète. Tu peux rejoindre la liste d'attente."
+              :
+              remaining +
+              " place(s) actuellement disponible(s)."
+            }
+
+          </p>
+
+
+          <button
+            class="button primary"
+            style="
+              margin-top:15px;
+              border:0;
+              cursor:pointer
+            "
+            onclick="registerSession('${session.id}')"
+          >
+
+            ${
+              session.status === "full"
+              ?
+              "Rejoindre la liste d'attente"
+              :
+              "Confirmer mon inscription"
+            }
+
+          </button>
+
+        </div>
+
+        `
+      }
+
+
+      <div class="modal-notice">
+
+        <strong>
+          Prototype actuel :
+        </strong>
+
+        l'inscription est enregistrée
+        uniquement dans ce navigateur.
+
+        Lorsque les comptes et Cloudflare D1
+        seront activés, elle sera associée
+        au véritable compte utilisateur.
+
+      </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   LOCAL REGISTRATION
+========================================================= */
+
+const REGISTRATION_KEY =
+  "lifeUpgradeSessionRegistrations";
+
+
+function getRegistrations(){
+
+  try{
+
+    return JSON.parse(
+      localStorage.getItem(
+        REGISTRATION_KEY
+      )
+    ) || [];
+
+  }catch(error){
+
+    return [];
+
+  }
+
+}
+
+
+function saveRegistrations(
+  registrations
+){
+
+  localStorage.setItem(
+
+    REGISTRATION_KEY,
+
+    JSON.stringify(
+      registrations
+    )
+
+  );
+
+
+  renderMySessions();
+
+}
+
+
+function registerSession(id){
+
+  const session =
+    sessionData.find(
+      item =>
+        item.id === id
+    );
+
+
+  if(!session){
+    return;
+  }
+
+
+  let registrations =
+    getRegistrations();
+
+
+  const alreadyRegistered =
+    registrations.some(
+      item =>
+        item.sessionId === id
+    );
+
+
+  if(alreadyRegistered){
+    return;
+  }
+
+
+  const status =
+    session.status === "full"
+    ?
+    "waiting"
+    :
+    "confirmed";
+
+
+  registrations.push({
+
+    sessionId:id,
+
+    status:status,
+
+    registeredAt:
+      new Date()
+      .toLocaleString(
+        "fr-FR"
+      )
+
+  });
+
+
+  saveRegistrations(
+    registrations
+  );
+
+
+  renderSessionModal(
+    session,
+    {
+      sessionId:id,
+      status:status
+    }
+  );
+
+}
+
+
+function cancelRegistration(id){
+
+  let registrations =
+    getRegistrations();
+
+
+  registrations =
+    registrations.filter(
+      item =>
+        item.sessionId !== id
+    );
+
+
+  saveRegistrations(
+    registrations
+  );
+
+
+  const session =
+    sessionData.find(
+      item =>
+        item.id === id
+    );
+
+
+  renderSessionModal(
+    session,
+    null
+  );
+
+}
+
+
+/* =========================================================
+   MY SESSIONS
+========================================================= */
+
+function renderMySessions(){
+
+  const container =
+    document.getElementById(
+      "mySessionList"
+    );
+
+
+  const registrations =
+    getRegistrations();
+
+
+  if(
+    registrations.length === 0
+  ){
+
+    container.innerHTML = `
+
+      <div class="empty-state">
+
+        Tu n'es inscrit à aucune session
+        sur cet appareil.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    registrations.map(
+      registration => {
+
+        const session =
+          sessionData.find(
+            item =>
+              item.id ===
+              registration.sessionId
+          );
+
+
+        if(!session){
+          return "";
+        }
+
+
+        return `
+
+          <div class="my-session-row">
+
+            <div>
+
+              <strong>
+                ${session.title}
+              </strong>
+
+              <p>
+                ${session.dateText}
+                · ${session.time}
+                · ${session.platform}
+              </p>
+
+            </div>
+
+
+            <div
+              class="${
+                registration.status ===
+                "confirmed"
+                ?
+                "status-confirmed"
+                :
+                "status-waiting"
+              }"
+            >
+
+              ${
+                registration.status ===
+                "confirmed"
+                ?
+                "✓ CONFIRMÉ"
+                :
+                "LISTE D'ATTENTE"
+              }
+
+            </div>
+
+
+            <button
+              class="button secondary"
+              style="
+                border:1px solid var(--border);
+                cursor:pointer
+              "
+              onclick="openSession('${session.id}')"
+            >
+              Voir
+            </button>
+
+          </div>
+
+        `;
+
+      }
+    ).join("");
+
+}
+
+
+function clearRegistrations(){
+
+  if(
+    !confirm(
+      "Effacer toutes les inscriptions locales ?"
+    )
+  ){
+    return;
+  }
+
+
+  localStorage.removeItem(
+    REGISTRATION_KEY
+  );
+
+
+  renderMySessions();
+
+}
+
+
+/* =========================================================
+   INITIALISATION
+========================================================= */
+
+renderSessions();
+
+renderMySessions();
+
+</script>
+
+</body>
+</html>
