@@ -690,3 +690,114 @@ footer{
     padding:9px;
   }
 }
+/* ============================================================
+   LIFE UPGRADE — SHARED NAVIGATION
+============================================================ */
+
+.header-actions{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+
+.mobile-menu-button{
+  display:none;
+  width:40px;
+  height:40px;
+  place-items:center;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:white;
+  color:var(--text);
+  cursor:pointer;
+  font-size:20px;
+  font-weight:800;
+}
+
+.mobile-navigation{
+  display:none;
+  border-top:1px solid var(--border);
+  background:white;
+}
+
+.mobile-navigation .container{
+  padding-top:10px;
+  padding-bottom:15px;
+}
+
+.mobile-navigation a{
+  display:block;
+  padding:11px 8px;
+  border-bottom:1px solid #f0f2f6;
+  color:var(--muted);
+  font-size:13px;
+  font-weight:700;
+}
+
+.mobile-navigation a.active{
+  color:var(--primary);
+}
+
+.mobile-navigation .mobile-account-link{
+  margin-top:8px;
+  border:0;
+  border-radius:10px;
+  background:var(--primary);
+  color:white;
+  text-align:center;
+}
+
+.footer-grid{
+  grid-template-columns:2fr 1fr 1fr 1fr;
+}
+
+.footer-bottom{
+  display:flex;
+  justify-content:space-between;
+  gap:15px;
+  margin-top:35px;
+  padding-top:20px;
+  border-top:1px solid var(--border);
+  color:var(--muted);
+  font-size:10px;
+}
+
+@media(max-width:1050px){
+
+  .mobile-menu-button{
+    display:grid;
+  }
+
+  .mobile-navigation.open{
+    display:block;
+  }
+
+  .header .account-button{
+    display:inline-flex;
+  }
+
+}
+
+@media(max-width:700px){
+
+  .header .account-button{
+    display:none;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .footer-bottom{
+    flex-direction:column;
+  }
+
+}
+
+@media(max-width:500px){
+
+  .footer-grid{
+    grid-template-columns:1fr;
+  }
+
+}
