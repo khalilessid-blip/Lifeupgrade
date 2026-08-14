@@ -1,0 +1,2127 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Coaching — Life Upgrade</title>
+
+<meta
+  name="description"
+  content="Life Upgrade Coaching : accompagnement personnel, professionnel, études, orientation et carrière avec plan personnalisé."
+>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* ============================================================
+   HERO
+============================================================ */
+
+.coaching-hero{
+  padding:70px 0 50px;
+}
+
+.coaching-hero-grid{
+  display:grid;
+  grid-template-columns:1fr 370px;
+  gap:28px;
+  align-items:center;
+}
+
+.coaching-hero p{
+  max-width:760px;
+  margin-top:15px;
+  font-size:17px;
+}
+
+.coach-summary{
+  padding:24px;
+  border-radius:22px;
+  color:white;
+  background:linear-gradient(145deg,#11172b,#263452);
+}
+
+.coach-summary p{
+  color:#bbc4d5;
+  font-size:12px;
+}
+
+.summary-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:16px;
+}
+
+.summary-box{
+  padding:12px;
+  border-radius:12px;
+  background:rgba(255,255,255,.07);
+}
+
+.summary-box span{
+  display:block;
+  color:#adb8cb;
+  font-size:9px;
+}
+
+.summary-box strong{
+  display:block;
+  margin-top:4px;
+  font-size:18px;
+}
+
+
+/* ============================================================
+   GENERAL
+============================================================ */
+
+.coaching-section{
+  padding:72px 0;
+}
+
+.coaching-section.white{
+  background:white;
+}
+
+.coaching-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.info-card{
+  padding:21px;
+  border:1px solid var(--border);
+  border-radius:19px;
+  background:white;
+}
+
+.white .info-card{
+  background:#f8f9fc;
+}
+
+.info-card p{
+  margin-top:7px;
+  font-size:11px;
+}
+
+.info-card ul{
+  display:grid;
+  gap:7px;
+  margin:14px 0 0;
+  padding:0;
+  list-style:none;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.info-card li::before{
+  content:"✓";
+  margin-right:7px;
+  color:#16815f;
+  font-weight:900;
+}
+
+
+/* ============================================================
+   HOW IT WORKS
+============================================================ */
+
+.process-grid{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:9px;
+}
+
+.process-card{
+  padding:18px;
+  border:1px solid var(--border);
+  border-radius:17px;
+  background:white;
+}
+
+.process-card span{
+  color:var(--primary);
+  font-size:10px;
+  font-weight:900;
+}
+
+.process-card h3{
+  margin:7px 0;
+  font-size:15px;
+}
+
+.process-card p{
+  font-size:10px;
+}
+
+
+/* ============================================================
+   SESSION
+============================================================ */
+
+.session-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:15px;
+}
+
+.session-card{
+  padding:23px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:white;
+}
+
+.session-card p{
+  margin-top:8px;
+  font-size:11px;
+}
+
+.session-timeline{
+  display:grid;
+  gap:8px;
+  margin-top:17px;
+}
+
+.timeline-row{
+  display:grid;
+  grid-template-columns:80px 1fr;
+  gap:10px;
+  padding:11px;
+  border-radius:11px;
+  background:#f5f6f9;
+}
+
+.timeline-row strong{
+  font-size:10px;
+  color:var(--primary);
+}
+
+.timeline-row span{
+  font-size:10px;
+  color:var(--muted);
+}
+
+
+/* ============================================================
+   PRICING
+============================================================ */
+
+.pricing-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.price-card{
+  display:flex;
+  flex-direction:column;
+  padding:24px;
+  border:1px solid var(--border);
+  border-radius:21px;
+  background:white;
+}
+
+.price-card.featured{
+  color:white;
+  border:0;
+  background:linear-gradient(145deg,#151b31,#293653);
+}
+
+.price-card p{
+  margin-top:8px;
+  font-size:11px;
+}
+
+.price-card.featured p{
+  color:#bbc4d5;
+}
+
+.price{
+  margin-top:16px;
+  font-size:36px;
+  font-weight:900;
+  letter-spacing:-1px;
+}
+
+.price small{
+  font-size:11px;
+  font-weight:700;
+}
+
+.features{
+  display:grid;
+  gap:8px;
+  margin:18px 0;
+}
+
+.feature{
+  display:flex;
+  gap:8px;
+  font-size:11px;
+}
+
+.feature i{
+  font-style:normal;
+  color:#16815f;
+  font-weight:900;
+}
+
+.featured .feature i{
+  color:#aaa7ff;
+}
+
+.price-actions{
+  margin-top:auto;
+}
+
+.price-actions button,
+.price-actions a{
+  width:100%;
+  justify-content:center;
+  border:0;
+  cursor:pointer;
+}
+
+
+/* ============================================================
+   DURATION PRICING
+============================================================ */
+
+.duration-table{
+  width:100%;
+  margin-top:20px;
+  border-collapse:collapse;
+  border:1px solid var(--border);
+  background:white;
+}
+
+.duration-table th,
+.duration-table td{
+  padding:14px;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  font-size:11px;
+}
+
+.duration-table th{
+  background:#f5f6f9;
+  color:var(--muted);
+}
+
+.duration-table tr:last-child td{
+  border-bottom:0;
+}
+
+
+/* ============================================================
+   PREPARATION
+============================================================ */
+
+.preparation-layout{
+  display:grid;
+  grid-template-columns:1fr 390px;
+  gap:15px;
+}
+
+.client-preview{
+  padding:23px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:white;
+}
+
+.client-preview p{
+  font-size:11px;
+}
+
+.client-stats{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-top:15px;
+}
+
+.client-stat{
+  padding:12px;
+  border-radius:12px;
+  background:#f5f6f9;
+}
+
+.client-stat span{
+  display:block;
+  color:var(--muted);
+  font-size:8px;
+}
+
+.client-stat strong{
+  display:block;
+  margin-top:4px;
+  font-size:17px;
+}
+
+.coach-plan{
+  padding:23px;
+  border-radius:20px;
+  color:white;
+  background:linear-gradient(145deg,#141a30,#283652);
+}
+
+.coach-plan p{
+  color:#bbc4d5;
+  font-size:11px;
+}
+
+.coach-plan-list{
+  display:grid;
+  gap:7px;
+  margin-top:15px;
+}
+
+.coach-plan-item{
+  padding:10px;
+  border-radius:10px;
+  background:rgba(255,255,255,.07);
+  font-size:10px;
+}
+
+
+/* ============================================================
+   PLATFORM
+============================================================ */
+
+.platform-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.platform-card{
+  padding:20px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:white;
+  text-align:center;
+}
+
+.platform-icon{
+  width:50px;
+  height:50px;
+  display:grid;
+  place-items:center;
+  margin:0 auto 10px;
+  border-radius:14px;
+  background:var(--soft);
+  color:var(--primary);
+  font-weight:900;
+}
+
+
+/* ============================================================
+   SCOPE
+============================================================ */
+
+.scope-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.scope-card{
+  padding:22px;
+  border:1px solid var(--border);
+  border-radius:19px;
+  background:white;
+}
+
+.scope-card.warning{
+  border-color:#e7d9b7;
+  background:#fffaf0;
+}
+
+.scope-card ul{
+  display:grid;
+  gap:7px;
+  margin-top:13px;
+  padding:0;
+  list-style:none;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.scope-card li::before{
+  content:"•";
+  margin-right:7px;
+  color:var(--primary);
+  font-weight:900;
+}
+
+
+/* ============================================================
+   FAQ
+============================================================ */
+
+.faq-list{
+  display:grid;
+  gap:8px;
+  max-width:850px;
+}
+
+.faq-item{
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:white;
+  overflow:hidden;
+}
+
+.faq-question{
+  width:100%;
+  padding:15px;
+  border:0;
+  background:white;
+  text-align:left;
+  cursor:pointer;
+  font-weight:900;
+}
+
+.faq-answer{
+  display:none;
+  padding:0 15px 15px;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.65;
+}
+
+.faq-item.open .faq-answer{
+  display:block;
+}
+
+
+/* ============================================================
+   MODAL
+============================================================ */
+
+.coaching-overlay{
+  position:fixed;
+  inset:0;
+  z-index:600;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+  background:rgba(7,10,20,.72);
+}
+
+.coaching-overlay.open{
+  display:flex;
+}
+
+.coaching-modal{
+  position:relative;
+  width:min(680px,100%);
+  max-height:94vh;
+  overflow:auto;
+  padding:28px;
+  border-radius:22px;
+  background:white;
+}
+
+.modal-close{
+  position:absolute;
+  top:14px;
+  right:14px;
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:50%;
+  background:#eef0f4;
+  cursor:pointer;
+  font-size:18px;
+}
+
+.form-group{
+  margin-top:14px;
+}
+
+.form-group label{
+  display:block;
+  margin-bottom:6px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.form-group select{
+  width:100%;
+  padding:11px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:white;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media(max-width:950px){
+
+  .coaching-hero-grid,
+  .coaching-grid,
+  .pricing-grid,
+  .preparation-layout{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .process-grid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+}
+
+@media(max-width:650px){
+
+  .coaching-hero-grid,
+  .coaching-grid,
+  .pricing-grid,
+  .session-layout,
+  .preparation-layout,
+  .platform-grid,
+  .scope-layout,
+  .process-grid{
+    grid-template-columns:1fr;
+  }
+
+  .duration-table{
+    display:block;
+    overflow-x:auto;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="lifeUpgradeHeader"></div>
+
+
+<main>
+
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+
+<section class="coaching-hero">
+
+<div class="container coaching-hero-grid">
+
+  <div>
+
+    <div class="eyebrow">
+      COACHING LIFE UPGRADE
+    </div>
+
+    <h1 style="font-size:clamp(44px,5vw,67px)">
+      Tes données donnent le contexte.
+      Le coach aide à construire la suite.
+    </h1>
+
+    <p>
+      Un accompagnement humain autour de tes objectifs personnels,
+      professionnels, scolaires ou de carrière, préparé à partir
+      de ton tableau de bord Life Upgrade.
+    </p>
+
+    <div
+      style="
+        margin-top:20px;
+        display:flex;
+        flex-wrap:wrap;
+        gap:8px
+      "
+    >
+
+      <a
+        class="button primary"
+        href="#offres"
+      >
+        Voir les offres
+      </a>
+
+      <a
+        class="button secondary"
+        href="#fonctionnement"
+      >
+        Comment ça marche ?
+      </a>
+
+    </div>
+
+  </div>
+
+
+  <div class="coach-summary">
+
+    <span class="badge">
+      COACHING HUMAIN
+    </span>
+
+    <h3 style="margin-top:8px">
+      Des séances courtes et préparées
+    </h3>
+
+    <p>
+      Le coach consulte les éléments utiles du dashboard
+      avant la séance et arrive avec un point de travail.
+    </p>
+
+    <div class="summary-grid">
+
+      <div class="summary-box">
+        <span>DURÉE</span>
+        <strong>20–30 min</strong>
+      </div>
+
+      <div class="summary-box">
+        <span>FORMAT</span>
+        <strong>Visio</strong>
+      </div>
+
+      <div class="summary-box">
+        <span>PREMIUM</span>
+        <strong>2/mois</strong>
+      </div>
+
+      <div class="summary-box">
+        <span>PREMIUM+</span>
+        <strong>1/semaine</strong>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- ============================================================
+     POSITIONNEMENT
+============================================================ -->
+
+<section class="coaching-section white">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      POURQUOI UN COACH ?
+    </span>
+
+    <h2>
+      Transformer les informations en actions.
+    </h2>
+
+    <p>
+      Life Upgrade fournit les outils.
+      Le coach aide l'utilisateur à organiser et ajuster son plan.
+    </p>
+
+  </div>
+
+
+  <div class="coaching-grid">
+
+    <article class="info-card">
+
+      <span class="badge">
+        PERSONNEL
+      </span>
+
+      <h3 style="margin-top:8px">
+        Développement personnel
+      </h3>
+
+      <ul>
+        <li>organisation</li>
+        <li>gestion du temps</li>
+        <li>habitudes</li>
+        <li>objectifs</li>
+        <li>communication</li>
+        <li>prise de parole</li>
+      </ul>
+
+    </article>
+
+
+    <article class="info-card">
+
+      <span class="badge">
+        PROFESSIONNEL
+      </span>
+
+      <h3 style="margin-top:8px">
+        Carrière & compétences
+      </h3>
+
+      <ul>
+        <li>évolution professionnelle</li>
+        <li>reconversion</li>
+        <li>montée en compétences</li>
+        <li>organisation au travail</li>
+        <li>soft skills</li>
+        <li>préparation d'objectifs</li>
+      </ul>
+
+    </article>
+
+
+    <article class="info-card">
+
+      <span class="badge">
+        ÉTUDES
+      </span>
+
+      <h3 style="margin-top:8px">
+        Études & orientation
+      </h3>
+
+      <ul>
+        <li>organisation des études</li>
+        <li>méthodes de travail</li>
+        <li>orientation</li>
+        <li>préparation professionnelle</li>
+        <li>stages</li>
+        <li>premier emploi</li>
+      </ul>
+
+    </article>
+
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- ============================================================
+     PROCESS
+============================================================ -->
+
+<section
+  id="fonctionnement"
+  class="coaching-section"
+>
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      FONCTIONNEMENT
+    </span>
+
+    <h2>
+      Le coach ne découvre pas ton profil pendant la séance.
+    </h2>
+
+    <p>
+      La préparation en amont doit permettre d'utiliser
+      les 20–30 minutes de manière plus efficace.
+    </p>
+
+  </div>
+
+
+  <div class="process-grid">
+
+    <div class="process-card">
+      <span>01</span>
+      <h3>Profil</h3>
+      <p>
+        Objectifs, situation et priorités.
+      </p>
+    </div>
+
+    <div class="process-card">
+      <span>02</span>
+      <h3>Évaluations</h3>
+      <p>
+        Résultats Life Upgrade pertinents.
+      </p>
+    </div>
+
+    <div class="process-card">
+      <span>03</span>
+      <h3>Préparation</h3>
+      <p>
+        Le coach consulte le dashboard avant le rendez-vous.
+      </p>
+    </div>
+
+    <div class="process-card">
+      <span>04</span>
+      <h3>Séance</h3>
+      <p>
+        Échange ciblé de 20 à 30 minutes.
+      </p>
+    </div>
+
+    <div class="process-card">
+      <span>05</span>
+      <h3>Plan</h3>
+      <p>
+        Actions et suivi jusqu'au prochain point.
+      </p>
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- ============================================================
+     SESSION
+============================================================ -->
+
+<section class="coaching-section white">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      UNE SÉANCE
+    </span>
+
+    <h2>
+      20 à 30 minutes selon le besoin.
+    </h2>
+
+  </div>
+
+
+  <div class="session-layout">
+
+    <div class="session-card">
+
+      <span class="badge">
+        FORMAT POSSIBLE
+      </span>
+
+      <h3 style="margin-top:8px">
+        Séance de suivi
+      </h3>
+
+      <p>
+        Exemple indicatif d'une séance de 25 minutes.
+      </p>
+
+      <div class="session-timeline">
+
+        <div class="timeline-row">
+          <strong>0–5 min</strong>
+          <span>
+            Point rapide depuis la dernière séance.
+          </span>
+        </div>
+
+        <div class="timeline-row">
+          <strong>5–15 min</strong>
+          <span>
+            Travail sur le sujet prioritaire.
+          </span>
+        </div>
+
+        <div class="timeline-row">
+          <strong>15–22 min</strong>
+          <span>
+            Options, décisions ou ajustements.
+          </span>
+        </div>
+
+        <div class="timeline-row">
+          <strong>22–25 min</strong>
+          <span>
+            Actions jusqu'à la prochaine séance.
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="session-card">
+
+      <span class="badge">
+        DURÉE VARIABLE
+      </span>
+
+      <h3 style="margin-top:8px">
+        Trois formats
+      </h3>
+
+      <div class="session-timeline">
+
+        <div class="timeline-row">
+          <strong>20 min</strong>
+          <span>
+            Point rapide ou suivi d'un plan déjà établi.
+          </span>
+        </div>
+
+        <div class="timeline-row">
+          <strong>25 min</strong>
+          <span>
+            Séance standard de suivi.
+          </span>
+        </div>
+
+        <div class="timeline-row">
+          <strong>30 min</strong>
+          <span>
+            Bilan, orientation ou révision plus importante du plan.
+          </span>
+        </div>
+
+      </div>
+
+      <p style="margin-top:15px">
+        La durée exacte pourra être définie
+        lors de la réservation.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- ============================================================
+     COACH PREPARATION
+============================================================ -->
+
+<section class="coaching-section">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      AVANT LA SÉANCE
+    </span>
+
+    <h2>
+      Le coach prépare son rendez-vous.
+    </h2>
+
+  </div>
+
+
+  <div class="preparation-layout">
+
+    <div class="client-preview">
+
+      <span class="badge">
+        EXEMPLE DASHBOARD CLIENT
+      </span>
+
+      <h3 style="margin-top:8px">
+        Objectif : évoluer vers un poste de manager
+      </h3>
+
+      <p>
+        Les chiffres ci-dessous sont uniquement un exemple d'interface.
+      </p>
+
+      <div class="client-stats">
+
+        <div class="client-stat">
+          <span>COMMUNICATION</span>
+          <strong>76</strong>
+        </div>
+
+        <div class="client-stat">
+          <span>LEADERSHIP</span>
+          <strong>61</strong>
+        </div>
+
+        <div class="client-stat">
+          <span>ORGANISATION</span>
+          <strong>73</strong>
+        </div>
+
+        <div class="client-stat">
+          <span>CONFLITS</span>
+          <strong>57</strong>
+        </div>
+
+      </div>
+
+      <div class="client-stats">
+
+        <div class="client-stat">
+          <span>MISSIONS</span>
+          <strong>5 / 7</strong>
+        </div>
+
+        <div class="client-stat">
+          <span>FOCUS</span>
+          <strong>3h20</strong>
+        </div>
+
+        <div class="client-stat">
+          <span>COURS</span>
+          <strong>2</strong>
+        </div>
+
+        <div class="client-stat">
+          <span>OBJECTIF</span>
+          <strong>Manager</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="coach-plan">
+
+      <span class="badge">
+        PRÉPARATION COACH
+      </span>
+
+      <h3 style="margin-top:8px;color:white">
+        Points possibles
+      </h3>
+
+      <p>
+        Le coach prépare quelques points avant l'appel.
+      </p>
+
+      <div class="coach-plan-list">
+
+        <div class="coach-plan-item">
+          1. Faire le point sur les actions réalisées.
+        </div>
+
+        <div class="coach-plan-item">
+          2. Comprendre la difficulté principale de la semaine.
+        </div>
+
+        <div class="coach-plan-item">
+          3. Travailler une situation de gestion de conflit.
+        </div>
+
+        <div class="coach-plan-item">
+          4. Ajuster le plan de développement leadership.
+        </div>
+
+        <div class="coach-plan-item">
+          5. Définir 2–3 actions avant la prochaine séance.
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- ============================================================
+     PLATFORMS
+============================================================ -->
+
+<section class="coaching-section white">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      VISIOCONFÉRENCE
+    </span>
+
+    <h2>
+      Utilise l'outil que tu préfères.
+    </h2>
+
+    <p>
+      Life Upgrade ne construit pas son propre système de visioconférence.
+    </p>
+
+  </div>
+
+
+  <div class="platform-grid">
+
+    <div class="platform-card">
+
+      <div class="platform-icon">
+        GM
+      </div>
+
+      <h3>
+        Google Meet
+      </h3>
+
+      <p>
+        Lien transmis pour la séance.
+      </p>
+
+    </div>
+
+
+    <div class="platform-card">
+
+      <div class="platform-icon">
+        MS
+      </div>
+
+      <h3>
+        Microsoft Teams
+      </h3>
+
+      <p>
+        Disponible selon la préférence de l'utilisateur.
+      </p>
+
+    </div>
+
+
+    <div class="platform-card">
+
+      <div class="platform-icon">
+        WA
+      </div>
+
+      <h3>
+        WhatsApp
+      </h3>
+
+      <p>
+        Appel selon les modalités prévues lors de la réservation.
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- ============================================================
+     PRICING
+============================================================ -->
+
+<section
+  id="offres"
+  class="coaching-section"
+>
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      OFFRES
+    </span>
+
+    <h2>
+      Le contenu essentiel reste gratuit.
+    </h2>
+
+    <p>
+      Premium ajoute principalement l'accompagnement humain.
+      Les tarifs restent des hypothèses commerciales
+      que nous pourrons ajuster avant lancement.
+    </p>
+
+  </div>
+
+
+  <div class="pricing-grid">
+
+
+    <!-- FREE -->
+
+    <article class="price-card">
+
+      <span class="badge">
+        GRATUIT
+      </span>
+
+      <div class="price">
+        0 €
+      </div>
+
+      <p>
+        L'expérience Life Upgrade sans coaching humain.
+      </p>
+
+      <div class="features">
+
+        <div class="feature">
+          <i>✓</i>
+          <span>Tests publics</span>
+        </div>
+
+        <div class="feature">
+          <i>✓</i>
+          <span>
+            Évaluations personnalisées de 50 questions
+          </span>
+        </div>
+
+        <div class="feature">
+          <i>✓</i>
+          <span>Dashboard</span>
+        </div>
+
+        <div class="feature">
+          <i>✓</i>
+          <span>Trajectoire</span>
+        </div>
+
+        <div class="feature">
+          <i>✓</i>
+          <span>Cours gratuits</span>
+        </div>
+
+        <div class="feature">
+          <i>✓</i>
+          <span>Forum & sessions gratuites</span>
+        </div>
+
+      </div>
+
+      <div class="price-actions">
+
+        <a
+          class="button secondary"
+          href="inscription.html"
+        >
+          Créer mon compte
+        </a>
+
+      </div>
+
+    </article>
+
+
+    <!-- PREMIUM -->
+
+    <article class="price-card">
+
+      <span class="badge">
+        PREMIUM
+      </span>
+
+      <div class="price">
+        4,99 €
+        <small>/mois</small>
+      </div>
+
+      <p>
+        Tout le gratuit + accompagnement humain.
+      </p>
+
+      <div class="features">
+
+        <div class="feature">
+          <i>✓</i>
+          <span>Tout Life Upgrade Gratuit</span>
+        </div>
+
+        <div class="feature">
+          <i>✓</i>
+          <span>Plan personnalisé coach</span>
+        </div>
+
+        <div class="feature">
+          <i>✓</i>
+          <span>2 séances par mois</span>
+        </div>
+
+        <div class="feature">
+          <i>✓</i>
+          <span>20–30 minutes par séance</span>
+        </div>
+
+        <div class="feature">
+          <i>✓</i>
+          <span>Suivi du plan</span>
+        </div>
+
+        <div class="feature">
+          <i>✓</i>
+          <span>
+            Accès anticipé à certaines sessions
+          </span>
+        </div>
+
+      </div>
+
+      <div class="price-actions">
+
+        <button
+          class="button secondary"
+          onclick="openPlanModal('premium')"
+        >
+          Choisir Premium
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <!-- PREMIUM PLUS -->
+
+    <article class="price-card featured">
+
+      <span class="badge">
+        PREMIUM+
+      </span>
+
+      <div class="price">
+        6,99 €
+        <small>/mois</small>
+      </div>
+
+      <p>
+        Accompagnement plus rapproché.
+      </p>
+
+      <div class="features">
+
+        <div class="feature">
+          <i>✓</i>
+          <span>Tout Premium</span>
+        </div>
+
+        <div class="feature">
+          <i>✓</i>
+          <span>1 séance chaque semaine</span>
+        </div>
+
+        <div class="feature">
+          <i>✓</i>
+          <span>20–30 minutes</span>
+        </div>
+
+        <div class="feature">
+          <i>✓</i>
+          <span>Suivi renforcé</span>
+        </div>
+
+        <div class="feature">
+          <i>✓</i>
+          <span>
+            Plan revu plus fréquemment
+          </span>
+        </div>
+
+        <div class="feature">
+          <i>✓</i>
+          <span>
+            Priorité d'inscription aux sessions limitées
+          </span>
+        </div>
+
+      </div>
+
+      <div class="price-actions">
+
+        <button
+          class="button primary"
+          onclick="openPlanModal('premium-plus')"
+        >
+          Choisir Premium+
+        </button>
+
+      </div>
+
+    </article>
+
+  </div>
+
+
+  <table class="duration-table">
+
+    <thead>
+
+      <tr>
+        <th>Durée</th>
+        <th>Premium</th>
+        <th>Premium+</th>
+      </tr>
+
+    </thead>
+
+    <tbody>
+
+      <tr>
+        <td>1 mois</td>
+        <td>4,99 €</td>
+        <td>6,99 €</td>
+      </tr>
+
+      <tr>
+        <td>3 mois</td>
+        <td>12 €</td>
+        <td>18 €</td>
+      </tr>
+
+      <tr>
+        <td>6 mois</td>
+        <td>20 €</td>
+        <td>32 €</td>
+      </tr>
+
+      <tr>
+        <td>12 mois</td>
+        <td>35 €</td>
+        <td>59 €</td>
+      </tr>
+
+    </tbody>
+
+  </table>
+
+
+  <div
+    style="
+      margin-top:14px;
+      padding:14px;
+      border-radius:13px;
+      background:#f5f4ff;
+      color:var(--muted);
+      font-size:11px
+    "
+  >
+
+    <strong>
+      Tarification à valider avant commercialisation :
+    </strong>
+
+    ces prix sont actuellement ceux du cahier des charges.
+    Le coût réel du coaching humain devra être mesuré
+    avant d'activer les paiements.
+
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- ============================================================
+     SCOPE
+============================================================ -->
+
+<section class="coaching-section white">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      CADRE DU COACHING
+    </span>
+
+    <h2>
+      Ce que fait — et ne fait pas — Life Upgrade Coaching.
+    </h2>
+
+  </div>
+
+
+  <div class="scope-layout">
+
+
+    <div class="scope-card">
+
+      <span class="badge">
+        COACHING LIFE UPGRADE
+      </span>
+
+      <h3 style="margin-top:8px">
+        Peut accompagner
+      </h3>
+
+      <ul>
+        <li>objectifs personnels</li>
+        <li>organisation</li>
+        <li>habitudes</li>
+        <li>gestion du temps</li>
+        <li>prise de parole</li>
+        <li>communication</li>
+        <li>études</li>
+        <li>orientation</li>
+        <li>carrière</li>
+        <li>reconversion</li>
+        <li>montée en compétences</li>
+      </ul>
+
+    </div>
+
+
+    <div class="scope-card warning">
+
+      <span class="badge">
+        LIMITES
+      </span>
+
+      <h3 style="margin-top:8px">
+        Ne remplace pas un professionnel de santé
+      </h3>
+
+      <ul>
+        <li>pas de diagnostic médical</li>
+        <li>pas de diagnostic psychologique</li>
+        <li>pas de psychothérapie</li>
+        <li>pas de prescription médicale</li>
+        <li>pas de traitement de pathologies</li>
+        <li>pas de promesse de guérison</li>
+      </ul>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+<!-- ============================================================
+     FAQ
+============================================================ -->
+
+<section class="coaching-section">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      QUESTIONS
+    </span>
+
+    <h2>
+      FAQ Coaching.
+    </h2>
+
+  </div>
+
+
+  <div class="faq-list">
+
+
+    <div class="faq-item">
+
+      <button
+        class="faq-question"
+        onclick="toggleFAQ(this)"
+      >
+        Combien dure une séance ?
+      </button>
+
+      <div class="faq-answer">
+        Entre 20 et 30 minutes selon le type de séance
+        et le besoin prévu lors de la réservation.
+      </div>
+
+    </div>
+
+
+    <div class="faq-item">
+
+      <button
+        class="faq-question"
+        onclick="toggleFAQ(this)"
+      >
+        Quelle est la différence entre Premium et Premium+ ?
+      </button>
+
+      <div class="faq-answer">
+        Premium prévoit deux séances par mois.
+        Premium+ prévoit une séance par semaine,
+        un suivi renforcé et une priorité d'inscription
+        à certaines sessions limitées.
+      </div>
+
+    </div>
+
+
+    <div class="faq-item">
+
+      <button
+        class="faq-question"
+        onclick="toggleFAQ(this)"
+      >
+        Les tests de 50 questions sont-ils Premium ?
+      </button>
+
+      <div class="faq-answer">
+        Non. Les évaluations personnalisées de 50 questions
+        sont prévues pour les membres inscrits gratuitement.
+        Premium ajoute principalement le coaching humain.
+      </div>
+
+    </div>
+
+
+    <div class="faq-item">
+
+      <button
+        class="faq-question"
+        onclick="toggleFAQ(this)"
+      >
+        Où se déroule la visioconférence ?
+      </button>
+
+      <div class="faq-answer">
+        Via Google Meet, Microsoft Teams ou WhatsApp,
+        selon les options disponibles et la préférence de l'utilisateur.
+      </div>
+
+    </div>
+
+
+    <div class="faq-item">
+
+      <button
+        class="faq-question"
+        onclick="toggleFAQ(this)"
+      >
+        Le coach peut-il voir mon dashboard ?
+      </button>
+
+      <div class="faq-answer">
+        Le système final donnera au coach l'accès
+        aux éléments utiles et autorisés pour préparer
+        le suivi. Les permissions seront contrôlées côté serveur.
+      </div>
+
+    </div>
+
+
+    <div class="faq-item">
+
+      <button
+        class="faq-question"
+        onclick="toggleFAQ(this)"
+      >
+        Life Upgrade Coaching est-il une thérapie ?
+      </button>
+
+      <div class="faq-answer">
+        Non. Il s'agit d'un accompagnement de développement,
+        d'organisation, d'études et de carrière.
+        Il n'est pas conçu comme un service médical,
+        psychologique ou psychothérapeutique.
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<div id="lifeUpgradeFooter"></div>
+
+
+<!-- ============================================================
+     MODAL
+============================================================ -->
+
+<div
+  id="coachingOverlay"
+  class="coaching-overlay"
+>
+
+  <div class="coaching-modal">
+
+    <button
+      class="modal-close"
+      onclick="closePlanModal()"
+    >
+      ×
+    </button>
+
+    <div id="coachingModalContent"></div>
+
+  </div>
+
+</div>
+
+
+<script src="common.js"></script>
+
+
+<script>
+
+/* ============================================================
+   FAQ
+============================================================ */
+
+function toggleFAQ(
+  button
+){
+
+  button
+    .parentElement
+    .classList
+    .toggle(
+      "open"
+    );
+
+}
+
+
+/* ============================================================
+   PLAN MODAL
+============================================================ */
+
+function openPlanModal(
+  plan
+){
+
+  const premiumPlus =
+    plan ===
+    "premium-plus";
+
+
+  document
+    .getElementById(
+      "coachingOverlay"
+    )
+    .classList.add(
+      "open"
+    );
+
+
+  document
+    .getElementById(
+      "coachingModalContent"
+    )
+    .innerHTML = `
+
+      <div class="eyebrow">
+        ${
+          premiumPlus
+          ?
+          "PREMIUM+"
+          :
+          "PREMIUM"
+        }
+      </div>
+
+      <h2>
+        ${
+          premiumPlus
+          ?
+          "Life Upgrade Premium+"
+          :
+          "Life Upgrade Premium"
+        }
+      </h2>
+
+      <p style="margin-top:8px">
+
+        Le paiement n'est pas encore activé.
+        Ce formulaire sert à préparer
+        le futur parcours d'abonnement.
+
+      </p>
+
+
+      <div class="form-group">
+
+        <label>
+          Durée
+        </label>
+
+        <select id="subscriptionDuration">
+
+          <option value="1">
+            1 mois
+          </option>
+
+          <option value="3">
+            3 mois
+          </option>
+
+          <option value="6">
+            6 mois
+          </option>
+
+          <option value="12">
+            12 mois
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Plateforme de coaching préférée
+        </label>
+
+        <select id="preferredPlatform">
+
+          <option value="meet">
+            Google Meet
+          </option>
+
+          <option value="teams">
+            Microsoft Teams
+          </option>
+
+          <option value="whatsapp">
+            WhatsApp
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Durée de séance préférée
+        </label>
+
+        <select id="preferredDuration">
+
+          <option value="20">
+            20 minutes
+          </option>
+
+          <option value="25" selected>
+            25 minutes
+          </option>
+
+          <option value="30">
+            30 minutes
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div
+        style="
+          margin-top:18px;
+          padding:14px;
+          border-radius:13px;
+          background:#f5f4ff;
+          color:var(--muted);
+          font-size:11px
+        "
+      >
+
+        Cette action ne déclenche aucun paiement.
+        Le véritable abonnement sera ajouté
+        après la mise en place des comptes,
+        de D1 et du prestataire de paiement.
+
+      </div>
+
+
+      <button
+        class="button primary"
+        style="
+          margin-top:18px;
+          border:0;
+          cursor:pointer
+        "
+        onclick="saveCoachingInterest('${plan}')"
+      >
+        Enregistrer ma préférence
+      </button>
+
+    `;
+
+}
+
+
+function closePlanModal(){
+
+  document
+    .getElementById(
+      "coachingOverlay"
+    )
+    .classList.remove(
+      "open"
+    );
+
+}
+
+
+document
+  .getElementById(
+    "coachingOverlay"
+  )
+  .addEventListener(
+    "click",
+    function(event){
+
+      if(
+        event.target === this
+      ){
+
+        closePlanModal();
+
+      }
+
+    }
+  );
+
+
+/* ============================================================
+   SAVE INTEREST
+============================================================ */
+
+function saveCoachingInterest(
+  plan
+){
+
+  const preference = {
+
+    plan:
+      plan,
+
+    duration:
+      document
+        .getElementById(
+          "subscriptionDuration"
+        )
+        .value,
+
+    platform:
+      document
+        .getElementById(
+          "preferredPlatform"
+        )
+        .value,
+
+    sessionDuration:
+      Number(
+        document
+          .getElementById(
+            "preferredDuration"
+          )
+          .value
+      ),
+
+    date:
+      new Date()
+        .toISOString()
+
+  };
+
+
+  lifeUpgradeSetStorage(
+    "lifeUpgradeCoachingInterest",
+    preference
+  );
+
+
+  document
+    .getElementById(
+      "coachingModalContent"
+    )
+    .innerHTML = `
+
+      <div
+        style="
+          padding:25px 0;
+          text-align:center
+        "
+      >
+
+        <div
+          style="
+            width:70px;
+            height:70px;
+            display:grid;
+            place-items:center;
+            margin:auto;
+            border-radius:50%;
+            background:#e8f7f1;
+            color:#16815f;
+            font-size:30px;
+            font-weight:900
+          "
+        >
+          ✓
+        </div>
+
+        <h2 style="margin-top:15px">
+          Préférence enregistrée
+        </h2>
+
+        <p style="margin-top:8px">
+          Aucun paiement n'a été effectué.
+          Cette information est enregistrée
+          uniquement dans ce navigateur.
+        </p>
+
+        <button
+          class="button primary"
+          style="
+            margin-top:17px;
+            border:0;
+            cursor:pointer
+          "
+          onclick="closePlanModal()"
+        >
+          Terminer
+        </button>
+
+      </div>
+
+    `;
+
+}
+
+</script>
+
+</body>
+</html>
