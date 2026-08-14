@@ -1,0 +1,3306 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Simulateur de trajectoire — Life Upgrade</title>
+
+<meta
+  name="description"
+  content="Simule ta trajectoire personnelle et professionnelle à partir de tes habitudes, puis compare l'impact de changements simples."
+>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* ============================================================
+   HERO
+============================================================ */
+
+.trajectory-hero{
+  padding:70px 0 48px;
+}
+
+.trajectory-hero-grid{
+  display:grid;
+  grid-template-columns:1fr 360px;
+  gap:28px;
+  align-items:center;
+}
+
+.trajectory-hero p{
+  max-width:760px;
+  margin-top:15px;
+  font-size:17px;
+}
+
+.trajectory-summary{
+  padding:24px;
+  border-radius:22px;
+  color:white;
+  background:linear-gradient(145deg,#11172b,#263452);
+}
+
+.trajectory-summary p{
+  margin-top:7px;
+  color:#b8c1d3;
+  font-size:12px;
+}
+
+.summary-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:16px;
+}
+
+.summary-box{
+  padding:12px;
+  border-radius:12px;
+  background:rgba(255,255,255,.07);
+}
+
+.summary-box span{
+  display:block;
+  color:#adb8cb;
+  font-size:9px;
+}
+
+.summary-box strong{
+  display:block;
+  margin-top:3px;
+  font-size:20px;
+}
+
+
+/* ============================================================
+   GENERAL
+============================================================ */
+
+.trajectory-section{
+  padding:72px 0;
+}
+
+.trajectory-section.white{
+  background:white;
+}
+
+.notice{
+  padding:15px;
+  border:1px solid #dddafc;
+  border-radius:14px;
+  background:#f5f4ff;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.6;
+}
+
+
+/* ============================================================
+   PERIOD
+============================================================ */
+
+.period-selector{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:20px;
+}
+
+.period-button{
+  padding:9px 13px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  background:white;
+  color:var(--muted);
+  cursor:pointer;
+  font-size:11px;
+  font-weight:800;
+}
+
+.period-button:hover,
+.period-button.active{
+  border-color:var(--primary);
+  background:var(--soft);
+  color:var(--primary);
+}
+
+
+/* ============================================================
+   INPUT GRID
+============================================================ */
+
+.trajectory-layout{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.trajectory-panel{
+  padding:23px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:white;
+}
+
+.trajectory-panel h3{
+  margin-bottom:6px;
+}
+
+.panel-intro{
+  margin-bottom:18px;
+  font-size:11px;
+}
+
+
+/* ============================================================
+   CONTROLS
+============================================================ */
+
+.metric-control{
+  padding:16px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.metric-control:last-child{
+  border-bottom:0;
+}
+
+.metric-head{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+}
+
+.metric-name{
+  font-weight:900;
+}
+
+.metric-description{
+  margin-top:3px;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.metric-value{
+  min-width:95px;
+  text-align:right;
+  color:var(--primary);
+  font-size:17px;
+  font-weight:900;
+}
+
+.metric-range{
+  width:100%;
+  margin-top:12px;
+  accent-color:var(--primary);
+}
+
+.range-labels{
+  display:flex;
+  justify-content:space-between;
+  margin-top:4px;
+  color:var(--muted);
+  font-size:8px;
+}
+
+
+/* ============================================================
+   PROJECTION
+============================================================ */
+
+.projection-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:22px;
+}
+
+.projection-card{
+  padding:20px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:white;
+}
+
+.projection-card.highlight{
+  border-color:#c8c5ff;
+  background:#f7f6ff;
+}
+
+.projection-card span{
+  color:var(--muted);
+  font-size:9px;
+  font-weight:800;
+}
+
+.projection-card strong{
+  display:block;
+  margin-top:6px;
+  font-size:28px;
+  letter-spacing:-1px;
+}
+
+.projection-card p{
+  margin-top:5px;
+  font-size:10px;
+}
+
+
+/* ============================================================
+   COMPARE
+============================================================ */
+
+.compare-wrap{
+  margin-top:25px;
+  overflow-x:auto;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:white;
+}
+
+.compare-table{
+  width:100%;
+  min-width:720px;
+  border-collapse:collapse;
+}
+
+.compare-table th,
+.compare-table td{
+  padding:14px;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  font-size:11px;
+}
+
+.compare-table th{
+  color:var(--muted);
+  background:#f5f6f9;
+}
+
+.compare-table tr:last-child td{
+  border-bottom:0;
+}
+
+.compare-positive{
+  color:#16815f;
+  font-weight:900;
+}
+
+.compare-neutral{
+  color:var(--muted);
+}
+
+
+/* ============================================================
+   IMPACT
+============================================================ */
+
+.impact-layout{
+  display:grid;
+  grid-template-columns:360px 1fr;
+  gap:16px;
+  margin-top:20px;
+}
+
+.impact-score{
+  padding:24px;
+  border-radius:21px;
+  color:white;
+  background:linear-gradient(145deg,#141a30,#283652);
+}
+
+.impact-score p{
+  color:#bbc4d5;
+  font-size:11px;
+}
+
+.impact-number{
+  margin:15px 0 5px;
+  font-size:55px;
+  font-weight:900;
+}
+
+.impact-list{
+  display:grid;
+  gap:9px;
+}
+
+.impact-item{
+  padding:16px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:white;
+}
+
+.impact-item-top{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+}
+
+.impact-item p{
+  margin-top:5px;
+  font-size:10px;
+}
+
+
+/* ============================================================
+   OBJECTIVES
+============================================================ */
+
+.objective-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.objective-card{
+  padding:21px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:white;
+}
+
+.objective-card label{
+  display:block;
+  margin-bottom:7px;
+  font-size:11px;
+  font-weight:900;
+}
+
+.objective-card textarea{
+  width:100%;
+  min-height:120px;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:11px;
+  resize:vertical;
+  font:inherit;
+}
+
+
+/* ============================================================
+   PRIORITIES
+============================================================ */
+
+.priority-list{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+  margin-top:20px;
+}
+
+.priority-card{
+  padding:20px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:white;
+}
+
+.priority-number{
+  width:32px;
+  height:32px;
+  display:grid;
+  place-items:center;
+  margin-bottom:10px;
+  border-radius:9px;
+  background:var(--soft);
+  color:var(--primary);
+  font-weight:900;
+}
+
+.priority-card p{
+  margin-top:7px;
+  font-size:11px;
+}
+
+
+/* ============================================================
+   PROFESSIONAL
+============================================================ */
+
+.career-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:14px;
+}
+
+.career-card{
+  padding:22px;
+  border:1px solid var(--border);
+  border-radius:19px;
+  background:white;
+}
+
+.career-card p{
+  margin-top:8px;
+  font-size:11px;
+}
+
+.skill-row{
+  margin-top:14px;
+}
+
+.skill-head{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:5px;
+  font-size:10px;
+  font-weight:800;
+}
+
+.skill-track{
+  height:8px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#e9ebf1;
+}
+
+.skill-track i{
+  display:block;
+  height:100%;
+  border-radius:999px;
+  background:var(--primary);
+}
+
+
+/* ============================================================
+   ACTIONS
+============================================================ */
+
+.save-zone{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:22px;
+}
+
+.save-zone button{
+  border:0;
+  cursor:pointer;
+}
+
+.saved-message{
+  display:none;
+  margin-top:12px;
+  color:#16815f;
+  font-size:11px;
+  font-weight:900;
+}
+
+.saved-message.show{
+  display:block;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media(max-width:950px){
+
+  .trajectory-hero-grid,
+  .trajectory-layout,
+  .impact-layout,
+  .career-grid{
+    grid-template-columns:1fr;
+  }
+
+  .projection-grid,
+  .priority-list{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:650px){
+
+  .projection-grid,
+  .priority-list,
+  .objective-grid{
+    grid-template-columns:1fr;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<div id="lifeUpgradeHeader"></div>
+
+
+<main>
+
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+
+<section class="trajectory-hero">
+
+<div class="container trajectory-hero-grid">
+
+  <div>
+
+    <div class="eyebrow">
+      SIMULATEUR DE TRAJECTOIRE
+    </div>
+
+    <h1 style="font-size:clamp(44px,5vw,67px)">
+      Et si rien ne change ?
+    </h1>
+
+    <p>
+      Transforme tes habitudes actuelles en projections concrètes,
+      puis modifie quelques paramètres pour visualiser
+      une trajectoire alternative.
+    </p>
+
+    <div class="period-selector">
+
+      <button
+        class="period-button"
+        data-days="30"
+        onclick="setPeriod(30,this)"
+      >
+        30 jours
+      </button>
+
+      <button
+        class="period-button"
+        data-days="90"
+        onclick="setPeriod(90,this)"
+      >
+        90 jours
+      </button>
+
+      <button
+        class="period-button active"
+        data-days="365"
+        onclick="setPeriod(365,this)"
+      >
+        1 an
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="trajectory-summary">
+
+    <span class="badge">
+      IMPORTANT
+    </span>
+
+    <h3 style="margin-top:8px">
+      Une projection, pas une prédiction
+    </h3>
+
+    <p>
+      Les résultats sont de simples calculs
+      à partir des habitudes que tu déclares.
+      Ils ne prédisent pas ton avenir.
+    </p>
+
+    <div class="summary-grid">
+
+      <div class="summary-box">
+        <span>PÉRIODE</span>
+        <strong id="heroPeriod">365 j</strong>
+      </div>
+
+      <div class="summary-box">
+        <span>DOMAINES</span>
+        <strong>7</strong>
+      </div>
+
+      <div class="summary-box">
+        <span>SCÉNARIOS</span>
+        <strong>2</strong>
+      </div>
+
+      <div class="summary-box">
+        <span>PRIX</span>
+        <strong>0 €</strong>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ============================================================
+     NOTICE
+============================================================ -->
+
+<section style="padding-bottom:25px">
+
+<div class="container">
+
+  <div class="notice">
+
+    <strong>
+      Comment lire les résultats :
+    </strong>
+
+    Life Upgrade multiplie simplement certaines habitudes déclarées
+    par la période sélectionnée. Une heure récupérée n'est pas automatiquement
+    transformée en productivité, apprentissage ou bien-être :
+    elle représente uniquement du temps potentiellement disponible pour autre chose.
+
+  </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ============================================================
+     SIMULATOR
+============================================================ -->
+
+<section class="trajectory-section white">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      01 · SITUATION
+    </span>
+
+    <h2>
+      Ta trajectoire actuelle et ton scénario alternatif.
+    </h2>
+
+    <p>
+      À gauche : ce que tu déclares aujourd'hui.
+      À droite : ce que tu voudrais tester comme nouvelle routine.
+    </p>
+
+  </div>
+
+
+  <div class="trajectory-layout">
+
+
+    <!-- CURRENT -->
+
+    <div class="trajectory-panel">
+
+      <span class="badge">
+        AUJOURD'HUI
+      </span>
+
+      <h3 style="margin-top:8px">
+        Mes habitudes actuelles
+      </h3>
+
+      <p class="panel-intro">
+        Ajuste les valeurs pour qu'elles correspondent approximativement
+        à ta situation actuelle.
+      </p>
+
+
+      <!-- PHONE -->
+
+      <div class="metric-control">
+
+        <div class="metric-head">
+
+          <div>
+            <div class="metric-name">
+              📱 Téléphone / écran loisir
+            </div>
+
+            <div class="metric-description">
+              Temps moyen par jour
+            </div>
+          </div>
+
+          <div
+            id="currentPhoneValue"
+            class="metric-value"
+          >
+            4h20
+          </div>
+
+        </div>
+
+        <input
+          id="currentPhone"
+          class="metric-range"
+          type="range"
+          min="0"
+          max="600"
+          step="10"
+          value="260"
+          oninput="updateTrajectory()"
+        >
+
+        <div class="range-labels">
+          <span>0h</span>
+          <span>10h/jour</span>
+        </div>
+
+      </div>
+
+
+      <!-- SPORT -->
+
+      <div class="metric-control">
+
+        <div class="metric-head">
+
+          <div>
+            <div class="metric-name">
+              🏃 Activité physique
+            </div>
+
+            <div class="metric-description">
+              Séances par semaine
+            </div>
+          </div>
+
+          <div
+            id="currentSportValue"
+            class="metric-value"
+          >
+            1×
+          </div>
+
+        </div>
+
+        <input
+          id="currentSport"
+          class="metric-range"
+          type="range"
+          min="0"
+          max="7"
+          step="1"
+          value="1"
+          oninput="updateTrajectory()"
+        >
+
+        <div class="range-labels">
+          <span>0</span>
+          <span>7/semaine</span>
+        </div>
+
+      </div>
+
+
+      <!-- LEARNING -->
+
+      <div class="metric-control">
+
+        <div class="metric-head">
+
+          <div>
+            <div class="metric-name">
+              📚 Apprentissage
+            </div>
+
+            <div class="metric-description">
+              Heures par semaine
+            </div>
+          </div>
+
+          <div
+            id="currentLearningValue"
+            class="metric-value"
+          >
+            1h
+          </div>
+
+        </div>
+
+        <input
+          id="currentLearning"
+          class="metric-range"
+          type="range"
+          min="0"
+          max="20"
+          step=".5"
+          value="1"
+          oninput="updateTrajectory()"
+        >
+
+        <div class="range-labels">
+          <span>0h</span>
+          <span>20h/semaine</span>
+        </div>
+
+      </div>
+
+
+      <!-- SAVING -->
+
+      <div class="metric-control">
+
+        <div class="metric-head">
+
+          <div>
+            <div class="metric-name">
+              💰 Épargne
+            </div>
+
+            <div class="metric-description">
+              Montant déclaré par mois
+            </div>
+          </div>
+
+          <div
+            id="currentSavingValue"
+            class="metric-value"
+          >
+            100 €
+          </div>
+
+        </div>
+
+        <input
+          id="currentSaving"
+          class="metric-range"
+          type="range"
+          min="0"
+          max="2000"
+          step="25"
+          value="100"
+          oninput="updateTrajectory()"
+        >
+
+        <div class="range-labels">
+          <span>0 €</span>
+          <span>2 000 €/mois</span>
+        </div>
+
+      </div>
+
+
+      <!-- SLEEP -->
+
+      <div class="metric-control">
+
+        <div class="metric-head">
+
+          <div>
+            <div class="metric-name">
+              😴 Sommeil
+            </div>
+
+            <div class="metric-description">
+              Durée moyenne déclarée par nuit
+            </div>
+          </div>
+
+          <div
+            id="currentSleepValue"
+            class="metric-value"
+          >
+            6h30
+          </div>
+
+        </div>
+
+        <input
+          id="currentSleep"
+          class="metric-range"
+          type="range"
+          min="240"
+          max="600"
+          step="15"
+          value="390"
+          oninput="updateTrajectory()"
+        >
+
+        <div class="range-labels">
+          <span>4h</span>
+          <span>10h</span>
+        </div>
+
+      </div>
+
+
+      <!-- FOCUS -->
+
+      <div class="metric-control">
+
+        <div class="metric-head">
+
+          <div>
+            <div class="metric-name">
+              🎯 Travail concentré
+            </div>
+
+            <div class="metric-description">
+              Heures de focus par semaine
+            </div>
+          </div>
+
+          <div
+            id="currentFocusValue"
+            class="metric-value"
+          >
+            5h
+          </div>
+
+        </div>
+
+        <input
+          id="currentFocus"
+          class="metric-range"
+          type="range"
+          min="0"
+          max="40"
+          step=".5"
+          value="5"
+          oninput="updateTrajectory()"
+        >
+
+        <div class="range-labels">
+          <span>0h</span>
+          <span>40h/semaine</span>
+        </div>
+
+      </div>
+
+
+      <!-- READING -->
+
+      <div class="metric-control">
+
+        <div class="metric-head">
+
+          <div>
+            <div class="metric-name">
+              📖 Lecture
+            </div>
+
+            <div class="metric-description">
+              Minutes par jour
+            </div>
+          </div>
+
+          <div
+            id="currentReadingValue"
+            class="metric-value"
+          >
+            10 min
+          </div>
+
+        </div>
+
+        <input
+          id="currentReading"
+          class="metric-range"
+          type="range"
+          min="0"
+          max="180"
+          step="5"
+          value="10"
+          oninput="updateTrajectory()"
+        >
+
+        <div class="range-labels">
+          <span>0</span>
+          <span>180 min/jour</span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- TARGET -->
+
+    <div class="trajectory-panel">
+
+      <span class="badge">
+        SCÉNARIO ALTERNATIF
+      </span>
+
+      <h3 style="margin-top:8px">
+        Et si je changeais quelques habitudes ?
+      </h3>
+
+      <p class="panel-intro">
+        Ce scénario n'est pas un objectif obligatoire.
+        Utilise-le simplement pour explorer différents choix.
+      </p>
+
+
+      <!-- PHONE -->
+
+      <div class="metric-control">
+
+        <div class="metric-head">
+
+          <div>
+            <div class="metric-name">
+              📱 Téléphone / écran loisir
+            </div>
+
+            <div class="metric-description">
+              Temps moyen par jour
+            </div>
+          </div>
+
+          <div
+            id="targetPhoneValue"
+            class="metric-value"
+          >
+            2h30
+          </div>
+
+        </div>
+
+        <input
+          id="targetPhone"
+          class="metric-range"
+          type="range"
+          min="0"
+          max="600"
+          step="10"
+          value="150"
+          oninput="updateTrajectory()"
+        >
+
+        <div class="range-labels">
+          <span>0h</span>
+          <span>10h/jour</span>
+        </div>
+
+      </div>
+
+
+      <!-- SPORT -->
+
+      <div class="metric-control">
+
+        <div class="metric-head">
+
+          <div>
+            <div class="metric-name">
+              🏃 Activité physique
+            </div>
+
+            <div class="metric-description">
+              Séances par semaine
+            </div>
+          </div>
+
+          <div
+            id="targetSportValue"
+            class="metric-value"
+          >
+            3×
+          </div>
+
+        </div>
+
+        <input
+          id="targetSport"
+          class="metric-range"
+          type="range"
+          min="0"
+          max="7"
+          step="1"
+          value="3"
+          oninput="updateTrajectory()"
+        >
+
+        <div class="range-labels">
+          <span>0</span>
+          <span>7/semaine</span>
+        </div>
+
+      </div>
+
+
+      <!-- LEARNING -->
+
+      <div class="metric-control">
+
+        <div class="metric-head">
+
+          <div>
+            <div class="metric-name">
+              📚 Apprentissage
+            </div>
+
+            <div class="metric-description">
+              Heures par semaine
+            </div>
+          </div>
+
+          <div
+            id="targetLearningValue"
+            class="metric-value"
+          >
+            4h
+          </div>
+
+        </div>
+
+        <input
+          id="targetLearning"
+          class="metric-range"
+          type="range"
+          min="0"
+          max="20"
+          step=".5"
+          value="4"
+          oninput="updateTrajectory()"
+        >
+
+        <div class="range-labels">
+          <span>0h</span>
+          <span>20h/semaine</span>
+        </div>
+
+      </div>
+
+
+      <!-- SAVING -->
+
+      <div class="metric-control">
+
+        <div class="metric-head">
+
+          <div>
+            <div class="metric-name">
+              💰 Épargne
+            </div>
+
+            <div class="metric-description">
+              Montant déclaré par mois
+            </div>
+          </div>
+
+          <div
+            id="targetSavingValue"
+            class="metric-value"
+          >
+            250 €
+          </div>
+
+        </div>
+
+        <input
+          id="targetSaving"
+          class="metric-range"
+          type="range"
+          min="0"
+          max="2000"
+          step="25"
+          value="250"
+          oninput="updateTrajectory()"
+        >
+
+        <div class="range-labels">
+          <span>0 €</span>
+          <span>2 000 €/mois</span>
+        </div>
+
+      </div>
+
+
+      <!-- SLEEP -->
+
+      <div class="metric-control">
+
+        <div class="metric-head">
+
+          <div>
+            <div class="metric-name">
+              😴 Sommeil
+            </div>
+
+            <div class="metric-description">
+              Durée moyenne déclarée par nuit
+            </div>
+          </div>
+
+          <div
+            id="targetSleepValue"
+            class="metric-value"
+          >
+            7h30
+          </div>
+
+        </div>
+
+        <input
+          id="targetSleep"
+          class="metric-range"
+          type="range"
+          min="240"
+          max="600"
+          step="15"
+          value="450"
+          oninput="updateTrajectory()"
+        >
+
+        <div class="range-labels">
+          <span>4h</span>
+          <span>10h</span>
+        </div>
+
+      </div>
+
+
+      <!-- FOCUS -->
+
+      <div class="metric-control">
+
+        <div class="metric-head">
+
+          <div>
+            <div class="metric-name">
+              🎯 Travail concentré
+            </div>
+
+            <div class="metric-description">
+              Heures de focus par semaine
+            </div>
+          </div>
+
+          <div
+            id="targetFocusValue"
+            class="metric-value"
+          >
+            10h
+          </div>
+
+        </div>
+
+        <input
+          id="targetFocus"
+          class="metric-range"
+          type="range"
+          min="0"
+          max="40"
+          step=".5"
+          value="10"
+          oninput="updateTrajectory()"
+        >
+
+        <div class="range-labels">
+          <span>0h</span>
+          <span>40h/semaine</span>
+        </div>
+
+      </div>
+
+
+      <!-- READING -->
+
+      <div class="metric-control">
+
+        <div class="metric-head">
+
+          <div>
+            <div class="metric-name">
+              📖 Lecture
+            </div>
+
+            <div class="metric-description">
+              Minutes par jour
+            </div>
+          </div>
+
+          <div
+            id="targetReadingValue"
+            class="metric-value"
+          >
+            30 min
+          </div>
+
+        </div>
+
+        <input
+          id="targetReading"
+          class="metric-range"
+          type="range"
+          min="0"
+          max="180"
+          step="5"
+          value="30"
+          oninput="updateTrajectory()"
+        >
+
+        <div class="range-labels">
+          <span>0</span>
+          <span>180 min/jour</span>
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ============================================================
+     CURRENT PROJECTION
+============================================================ -->
+
+<section class="trajectory-section">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      02 · PROJECTION
+    </span>
+
+    <h2>
+      Si je continue comme aujourd'hui…
+    </h2>
+
+    <p id="projectionPeriodText">
+      Projection mathématique sur 365 jours.
+    </p>
+
+  </div>
+
+
+  <div class="projection-grid">
+
+    <div class="projection-card">
+
+      <span>
+        ÉCRAN LOISIR
+      </span>
+
+      <strong id="projectionPhone">
+        —
+      </strong>
+
+      <p>
+        heures cumulées déclarées
+      </p>
+
+    </div>
+
+
+    <div class="projection-card">
+
+      <span>
+        ACTIVITÉ
+      </span>
+
+      <strong id="projectionSport">
+        —
+      </strong>
+
+      <p>
+        séances
+      </p>
+
+    </div>
+
+
+    <div class="projection-card">
+
+      <span>
+        APPRENTISSAGE
+      </span>
+
+      <strong id="projectionLearning">
+        —
+      </strong>
+
+      <p>
+        heures
+      </p>
+
+    </div>
+
+
+    <div class="projection-card">
+
+      <span>
+        ÉPARGNE DÉCLARÉE
+      </span>
+
+      <strong id="projectionSaving">
+        —
+      </strong>
+
+      <p>
+        sans hypothèse de rendement
+      </p>
+
+    </div>
+
+
+    <div class="projection-card">
+
+      <span>
+        SOMMEIL
+      </span>
+
+      <strong id="projectionSleep">
+        —
+      </strong>
+
+      <p>
+        heures cumulées
+      </p>
+
+    </div>
+
+
+    <div class="projection-card">
+
+      <span>
+        FOCUS
+      </span>
+
+      <strong id="projectionFocus">
+        —
+      </strong>
+
+      <p>
+        heures déclarées
+      </p>
+
+    </div>
+
+
+    <div class="projection-card">
+
+      <span>
+        LECTURE
+      </span>
+
+      <strong id="projectionReading">
+        —
+      </strong>
+
+      <p>
+        heures de lecture
+      </p>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ============================================================
+     COMPARISON
+============================================================ -->
+
+<section class="trajectory-section white">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      03 · COMPARER
+    </span>
+
+    <h2>
+      Ce que change le scénario alternatif.
+    </h2>
+
+    <p>
+      Les écarts se recalculent immédiatement
+      lorsque tu déplaces un curseur.
+    </p>
+
+  </div>
+
+
+  <div class="compare-wrap">
+
+    <table class="compare-table">
+
+      <thead>
+
+        <tr>
+
+          <th>
+            Domaine
+          </th>
+
+          <th>
+            Trajectoire actuelle
+          </th>
+
+          <th>
+            Scénario alternatif
+          </th>
+
+          <th>
+            Écart
+          </th>
+
+        </tr>
+
+      </thead>
+
+      <tbody id="comparisonBody"></tbody>
+
+    </table>
+
+  </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ============================================================
+     IMPACT
+============================================================ -->
+
+<section class="trajectory-section">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      04 · IMPACT POTENTIEL
+    </span>
+
+    <h2>
+      Les changements les plus visibles.
+    </h2>
+
+    <p>
+      Life Upgrade ne prétend pas savoir quel changement est
+      « objectivement meilleur ». Cette section montre seulement
+      les écarts mathématiques entre les deux scénarios.
+    </p>
+
+  </div>
+
+
+  <div class="impact-layout">
+
+
+    <div class="impact-score">
+
+      <span class="badge">
+        TEMPS POTENTIELLEMENT RÉALLOUÉ
+      </span>
+
+      <div
+        id="recoveredTime"
+        class="impact-number"
+      >
+        0h
+      </div>
+
+      <p>
+        Différence entre le temps d'écran loisir déclaré
+        dans les deux scénarios sur la période sélectionnée.
+      </p>
+
+    </div>
+
+
+    <div
+      id="impactList"
+      class="impact-list"
+    ></div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ============================================================
+     OBJECTIVES
+============================================================ -->
+
+<section class="trajectory-section white">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      05 · OBJECTIFS
+    </span>
+
+    <h2>
+      Qu'est-ce que tu voudrais réellement changer ?
+    </h2>
+
+    <p>
+      Les membres pourront ensuite relier ces objectifs
+      aux tests personnalisés, cours, missions et coaching.
+    </p>
+
+  </div>
+
+
+  <div class="objective-grid">
+
+
+    <div class="objective-card">
+
+      <label for="objective90">
+        Dans les 3 prochains mois
+      </label>
+
+      <textarea
+        id="objective90"
+        placeholder="Ex. retrouver 5 heures par semaine pour apprendre une nouvelle compétence..."
+      ></textarea>
+
+    </div>
+
+
+    <div class="objective-card">
+
+      <label for="objective365">
+        Dans un an
+      </label>
+
+      <textarea
+        id="objective365"
+        placeholder="Ex. être prêt pour une évolution professionnelle..."
+      ></textarea>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ============================================================
+     PRIORITIES
+============================================================ -->
+
+<section class="trajectory-section">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      06 · PRIORITÉS
+    </span>
+
+    <h2>
+      Trois changements à explorer.
+    </h2>
+
+    <p>
+      Pour cette première version, les priorités sont déterminées
+      par les écarts les plus importants entre tes deux scénarios.
+    </p>
+
+  </div>
+
+
+  <div
+    id="priorityList"
+    class="priority-list"
+  ></div>
+
+</div>
+
+</section>
+
+
+
+<!-- ============================================================
+     CAREER TRAJECTORY
+============================================================ -->
+
+<section class="trajectory-section white">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      TRAJECTOIRE PROFESSIONNELLE
+    </span>
+
+    <h2>
+      La même logique peut être appliquée à une carrière.
+    </h2>
+
+    <p>
+      Avec un compte, Life Upgrade pourra comparer les compétences
+      déclarées/évaluées avec un objectif professionnel.
+    </p>
+
+  </div>
+
+
+  <div class="career-grid">
+
+
+    <div class="career-card">
+
+      <span class="badge">
+        EXEMPLE
+      </span>
+
+      <h3 style="margin-top:8px">
+        Profil actuel
+      </h3>
+
+      <div class="skill-row">
+
+        <div class="skill-head">
+          <span>Communication</span>
+          <strong>7/10</strong>
+        </div>
+
+        <div class="skill-track">
+          <i style="width:70%"></i>
+        </div>
+
+      </div>
+
+
+      <div class="skill-row">
+
+        <div class="skill-head">
+          <span>Leadership</span>
+          <strong>4/10</strong>
+        </div>
+
+        <div class="skill-track">
+          <i style="width:40%"></i>
+        </div>
+
+      </div>
+
+
+      <div class="skill-row">
+
+        <div class="skill-head">
+          <span>Management</span>
+          <strong>4/10</strong>
+        </div>
+
+        <div class="skill-track">
+          <i style="width:40%"></i>
+        </div>
+
+      </div>
+
+
+      <div class="skill-row">
+
+        <div class="skill-head">
+          <span>Analyse</span>
+          <strong>6/10</strong>
+        </div>
+
+        <div class="skill-track">
+          <i style="width:60%"></i>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="career-card">
+
+      <span class="badge">
+        OBJECTIF
+      </span>
+
+      <h3 style="margin-top:8px">
+        Évoluer vers un rôle de manager
+      </h3>
+
+      <p>
+        Life Upgrade pourra identifier les compétences
+        à travailler en priorité et construire un Career Gap.
+      </p>
+
+
+      <div class="skill-row">
+
+        <div class="skill-head">
+          <span>Communication cible</span>
+          <strong>8/10</strong>
+        </div>
+
+        <div class="skill-track">
+          <i style="width:80%"></i>
+        </div>
+
+      </div>
+
+
+      <div class="skill-row">
+
+        <div class="skill-head">
+          <span>Leadership cible</span>
+          <strong>7/10</strong>
+        </div>
+
+        <div class="skill-track">
+          <i style="width:70%"></i>
+        </div>
+
+      </div>
+
+
+      <div class="skill-row">
+
+        <div class="skill-head">
+          <span>Management cible</span>
+          <strong>7/10</strong>
+        </div>
+
+        <div class="skill-track">
+          <i style="width:70%"></i>
+        </div>
+
+      </div>
+
+
+      <div style="margin-top:18px">
+
+        <a
+          class="button secondary"
+          href="developpement.html#carriere"
+        >
+          Explorer la carrière
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ============================================================
+     SAVE
+============================================================ -->
+
+<section class="trajectory-section">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      MON SCÉNARIO
+    </span>
+
+    <h2>
+      Conserver cette trajectoire.
+    </h2>
+
+    <p>
+      Sans compte, elle peut déjà être sauvegardée localement.
+      Avec un compte gratuit, elle sera ensuite reliée
+      au dashboard et aux tests personnalisés de 50 questions.
+    </p>
+
+  </div>
+
+
+  <div class="save-zone">
+
+    <button
+      class="button primary"
+      onclick="saveTrajectory()"
+    >
+      Sauvegarder sur cet appareil
+    </button>
+
+    <button
+      class="button secondary"
+      onclick="resetTrajectory()"
+      style="border:1px solid var(--border)"
+    >
+      Réinitialiser
+    </button>
+
+    <a
+      class="button secondary"
+      href="inscription.html"
+    >
+      Créer mon compte gratuit
+    </a>
+
+  </div>
+
+
+  <div
+    id="savedMessage"
+    class="saved-message"
+  >
+    ✓ Trajectoire sauvegardée localement.
+  </div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+<div id="lifeUpgradeFooter"></div>
+
+
+<script src="common.js"></script>
+
+
+<script>
+
+/* ============================================================
+   STATE
+============================================================ */
+
+const TRAJECTORY_KEY =
+  "lifeUpgradeTrajectory";
+
+let trajectoryDays =
+  365;
+
+
+/* ============================================================
+   HELPERS
+============================================================ */
+
+function numberValue(id){
+
+  return Number(
+    document
+      .getElementById(id)
+      .value
+  );
+
+}
+
+
+function hoursFromMinutes(
+  minutes
+){
+
+  const hours =
+    Math.floor(
+      minutes / 60
+    );
+
+  const remaining =
+    minutes % 60;
+
+
+  if(
+    remaining === 0
+  ){
+
+    return hours + "h";
+
+  }
+
+
+  return (
+    hours +
+    "h" +
+    String(remaining)
+      .padStart(2,"0")
+  );
+
+}
+
+
+function cleanNumber(value){
+
+  return Math.round(
+    value * 10
+  ) / 10;
+
+}
+
+
+function formatHours(
+  value
+){
+
+  return (
+    new Intl.NumberFormat(
+      "fr-FR",
+      {
+        maximumFractionDigits:1
+      }
+    ).format(
+      cleanNumber(value)
+    )
+    + " h"
+  );
+
+}
+
+
+function formatMoney(
+  value
+){
+
+  return (
+    new Intl.NumberFormat(
+      "fr-FR",
+      {
+        maximumFractionDigits:0
+      }
+    ).format(
+      Math.round(value)
+    )
+    + " €"
+  );
+
+}
+
+
+function weeksInPeriod(){
+
+  return trajectoryDays / 7;
+
+}
+
+
+function monthsInPeriod(){
+
+  return trajectoryDays / 30.4375;
+
+}
+
+
+/* ============================================================
+   READ VALUES
+============================================================ */
+
+function getTrajectoryValues(
+  prefix
+){
+
+  return {
+
+    phone:
+      numberValue(
+        prefix + "Phone"
+      ),
+
+    sport:
+      numberValue(
+        prefix + "Sport"
+      ),
+
+    learning:
+      numberValue(
+        prefix + "Learning"
+      ),
+
+    saving:
+      numberValue(
+        prefix + "Saving"
+      ),
+
+    sleep:
+      numberValue(
+        prefix + "Sleep"
+      ),
+
+    focus:
+      numberValue(
+        prefix + "Focus"
+      ),
+
+    reading:
+      numberValue(
+        prefix + "Reading"
+      )
+
+  };
+
+}
+
+
+/* ============================================================
+   CALCULATE
+============================================================ */
+
+function calculateProjection(
+  values
+){
+
+  return {
+
+    phoneHours:
+      (
+        values.phone /
+        60
+      ) *
+      trajectoryDays,
+
+    sportSessions:
+      values.sport *
+      weeksInPeriod(),
+
+    learningHours:
+      values.learning *
+      weeksInPeriod(),
+
+    saving:
+      values.saving *
+      monthsInPeriod(),
+
+    sleepHours:
+      (
+        values.sleep /
+        60
+      ) *
+      trajectoryDays,
+
+    focusHours:
+      values.focus *
+      weeksInPeriod(),
+
+    readingHours:
+      (
+        values.reading /
+        60
+      ) *
+      trajectoryDays
+
+  };
+
+}
+
+
+/* ============================================================
+   PERIOD
+============================================================ */
+
+function setPeriod(
+  days,
+  button
+){
+
+  trajectoryDays =
+    days;
+
+
+  document
+    .querySelectorAll(
+      ".period-button"
+    )
+    .forEach(
+      item =>
+        item.classList.remove(
+          "active"
+        )
+    );
+
+
+  button.classList.add(
+    "active"
+  );
+
+
+  updateTrajectory();
+
+}
+
+
+/* ============================================================
+   MAIN UPDATE
+============================================================ */
+
+function updateTrajectory(){
+
+  updateDisplayedInputs();
+
+
+  const current =
+    getTrajectoryValues(
+      "current"
+    );
+
+
+  const target =
+    getTrajectoryValues(
+      "target"
+    );
+
+
+  const currentProjection =
+    calculateProjection(
+      current
+    );
+
+
+  const targetProjection =
+    calculateProjection(
+      target
+    );
+
+
+  renderCurrentProjection(
+    currentProjection
+  );
+
+
+  renderComparison(
+    currentProjection,
+    targetProjection
+  );
+
+
+  renderImpact(
+    currentProjection,
+    targetProjection
+  );
+
+
+  renderPriorities(
+    currentProjection,
+    targetProjection
+  );
+
+
+  document
+    .getElementById(
+      "heroPeriod"
+    )
+    .textContent =
+      trajectoryDays + " j";
+
+
+  document
+    .getElementById(
+      "projectionPeriodText"
+    )
+    .textContent =
+      "Projection mathématique sur " +
+      trajectoryDays +
+      " jours.";
+
+}
+
+
+/* ============================================================
+   INPUT LABELS
+============================================================ */
+
+function updateDisplayedInputs(){
+
+  document
+    .getElementById(
+      "currentPhoneValue"
+    )
+    .textContent =
+      hoursFromMinutes(
+        numberValue(
+          "currentPhone"
+        )
+      );
+
+
+  document
+    .getElementById(
+      "targetPhoneValue"
+    )
+    .textContent =
+      hoursFromMinutes(
+        numberValue(
+          "targetPhone"
+        )
+      );
+
+
+  document
+    .getElementById(
+      "currentSportValue"
+    )
+    .textContent =
+      numberValue(
+        "currentSport"
+      ) + "×";
+
+
+  document
+    .getElementById(
+      "targetSportValue"
+    )
+    .textContent =
+      numberValue(
+        "targetSport"
+      ) + "×";
+
+
+  document
+    .getElementById(
+      "currentLearningValue"
+    )
+    .textContent =
+      numberValue(
+        "currentLearning"
+      ) + "h";
+
+
+  document
+    .getElementById(
+      "targetLearningValue"
+    )
+    .textContent =
+      numberValue(
+        "targetLearning"
+      ) + "h";
+
+
+  document
+    .getElementById(
+      "currentSavingValue"
+    )
+    .textContent =
+      formatMoney(
+        numberValue(
+          "currentSaving"
+        )
+      );
+
+
+  document
+    .getElementById(
+      "targetSavingValue"
+    )
+    .textContent =
+      formatMoney(
+        numberValue(
+          "targetSaving"
+        )
+      );
+
+
+  document
+    .getElementById(
+      "currentSleepValue"
+    )
+    .textContent =
+      hoursFromMinutes(
+        numberValue(
+          "currentSleep"
+        )
+      );
+
+
+  document
+    .getElementById(
+      "targetSleepValue"
+    )
+    .textContent =
+      hoursFromMinutes(
+        numberValue(
+          "targetSleep"
+        )
+      );
+
+
+  document
+    .getElementById(
+      "currentFocusValue"
+    )
+    .textContent =
+      numberValue(
+        "currentFocus"
+      ) + "h";
+
+
+  document
+    .getElementById(
+      "targetFocusValue"
+    )
+    .textContent =
+      numberValue(
+        "targetFocus"
+      ) + "h";
+
+
+  document
+    .getElementById(
+      "currentReadingValue"
+    )
+    .textContent =
+      numberValue(
+        "currentReading"
+      ) + " min";
+
+
+  document
+    .getElementById(
+      "targetReadingValue"
+    )
+    .textContent =
+      numberValue(
+        "targetReading"
+      ) + " min";
+
+}
+
+
+/* ============================================================
+   CURRENT PROJECTION
+============================================================ */
+
+function renderCurrentProjection(
+  projection
+){
+
+  document
+    .getElementById(
+      "projectionPhone"
+    )
+    .textContent =
+      formatHours(
+        projection.phoneHours
+      );
+
+
+  document
+    .getElementById(
+      "projectionSport"
+    )
+    .textContent =
+      Math.round(
+        projection.sportSessions
+      );
+
+
+  document
+    .getElementById(
+      "projectionLearning"
+    )
+    .textContent =
+      formatHours(
+        projection.learningHours
+      );
+
+
+  document
+    .getElementById(
+      "projectionSaving"
+    )
+    .textContent =
+      formatMoney(
+        projection.saving
+      );
+
+
+  document
+    .getElementById(
+      "projectionSleep"
+    )
+    .textContent =
+      formatHours(
+        projection.sleepHours
+      );
+
+
+  document
+    .getElementById(
+      "projectionFocus"
+    )
+    .textContent =
+      formatHours(
+        projection.focusHours
+      );
+
+
+  document
+    .getElementById(
+      "projectionReading"
+    )
+    .textContent =
+      formatHours(
+        projection.readingHours
+      );
+
+}
+
+
+/* ============================================================
+   COMPARISON
+============================================================ */
+
+function renderComparison(
+  current,
+  target
+){
+
+  const rows = [
+
+    {
+      label:"Écran loisir",
+      current:current.phoneHours,
+      target:target.phoneHours,
+      type:"hours",
+      inverse:true
+    },
+
+    {
+      label:"Activité physique",
+      current:current.sportSessions,
+      target:target.sportSessions,
+      type:"sessions"
+    },
+
+    {
+      label:"Apprentissage",
+      current:current.learningHours,
+      target:target.learningHours,
+      type:"hours"
+    },
+
+    {
+      label:"Épargne déclarée",
+      current:current.saving,
+      target:target.saving,
+      type:"money"
+    },
+
+    {
+      label:"Sommeil déclaré",
+      current:current.sleepHours,
+      target:target.sleepHours,
+      type:"hours"
+    },
+
+    {
+      label:"Focus déclaré",
+      current:current.focusHours,
+      target:target.focusHours,
+      type:"hours"
+    },
+
+    {
+      label:"Lecture",
+      current:current.readingHours,
+      target:target.readingHours,
+      type:"hours"
+    }
+
+  ];
+
+
+  document
+    .getElementById(
+      "comparisonBody"
+    )
+    .innerHTML =
+      rows.map(
+        row => {
+
+          const difference =
+            row.target -
+            row.current;
+
+
+          return `
+
+            <tr>
+
+              <td>
+                <strong>
+                  ${row.label}
+                </strong>
+              </td>
+
+              <td>
+                ${formatMetric(
+                  row.current,
+                  row.type
+                )}
+              </td>
+
+              <td>
+                ${formatMetric(
+                  row.target,
+                  row.type
+                )}
+              </td>
+
+              <td
+                class="${
+                  difference !== 0
+                  ?
+                  "compare-positive"
+                  :
+                  "compare-neutral"
+                }"
+              >
+
+                ${formatDifference(
+                  difference,
+                  row.type
+                )}
+
+              </td>
+
+            </tr>
+
+          `;
+
+        }
+      ).join("");
+
+}
+
+
+/* ============================================================
+   FORMAT METRICS
+============================================================ */
+
+function formatMetric(
+  value,
+  type
+){
+
+  if(
+    type === "money"
+  ){
+
+    return formatMoney(
+      value
+    );
+
+  }
+
+
+  if(
+    type === "sessions"
+  ){
+
+    return (
+      Math.round(value) +
+      " séances"
+    );
+
+  }
+
+
+  return formatHours(
+    value
+  );
+
+}
+
+
+function formatDifference(
+  value,
+  type
+){
+
+  const sign =
+    value > 0
+    ?
+    "+"
+    :
+    "";
+
+
+  if(
+    type === "money"
+  ){
+
+    return (
+      sign +
+      formatMoney(
+        value
+      )
+    );
+
+  }
+
+
+  if(
+    type === "sessions"
+  ){
+
+    return (
+      sign +
+      Math.round(value) +
+      " séances"
+    );
+
+  }
+
+
+  return (
+    sign +
+    formatHours(
+      value
+    )
+  );
+
+}
+
+
+/* ============================================================
+   IMPACT
+============================================================ */
+
+function renderImpact(
+  current,
+  target
+){
+
+  const recovered =
+    Math.max(
+      0,
+      current.phoneHours -
+      target.phoneHours
+    );
+
+
+  document
+    .getElementById(
+      "recoveredTime"
+    )
+    .textContent =
+      formatHours(
+        recovered
+      );
+
+
+  const impacts = [
+
+    {
+      title:"Temps d'écran loisir",
+      difference:
+        current.phoneHours -
+        target.phoneHours,
+      unit:"hours",
+      description:
+        "Temps potentiellement disponible pour d'autres activités."
+    },
+
+    {
+      title:"Apprentissage",
+      difference:
+        target.learningHours -
+        current.learningHours,
+      unit:"hours",
+      description:
+        "Différence d'heures consacrées à l'apprentissage."
+    },
+
+    {
+      title:"Focus",
+      difference:
+        target.focusHours -
+        current.focusHours,
+      unit:"hours",
+      description:
+        "Différence de temps de travail concentré déclaré."
+    },
+
+    {
+      title:"Activité physique",
+      difference:
+        target.sportSessions -
+        current.sportSessions,
+      unit:"sessions",
+      description:
+        "Différence du nombre de séances prévues."
+    },
+
+    {
+      title:"Épargne",
+      difference:
+        target.saving -
+        current.saving,
+      unit:"money",
+      description:
+        "Différence d'épargne déclarée, sans hypothèse de rendement."
+    }
+
+  ];
+
+
+  impacts.sort(
+    (
+      a,
+      b
+    ) =>
+      Math.abs(
+        b.difference
+      ) -
+      Math.abs(
+        a.difference
+      )
+  );
+
+
+  document
+    .getElementById(
+      "impactList"
+    )
+    .innerHTML =
+      impacts
+      .slice(0,4)
+      .map(
+        impact => `
+
+          <div class="impact-item">
+
+            <div class="impact-item-top">
+
+              <strong>
+                ${impact.title}
+              </strong>
+
+              <strong class="compare-positive">
+                ${formatDifference(
+                  impact.difference,
+                  impact.unit
+                )}
+              </strong>
+
+            </div>
+
+            <p>
+              ${impact.description}
+            </p>
+
+          </div>
+
+        `
+      )
+      .join("");
+
+}
+
+
+/* ============================================================
+   PRIORITIES
+============================================================ */
+
+function renderPriorities(
+  current,
+  target
+){
+
+  const candidates = [
+
+    {
+      title:
+        "Réduire les distractions numériques",
+
+      score:
+        Math.abs(
+          current.phoneHours -
+          target.phoneHours
+        ),
+
+      description:
+        "Tester une réduction progressive du temps d'écran loisir et décider consciemment comment utiliser le temps récupéré."
+    },
+
+    {
+      title:
+        "Développer l'apprentissage",
+
+      score:
+        Math.abs(
+          target.learningHours -
+          current.learningHours
+        ),
+
+      description:
+        "Réserver des créneaux réguliers à une compétence ou un sujet important."
+    },
+
+    {
+      title:
+        "Augmenter le temps de focus",
+
+      score:
+        Math.abs(
+          target.focusHours -
+          current.focusHours
+        ),
+
+      description:
+        "Construire progressivement davantage de sessions de travail concentré."
+    },
+
+    {
+      title:
+        "Renforcer l'activité régulière",
+
+      score:
+        Math.abs(
+          target.sportSessions -
+          current.sportSessions
+        ) * 5,
+
+      description:
+        "Transformer l'objectif général en nombre de séances hebdomadaires réalistes."
+    },
+
+    {
+      title:
+        "Développer une routine de lecture",
+
+      score:
+        Math.abs(
+          target.readingHours -
+          current.readingHours
+        ),
+
+      description:
+        "Créer un créneau de lecture suffisamment simple pour être répété."
+    },
+
+    {
+      title:
+        "Faire évoluer l'épargne déclarée",
+
+      score:
+        Math.abs(
+          target.saving -
+          current.saving
+        ) / 10,
+
+      description:
+        "Comparer l'objectif d'épargne avec le budget réellement disponible."
+    }
+
+  ];
+
+
+  candidates.sort(
+    (
+      a,
+      b
+    ) =>
+      b.score -
+      a.score
+  );
+
+
+  document
+    .getElementById(
+      "priorityList"
+    )
+    .innerHTML =
+      candidates
+      .slice(0,3)
+      .map(
+        (
+          priority,
+          index
+        ) => `
+
+          <article class="priority-card">
+
+            <div class="priority-number">
+              ${index + 1}
+            </div>
+
+            <h3>
+              ${priority.title}
+            </h3>
+
+            <p>
+              ${priority.description}
+            </p>
+
+          </article>
+
+        `
+      )
+      .join("");
+
+}
+
+
+/* ============================================================
+   SAVE
+============================================================ */
+
+function saveTrajectory(){
+
+  const data = {
+
+    period:
+      trajectoryDays,
+
+    current:
+      getTrajectoryValues(
+        "current"
+      ),
+
+    target:
+      getTrajectoryValues(
+        "target"
+      ),
+
+    objective90:
+      document
+        .getElementById(
+          "objective90"
+        )
+        .value,
+
+    objective365:
+      document
+        .getElementById(
+          "objective365"
+        )
+        .value,
+
+    savedAt:
+      new Date()
+        .toISOString()
+
+  };
+
+
+  lifeUpgradeSetStorage(
+    TRAJECTORY_KEY,
+    data
+  );
+
+
+  const message =
+    document.getElementById(
+      "savedMessage"
+    );
+
+
+  message.classList.add(
+    "show"
+  );
+
+
+  setTimeout(
+    () =>
+      message
+        .classList
+        .remove(
+          "show"
+        ),
+    3000
+  );
+
+}
+
+
+/* ============================================================
+   LOAD
+============================================================ */
+
+function loadTrajectory(){
+
+  const data =
+    lifeUpgradeGetStorage(
+      TRAJECTORY_KEY,
+      null
+    );
+
+
+  if(!data){
+    return;
+  }
+
+
+  trajectoryDays =
+    data.period || 365;
+
+
+  const fields = [
+    "Phone",
+    "Sport",
+    "Learning",
+    "Saving",
+    "Sleep",
+    "Focus",
+    "Reading"
+  ];
+
+
+  fields.forEach(
+    field => {
+
+      const key =
+        field.charAt(0)
+        .toLowerCase() +
+        field.slice(1);
+
+
+      if(
+        data.current &&
+        data.current[key] !== undefined
+      ){
+
+        document
+          .getElementById(
+            "current" + field
+          )
+          .value =
+            data.current[key];
+
+      }
+
+
+      if(
+        data.target &&
+        data.target[key] !== undefined
+      ){
+
+        document
+          .getElementById(
+            "target" + field
+          )
+          .value =
+            data.target[key];
+
+      }
+
+    }
+  );
+
+
+  document
+    .getElementById(
+      "objective90"
+    )
+    .value =
+      data.objective90 || "";
+
+
+  document
+    .getElementById(
+      "objective365"
+    )
+    .value =
+      data.objective365 || "";
+
+
+  document
+    .querySelectorAll(
+      ".period-button"
+    )
+    .forEach(
+      button => {
+
+        button
+          .classList
+          .toggle(
+            "active",
+            Number(
+              button.dataset.days
+            ) ===
+            trajectoryDays
+          );
+
+      }
+    );
+
+}
+
+
+/* ============================================================
+   RESET
+============================================================ */
+
+function resetTrajectory(){
+
+  if(
+    !confirm(
+      "Réinitialiser le simulateur et supprimer la trajectoire sauvegardée sur cet appareil ?"
+    )
+  ){
+
+    return;
+
+  }
+
+
+  localStorage.removeItem(
+    TRAJECTORY_KEY
+  );
+
+
+  location.reload();
+
+}
+
+
+/* ============================================================
+   INIT
+============================================================ */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    loadTrajectory();
+
+    updateTrajectory();
+
+  }
+);
+
+</script>
+
+
+</body>
+</html>
