@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+  name="viewport"
+  content="width=device-width,initial-scale=1"
+>
+
+<title>
+Connexion — Life Upgrade
+</title>
+
+<link
+  rel="stylesheet"
+  href="style.css"
+>
+
+<style>
+
+.login-page{
+  min-height:75vh;
+  display:grid;
+  place-items:center;
+  padding:60px 15px;
+}
+
+.login-card{
+  width:min(470px,100%);
+  padding:30px;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:white;
+  box-shadow:var(--shadow);
+}
+
+.login-card h1{
+  margin-top:7px;
+  font-size:38px;
+}
+
+.login-card p{
+  margin-top:8px;
+}
+
+.login-group{
+  margin-top:17px;
+}
+
+.login-group label{
+  display:block;
+  margin-bottom:6px;
+  font-size:11px;
+  font-weight:900;
+}
+
+.login-group input{
+  width:100%;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  font:inherit;
+}
+
+.login-button{
+  width:100%;
+  margin-top:20px;
+  border:0;
+  cursor:pointer;
+  justify-content:center;
+}
+
+.login-message{
+  display:none;
+  margin-top:15px;
+  padding:12px;
+  border-radius:10px;
+  font-size:11px;
+}
+
+.login-message.error{
+  display:block;
+  color:#9b3440;
+  background:#fff0f1;
+}
+
+.login-message.success{
+  display:block;
+  color:#147457;
+  background:#eaf8f2;
+}
+
+.login-links{
+  margin-top:18px;
+  padding-top:16px;
+  border-top:1px solid var(--border);
+  text-align:center;
+  font-size:11px;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div id="lifeUpgradeHeader"></div>
+
+
+<main class="login-page">
+
+<section class="login-card">
+
+  <span class="eyebrow">
+    MON ESPACE
+  </span>
+
+  <h1>
+    Connexion
+  </h1>
+
+  <p>
+    Retrouve ton dashboard,
+    tes évaluations, tes cours,
+    tes sessions et ta trajectoire.
+  </p>
+
+
+  <form
+    id="loginForm"
+    onsubmit="loginUser(event)"
+  >
+
+    <div class="login-group">
+
+      <label for="loginEmail">
+        Email
+      </label>
+
+      <input
+        id="loginEmail"
+        type="email"
+        autocomplete="email"
+        required
+      >
+
+    </div>
+
+
+    <div class="login-group">
+
+      <label for="loginPassword">
+        Mot de passe
+      </label>
+
+      <input
+        id="loginPassword"
+        type="password"
+        autocomplete="current-password"
+        required
+      >
+
+    </div>
+
+
+    <button
+      id="loginButton"
+      class="button primary login-button"
+      type="submit"
+    >
+      Me connecter
+    </button>
+
+
+    <div
+      id="loginMessage"
+      class="login-message"
+    ></div>
+
+  </form>
+
+
+  <div class="login-links">
+
+    Pas encore de compte ?
+
+    <a href="inscription.html">
+      Créer mon compte gratuitement
+    </a>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<div id="lifeUpgradeFooter"></div>
+
+
+<script src="common.js"></script>
+
+
+<script>
+
+async function loginUser(
+  event
+){
+
+  event.preventDefault();
+
+
+  const button =
+    document.getElementById(
+      "loginButton"
+    );
+
+
+  const message =
+    document.getElementById(
+      "loginMessage"
+    );
+
+
+  button.disabled =
+    true;
+
+  button.textContent =
+    "Connexion...";
+
+
+  message.className =
+    "login-message";
+
+  message.textContent =
+    "";
+
+
+  try{
+
+    const response =
+      await fetch(
+        "/api/auth/login",
+        {
+          method:"POST",
+
+          headers:{
+            "Content-Type":
+              "application/json"
+          },
+
+          credentials:
+            "same-origin",
+
+          body:
+            JSON.stringify({
+
+              email:
+                document
+                  .getElementById(
+                    "loginEmail"
+                  )
+                  .value
+                  .trim(),
+
+              password:
+                document
+                  .getElementById(
+                    "loginPassword"
+                  )
+                  .value
+
+            })
+
+        }
+      );
+
+
+    const data =
+      await response.json();
+
+
+    if(
+      !response.ok ||
+      !data.ok
+    ){
+
+      throw new Error(
+        data.message ||
+        "Connexion impossible."
+      );
+
+    }
+
+
+    /*
+      Ancienne compatibilité dashboard.
+      D1 reste la source officielle.
+    */
+
+    lifeUpgradeSetStorage(
+      "lifeUpgradePrototypeAccount",
+      {
+        id:
+          data.user.id,
+
+        subscription:
+          data.user.subscription,
+
+        roles:
+          data.user.roles,
+
+        source:
+          "D1"
+      }
+    );
+
+
+    message.className =
+      "login-message success";
+
+    message.textContent =
+      "Connexion réussie.";
+
+
+    setTimeout(
+      function(){
+
+        window.location.href =
+          "dashboard.html";
+
+      },
+      400
+    );
+
+
+  }catch(error){
+
+    message.className =
+      "login-message error";
+
+    message.textContent =
+      error.message;
+
+
+    button.disabled =
+      false;
+
+    button.textContent =
+      "Me connecter";
+
+  }
+
+}
+
+</script>
+
+</body>
+
+</html>
