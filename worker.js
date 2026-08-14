@@ -904,7 +904,7 @@ async function hashPassword(password) {
 
 
   const iterations =
-    210000;
+    100000;
 
 
   const hash =
