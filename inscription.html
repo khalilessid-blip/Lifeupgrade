@@ -1524,9 +1524,15 @@ function nextStep(){
 
 function previousStep(){
 
-  showStep(
-    currentStep - 1
-  );
+  if(
+    currentStep > 1
+  ){
+
+    showStep(
+      currentStep - 1
+    );
+
+  }
 
 }
 
