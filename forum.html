@@ -1,0 +1,3023 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Forum & Communauté — Life Upgrade</title>
+
+<meta
+  name="description"
+  content="Forum Life Upgrade : questions-réponses, discussions, expériences, orientation, carrière, développement personnel, culture et sondages."
+>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* ============================================================
+   HERO
+============================================================ */
+
+.community-hero{
+  padding:70px 0 48px;
+}
+
+.community-hero-grid{
+  display:grid;
+  grid-template-columns:1fr 350px;
+  gap:28px;
+  align-items:center;
+}
+
+.community-hero p{
+  max-width:760px;
+  margin-top:15px;
+  font-size:17px;
+}
+
+.community-summary{
+  padding:24px;
+  border-radius:22px;
+  color:white;
+  background:linear-gradient(145deg,#11172b,#263452);
+}
+
+.community-summary p{
+  color:#b8c1d3;
+  font-size:12px;
+}
+
+.summary-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:16px;
+}
+
+.summary-box{
+  padding:12px;
+  border-radius:12px;
+  background:rgba(255,255,255,.07);
+}
+
+.summary-box span{
+  display:block;
+  color:#adb8cb;
+  font-size:9px;
+}
+
+.summary-box strong{
+  display:block;
+  margin-top:3px;
+  font-size:20px;
+}
+
+
+/* ============================================================
+   TABS
+============================================================ */
+
+.community-section{
+  padding:70px 0;
+}
+
+.community-section.white{
+  background:white;
+}
+
+.community-tabs{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:24px;
+}
+
+.community-tab{
+  padding:9px 12px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  background:white;
+  color:var(--muted);
+  cursor:pointer;
+  font-size:11px;
+  font-weight:800;
+}
+
+.community-tab:hover,
+.community-tab.active{
+  color:var(--primary);
+  border-color:var(--primary);
+  background:var(--soft);
+}
+
+
+/* ============================================================
+   LAYOUT
+============================================================ */
+
+.forum-layout{
+  display:grid;
+  grid-template-columns:1fr 310px;
+  gap:16px;
+}
+
+.forum-main{
+  min-width:0;
+}
+
+.forum-sidebar{
+  display:grid;
+  align-self:start;
+  gap:12px;
+}
+
+.sidebar-box{
+  padding:19px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:white;
+}
+
+.sidebar-box h3{
+  margin-bottom:10px;
+}
+
+.sidebar-box p{
+  font-size:11px;
+}
+
+.sidebar-links{
+  display:grid;
+  gap:6px;
+  margin-top:12px;
+}
+
+.sidebar-link{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  padding:9px;
+  border-radius:9px;
+  color:var(--muted);
+  cursor:pointer;
+  font-size:11px;
+}
+
+.sidebar-link:hover{
+  background:#f4f5fa;
+  color:var(--primary);
+}
+
+
+/* ============================================================
+   TOOLBAR
+============================================================ */
+
+.forum-toolbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:12px;
+  margin-bottom:14px;
+}
+
+.forum-search{
+  flex:1;
+  max-width:500px;
+  padding:11px 13px;
+  border:1px solid var(--border);
+  border-radius:11px;
+  background:white;
+}
+
+.forum-toolbar button{
+  border:0;
+  cursor:pointer;
+}
+
+
+/* ============================================================
+   TOPICS
+============================================================ */
+
+.topic-list{
+  display:grid;
+  gap:10px;
+}
+
+.topic-card{
+  display:grid;
+  grid-template-columns:55px 1fr auto;
+  gap:13px;
+  align-items:start;
+  padding:18px;
+  border:1px solid var(--border);
+  border-radius:17px;
+  background:white;
+  transition:.2s;
+}
+
+.topic-card:hover{
+  border-color:rgba(97,93,245,.35);
+  box-shadow:0 10px 30px rgba(20,28,50,.05);
+}
+
+.vote-box{
+  text-align:center;
+}
+
+.vote-button{
+  width:34px;
+  height:30px;
+  border:1px solid var(--border);
+  border-radius:8px;
+  background:white;
+  cursor:pointer;
+  color:var(--muted);
+}
+
+.vote-button:hover{
+  color:var(--primary);
+  border-color:var(--primary);
+}
+
+.vote-count{
+  display:block;
+  margin:4px 0;
+  font-size:14px;
+  font-weight:900;
+}
+
+.topic-title{
+  margin-top:5px;
+  font-size:17px;
+  cursor:pointer;
+}
+
+.topic-title:hover{
+  color:var(--primary);
+}
+
+.topic-excerpt{
+  margin-top:6px;
+  font-size:11px;
+}
+
+.topic-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:10px;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.topic-stats{
+  min-width:90px;
+  text-align:right;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.topic-stats strong{
+  display:block;
+  color:var(--text);
+  font-size:14px;
+}
+
+
+/* ============================================================
+   POLL
+============================================================ */
+
+.poll-card{
+  padding:19px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:white;
+}
+
+.poll-card h3{
+  margin:7px 0;
+}
+
+.poll-option{
+  margin-top:10px;
+}
+
+.poll-option-button{
+  width:100%;
+  padding:10px;
+  text-align:left;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:white;
+  cursor:pointer;
+}
+
+.poll-option-button:hover{
+  border-color:var(--primary);
+}
+
+.poll-result-top{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  margin-bottom:5px;
+  font-size:10px;
+}
+
+.poll-track{
+  height:7px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#e9ebf1;
+}
+
+.poll-track i{
+  display:block;
+  height:100%;
+  border-radius:999px;
+  background:var(--primary);
+}
+
+
+/* ============================================================
+   RULES
+============================================================ */
+
+.rules-list{
+  display:grid;
+  gap:8px;
+  margin-top:12px;
+}
+
+.rule{
+  display:flex;
+  gap:8px;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.rule strong{
+  color:var(--primary);
+}
+
+
+/* ============================================================
+   MODAL
+============================================================ */
+
+.forum-overlay{
+  position:fixed;
+  inset:0;
+  z-index:600;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:15px;
+  background:rgba(7,10,20,.7);
+}
+
+.forum-overlay.open{
+  display:flex;
+}
+
+.forum-modal{
+  position:relative;
+  width:min(820px,100%);
+  max-height:94vh;
+  overflow:auto;
+  padding:28px;
+  border-radius:23px;
+  background:white;
+  box-shadow:0 35px 100px rgba(0,0,0,.25);
+}
+
+.modal-close{
+  position:absolute;
+  right:14px;
+  top:14px;
+  width:34px;
+  height:34px;
+  border:0;
+  border-radius:50%;
+  background:#eef0f4;
+  cursor:pointer;
+  font-size:18px;
+}
+
+.form-group{
+  margin-top:15px;
+}
+
+.form-group label{
+  display:block;
+  margin-bottom:6px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;
+  padding:11px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:white;
+  font:inherit;
+}
+
+.form-group textarea{
+  min-height:150px;
+  resize:vertical;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+}
+
+
+/* ============================================================
+   TOPIC DETAIL
+============================================================ */
+
+.topic-detail-head{
+  padding-bottom:18px;
+  border-bottom:1px solid var(--border);
+}
+
+.topic-detail-content{
+  margin-top:20px;
+  line-height:1.75;
+}
+
+.answer-list{
+  display:grid;
+  gap:10px;
+  margin-top:22px;
+}
+
+.answer-card{
+  padding:16px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:#fafbfc;
+}
+
+.answer-card.useful{
+  border-color:#91d5be;
+  background:#f1faf6;
+}
+
+.answer-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+  font-size:10px;
+  color:var(--muted);
+}
+
+.useful-label{
+  color:#16815f;
+  font-weight:900;
+}
+
+.reply-box{
+  margin-top:22px;
+  padding-top:18px;
+  border-top:1px solid var(--border);
+}
+
+.reply-box textarea{
+  width:100%;
+  min-height:100px;
+  padding:11px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  resize:vertical;
+}
+
+
+/* ============================================================
+   PROPOSE SUBJECT
+============================================================ */
+
+.proposal-banner{
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:18px;
+  align-items:center;
+  padding:24px;
+  border-radius:20px;
+  color:white;
+  background:linear-gradient(145deg,#151b31,#283652);
+}
+
+.proposal-banner p{
+  margin-top:7px;
+  color:#bac3d3;
+}
+
+
+/* ============================================================
+   RESPONSIVE
+============================================================ */
+
+@media(max-width:950px){
+
+  .community-hero-grid,
+  .forum-layout{
+    grid-template-columns:1fr;
+  }
+
+  .forum-sidebar{
+    grid-template-columns:1fr 1fr;
+  }
+
+}
+
+@media(max-width:650px){
+
+  .forum-sidebar,
+  .form-grid,
+  .proposal-banner{
+    grid-template-columns:1fr;
+  }
+
+  .forum-toolbar{
+    align-items:stretch;
+    flex-direction:column;
+  }
+
+  .forum-search{
+    max-width:none;
+  }
+
+  .topic-card{
+    grid-template-columns:45px 1fr;
+  }
+
+  .topic-stats{
+    grid-column:2;
+    text-align:left;
+  }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ============================================================
+     HEADER COMMUN
+============================================================ -->
+
+<div id="lifeUpgradeHeader"></div>
+
+
+<main>
+
+
+<!-- ============================================================
+     HERO
+============================================================ -->
+
+<section class="community-hero">
+
+<div class="container community-hero-grid">
+
+  <div>
+
+    <div class="eyebrow">
+      COMMUNAUTÉ · QUESTIONS · EXPÉRIENCES · DISCUSSIONS
+    </div>
+
+    <h1 style="font-size:clamp(44px,5vw,67px)">
+      Apprendre aussi des autres.
+    </h1>
+
+    <p>
+      Pose une question, partage une expérience,
+      participe à une discussion ou vote pour les prochains sujets
+      de cours et de sessions Life Upgrade.
+    </p>
+
+
+    <div class="community-tabs">
+
+      <button
+        class="community-tab active"
+        onclick="changeForumType('all',this)"
+      >
+        Tout
+      </button>
+
+      <button
+        class="community-tab"
+        onclick="changeForumType('question',this)"
+      >
+        Questions
+      </button>
+
+      <button
+        class="community-tab"
+        onclick="changeForumType('discussion',this)"
+      >
+        Discussions
+      </button>
+
+      <button
+        class="community-tab"
+        onclick="changeForumType('experience',this)"
+      >
+        Expériences
+      </button>
+
+      <button
+        class="community-tab"
+        onclick="scrollToPolls()"
+      >
+        Sondages
+      </button>
+
+    </div>
+
+  </div>
+
+
+  <div class="community-summary">
+
+    <span class="badge">
+      LIFE UPGRADE COMMUNITY
+    </span>
+
+    <h3 style="margin-top:8px">
+      Un espace pour échanger
+    </h3>
+
+    <p>
+      Les discussions publiques seront modérées
+      et organisées par catégories.
+    </p>
+
+    <div class="summary-grid">
+
+      <div class="summary-box">
+        <span>FORMAT</span>
+        <strong>Q&R</strong>
+      </div>
+
+      <div class="summary-box">
+        <span>FORMAT</span>
+        <strong>Débat</strong>
+      </div>
+
+      <div class="summary-box">
+        <span>FORMAT</span>
+        <strong>Expérience</strong>
+      </div>
+
+      <div class="summary-box">
+        <span>FORMAT</span>
+        <strong>Sondage</strong>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ============================================================
+     FORUM
+============================================================ -->
+
+<section class="community-section white">
+
+<div class="container forum-layout">
+
+
+  <!-- MAIN -->
+
+  <div class="forum-main">
+
+
+    <div class="forum-toolbar">
+
+      <input
+        id="forumSearch"
+        class="forum-search"
+        type="search"
+        placeholder="Rechercher dans les discussions..."
+        oninput="searchForum()"
+      >
+
+      <button
+        class="button primary"
+        onclick="openCreateTopic()"
+      >
+        + Nouveau sujet
+      </button>
+
+    </div>
+
+
+    <div
+      id="topicList"
+      class="topic-list"
+    ></div>
+
+
+  </div>
+
+
+
+  <!-- SIDEBAR -->
+
+  <aside class="forum-sidebar">
+
+
+    <div class="sidebar-box">
+
+      <h3>
+        Catégories
+      </h3>
+
+      <div class="sidebar-links">
+
+        <div
+          class="sidebar-link"
+          onclick="filterCategory('all')"
+        >
+          <span>Toutes</span>
+          <strong>→</strong>
+        </div>
+
+        <div
+          class="sidebar-link"
+          onclick="filterCategory('personnel')"
+        >
+          <span>Développement personnel</span>
+          <strong>→</strong>
+        </div>
+
+        <div
+          class="sidebar-link"
+          onclick="filterCategory('professionnel')"
+        >
+          <span>Professionnel</span>
+          <strong>→</strong>
+        </div>
+
+        <div
+          class="sidebar-link"
+          onclick="filterCategory('etudes')"
+        >
+          <span>Études</span>
+          <strong>→</strong>
+        </div>
+
+        <div
+          class="sidebar-link"
+          onclick="filterCategory('orientation')"
+        >
+          <span>Orientation</span>
+          <strong>→</strong>
+        </div>
+
+        <div
+          class="sidebar-link"
+          onclick="filterCategory('softskills')"
+        >
+          <span>Soft Skills</span>
+          <strong>→</strong>
+        </div>
+
+        <div
+          class="sidebar-link"
+          onclick="filterCategory('culture')"
+        >
+          <span>Culture</span>
+          <strong>→</strong>
+        </div>
+
+      </div>
+
+    </div>
+
+
+
+    <div class="sidebar-box">
+
+      <h3>
+        Règles essentielles
+      </h3>
+
+      <div class="rules-list">
+
+        <div class="rule">
+          <strong>01</strong>
+          <span>Respecter les autres participants.</span>
+        </div>
+
+        <div class="rule">
+          <strong>02</strong>
+          <span>Critiquer les idées, pas les personnes.</span>
+        </div>
+
+        <div class="rule">
+          <strong>03</strong>
+          <span>Éviter le spam et la publicité sauvage.</span>
+        </div>
+
+        <div class="rule">
+          <strong>04</strong>
+          <span>Signaler les contenus problématiques.</span>
+        </div>
+
+        <div class="rule">
+          <strong>05</strong>
+          <span>
+            Ne pas utiliser le forum pour demander ou fournir
+            un diagnostic médical ou psychologique.
+          </span>
+        </div>
+
+      </div>
+
+    </div>
+
+
+  </aside>
+
+</div>
+
+</section>
+
+
+
+<!-- ============================================================
+     SONDAGES
+============================================================ -->
+
+<section
+  id="polls"
+  class="community-section"
+>
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      SONDAGES
+    </span>
+
+    <h2>
+      La communauté choisit aussi les prochains sujets.
+    </h2>
+
+    <p>
+      Les résultats pourront ensuite être utilisés
+      pour créer un cours, un article ou une session en ligne.
+    </p>
+
+  </div>
+
+
+  <div
+    id="pollContainer"
+    class="poll-card"
+    style="max-width:720px"
+  ></div>
+
+</div>
+
+</section>
+
+
+
+<!-- ============================================================
+     PROPOSITIONS
+============================================================ -->
+
+<section class="community-section white">
+
+<div class="container">
+
+  <div class="proposal-banner">
+
+    <div>
+
+      <span class="badge">
+        PROPOSER
+      </span>
+
+      <h2 style="margin-top:8px;color:white">
+        Quel sujet veux-tu voir sur Life Upgrade ?
+      </h2>
+
+      <p>
+        Formation métier, développement personnel,
+        culture, discussion, orientation ou atelier pratique.
+      </p>
+
+    </div>
+
+
+    <button
+      class="button primary"
+      style="border:0;cursor:pointer"
+      onclick="openProposal()"
+    >
+      Proposer un sujet
+    </button>
+
+  </div>
+
+</div>
+
+</section>
+
+
+
+<!-- ============================================================
+     LIEN SESSIONS
+============================================================ -->
+
+<section class="community-section">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      DE LA DISCUSSION AU LIVE
+    </span>
+
+    <h2>
+      Les sujets populaires peuvent devenir des sessions.
+    </h2>
+
+  </div>
+
+
+  <div
+    style="
+      padding:25px;
+      border:1px solid var(--border);
+      border-radius:20px;
+      background:white
+    "
+  >
+
+    <h3>
+      Exemple
+    </h3>
+
+    <p style="margin-top:8px">
+      Le sondage « IA et avenir des métiers » obtient le plus de votes.
+      L'administrateur peut ensuite créer une session en ligne
+      consacrée au sujet.
+    </p>
+
+    <div
+      style="
+        margin-top:18px;
+        display:flex;
+        flex-wrap:wrap;
+        gap:8px
+      "
+    >
+
+      <a
+        class="button primary"
+        href="sessions.html"
+      >
+        Voir les sessions
+      </a>
+
+      <a
+        class="button secondary"
+        href="culture.html"
+      >
+        Explorer Culture
+      </a>
+
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- ============================================================
+     FOOTER COMMUN
+============================================================ -->
+
+<div id="lifeUpgradeFooter"></div>
+
+
+
+<!-- ============================================================
+     MODAL
+============================================================ -->
+
+<div
+  id="forumOverlay"
+  class="forum-overlay"
+>
+
+  <div class="forum-modal">
+
+    <button
+      class="modal-close"
+      onclick="closeForumModal()"
+    >
+      ×
+    </button>
+
+    <div id="forumModalContent"></div>
+
+  </div>
+
+</div>
+
+
+
+<!-- ============================================================
+     COMMON
+============================================================ -->
+
+<script src="common.js"></script>
+
+
+<script>
+
+/* ============================================================
+   DONNÉES DE DÉMONSTRATION
+============================================================ */
+
+const defaultTopics = [
+
+{
+  id:"focus-home",
+
+  type:"question",
+
+  category:"personnel",
+
+  title:
+    "Comment rester concentré lorsque je travaille chez moi ?",
+
+  excerpt:
+    "Je commence correctement mais je finis souvent par regarder mon téléphone ou changer de tâche.",
+
+  content:
+    "Je travaille régulièrement depuis chez moi. Mon principal problème est que je commence une tâche puis je consulte mon téléphone ou je passe à autre chose. Quelles méthodes concrètes avez-vous testées pour protéger une session de concentration ?",
+
+  author:"Alex",
+
+  date:"Aujourd'hui",
+
+  votes:42,
+
+  replies:3,
+
+  views:126,
+
+  answers:[
+
+    {
+      author:"Nora",
+      text:
+        "Ce qui m'aide le plus est de définir la tâche avant de commencer et de mettre physiquement le téléphone dans une autre pièce pendant 25 minutes.",
+      useful:true
+    },
+
+    {
+      author:"Sam",
+      text:
+        "J'ai surtout réduit les notifications et je garde un document ouvert pour noter les choses auxquelles je pense sans changer immédiatement de tâche.",
+      useful:false
+    },
+
+    {
+      author:"Lina",
+      text:
+        "Le Focus Timer m'aide lorsque l'objectif de la session est très précis. Si j'écris simplement « travailler », je me disperse beaucoup plus.",
+      useful:false
+    }
+
+  ]
+
+},
+
+{
+  id:"career-stability",
+
+  type:"discussion",
+
+  category:"professionnel",
+
+  title:
+    "Passion ou stabilité : que privilégier dans une carrière ?",
+
+  excerpt:
+    "Est-ce réellement nécessaire d'être passionné par son métier pour construire une carrière satisfaisante ?",
+
+  content:
+    "On entend souvent qu'il faut absolument trouver sa passion. Je me demande si un travail intéressant, stable et compatible avec une bonne vie personnelle n'est pas parfois un meilleur objectif. Comment voyez-vous cette question ?",
+
+  author:"Maya",
+
+  date:"Hier",
+
+  votes:76,
+
+  replies:2,
+
+  views:304,
+
+  answers:[
+
+    {
+      author:"Thomas",
+      text:
+        "Je préfère raisonner en critères : environnement, autonomie, intérêt, rémunération, apprentissage et équilibre. La passion n'est qu'un critère possible parmi d'autres.",
+      useful:false
+    },
+
+    {
+      author:"Sarah",
+      text:
+        "Mes priorités ont changé avec le temps. Je trouve utile de ne pas considérer un choix de carrière comme définitif.",
+      useful:false
+    }
+
+  ]
+
+},
+
+{
+  id:"reconversion-story",
+
+  type:"experience",
+
+  category:"professionnel",
+
+  title:
+    "Ce que j'ai appris pendant ma reconversion professionnelle",
+
+  excerpt:
+    "Trois choses que j'aurais aimé comprendre avant de commencer à changer de métier.",
+
+  content:
+    "Ma reconversion m'a appris que comprendre le métier cible avant de suivre une longue formation est essentiel. J'aurais aussi dû identifier plus tôt mes compétences transférables et parler à davantage de personnes du secteur.",
+
+  author:"Karim",
+
+  date:"Il y a 2 jours",
+
+  votes:88,
+
+  replies:1,
+
+  views:411,
+
+  answers:[
+
+    {
+      author:"Julie",
+      text:
+        "Le point sur les compétences transférables est intéressant. On sous-estime souvent ce qu'une expérience précédente peut apporter au nouveau métier.",
+      useful:false
+    }
+
+  ]
+
+},
+
+{
+  id:"study-memory",
+
+  type:"question",
+
+  category:"etudes",
+
+  title:
+    "Comment éviter de tout oublier après avoir révisé ?",
+
+  excerpt:
+    "Je relis beaucoup mes cours mais quelques jours plus tard j'ai l'impression d'avoir oublié une grande partie.",
+
+  content:
+    "Je passe beaucoup de temps à relire mes cours avant les examens mais j'oublie rapidement. Je cherche une méthode plus active et surtout un moyen de savoir si j'ai réellement retenu le contenu.",
+
+  author:"Yanis",
+
+  date:"Il y a 3 jours",
+
+  votes:51,
+
+  replies:2,
+
+  views:209,
+
+  answers:[
+
+    {
+      author:"Emma",
+      text:
+        "Le rappel actif a beaucoup changé ma façon de réviser : fermer le cours puis essayer d'écrire ce que je peux retrouver sans regarder.",
+      useful:true
+    },
+
+    {
+      author:"Lucas",
+      text:
+        "J'espace aussi les révisions. Revenir plusieurs fois sur le même sujet me semble plus utile qu'une seule très longue session.",
+      useful:false
+    }
+
+  ]
+
+},
+
+{
+  id:"orientation-choice",
+
+  type:"question",
+
+  category:"orientation",
+
+  title:
+    "Comment comparer deux métiers qui m'intéressent vraiment ?",
+
+  excerpt:
+    "J'hésite entre deux domaines très différents et les deux me plaisent pour des raisons différentes.",
+
+  content:
+    "Je suis attiré par deux domaines. Je voudrais éviter de choisir uniquement à partir du salaire ou de l'image du métier. Quels critères utilisez-vous pour comparer deux trajectoires ?", 
+
+  author:"Inès",
+
+  date:"Il y a 4 jours",
+
+  votes:37,
+
+  replies:1,
+
+  views:178,
+
+  answers:[
+
+    {
+      author:"Rayan",
+      text:
+        "Je comparerais le quotidien réel : tâches, environnement, compétences, rythme, contraintes, possibilités d'évolution et études nécessaires.",
+      useful:true
+    }
+
+  ]
+
+},
+
+{
+  id:"emotional-work",
+
+  type:"discussion",
+
+  category:"softskills",
+
+  title:
+    "Peut-on apprendre à mieux recevoir un feedback difficile ?",
+
+  excerpt:
+    "Comment éviter de réagir immédiatement lorsque la critique nous surprend ?",
+
+  content:
+    "Je trouve relativement facile de demander du feedback, mais beaucoup plus difficile de l'entendre lorsqu'il est négatif ou inattendu. Quelles méthodes utilisez-vous pour prendre du recul avant de répondre ?", 
+
+  author:"Claire",
+
+  date:"Il y a 5 jours",
+
+  votes:64,
+
+  replies:2,
+
+  views:243,
+
+  answers:[
+
+    {
+      author:"Mehdi",
+      text:
+        "J'essaie d'abord de vérifier ce que la personne veut dire avec un exemple concret avant de décider si je suis d'accord.",
+      useful:false
+    },
+
+    {
+      author:"Sonia",
+      text:
+        "Je trouve utile de distinguer ma première réaction émotionnelle du contenu réel du feedback.",
+      useful:false
+    }
+
+  ]
+
+},
+
+{
+  id:"blackholes",
+
+  type:"discussion",
+
+  category:"culture",
+
+  title:
+    "Comment les astronomes détectent-ils les trous noirs ?",
+
+  excerpt:
+    "Si la lumière ne ressort pas de l'horizon, comment peut-on savoir qu'un trou noir est présent ?",
+
+  content:
+    "Après avoir lu l'article Culture sur les trous noirs, je me demande quelles observations permettent concrètement aux astronomes de conclure qu'un objet invisible massif est présent.",
+
+  author:"Noah",
+
+  date:"Il y a 6 jours",
+
+  votes:92,
+
+  replies:1,
+
+  views:508,
+
+  answers:[
+
+    {
+      author:"Léa",
+      text:
+        "On peut notamment étudier le mouvement de matière ou d'étoiles autour de l'objet et le rayonnement produit par de la matière très chaude à proximité.",
+      useful:false
+    }
+
+  ]
+
+}
+
+];
+
+
+/* ============================================================
+   STORAGE
+============================================================ */
+
+const TOPICS_KEY =
+  "lifeUpgradeForumTopics";
+
+const VOTES_KEY =
+  "lifeUpgradeForumVotes";
+
+const POLL_KEY =
+  "lifeUpgradeForumPoll";
+
+const PROPOSALS_KEY =
+  "lifeUpgradeTopicProposals";
+
+
+function getCustomTopics(){
+
+  return lifeUpgradeGetStorage(
+    TOPICS_KEY,
+    []
+  );
+
+}
+
+
+function getAllTopics(){
+
+  return [
+    ...getCustomTopics(),
+    ...defaultTopics
+  ];
+
+}
+
+
+function saveCustomTopics(
+  topics
+){
+
+  lifeUpgradeSetStorage(
+    TOPICS_KEY,
+    topics
+  );
+
+}
+
+
+/* ============================================================
+   STATE
+============================================================ */
+
+let currentForumType =
+  "all";
+
+let currentCategory =
+  "all";
+
+let searchTerm =
+  "";
+
+
+/* ============================================================
+   RENDER TOPICS
+============================================================ */
+
+function renderTopics(){
+
+  const container =
+    document.getElementById(
+      "topicList"
+    );
+
+
+  let topics =
+    getAllTopics();
+
+
+  if(
+    currentForumType !==
+    "all"
+  ){
+
+    topics =
+      topics.filter(
+        topic =>
+          topic.type ===
+          currentForumType
+      );
+
+  }
+
+
+  if(
+    currentCategory !==
+    "all"
+  ){
+
+    topics =
+      topics.filter(
+        topic =>
+          topic.category ===
+          currentCategory
+      );
+
+  }
+
+
+  if(searchTerm){
+
+    const term =
+      searchTerm.toLowerCase();
+
+
+    topics =
+      topics.filter(
+        topic =>
+          (
+            topic.title +
+            " " +
+            topic.excerpt +
+            " " +
+            topic.content
+          )
+          .toLowerCase()
+          .includes(term)
+      );
+
+  }
+
+
+  if(
+    topics.length === 0
+  ){
+
+    container.innerHTML = `
+
+      <div
+        style="
+          padding:35px;
+          text-align:center;
+          border:1px solid var(--border);
+          border-radius:18px;
+          color:var(--muted)
+        "
+      >
+
+        Aucun sujet ne correspond
+        à cette recherche.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML =
+    topics.map(
+      topic =>
+        topicTemplate(topic)
+    ).join("");
+
+}
+
+
+function topicTemplate(topic){
+
+  const votes =
+    getTopicVotes(topic);
+
+
+  return `
+
+    <article class="topic-card">
+
+
+      <div class="vote-box">
+
+        <button
+          class="vote-button"
+          onclick="voteTopic('${topic.id}',1)"
+          aria-label="Voter positivement"
+        >
+          ▲
+        </button>
+
+        <span class="vote-count">
+          ${votes}
+        </span>
+
+        <button
+          class="vote-button"
+          onclick="voteTopic('${topic.id}',-1)"
+          aria-label="Voter négativement"
+        >
+          ▼
+        </button>
+
+      </div>
+
+
+      <div>
+
+        <span class="badge">
+          ${typeLabel(topic.type)}
+        </span>
+
+        <h3
+          class="topic-title"
+          onclick="openTopic('${topic.id}')"
+        >
+          ${escapeHTML(topic.title)}
+        </h3>
+
+        <p class="topic-excerpt">
+          ${escapeHTML(topic.excerpt)}
+        </p>
+
+        <div class="topic-meta">
+
+          <span>
+            ${categoryLabel(topic.category)}
+          </span>
+
+          <span>
+            par ${escapeHTML(topic.author)}
+          </span>
+
+          <span>
+            ${escapeHTML(topic.date)}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="topic-stats">
+
+        <strong>
+          ${topic.replies || 0}
+        </strong>
+
+        réponses
+
+        <br><br>
+
+        ${topic.views || 0}
+        vues
+
+      </div>
+
+
+    </article>
+
+  `;
+
+}
+
+
+/* ============================================================
+   LABELS
+============================================================ */
+
+function typeLabel(type){
+
+  const labels = {
+
+    question:
+      "Question",
+
+    discussion:
+      "Discussion",
+
+    experience:
+      "Expérience"
+
+  };
+
+
+  return labels[type] || type;
+
+}
+
+
+function categoryLabel(
+  category
+){
+
+  const labels = {
+
+    personnel:
+      "Développement personnel",
+
+    professionnel:
+      "Professionnel",
+
+    etudes:
+      "Études",
+
+    orientation:
+      "Orientation",
+
+    softskills:
+      "Soft Skills",
+
+    culture:
+      "Culture"
+
+  };
+
+
+  return labels[category]
+    || category;
+
+}
+
+
+/* ============================================================
+   FILTER
+============================================================ */
+
+function changeForumType(
+  type,
+  button
+){
+
+  currentForumType =
+    type;
+
+
+  document
+    .querySelectorAll(
+      ".community-tab"
+    )
+    .forEach(
+      item =>
+        item.classList.remove(
+          "active"
+        )
+    );
+
+
+  button.classList.add(
+    "active"
+  );
+
+
+  renderTopics();
+
+}
+
+
+function filterCategory(
+  category
+){
+
+  currentCategory =
+    category;
+
+  renderTopics();
+
+}
+
+
+function searchForum(){
+
+  searchTerm =
+    document
+      .getElementById(
+        "forumSearch"
+      )
+      .value
+      .trim();
+
+  renderTopics();
+
+}
+
+
+function scrollToPolls(){
+
+  document
+    .getElementById(
+      "polls"
+    )
+    .scrollIntoView({
+      behavior:"smooth"
+    });
+
+}
+
+
+/* ============================================================
+   VOTES
+============================================================ */
+
+function getTopicVotes(
+  topic
+){
+
+  const votes =
+    lifeUpgradeGetStorage(
+      VOTES_KEY,
+      {}
+    );
+
+
+  return (
+    topic.votes || 0
+  ) + (
+    votes[topic.id] || 0
+  );
+
+}
+
+
+function voteTopic(
+  id,
+  direction
+){
+
+  const votes =
+    lifeUpgradeGetStorage(
+      VOTES_KEY,
+      {}
+    );
+
+
+  votes[id] =
+    (
+      votes[id] || 0
+    ) + direction;
+
+
+  lifeUpgradeSetStorage(
+    VOTES_KEY,
+    votes
+  );
+
+
+  renderTopics();
+
+}
+
+
+/* ============================================================
+   MODAL
+============================================================ */
+
+function openForumModal(){
+
+  document
+    .getElementById(
+      "forumOverlay"
+    )
+    .classList.add(
+      "open"
+    );
+
+}
+
+
+function closeForumModal(){
+
+  document
+    .getElementById(
+      "forumOverlay"
+    )
+    .classList.remove(
+      "open"
+    );
+
+}
+
+
+document
+  .getElementById(
+    "forumOverlay"
+  )
+  .addEventListener(
+    "click",
+    function(event){
+
+      if(
+        event.target === this
+      ){
+
+        closeForumModal();
+
+      }
+
+    }
+  );
+
+
+/* ============================================================
+   CREATE TOPIC
+============================================================ */
+
+function openCreateTopic(){
+
+  openForumModal();
+
+
+  document
+    .getElementById(
+      "forumModalContent"
+    )
+    .innerHTML = `
+
+      <div class="eyebrow">
+        NOUVEAU SUJET
+      </div>
+
+      <h2>
+        Publier dans la communauté
+      </h2>
+
+      <p style="margin-top:8px">
+        Dans la version avec comptes,
+        il faudra être connecté pour publier.
+      </p>
+
+
+      <div class="form-grid">
+
+        <div class="form-group">
+
+          <label>
+            Type
+          </label>
+
+          <select id="newTopicType">
+
+            <option value="question">
+              Question
+            </option>
+
+            <option value="discussion">
+              Discussion
+            </option>
+
+            <option value="experience">
+              Partage d'expérience
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-group">
+
+          <label>
+            Catégorie
+          </label>
+
+          <select id="newTopicCategory">
+
+            <option value="personnel">
+              Développement personnel
+            </option>
+
+            <option value="professionnel">
+              Professionnel
+            </option>
+
+            <option value="etudes">
+              Études
+            </option>
+
+            <option value="orientation">
+              Orientation
+            </option>
+
+            <option value="softskills">
+              Soft Skills
+            </option>
+
+            <option value="culture">
+              Culture
+            </option>
+
+          </select>
+
+        </div>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Titre
+        </label>
+
+        <input
+          id="newTopicTitle"
+          maxlength="140"
+          placeholder="Ta question ou ton sujet..."
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Message
+        </label>
+
+        <textarea
+          id="newTopicContent"
+          placeholder="Explique le contexte et ce que tu souhaites discuter..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Prénom / pseudo pour ce prototype
+        </label>
+
+        <input
+          id="newTopicAuthor"
+          maxlength="40"
+          placeholder="Ex. Alex"
+        >
+
+      </div>
+
+
+      <button
+        class="button primary"
+        style="
+          margin-top:18px;
+          border:0;
+          cursor:pointer
+        "
+        onclick="createTopic()"
+      >
+        Publier
+      </button>
+
+    `;
+
+}
+
+
+function createTopic(){
+
+  const title =
+    document
+      .getElementById(
+        "newTopicTitle"
+      )
+      .value
+      .trim();
+
+
+  const content =
+    document
+      .getElementById(
+        "newTopicContent"
+      )
+      .value
+      .trim();
+
+
+  const author =
+    document
+      .getElementById(
+        "newTopicAuthor"
+      )
+      .value
+      .trim()
+      || "Membre";
+
+
+  if(
+    title.length < 5 ||
+    content.length < 10
+  ){
+
+    alert(
+      "Ajoute un titre et un message suffisamment détaillés."
+    );
+
+    return;
+
+  }
+
+
+  const topic = {
+
+    id:
+      "local-" +
+      Date.now(),
+
+    type:
+      document
+        .getElementById(
+          "newTopicType"
+        )
+        .value,
+
+    category:
+      document
+        .getElementById(
+          "newTopicCategory"
+        )
+        .value,
+
+    title:title,
+
+    excerpt:
+      content.length > 150
+      ?
+      content.slice(0,150) + "…"
+      :
+      content,
+
+    content:content,
+
+    author:author,
+
+    date:"À l'instant",
+
+    votes:0,
+
+    replies:0,
+
+    views:0,
+
+    answers:[]
+
+  };
+
+
+  const topics =
+    getCustomTopics();
+
+
+  topics.unshift(
+    topic
+  );
+
+
+  saveCustomTopics(
+    topics
+  );
+
+
+  closeForumModal();
+
+  currentForumType =
+    "all";
+
+  currentCategory =
+    "all";
+
+  searchTerm =
+    "";
+
+  document
+    .getElementById(
+      "forumSearch"
+    )
+    .value = "";
+
+
+  renderTopics();
+
+}
+
+
+/* ============================================================
+   OPEN TOPIC
+============================================================ */
+
+function findTopic(id){
+
+  return getAllTopics()
+    .find(
+      topic =>
+        topic.id === id
+    );
+
+}
+
+
+function openTopic(id){
+
+  const topic =
+    findTopic(id);
+
+
+  if(!topic){
+    return;
+  }
+
+
+  openForumModal();
+
+
+  document
+    .getElementById(
+      "forumModalContent"
+    )
+    .innerHTML = `
+
+      <div class="topic-detail-head">
+
+        <span class="badge">
+          ${typeLabel(topic.type)}
+        </span>
+
+        <h2 style="margin-top:8px">
+          ${escapeHTML(topic.title)}
+        </h2>
+
+        <div class="topic-meta">
+
+          <span>
+            ${categoryLabel(topic.category)}
+          </span>
+
+          <span>
+            par ${escapeHTML(topic.author)}
+          </span>
+
+          <span>
+            ${escapeHTML(topic.date)}
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <div class="topic-detail-content">
+
+        ${escapeHTML(topic.content)}
+
+      </div>
+
+
+      ${
+        topic.type ===
+        "question"
+        ?
+        `
+        <div
+          style="
+            margin-top:18px;
+            padding:12px;
+            border-radius:11px;
+            background:#f4f3ff;
+            color:var(--muted);
+            font-size:11px
+          "
+        >
+
+          Sur les questions,
+          l'auteur pourra sélectionner
+          une réponse comme
+          <strong>Réponse utile</strong>.
+
+        </div>
+        `
+        :
+        ""
+      }
+
+
+      <div class="answer-list">
+
+        ${
+          (topic.answers || [])
+          .map(
+            answer => `
+
+              <div
+                class="
+                  answer-card
+                  ${
+                    answer.useful
+                    ?
+                    "useful"
+                    :
+                    ""
+                  }
+                "
+              >
+
+                <div class="answer-top">
+
+                  <strong>
+                    ${escapeHTML(answer.author)}
+                  </strong>
+
+                  ${
+                    answer.useful
+                    ?
+                    `
+                    <span class="useful-label">
+                      ✓ RÉPONSE UTILE
+                    </span>
+                    `
+                    :
+                    ""
+                  }
+
+                </div>
+
+                <p>
+                  ${escapeHTML(answer.text)}
+                </p>
+
+              </div>
+
+            `
+          )
+          .join("")
+        }
+
+      </div>
+
+
+      <div class="reply-box">
+
+        <h3>
+          Répondre
+        </h3>
+
+        <textarea
+          id="replyText"
+          placeholder="Ajouter une réponse..."
+        ></textarea>
+
+        <button
+          class="button primary"
+          style="
+            margin-top:10px;
+            border:0;
+            cursor:pointer
+          "
+          onclick="addLocalReply('${topic.id}')"
+        >
+          Publier la réponse
+        </button>
+
+      </div>
+
+
+      <div
+        style="
+          margin-top:18px;
+          padding-top:15px;
+          border-top:1px solid var(--border)
+        "
+      >
+
+        <button
+          class="button secondary"
+          style="
+            border:1px solid var(--border);
+            cursor:pointer
+          "
+          onclick="reportTopic('${topic.id}')"
+        >
+          Signaler
+        </button>
+
+      </div>
+
+    `;
+
+}
+
+
+/* ============================================================
+   LOCAL REPLY
+============================================================ */
+
+function addLocalReply(
+  topicId
+){
+
+  const textarea =
+    document.getElementById(
+      "replyText"
+    );
+
+
+  const text =
+    textarea.value.trim();
+
+
+  if(
+    text.length < 3
+  ){
+
+    return;
+
+  }
+
+
+  let customTopics =
+    getCustomTopics();
+
+
+  let custom =
+    customTopics.find(
+      topic =>
+        topic.id === topicId
+    );
+
+
+  /*
+    Si le sujet est un sujet de démonstration,
+    on crée une copie locale avant d'ajouter
+    la réponse.
+  */
+
+  if(!custom){
+
+    const original =
+      defaultTopics.find(
+        topic =>
+          topic.id === topicId
+      );
+
+
+    if(!original){
+      return;
+    }
+
+
+    custom =
+      JSON.parse(
+        JSON.stringify(
+          original
+        )
+      );
+
+
+    /*
+      On remplace la version démonstration
+      par une version locale avec le même ID.
+    */
+
+    customTopics.unshift(
+      custom
+    );
+
+  }
+
+
+  custom.answers =
+    custom.answers || [];
+
+
+  custom.answers.push({
+
+    author:"Moi",
+
+    text:text,
+
+    useful:false
+
+  });
+
+
+  custom.replies =
+    custom.answers.length;
+
+
+  /*
+    Éviter plusieurs copies du même sujet
+    dans les données locales.
+  */
+
+  customTopics =
+    customTopics.filter(
+      (topic,index,array) =>
+        array.findIndex(
+          item =>
+            item.id === topic.id
+        ) === index
+    );
+
+
+  saveCustomTopics(
+    customTopics
+  );
+
+
+  /*
+    Pour ce prototype, on ferme puis
+    réouvre le sujet.
+  */
+
+  closeForumModal();
+
+  renderTopics();
+
+
+  setTimeout(
+    () => openTopic(topicId),
+    50
+  );
+
+}
+
+
+/* ============================================================
+   REPORT
+============================================================ */
+
+function reportTopic(id){
+
+  const topic =
+    findTopic(id);
+
+
+  if(!topic){
+    return;
+  }
+
+
+  alert(
+    "Signalement enregistré localement pour le prototype. Le futur système l'enverra à la file de modération."
+  );
+
+}
+
+
+/* ============================================================
+   POLL
+============================================================ */
+
+const pollData = {
+
+  question:
+    "Quel thème veux-tu pour la prochaine session communautaire ?",
+
+  options:[
+
+    {
+      id:"ai",
+      label:"IA et avenir des métiers",
+      votes:138
+    },
+
+    {
+      id:"speaking",
+      label:"Prise de parole",
+      votes:96
+    },
+
+    {
+      id:"space",
+      label:"Exploration spatiale",
+      votes:82
+    },
+
+    {
+      id:"career",
+      label:"Reconversion professionnelle",
+      votes:71
+    }
+
+  ]
+
+};
+
+
+function renderPoll(){
+
+  const container =
+    document.getElementById(
+      "pollContainer"
+    );
+
+
+  const vote =
+    lifeUpgradeGetStorage(
+      POLL_KEY,
+      null
+    );
+
+
+  const total =
+    pollData.options
+      .reduce(
+        (
+          sum,
+          option
+        ) =>
+          sum +
+          option.votes +
+          (
+            vote === option.id
+            ? 1
+            : 0
+          ),
+        0
+      );
+
+
+  if(!vote){
+
+    container.innerHTML = `
+
+      <span class="badge">
+        SONDAGE
+      </span>
+
+      <h3>
+        ${pollData.question}
+      </h3>
+
+      <p>
+        Un vote par navigateur
+        dans ce prototype.
+      </p>
+
+
+      ${pollData.options.map(
+        option => `
+
+          <div class="poll-option">
+
+            <button
+              class="poll-option-button"
+              onclick="votePoll('${option.id}')"
+            >
+              ${option.label}
+            </button>
+
+          </div>
+
+        `
+      ).join("")}
+
+    `;
+
+    return;
+
+  }
+
+
+  container.innerHTML = `
+
+    <span class="badge">
+      RÉSULTATS
+    </span>
+
+    <h3>
+      ${pollData.question}
+    </h3>
+
+    <p>
+      ${total} votes
+    </p>
+
+
+    ${pollData.options.map(
+      option => {
+
+        const votes =
+          option.votes +
+          (
+            vote === option.id
+            ? 1
+            : 0
+          );
+
+
+        const percentage =
+          Math.round(
+            (
+              votes /
+              total
+            ) * 100
+          );
+
+
+        return `
+
+          <div class="poll-option">
+
+            <div class="poll-result-top">
+
+              <span>
+                ${option.label}
+              </span>
+
+              <strong>
+                ${percentage} %
+              </strong>
+
+            </div>
+
+            <div class="poll-track">
+
+              <i
+                style="
+                  width:${percentage}%
+                "
+              ></i>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }
+    ).join("")}
+
+
+    <div
+      style="
+        margin-top:17px;
+        font-size:11px;
+        color:var(--muted)
+      "
+    >
+
+      Ton vote :
+      <strong>
+        ${
+          pollData.options
+            .find(
+              option =>
+                option.id === vote
+            )
+            ?.label || ""
+        }
+      </strong>
+
+    </div>
+
+  `;
+
+}
+
+
+function votePoll(
+  optionId
+){
+
+  lifeUpgradeSetStorage(
+    POLL_KEY,
+    optionId
+  );
+
+  renderPoll();
+
+}
+
+
+/* ============================================================
+   PROPOSAL
+============================================================ */
+
+function openProposal(){
+
+  openForumModal();
+
+
+  document
+    .getElementById(
+      "forumModalContent"
+    )
+    .innerHTML = `
+
+      <div class="eyebrow">
+        PROPOSITION
+      </div>
+
+      <h2>
+        Proposer un sujet
+      </h2>
+
+      <p style="margin-top:8px">
+        Les propositions pourront alimenter
+        les sondages, cours, articles
+        et sessions en ligne.
+      </p>
+
+
+      <div class="form-group">
+
+        <label>
+          Type de contenu souhaité
+        </label>
+
+        <select id="proposalType">
+
+          <option value="session">
+            Session en ligne
+          </option>
+
+          <option value="course">
+            Cours
+          </option>
+
+          <option value="culture">
+            Article culture
+          </option>
+
+          <option value="discussion">
+            Discussion communautaire
+          </option>
+
+          <option value="job">
+            Formation métier
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Sujet
+        </label>
+
+        <input
+          id="proposalTitle"
+          maxlength="140"
+          placeholder="Ex. Comprendre la cybersécurité..."
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Pourquoi ce sujet ?
+        </label>
+
+        <textarea
+          id="proposalReason"
+          placeholder="Explique ce que tu aimerais apprendre ou discuter..."
+        ></textarea>
+
+      </div>
+
+
+      <button
+        class="button primary"
+        style="
+          margin-top:17px;
+          border:0;
+          cursor:pointer
+        "
+        onclick="saveProposal()"
+      >
+        Envoyer la proposition
+      </button>
+
+    `;
+
+}
+
+
+function saveProposal(){
+
+  const title =
+    document
+      .getElementById(
+        "proposalTitle"
+      )
+      .value
+      .trim();
+
+
+  const reason =
+    document
+      .getElementById(
+        "proposalReason"
+      )
+      .value
+      .trim();
+
+
+  if(
+    title.length < 4
+  ){
+
+    alert(
+      "Indique un sujet."
+    );
+
+    return;
+
+  }
+
+
+  const proposals =
+    lifeUpgradeGetStorage(
+      PROPOSALS_KEY,
+      []
+    );
+
+
+  proposals.unshift({
+
+    id:
+      Date.now(),
+
+    type:
+      document
+        .getElementById(
+          "proposalType"
+        )
+        .value,
+
+    title:title,
+
+    reason:reason,
+
+    date:
+      new Date()
+        .toLocaleString(
+          "fr-FR"
+        )
+
+  });
+
+
+  lifeUpgradeSetStorage(
+    PROPOSALS_KEY,
+    proposals
+  );
+
+
+  document
+    .getElementById(
+      "forumModalContent"
+    )
+    .innerHTML = `
+
+      <div
+        style="
+          text-align:center;
+          padding:25px 0
+        "
+      >
+
+        <div
+          style="
+            width:70px;
+            height:70px;
+            display:grid;
+            place-items:center;
+            margin:auto;
+            border-radius:50%;
+            background:#e9f7f2;
+            color:#16815f;
+            font-size:30px;
+            font-weight:900
+          "
+        >
+          ✓
+        </div>
+
+        <h2 style="margin-top:15px">
+          Proposition enregistrée
+        </h2>
+
+        <p style="margin-top:8px">
+          Dans la version connectée,
+          elle apparaîtra dans le back-office
+          administrateur.
+        </p>
+
+        <button
+          class="button primary"
+          style="
+            margin-top:16px;
+            border:0;
+            cursor:pointer
+          "
+          onclick="closeForumModal()"
+        >
+          Terminer
+        </button>
+
+      </div>
+
+    `;
+
+}
+
+
+/* ============================================================
+   INITIALISATION
+============================================================ */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    renderTopics();
+
+    renderPoll();
+
+  }
+);
+
+</script>
+
+
+</body>
+</html>
