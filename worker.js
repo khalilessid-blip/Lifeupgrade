@@ -1,72 +1,69 @@
-/* ============================================================
-   LIFE UPGRADE
-   CLOUDFLARE WORKER API
-============================================================ */
-
-const SESSION_COOKIE =
-  "lu_session";
-
-const SESSION_DAYS =
-  30;
-
-
-/* ============================================================
-   MAIN WORKER
-============================================================ */
+const SESSION_COOKIE = "lu_session";
+const SESSION_DAYS = 30;
 
 export default {
 
   async fetch(request, env) {
 
-    const url =
-      new URL(request.url);
-
+    const url = new URL(request.url);
 
     try {
 
-      /*
-        API
-      */
+      if (url.pathname === "/api/health") {
+        return await health(env);
+      }
 
-      if(
-        url.pathname.startsWith("/api/")
-      ){
+      if (
+        url.pathname === "/api/auth/register" &&
+        request.method === "POST"
+      ) {
+        return await register(request, env);
+      }
 
-        return await handleApi(
-          request,
-          env,
-          url
-        );
+      if (
+        url.pathname === "/api/auth/login" &&
+        request.method === "POST"
+      ) {
+        return await login(request, env);
+      }
+
+      if (
+        url.pathname === "/api/auth/me" &&
+        request.method === "GET"
+      ) {
+        return await me(request, env);
+      }
+
+      if (
+        url.pathname === "/api/auth/logout" &&
+        request.method === "POST"
+      ) {
+        return await logout(request, env);
+      }
+
+      if (url.pathname.startsWith("/api/")) {
+
+        return json({
+          ok: false,
+          error: "NOT_FOUND",
+          message: "Route API inconnue."
+        }, 404);
 
       }
 
+      return env.ASSETS.fetch(request);
 
-      /*
-        STATIC WEBSITE
-      */
+    } catch (error) {
 
-      return env.ASSETS.fetch(
-        request
-      );
+      console.error("LIFE UPGRADE ERROR:", error);
 
-
-    } catch(error) {
-
-      console.error(
-        "Life Upgrade Worker error:",
-        error
-      );
-
-
-      return json(
-        {
-          ok:false,
-          error:"INTERNAL_ERROR",
-          message:
-            "Une erreur interne est survenue."
-        },
-        500
-      );
+      return json({
+        ok: false,
+        error: "INTERNAL_ERROR",
+        message: error?.message || "Erreur interne.",
+        details: String(error),
+        stack: error?.stack || null
+      }, 500);
 
     }
 
@@ -75,427 +72,232 @@ export default {
 };
 
 
-
-/* ============================================================
-   API ROUTER
-============================================================ */
-
-async function handleApi(
-  request,
-  env,
-  url
-){
-
-  const method =
-    request.method.toUpperCase();
-
-
-  /*
-    HEALTH
-  */
-
-  if(
-    method === "GET" &&
-    url.pathname === "/api/health"
-  ){
-
-    return health(
-      env
-    );
-
-  }
-
-
-  /*
-    AUTH REGISTER
-  */
-
-  if(
-    method === "POST" &&
-    url.pathname === "/api/auth/register"
-  ){
-
-    return register(
-      request,
-      env
-    );
-
-  }
-
-
-  /*
-    AUTH LOGIN
-  */
-
-  if(
-    method === "POST" &&
-    url.pathname === "/api/auth/login"
-  ){
-
-    return login(
-      request,
-      env
-    );
-
-  }
-
-
-  /*
-    AUTH CURRENT USER
-  */
-
-  if(
-    method === "GET" &&
-    url.pathname === "/api/auth/me"
-  ){
-
-    return me(
-      request,
-      env
-    );
-
-  }
-
-
-  /*
-    LOGOUT
-  */
-
-  if(
-    method === "POST" &&
-    url.pathname === "/api/auth/logout"
-  ){
-
-    return logout(
-      request,
-      env
-    );
-
-  }
-
-
-  return json(
-    {
-      ok:false,
-      error:"NOT_FOUND",
-      message:
-        "Route API inconnue."
-    },
-    404
-  );
-
-}
-
-
-
 /* ============================================================
    HEALTH
 ============================================================ */
 
-async function health(
-  env
-){
+async function health(env) {
 
-  const result =
-    await env.DB
-      .prepare(
-        `
-        SELECT COUNT(*) AS total
-        FROM users
-        `
-      )
-      .first();
+  if (!env.DB) {
 
+    throw new Error(
+      "Binding D1 DB introuvable."
+    );
 
-  return json(
-    {
-      ok:true,
-      service:
-        "Life Upgrade API",
+  }
 
-      database:
-        "connected",
+  const result = await env.DB
+    .prepare(`
+      SELECT COUNT(*) AS total
+      FROM users
+    `)
+    .first();
 
-      users:
-        Number(
-          result?.total || 0
-        ),
-
-      timestamp:
-        new Date()
-          .toISOString()
-    }
-  );
+  return json({
+    ok: true,
+    service: "Life Upgrade API",
+    database: "connected",
+    users: Number(result?.total || 0),
+    timestamp: new Date().toISOString()
+  });
 
 }
-
 
 
 /* ============================================================
    REGISTER
 ============================================================ */
 
-async function register(
-  request,
-  env
-){
+async function register(request, env) {
 
-  const body =
-    await readJson(
-      request
+  if (!env.DB) {
+
+    throw new Error(
+      "Binding D1 DB introuvable."
     );
 
+  }
 
-  if(!body){
+  const body = await readJson(request);
 
-    return json(
-      {
-        ok:false,
-        error:"INVALID_JSON",
-        message:
-          "Les données envoyées sont invalides."
-      },
-      400
-    );
+  if (!body) {
+
+    return json({
+      ok: false,
+      error: "INVALID_JSON",
+      message: "Données invalides."
+    }, 400);
 
   }
 
 
   const firstName =
-    cleanString(
-      body.firstName,
-      80
-    );
+    clean(body.firstName, 80);
 
   const lastName =
-    cleanString(
-      body.lastName,
-      80
-    );
+    clean(body.lastName, 80);
 
   const email =
-    normalizeEmail(
-      body.email
-    );
-
-  const phone =
-    cleanString(
-      body.phone,
-      40
-    );
+    normalizeEmail(body.email);
 
   const country =
-    cleanString(
-      body.country,
-      80
-    );
+    clean(body.country, 80);
+
+  const phone =
+    clean(body.phone, 40);
 
   const password =
-    String(
-      body.password || ""
-    );
+    String(body.password || "");
 
   const situation =
-    cleanString(
-      body.situation,
-      80
-    );
-
-  const interests =
-    Array.isArray(
-      body.interests
-    )
-    ?
-    body.interests
-      .slice(0,50)
-      .map(
-        item =>
-          cleanString(
-            item,
-            80
-          )
-      )
-      .filter(Boolean)
-    :
-    [];
+    clean(body.situation, 80);
 
   const goal90 =
-    cleanString(
-      body.goal90,
-      2000
-    );
+    clean(body.goal90, 2000);
 
   const goal365 =
-    cleanString(
-      body.goal365,
-      2000
-    );
+    clean(body.goal365, 2000);
 
   const weeklyTime =
-    Number(
-      body.weeklyTime || 0
-    );
+    Number(body.weeklyTime || 0);
+
+  const interests =
+    Array.isArray(body.interests)
+      ? body.interests
+          .slice(0, 50)
+          .map(item => clean(item, 80))
+          .filter(Boolean)
+      : [];
 
 
-  /*
-    VALIDATION
-  */
-
-  if(
+  if (
     !firstName ||
     !lastName ||
     !email ||
     !country ||
     !password
-  ){
+  ) {
 
-    return json(
-      {
-        ok:false,
-        error:"MISSING_FIELDS",
-        message:
-          "Complète les champs obligatoires."
-      },
-      400
-    );
+    return json({
+      ok: false,
+      error: "MISSING_FIELDS",
+      message: "Complète les champs obligatoires."
+    }, 400);
 
   }
 
 
-  if(
-    !isValidEmail(email)
-  ){
+  if (!isValidEmail(email)) {
 
-    return json(
-      {
-        ok:false,
-        error:"INVALID_EMAIL",
-        message:
-          "Adresse email invalide."
-      },
-      400
-    );
+    return json({
+      ok: false,
+      error: "INVALID_EMAIL",
+      message: "Adresse email invalide."
+    }, 400);
 
   }
 
 
-  if(
-    password.length < 8
-  ){
+  if (password.length < 8) {
 
-    return json(
-      {
-        ok:false,
-        error:"WEAK_PASSWORD",
-        message:
-          "Le mot de passe doit contenir au moins 8 caractères."
-      },
-      400
-    );
+    return json({
+      ok: false,
+      error: "WEAK_PASSWORD",
+      message:
+        "Le mot de passe doit contenir au moins 8 caractères."
+    }, 400);
 
   }
 
 
-  /*
-    DUPLICATE EMAIL
-  */
-
-  const existing =
-    await env.DB
-      .prepare(
-        `
-        SELECT id
-        FROM users
-        WHERE email = ?
-        LIMIT 1
-        `
-      )
-      .bind(email)
-      .first();
+  const existing = await env.DB
+    .prepare(`
+      SELECT id
+      FROM users
+      WHERE email = ?
+      LIMIT 1
+    `)
+    .bind(email)
+    .first();
 
 
-  if(existing){
+  if (existing) {
 
-    return json(
-      {
-        ok:false,
-        error:"EMAIL_EXISTS",
-        message:
-          "Un compte existe déjà avec cette adresse email."
-      },
-      409
-    );
+    return json({
+      ok: false,
+      error: "EMAIL_EXISTS",
+      message:
+        "Un compte existe déjà avec cette adresse email."
+    }, 409);
 
   }
 
-
-  /*
-    HASH PASSWORD
-  */
 
   const passwordHash =
-    await hashPassword(
-      password
-    );
+    await hashPassword(password);
 
 
   /*
-    CREATE USER
+    1. UTILISATEUR
   */
 
-  const userInsert =
-    await env.DB
-      .prepare(
-        `
-        INSERT INTO users (
-          email,
-          password_hash,
-          first_name,
-          last_name,
-          country,
-          phone,
-          status,
-          subscription_type,
-          email_verified
-        )
-        VALUES (
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          ?,
-          'ACTIVE',
-          'FREE',
-          0
-        )
-        `
-      )
-      .bind(
+  const userResult = await env.DB
+    .prepare(`
+      INSERT INTO users (
         email,
-        passwordHash,
-        firstName,
-        lastName,
+        password_hash,
+        first_name,
+        last_name,
         country,
-        phone
+        phone,
+        status,
+        subscription_type,
+        email_verified
       )
-      .run();
+      VALUES (?, ?, ?, ?, ?, ?, 'ACTIVE', 'FREE', 0)
+    `)
+    .bind(
+      email,
+      passwordHash,
+      firstName,
+      lastName,
+      country,
+      phone
+    )
+    .run();
+
+
+  if (!userResult.success) {
+
+    throw new Error(
+      "Échec de création de l'utilisateur."
+    );
+
+  }
 
 
   const userId =
-    Number(
-      userInsert.meta
-        .last_row_id
+    Number(userResult.meta?.last_row_id);
+
+
+  if (
+    !Number.isInteger(userId) ||
+    userId <= 0
+  ) {
+
+    throw new Error(
+      "D1 n'a pas retourné l'identifiant du nouvel utilisateur."
     );
+
+  }
 
 
   /*
-    PROFILE
+    2. PROFIL
   */
 
   await env.DB
-    .prepare(
-      `
+    .prepare(`
       INSERT INTO profiles (
         user_id,
         situation,
@@ -505,84 +307,77 @@ async function register(
         interests_json,
         preferences_json
       )
-      VALUES (
-        ?,
-        ?,
-        ?,
-        ?,
-        ?,
-        ?,
-        ?
-      )
-      `
-    )
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `)
     .bind(
       userId,
-      situation,
-      Number.isFinite(
-        weeklyTime
-      )
-      ?
-      weeklyTime
-      :
-      null,
-      goal90,
-      goal365,
-      JSON.stringify(
-        interests
-      ),
+      situation || null,
+      Number.isFinite(weeklyTime)
+        ? weeklyTime
+        : null,
+      goal90 || null,
+      goal365 || null,
+      JSON.stringify(interests),
       JSON.stringify({})
     )
     .run();
 
 
   /*
-    MEMBER ROLE
+    3. RÔLE MEMBER
   */
 
+  const memberRole = await env.DB
+    .prepare(`
+      SELECT id
+      FROM roles
+      WHERE code = 'MEMBER'
+      LIMIT 1
+    `)
+    .first();
+
+
+  if (!memberRole) {
+
+    throw new Error(
+      "Le rôle MEMBER n'existe pas dans la base."
+    );
+
+  }
+
+
   await env.DB
-    .prepare(
-      `
-      INSERT OR IGNORE
-      INTO user_roles (
+    .prepare(`
+      INSERT OR IGNORE INTO user_roles (
         user_id,
         role_id
       )
-      SELECT
-        ?,
-        id
-      FROM roles
-      WHERE code = 'MEMBER'
-      `
-    )
+      VALUES (?, ?)
+    `)
     .bind(
-      userId
+      userId,
+      memberRole.id
     )
     .run();
 
 
   /*
-    PRIVACY DEFAULT
+    4. CONFIDENTIALITÉ
   */
 
   await env.DB
-    .prepare(
-      `
-      INSERT OR IGNORE
-      INTO privacy_preferences (
+    .prepare(`
+      INSERT OR IGNORE INTO privacy_preferences (
         user_id
       )
       VALUES (?)
-      `
-    )
-    .bind(
-      userId
-    )
+    `)
+    .bind(userId)
     .run();
 
 
   /*
-    CREATE PERSONALIZED ASSESSMENT
+    5. ÉVALUATION PERSONNALISÉE
   */
 
   const assessmentConfig =
@@ -593,8 +388,7 @@ async function register(
 
 
   await env.DB
-    .prepare(
-      `
+    .prepare(`
       INSERT INTO personalized_assessments (
         user_id,
         title,
@@ -602,26 +396,20 @@ async function register(
         configuration_json,
         status
       )
-      VALUES (
-        ?,
-        'Évaluation personnalisée Life Upgrade',
-        50,
-        ?,
-        'READY'
-      )
-      `
-    )
+      VALUES (?, ?, ?, ?, ?)
+    `)
     .bind(
       userId,
-      JSON.stringify(
-        assessmentConfig
-      )
+      "Évaluation personnalisée Life Upgrade",
+      50,
+      JSON.stringify(assessmentConfig),
+      "READY"
     )
     .run();
 
 
   /*
-    CREATE SESSION
+    6. SESSION
   */
 
   const session =
@@ -632,53 +420,44 @@ async function register(
 
 
   /*
-    AUDIT
+    7. AUDIT
   */
 
-  await writeAudit(
+  await safeAudit(
     env,
     userId,
     "USER_REGISTER",
     "USER",
-    userId,
+    String(userId),
     {
       email
     }
   );
 
 
-  /*
-    RESPONSE
-  */
-
   return json(
     {
-      ok:true,
+      ok: true,
 
-      user:{
-        id:userId,
+      user: {
+        id: userId,
         email,
         firstName,
         lastName,
-        subscription:
-          "FREE",
-
-        roles:[
-          "MEMBER"
-        ]
+        subscription: "FREE",
+        roles: ["MEMBER"]
       },
 
-      assessment:{
-        questions:50,
-        configuration:
-          assessmentConfig
+      assessment: {
+        questions: 50,
+        configuration: assessmentConfig
       }
     },
     201,
     {
       "Set-Cookie":
         buildSessionCookie(
-          session.rawToken,
+          session.token,
           session.expiresAt
         )
     }
@@ -687,111 +466,78 @@ async function register(
 }
 
 
-
 /* ============================================================
    LOGIN
 ============================================================ */
 
-async function login(
-  request,
-  env
-){
+async function login(request, env) {
 
   const body =
-    await readJson(
-      request
-    );
+    await readJson(request);
 
+  if (!body) {
 
-  if(!body){
-
-    return json(
-      {
-        ok:false,
-        error:"INVALID_JSON"
-      },
-      400
-    );
+    return json({
+      ok: false,
+      message: "Données invalides."
+    }, 400);
 
   }
 
 
   const email =
-    normalizeEmail(
-      body.email
-    );
+    normalizeEmail(body.email);
 
   const password =
-    String(
-      body.password || ""
-    );
+    String(body.password || "");
 
 
-  if(
-    !email ||
-    !password
-  ){
+  if (!email || !password) {
 
-    return json(
-      {
-        ok:false,
-        error:"MISSING_CREDENTIALS",
-        message:
-          "Email et mot de passe requis."
-      },
-      400
-    );
+    return json({
+      ok: false,
+      message:
+        "Email et mot de passe requis."
+    }, 400);
 
   }
 
 
-  const user =
-    await env.DB
-      .prepare(
-        `
-        SELECT
-          id,
-          email,
-          password_hash,
-          first_name,
-          last_name,
-          country,
-          phone,
-          status,
-          subscription_type,
-          email_verified
-        FROM users
-        WHERE email = ?
-        LIMIT 1
-        `
-      )
-      .bind(
-        email
-      )
-      .first();
+  const user = await env.DB
+    .prepare(`
+      SELECT
+        id,
+        email,
+        password_hash,
+        first_name,
+        last_name,
+        country,
+        phone,
+        status,
+        subscription_type,
+        email_verified
+      FROM users
+      WHERE email = ?
+      LIMIT 1
+    `)
+    .bind(email)
+    .first();
 
 
-  if(!user){
+  if (!user) {
 
-    return invalidLogin();
+    return invalidCredentials();
 
   }
 
 
-  if(
-    user.status !==
-    "ACTIVE"
-  ){
+  if (user.status !== "ACTIVE") {
 
-    return json(
-      {
-        ok:false,
-        error:"ACCOUNT_DISABLED",
-        message:
-          "Ce compte n'est pas actuellement actif."
-      },
-      403
-    );
+    return json({
+      ok: false,
+      message:
+        "Ce compte n'est pas actif."
+    }, 403);
 
   }
 
@@ -803,34 +549,11 @@ async function login(
     );
 
 
-  if(!valid){
+  if (!valid) {
 
-    return invalidLogin();
+    return invalidCredentials();
 
   }
-
-
-  /*
-    REVOKE OLD EXPIRED SESSIONS
-  */
-
-  await env.DB
-    .prepare(
-      `
-      DELETE FROM auth_sessions
-      WHERE user_id = ?
-      AND (
-        expires_at <= ?
-        OR revoked_at IS NOT NULL
-      )
-      `
-    )
-    .bind(
-      user.id,
-      new Date()
-        .toISOString()
-    )
-    .run();
 
 
   const session =
@@ -847,31 +570,27 @@ async function login(
     );
 
 
-  await writeAudit(
+  await safeAudit(
     env,
     user.id,
     "USER_LOGIN",
     "USER",
-    user.id,
+    String(user.id),
     {}
   );
 
 
   return json(
     {
-      ok:true,
+      ok: true,
 
-      user:{
-        id:user.id,
-        email:user.email,
-        firstName:
-          user.first_name,
-        lastName:
-          user.last_name,
-        country:
-          user.country,
-        phone:
-          user.phone,
+      user: {
+        id: user.id,
+        email: user.email,
+        firstName: user.first_name,
+        lastName: user.last_name,
+        country: user.country,
+        phone: user.phone,
         subscription:
           user.subscription_type,
         roles
@@ -881,7 +600,7 @@ async function login(
     {
       "Set-Cookie":
         buildSessionCookie(
-          session.rawToken,
+          session.token,
           session.expiresAt
         )
     }
@@ -890,32 +609,25 @@ async function login(
 }
 
 
-
 /* ============================================================
-   CURRENT USER
+   ME
 ============================================================ */
 
-async function me(
-  request,
-  env
-){
+async function me(request, env) {
 
-  const sessionUser =
+  const user =
     await getAuthenticatedUser(
       request,
       env
     );
 
 
-  if(!sessionUser){
+  if (!user) {
 
-    return json(
-      {
-        ok:false,
-        authenticated:false
-      },
-      401
-    );
+    return json({
+      ok: false,
+      authenticated: false
+    }, 401);
 
   }
 
@@ -923,14 +635,13 @@ async function me(
   const roles =
     await getUserRoles(
       env,
-      sessionUser.id
+      user.id
     );
 
 
   const profile =
     await env.DB
-      .prepare(
-        `
+      .prepare(`
         SELECT
           situation,
           weekly_time,
@@ -941,89 +652,66 @@ async function me(
         FROM profiles
         WHERE user_id = ?
         LIMIT 1
-        `
-      )
-      .bind(
-        sessionUser.id
-      )
+      `)
+      .bind(user.id)
       .first();
 
 
-  return json(
-    {
-      ok:true,
-      authenticated:true,
+  return json({
 
-      user:{
-        id:
-          sessionUser.id,
+    ok: true,
+    authenticated: true,
 
-        email:
-          sessionUser.email,
+    user: {
+      id: user.id,
+      email: user.email,
+      firstName: user.first_name,
+      lastName: user.last_name,
+      country: user.country,
+      phone: user.phone,
+      subscription:
+        user.subscription_type,
+      emailVerified:
+        Boolean(user.email_verified),
+      roles
+    },
 
-        firstName:
-          sessionUser.first_name,
+    profile: {
+      situation:
+        profile?.situation || null,
 
-        lastName:
-          sessionUser.last_name,
+      weeklyTime:
+        profile?.weekly_time || 0,
 
-        country:
-          sessionUser.country,
+      goal90:
+        profile?.goal_90_days || "",
 
-        phone:
-          sessionUser.phone,
+      goal365:
+        profile?.goal_365_days || "",
 
-        subscription:
-          sessionUser.subscription_type,
+      interests:
+        parseJson(
+          profile?.interests_json,
+          []
+        ),
 
-        emailVerified:
-          Boolean(
-            sessionUser.email_verified
-          ),
-
-        roles
-      },
-
-      profile:{
-        situation:
-          profile?.situation || null,
-
-        weeklyTime:
-          profile?.weekly_time || 0,
-
-        goal90:
-          profile?.goal_90_days || "",
-
-        goal365:
-          profile?.goal_365_days || "",
-
-        interests:
-          safeJsonParse(
-            profile?.interests_json,
-            []
-          ),
-
-        preferences:
-          safeJsonParse(
-            profile?.preferences_json,
-            {}
-          )
-      }
+      preferences:
+        parseJson(
+          profile?.preferences_json,
+          {}
+        )
     }
-  );
+
+  });
 
 }
-
 
 
 /* ============================================================
    LOGOUT
 ============================================================ */
 
-async function logout(
-  request,
-  env
-){
+async function logout(request, env) {
 
   const token =
     getCookie(
@@ -1032,26 +720,20 @@ async function logout(
     );
 
 
-  if(token){
+  if (token) {
 
     const tokenHash =
-      await sha256Hex(
-        token
-      );
+      await sha256Hex(token);
 
 
     await env.DB
-      .prepare(
-        `
+      .prepare(`
         UPDATE auth_sessions
         SET revoked_at = ?
         WHERE token_hash = ?
-        AND revoked_at IS NULL
-        `
-      )
+      `)
       .bind(
-        new Date()
-          .toISOString(),
+        new Date().toISOString(),
         tokenHash
       )
       .run();
@@ -1061,7 +743,7 @@ async function logout(
 
   return json(
     {
-      ok:true
+      ok: true
     },
     200,
     {
@@ -1073,15 +755,14 @@ async function logout(
 }
 
 
-
 /* ============================================================
-   AUTH USER
+   AUTHENTICATED USER
 ============================================================ */
 
 async function getAuthenticatedUser(
   request,
   env
-){
+) {
 
   const token =
     getCookie(
@@ -1090,27 +771,19 @@ async function getAuthenticatedUser(
     );
 
 
-  if(!token){
+  if (!token) {
 
     return null;
 
   }
 
 
-  const tokenHash =
-    await sha256Hex(
-      token
-    );
-
-
-  const now =
-    new Date()
-      .toISOString();
+  const hash =
+    await sha256Hex(token);
 
 
   return env.DB
-    .prepare(
-      `
+    .prepare(`
       SELECT
         u.id,
         u.email,
@@ -1121,6 +794,7 @@ async function getAuthenticatedUser(
         u.status,
         u.subscription_type,
         u.email_verified
+
       FROM auth_sessions s
 
       JOIN users u
@@ -1133,37 +807,31 @@ async function getAuthenticatedUser(
         AND u.status = 'ACTIVE'
 
       LIMIT 1
-      `
-    )
+    `)
     .bind(
-      tokenHash,
-      now
+      hash,
+      new Date().toISOString()
     )
     .first();
 
 }
 
 
-
 /* ============================================================
-   CREATE SESSION
+   SESSION
 ============================================================ */
 
 async function createSession(
   env,
   userId
-){
+) {
 
-  const rawToken =
-    randomToken(
-      32
-    );
+  const token =
+    randomToken(32);
 
 
   const tokenHash =
-    await sha256Hex(
-      rawToken
-    );
+    await sha256Hex(token);
 
 
   const expires =
@@ -1182,20 +850,14 @@ async function createSession(
 
 
   await env.DB
-    .prepare(
-      `
+    .prepare(`
       INSERT INTO auth_sessions (
         user_id,
         token_hash,
         expires_at
       )
-      VALUES (
-        ?,
-        ?,
-        ?
-      )
-      `
-    )
+      VALUES (?, ?, ?)
+    `)
     .bind(
       userId,
       tokenHash,
@@ -1205,22 +867,17 @@ async function createSession(
 
 
   return {
-    rawToken,
+    token,
     expiresAt
   };
 
 }
 
 
-
-/* ============================================================
-   COOKIE
-============================================================ */
-
 function buildSessionCookie(
   token,
   expiresAt
-){
+) {
 
   return [
     `${SESSION_COOKIE}=${token}`,
@@ -1228,22 +885,17 @@ function buildSessionCookie(
     "HttpOnly",
     "Secure",
     "SameSite=Lax",
-    `Expires=${new Date(
-      expiresAt
-    ).toUTCString()}`
+    `Expires=${new Date(expiresAt).toUTCString()}`
   ].join("; ");
 
 }
 
 
-
 /* ============================================================
-   PASSWORD HASHING
+   PASSWORD
 ============================================================ */
 
-async function hashPassword(
-  password
-){
+async function hashPassword(password) {
 
   const salt =
     crypto.getRandomValues(
@@ -1267,13 +919,9 @@ async function hashPassword(
     "pbkdf2",
     "sha256",
     iterations,
+    bytesToBase64(salt),
     bytesToBase64(
-      salt
-    ),
-    bytesToBase64(
-      new Uint8Array(
-        hash
-      )
+      new Uint8Array(hash)
     )
   ].join("$");
 
@@ -1282,24 +930,18 @@ async function hashPassword(
 
 async function verifyPassword(
   password,
-  storedHash
-){
+  stored
+) {
 
-  try{
+  try {
 
     const parts =
-      String(
-        storedHash
-      )
-      .split("$");
+      String(stored)
+        .split("$");
 
 
-    if(
-      parts.length !== 5
-    ){
-
+    if (parts.length !== 5) {
       return false;
-
     }
 
 
@@ -1307,46 +949,36 @@ async function verifyPassword(
       type,
       digest,
       iterationText,
-      saltBase64,
-      expectedBase64
+      saltText,
+      expectedText
     ] = parts;
 
 
-    if(
+    if (
       type !== "pbkdf2" ||
       digest !== "sha256"
-    ){
-
+    ) {
       return false;
-
     }
 
 
     const iterations =
-      Number(
-        iterationText
-      );
-
-
-    if(
-      !Number.isInteger(
-        iterations
-      ) ||
-      iterations < 100000
-    ){
-
-      return false;
-
-    }
+      Number(iterationText);
 
 
     const salt =
       base64ToBytes(
-        saltBase64
+        saltText
       );
 
 
-    const derived =
+    const expected =
+      base64ToBytes(
+        expectedText
+      );
+
+
+    const actual =
       new Uint8Array(
         await derivePassword(
           password,
@@ -1356,19 +988,13 @@ async function verifyPassword(
       );
 
 
-    const expected =
-      base64ToBytes(
-        expectedBase64
-      );
-
-
     return constantTimeEqual(
-      derived,
+      actual,
       expected
     );
 
 
-  }catch(error){
+  } catch {
 
     return false;
 
@@ -1381,53 +1007,47 @@ async function derivePassword(
   password,
   salt,
   iterations
-){
+) {
 
   const key =
-    await crypto.subtle
-      .importKey(
-        "raw",
-        new TextEncoder()
-          .encode(password),
-        "PBKDF2",
-        false,
-        [
-          "deriveBits"
-        ]
-      );
-
-
-  return crypto.subtle
-    .deriveBits(
-      {
-        name:"PBKDF2",
-        hash:"SHA-256",
-        salt,
-        iterations
-      },
-      key,
-      256
+    await crypto.subtle.importKey(
+      "raw",
+      new TextEncoder()
+        .encode(password),
+      "PBKDF2",
+      false,
+      ["deriveBits"]
     );
+
+
+  return crypto.subtle.deriveBits(
+    {
+      name: "PBKDF2",
+      hash: "SHA-256",
+      salt,
+      iterations
+    },
+    key,
+    256
+  );
 
 }
 
 
-
 /* ============================================================
-   USER ROLES
+   ROLES
 ============================================================ */
 
 async function getUserRoles(
   env,
   userId
-){
+) {
 
   const result =
     await env.DB
-      .prepare(
-        `
-        SELECT
-          r.code
+      .prepare(`
+        SELECT r.code
+
         FROM user_roles ur
 
         JOIN roles r
@@ -1436,47 +1056,40 @@ async function getUserRoles(
         WHERE ur.user_id = ?
 
         ORDER BY r.id
-        `
-      )
-      .bind(
-        userId
-      )
+      `)
+      .bind(userId)
       .all();
 
 
   return (
     result.results || []
   ).map(
-    item =>
-      item.code
+    item => item.code
   );
 
 }
 
 
-
 /* ============================================================
-   PERSONALIZED ASSESSMENT CONFIG
+   ASSESSMENT
 ============================================================ */
 
 function buildAssessmentConfiguration(
   situation,
   interests
-){
+) {
 
   const selected =
-    new Set(
-      interests || []
-    );
+    new Set(interests || []);
 
 
   let domains;
 
 
-  if(
+  if (
     situation === "lyceen" ||
     situation === "etudiant"
-  ){
+  ) {
 
     domains = [
       "organisation",
@@ -1488,10 +1101,10 @@ function buildAssessmentConfiguration(
 
   }
 
-  else if(
+  else if (
     situation === "salarie" ||
     situation === "independant"
-  ){
+  ) {
 
     domains = [
       "organisation",
@@ -1503,10 +1116,10 @@ function buildAssessmentConfiguration(
 
   }
 
-  else if(
+  else if (
     situation === "reconversion" ||
     situation === "recherche-emploi"
-  ){
+  ) {
 
     domains = [
       "carriere",
@@ -1518,7 +1131,7 @@ function buildAssessmentConfiguration(
 
   }
 
-  else{
+  else {
 
     domains = [
       "organisation",
@@ -1532,50 +1145,46 @@ function buildAssessmentConfiguration(
 
 
   domains.sort(
-    (a,b) =>
-      Number(
-        selected.has(b)
-      ) -
-      Number(
-        selected.has(a)
-      )
+    (a, b) =>
+      Number(selected.has(b)) -
+      Number(selected.has(a))
   );
 
 
   return {
-    totalQuestions:50,
+
+    totalQuestions: 50,
 
     domains:
       domains.map(
         domain => ({
           domain,
-          questions:10
+          questions: 10
         })
       )
+
   };
 
 }
-
 
 
 /* ============================================================
    AUDIT
 ============================================================ */
 
-async function writeAudit(
+async function safeAudit(
   env,
   actorUserId,
   action,
   entityType,
   entityId,
   details
-){
+) {
 
-  try{
+  try {
 
     await env.DB
-      .prepare(
-        `
+      .prepare(`
         INSERT INTO audit_log (
           actor_user_id,
           action,
@@ -1583,37 +1192,21 @@ async function writeAudit(
           entity_id,
           details_json
         )
-        VALUES (
-          ?,
-          ?,
-          ?,
-          ?,
-          ?
-        )
-        `
-      )
+        VALUES (?, ?, ?, ?, ?)
+      `)
       .bind(
         actorUserId || null,
         action,
         entityType || null,
-        entityId !== undefined
-        ?
-        String(
-          entityId
-        )
-        :
-        null,
-        JSON.stringify(
-          details || {}
-        )
+        entityId || null,
+        JSON.stringify(details || {})
       )
       .run();
 
-
-  }catch(error){
+  } catch (error) {
 
     console.error(
-      "Audit error",
+      "Audit error:",
       error
     );
 
@@ -1622,20 +1215,17 @@ async function writeAudit(
 }
 
 
-
 /* ============================================================
-   JSON
+   HELPERS
 ============================================================ */
 
-async function readJson(
-  request
-){
+async function readJson(request) {
 
-  try{
+  try {
 
     return await request.json();
 
-  }catch(error){
+  } catch {
 
     return null;
 
@@ -1647,23 +1237,21 @@ async function readJson(
 function json(
   data,
   status = 200,
-  extraHeaders = {}
-){
+  headers = {}
+) {
 
   return new Response(
-    JSON.stringify(
-      data
-    ),
+    JSON.stringify(data),
     {
       status,
-      headers:{
+      headers: {
         "Content-Type":
           "application/json; charset=utf-8",
 
         "Cache-Control":
           "no-store",
 
-        ...extraHeaders
+        ...headers
       }
     }
   );
@@ -1671,133 +1259,116 @@ function json(
 }
 
 
-
-/* ============================================================
-   VALIDATION
-============================================================ */
-
-function normalizeEmail(
-  value
-){
-
-  return String(
-    value || ""
-  )
-  .trim()
-  .toLowerCase()
-  .slice(
-    0,
-    254
-  );
-
-}
-
-
-function cleanString(
+function clean(
   value,
-  maxLength
-){
+  max
+) {
 
   return String(
     value || ""
   )
-  .trim()
-  .slice(
-    0,
-    maxLength
-  );
+    .trim()
+    .slice(0, max);
 
 }
 
 
-function isValidEmail(
-  email
-){
+function normalizeEmail(value) {
+
+  return String(
+    value || ""
+  )
+    .trim()
+    .toLowerCase()
+    .slice(0, 254);
+
+}
+
+
+function isValidEmail(email) {
 
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/
-    .test(
-      email
-    );
+    .test(email);
 
 }
 
 
-function invalidLogin(){
+function invalidCredentials() {
 
-  return json(
-    {
-      ok:false,
-      error:"INVALID_CREDENTIALS",
-      message:
-        "Email ou mot de passe incorrect."
-    },
-    401
-  );
+  return json({
+    ok: false,
+    error: "INVALID_CREDENTIALS",
+    message:
+      "Email ou mot de passe incorrect."
+  }, 401);
 
 }
 
+
+function parseJson(
+  value,
+  fallback
+) {
+
+  try {
+
+    return JSON.parse(value);
+
+  } catch {
+
+    return fallback;
+
+  }
+
+}
 
 
 /* ============================================================
-   COOKIE PARSING
+   COOKIE
 ============================================================ */
 
 function getCookie(
   request,
   name
-){
+) {
 
   const header =
-    request.headers
-      .get(
-        "Cookie"
-      );
+    request.headers.get(
+      "Cookie"
+    );
 
 
-  if(!header){
+  if (!header) {
 
     return null;
 
   }
 
 
-  const cookies =
-    header.split(";");
-
-
-  for(
-    const cookie
-    of cookies
-  ){
+  for (
+    const part
+    of header.split(";")
+  ) {
 
     const index =
-      cookie.indexOf("=");
+      part.indexOf("=");
 
 
-    if(
-      index === -1
-    ){
+    if (index === -1) {
       continue;
     }
 
 
     const key =
-      cookie
-        .slice(
-          0,
-          index
-        )
+      part
+        .slice(0, index)
         .trim();
 
 
-    if(
-      key === name
-    ){
+    if (key === name) {
 
-      return cookie
-        .slice(
-          index + 1
-        )
+      return part
+        .slice(index + 1)
         .trim();
 
     }
@@ -1810,20 +1381,15 @@ function getCookie(
 }
 
 
-
 /* ============================================================
-   CRYPTO HELPERS
+   CRYPTO
 ============================================================ */
 
-function randomToken(
-  size = 32
-){
+function randomToken(size = 32) {
 
   const bytes =
     crypto.getRandomValues(
-      new Uint8Array(
-        size
-      )
+      new Uint8Array(size)
     );
 
 
@@ -1834,119 +1400,84 @@ function randomToken(
 }
 
 
-async function sha256Hex(
-  value
-){
+async function sha256Hex(value) {
 
   const digest =
-    await crypto.subtle
-      .digest(
-        "SHA-256",
-        new TextEncoder()
-          .encode(
-            value
-          )
-      );
+    await crypto.subtle.digest(
+      "SHA-256",
+      new TextEncoder()
+        .encode(value)
+    );
 
 
   return Array
     .from(
-      new Uint8Array(
-        digest
-      )
+      new Uint8Array(digest)
     )
     .map(
-      byte =>
-        byte
+      value =>
+        value
           .toString(16)
-          .padStart(
-            2,
-            "0"
-          )
+          .padStart(2, "0")
     )
     .join("");
 
 }
 
 
-function bytesToBase64(
-  bytes
-){
+function bytesToBase64(bytes) {
 
-  let binary =
-    "";
+  let binary = "";
 
 
-  for(
-    const byte
-    of bytes
-  ){
+  for (const byte of bytes) {
 
     binary +=
-      String.fromCharCode(
-        byte
-      );
+      String.fromCharCode(byte);
 
   }
 
 
-  return btoa(
-    binary
-  );
+  return btoa(binary);
 
 }
 
 
-function base64ToBytes(
-  value
-){
+function base64ToBytes(value) {
 
   const binary =
     atob(value);
 
 
-  const bytes =
+  const result =
     new Uint8Array(
       binary.length
     );
 
 
-  for(
+  for (
     let i = 0;
     i < binary.length;
     i++
-  ){
+  ) {
 
-    bytes[i] =
+    result[i] =
       binary.charCodeAt(i);
 
   }
 
 
-  return bytes;
+  return result;
 
 }
 
 
-function bytesToBase64Url(
-  bytes
-){
+function bytesToBase64Url(bytes) {
 
-  return bytesToBase64(
-    bytes
-  )
-  .replaceAll(
-    "+",
-    "-"
-  )
-  .replaceAll(
-    "/",
-    "_"
-  )
-  .replaceAll(
-    "=",
-    ""
-  );
+  return bytesToBase64(bytes)
+    .replaceAll("+", "-")
+    .replaceAll("/", "_")
+    .replaceAll("=", "");
 
 }
 
@@ -1954,60 +1485,30 @@ function bytesToBase64Url(
 function constantTimeEqual(
   a,
   b
-){
+) {
 
-  if(
-    a.length !==
-    b.length
-  ){
+  if (a.length !== b.length) {
 
     return false;
 
   }
 
 
-  let result =
-    0;
+  let difference = 0;
 
 
-  for(
+  for (
     let i = 0;
     i < a.length;
     i++
-  ){
+  ) {
 
-    result |=
-      a[i] ^
-      b[i];
-
-  }
-
-
-  return result === 0;
-
-}
-
-
-
-/* ============================================================
-   SAFE JSON
-============================================================ */
-
-function safeJsonParse(
-  value,
-  fallback
-){
-
-  try{
-
-    return JSON.parse(
-      value
-    );
-
-  }catch(error){
-
-    return fallback;
+    difference |=
+      a[i] ^ b[i];
 
   }
+
+
+  return difference === 0;
 
 }
