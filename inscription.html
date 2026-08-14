@@ -1,0 +1,2512 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Créer mon compte — Life Upgrade</title>
+
+<meta
+  name="description"
+  content="Crée ton compte Life Upgrade pour obtenir un profil personnalisé, des évaluations de 50 questions, un tableau de bord et un plan de progression."
+>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+/* ============================================================
+   PAGE
+============================================================ */
+
+.signup-page{
+  padding:65px 0 80px;
+}
+
+.signup-grid{
+  display:grid;
+  grid-template-columns:360px 1fr;
+  gap:22px;
+  align-items:start;
+}
+
+.signup-intro{
+  position:sticky;
+  top:90px;
+  padding:24px;
+  border-radius:22px;
+  color:white;
+  background:linear-gradient(145deg,#11172b,#263452);
+}
+
+.signup-intro p{
+  margin-top:10px;
+  color:#b8c1d3;
+  font-size:12px;
+  line-height:1.6;
+}
+
+.signup-benefits{
+  display:grid;
+  gap:9px;
+  margin-top:20px;
+}
+
+.signup-benefit{
+  padding:12px;
+  border-radius:12px;
+  background:rgba(255,255,255,.07);
+}
+
+.signup-benefit strong{
+  display:block;
+  font-size:12px;
+}
+
+.signup-benefit span{
+  display:block;
+  margin-top:4px;
+  color:#b8c1d3;
+  font-size:10px;
+}
+
+.signup-panel{
+  padding:28px;
+  border:1px solid var(--border);
+  border-radius:22px;
+  background:white;
+}
+
+.signup-progress{
+  margin-bottom:24px;
+}
+
+.signup-progress-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:7px;
+  color:var(--muted);
+  font-size:10px;
+  font-weight:800;
+}
+
+.signup-progress-track{
+  height:8px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#e8ebf1;
+}
+
+.signup-progress-track i{
+  display:block;
+  height:100%;
+  border-radius:999px;
+  background:var(--primary);
+  transition:.25s;
+}
+
+.step{
+  display:none;
+}
+
+.step.active{
+  display:block;
+}
+
+.step h2{
+  margin-bottom:7px;
+}
+
+.step-intro{
+  margin-bottom:20px;
+  font-size:12px;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.form-group{
+  margin-top:14px;
+}
+
+.form-group label{
+  display:block;
+  margin-bottom:6px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea{
+  width:100%;
+  padding:11px 12px;
+  border:1px solid var(--border);
+  border-radius:10px;
+  background:white;
+  font:inherit;
+}
+
+.form-group textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+.choice-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:9px;
+  margin-top:16px;
+}
+
+.choice-card{
+  position:relative;
+}
+
+.choice-card input{
+  position:absolute;
+  opacity:0;
+  pointer-events:none;
+}
+
+.choice-card label{
+  display:block;
+  min-height:82px;
+  padding:14px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  cursor:pointer;
+  background:white;
+}
+
+.choice-card label:hover{
+  border-color:var(--primary);
+}
+
+.choice-card input:checked + label{
+  border-color:var(--primary);
+  background:#f3f2ff;
+}
+
+.choice-card strong{
+  display:block;
+  font-size:12px;
+}
+
+.choice-card span{
+  display:block;
+  margin-top:5px;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.checkbox-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:8px;
+  margin-top:14px;
+}
+
+.checkbox-item{
+  display:flex;
+  align-items:flex-start;
+  gap:8px;
+  padding:10px;
+  border:1px solid var(--border);
+  border-radius:11px;
+  font-size:11px;
+}
+
+.checkbox-item input{
+  margin-top:2px;
+}
+
+.step-actions{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:24px;
+}
+
+.step-actions button{
+  border:0;
+  cursor:pointer;
+}
+
+.profile-preview{
+  display:grid;
+  gap:10px;
+  margin-top:20px;
+}
+
+.preview-box{
+  padding:15px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:#f8f9fc;
+}
+
+.preview-box span{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:800;
+}
+
+.preview-box strong{
+  display:block;
+  margin-top:4px;
+}
+
+.test-plan{
+  display:grid;
+  gap:9px;
+  margin-top:18px;
+}
+
+.test-plan-item{
+  display:grid;
+  grid-template-columns:1fr 70px;
+  gap:10px;
+  align-items:center;
+  padding:12px;
+  border:1px solid var(--border);
+  border-radius:12px;
+  background:white;
+}
+
+.test-plan-item strong{
+  display:block;
+  font-size:12px;
+}
+
+.test-plan-item span{
+  display:block;
+  margin-top:3px;
+  color:var(--muted);
+  font-size:10px;
+}
+
+.test-count{
+  text-align:right;
+  color:var(--primary);
+  font-size:14px;
+  font-weight:900;
+}
+
+.final-card{
+  padding:22px;
+  border-radius:18px;
+  background:linear-gradient(145deg,#151b31,#293653);
+  color:white;
+}
+
+.final-card p{
+  margin-top:8px;
+  color:#bec6d5;
+  font-size:11px;
+}
+
+.account-note{
+  margin-top:18px;
+  padding:14px;
+  border-radius:13px;
+  background:#f5f4ff;
+  color:var(--muted);
+  font-size:11px;
+  line-height:1.6;
+}
+
+.success-screen{
+  display:none;
+  text-align:center;
+  padding:30px 10px;
+}
+
+.success-screen.show{
+  display:block;
+}
+
+.success-icon{
+  width:76px;
+  height:76px;
+  display:grid;
+  place-items:center;
+  margin:0 auto 16px;
+  border-radius:50%;
+  background:#e8f7f1;
+  color:#16815f;
+  font-size:32px;
+  font-weight:900;
+}
+
+@media(max-width:950px){
+
+  .signup-grid{
+    grid-template-columns:1fr;
+  }
+
+  .signup-intro{
+    position:static;
+  }
+
+}
+
+@media(max-width:650px){
+
+  .form-grid,
+  .choice-grid,
+  .checkbox-grid{
+    grid-template-columns:1fr;
+  }
+
+  .signup-panel{
+    padding:20px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div id="lifeUpgradeHeader"></div>
+
+
+<main class="signup-page">
+
+<div class="container signup-grid">
+
+
+<!-- ============================================================
+     INTRO
+============================================================ -->
+
+<aside class="signup-intro">
+
+  <span class="badge">
+    COMPTE GRATUIT
+  </span>
+
+  <h2 style="margin-top:9px;color:white">
+    Ton espace Life Upgrade
+  </h2>
+
+  <p>
+    L'inscription permet de construire un profil plus personnalisé,
+    de sauvegarder ta progression et de recevoir des évaluations
+    adaptées à ta situation.
+  </p>
+
+
+  <div class="signup-benefits">
+
+    <div class="signup-benefit">
+      <strong>Évaluations personnalisées</strong>
+      <span>
+        Jusqu'à 50 questions/épreuves selon ton profil.
+      </span>
+    </div>
+
+    <div class="signup-benefit">
+      <strong>Dashboard</strong>
+      <span>
+        Tests, cours, objectifs, sessions et progression.
+      </span>
+    </div>
+
+    <div class="signup-benefit">
+      <strong>Trajectoire sauvegardée</strong>
+      <span>
+        Vie personnelle et objectif professionnel.
+      </span>
+    </div>
+
+    <div class="signup-benefit">
+      <strong>Parcours recommandés</strong>
+      <span>
+        Selon tes objectifs et les évaluations réalisées.
+      </span>
+    </div>
+
+    <div class="signup-benefit">
+      <strong>Communauté</strong>
+      <span>
+        Participation au forum, sondages et sessions.
+      </span>
+    </div>
+
+  </div>
+
+</aside>
+
+
+
+<!-- ============================================================
+     SIGNUP
+============================================================ -->
+
+<section class="signup-panel">
+
+
+  <div id="signupFormArea">
+
+
+    <div class="signup-progress">
+
+      <div class="signup-progress-top">
+
+        <span id="stepLabel">
+          Étape 1 sur 6
+        </span>
+
+        <span id="stepPercent">
+          17 %
+        </span>
+
+      </div>
+
+      <div class="signup-progress-track">
+        <i id="signupProgressBar" style="width:17%"></i>
+      </div>
+
+    </div>
+
+
+
+    <!-- ========================================================
+         STEP 1
+    ========================================================= -->
+
+    <div
+      class="step active"
+      data-step="1"
+    >
+
+      <div class="eyebrow">
+        COMPTE
+      </div>
+
+      <h2>
+        Commençons par ton profil.
+      </h2>
+
+      <p class="step-intro">
+        Ces informations seront utilisées pour ton compte Life Upgrade.
+      </p>
+
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="firstName">
+            Prénom
+          </label>
+          <input
+            id="firstName"
+            autocomplete="given-name"
+            placeholder="Prénom"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">
+            Nom
+          </label>
+          <input
+            id="lastName"
+            autocomplete="family-name"
+            placeholder="Nom"
+          >
+        </div>
+
+      </div>
+
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="country">
+            Pays
+          </label>
+
+          <select id="country">
+            <option value="">Choisir...</option>
+            <option>France</option>
+            <option>Belgique</option>
+            <option>Suisse</option>
+            <option>Luxembourg</option>
+            <option>Maroc</option>
+            <option>Algérie</option>
+            <option>Tunisie</option>
+            <option>Canada</option>
+            <option>Sénégal</option>
+            <option>Côte d'Ivoire</option>
+            <option>Cameroun</option>
+            <option>Autre</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="phone">
+            Numéro de téléphone
+          </label>
+          <input
+            id="phone"
+            type="tel"
+            autocomplete="tel"
+            placeholder="+33..."
+          >
+        </div>
+
+      </div>
+
+
+      <div class="form-group">
+        <label for="email">
+          Email
+        </label>
+        <input
+          id="email"
+          type="email"
+          autocomplete="email"
+          placeholder="nom@exemple.com"
+        >
+      </div>
+
+
+      <div class="form-grid">
+
+        <div class="form-group">
+          <label for="password">
+            Mot de passe
+          </label>
+          <input
+            id="password"
+            type="password"
+            autocomplete="new-password"
+            placeholder="8 caractères minimum"
+          >
+        </div>
+
+        <div class="form-group">
+          <label for="passwordConfirm">
+            Confirmer
+          </label>
+          <input
+            id="passwordConfirm"
+            type="password"
+            autocomplete="new-password"
+            placeholder="Confirme le mot de passe"
+          >
+        </div>
+
+      </div>
+
+
+      <div class="step-actions">
+
+        <span></span>
+
+        <button
+          class="button primary"
+          onclick="nextStep()"
+        >
+          Continuer →
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ========================================================
+         STEP 2
+    ========================================================= -->
+
+    <div
+      class="step"
+      data-step="2"
+    >
+
+      <div class="eyebrow">
+        SITUATION
+      </div>
+
+      <h2>
+        Où en es-tu actuellement ?
+      </h2>
+
+      <p class="step-intro">
+        Choisis la situation principale qui correspond le mieux à ta situation actuelle.
+      </p>
+
+
+      <div class="choice-grid">
+
+
+        <div class="choice-card">
+          <input
+            type="radio"
+            name="situation"
+            id="situationLycee"
+            value="lyceen"
+          >
+          <label for="situationLycee">
+            <strong>Lycée</strong>
+            <span>
+              Orientation, méthodes et préparation des études.
+            </span>
+          </label>
+        </div>
+
+
+        <div class="choice-card">
+          <input
+            type="radio"
+            name="situation"
+            id="situationEtudiant"
+            value="etudiant"
+          >
+          <label for="situationEtudiant">
+            <strong>Études supérieures</strong>
+            <span>
+              Méthodes, examens, stages et employabilité.
+            </span>
+          </label>
+        </div>
+
+
+        <div class="choice-card">
+          <input
+            type="radio"
+            name="situation"
+            id="situationSalarie"
+            value="salarie"
+          >
+          <label for="situationSalarie">
+            <strong>Salarié</strong>
+            <span>
+              Performance, carrière, compétences et évolution.
+            </span>
+          </label>
+        </div>
+
+
+        <div class="choice-card">
+          <input
+            type="radio"
+            name="situation"
+            id="situationIndependent"
+            value="independant"
+          >
+          <label for="situationIndependent">
+            <strong>Indépendant / entrepreneur</strong>
+            <span>
+              Organisation, compétences, développement et décisions.
+            </span>
+          </label>
+        </div>
+
+
+        <div class="choice-card">
+          <input
+            type="radio"
+            name="situation"
+            id="situationRecherche"
+            value="recherche-emploi"
+          >
+          <label for="situationRecherche">
+            <strong>Recherche d'emploi</strong>
+            <span>
+              Employabilité, compétences, CV et entretiens.
+            </span>
+          </label>
+        </div>
+
+
+        <div class="choice-card">
+          <input
+            type="radio"
+            name="situation"
+            id="situationReconversion"
+            value="reconversion"
+          >
+          <label for="situationReconversion">
+            <strong>Reconversion</strong>
+            <span>
+              Orientation, compétences transférables et Career Gap.
+            </span>
+          </label>
+        </div>
+
+
+        <div class="choice-card">
+          <input
+            type="radio"
+            name="situation"
+            id="situationParent"
+            value="parent"
+          >
+          <label for="situationParent">
+            <strong>Parent</strong>
+            <span>
+              Orientation et accompagnement d'un jeune.
+            </span>
+          </label>
+        </div>
+
+
+        <div class="choice-card">
+          <input
+            type="radio"
+            name="situation"
+            id="situationOther"
+            value="autre"
+          >
+          <label for="situationOther">
+            <strong>Autre</strong>
+            <span>
+              Construire un profil plus général.
+            </span>
+          </label>
+        </div>
+
+
+      </div>
+
+
+      <div class="step-actions">
+
+        <button
+          class="button secondary"
+          onclick="previousStep()"
+        >
+          ← Retour
+        </button>
+
+        <button
+          class="button primary"
+          onclick="nextStep()"
+        >
+          Continuer →
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ========================================================
+         STEP 3
+    ========================================================= -->
+
+    <div
+      class="step"
+      data-step="3"
+    >
+
+      <div class="eyebrow">
+        OBJECTIFS
+      </div>
+
+      <h2>
+        Qu'aimerais-tu améliorer ?
+      </h2>
+
+      <p class="step-intro">
+        Tu peux sélectionner plusieurs domaines.
+      </p>
+
+
+      <div class="checkbox-grid">
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="organisation"
+            data-interest
+          >
+          Organisation
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="gestion-temps"
+            data-interest
+          >
+          Gestion du temps
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="concentration"
+            data-interest
+          >
+          Concentration
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="memoire"
+            data-interest
+          >
+          Mémoire
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="habitudes"
+            data-interest
+          >
+          Habitudes & régularité
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="stress"
+            data-interest
+          >
+          Gestion de la pression quotidienne
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="intelligence-emotionnelle"
+            data-interest
+          >
+          Intelligence émotionnelle
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="communication"
+            data-interest
+          >
+          Communication
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="prise-parole"
+            data-interest
+          >
+          Prise de parole
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="confiance"
+            data-interest
+          >
+          Confiance & affirmation
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="leadership"
+            data-interest
+          >
+          Leadership
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="management"
+            data-interest
+          >
+          Management
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="negociation"
+            data-interest
+          >
+          Négociation
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="gestion-conflit"
+            data-interest
+          >
+          Gestion des conflits
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="decision"
+            data-interest
+          >
+          Prise de décision
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="esprit-critique"
+            data-interest
+          >
+          Esprit critique
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="carriere"
+            data-interest
+          >
+          Carrière
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="reconversion"
+            data-interest
+          >
+          Reconversion
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="orientation"
+            data-interest
+          >
+          Orientation
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="etudes"
+            data-interest
+          >
+          Études & examens
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="employabilite"
+            data-interest
+          >
+          Employabilité
+        </label>
+
+        <label class="checkbox-item">
+          <input
+            type="checkbox"
+            value="culture"
+            data-interest
+          >
+          Culture générale
+        </label>
+
+      </div>
+
+
+      <div class="step-actions">
+
+        <button
+          class="button secondary"
+          onclick="previousStep()"
+        >
+          ← Retour
+        </button>
+
+        <button
+          class="button primary"
+          onclick="nextStep()"
+        >
+          Continuer →
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ========================================================
+         STEP 4
+    ========================================================= -->
+
+    <div
+      class="step"
+      data-step="4"
+    >
+
+      <div class="eyebrow">
+        TRAJECTOIRE
+      </div>
+
+      <h2>
+        Qu'aimerais-tu obtenir ?
+      </h2>
+
+      <p class="step-intro">
+        Ces objectifs aideront Life Upgrade à mieux organiser ton plan.
+      </p>
+
+
+      <div class="form-group">
+
+        <label for="goal90">
+          Dans les 3 prochains mois
+        </label>
+
+        <textarea
+          id="goal90"
+          placeholder="Ex. mieux organiser mes journées, préparer un examen, améliorer ma prise de parole..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="goal365">
+          Dans un an
+        </label>
+
+        <textarea
+          id="goal365"
+          placeholder="Ex. évoluer professionnellement, être prêt pour une reconversion, réussir mon année..."
+        ></textarea>
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label for="weeklyTime">
+          Temps réaliste que tu peux consacrer à Life Upgrade chaque semaine
+        </label>
+
+        <select id="weeklyTime">
+
+          <option value="1">
+            Moins de 1 heure
+          </option>
+
+          <option value="2">
+            1 à 2 heures
+          </option>
+
+          <option value="4">
+            2 à 4 heures
+          </option>
+
+          <option value="6">
+            4 à 6 heures
+          </option>
+
+          <option value="8">
+            Plus de 6 heures
+          </option>
+
+        </select>
+
+      </div>
+
+
+      <div class="step-actions">
+
+        <button
+          class="button secondary"
+          onclick="previousStep()"
+        >
+          ← Retour
+        </button>
+
+        <button
+          class="button primary"
+          onclick="nextStep()"
+        >
+          Construire mon évaluation →
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ========================================================
+         STEP 5
+    ========================================================= -->
+
+    <div
+      class="step"
+      data-step="5"
+    >
+
+      <div class="eyebrow">
+        ÉVALUATION PERSONNALISÉE
+      </div>
+
+      <h2>
+        Ton diagnostic de départ.
+      </h2>
+
+      <p class="step-intro">
+        Life Upgrade compose une évaluation de 50 questions/épreuves
+        à partir de ta situation et de tes priorités.
+      </p>
+
+
+      <div
+        id="testPlan"
+        class="test-plan"
+      ></div>
+
+
+      <div class="account-note">
+
+        <strong>
+          Important :
+        </strong>
+
+        les résultats futurs seront des scores Life Upgrade
+        construits à partir des activités réalisées.
+        Ils ne constituent pas un diagnostic médical,
+        psychologique ou une mesure scientifique générale de la personne.
+
+      </div>
+
+
+      <div class="step-actions">
+
+        <button
+          class="button secondary"
+          onclick="previousStep()"
+        >
+          ← Modifier mon profil
+        </button>
+
+        <button
+          class="button primary"
+          onclick="nextStep()"
+        >
+          Continuer →
+        </button>
+
+      </div>
+
+    </div>
+
+
+
+    <!-- ========================================================
+         STEP 6
+    ========================================================= -->
+
+    <div
+      class="step"
+      data-step="6"
+    >
+
+      <div class="eyebrow">
+        RÉCAPITULATIF
+      </div>
+
+      <h2>
+        Ton espace est prêt à être créé.
+      </h2>
+
+      <p class="step-intro">
+        Vérifie les principales informations avant de continuer.
+      </p>
+
+
+      <div
+        id="profilePreview"
+        class="profile-preview"
+      ></div>
+
+
+      <div class="final-card">
+
+        <span class="badge">
+          COMPTE GRATUIT
+        </span>
+
+        <h3 style="margin-top:9px;color:white">
+          Inclus dès l'inscription
+        </h3>
+
+        <p>
+          Tests publics + évaluation personnalisée de 50 questions,
+          dashboard, trajectoire, cours gratuits, sessions,
+          forum, objectifs et historique.
+        </p>
+
+      </div>
+
+
+      <div class="account-note">
+
+        Pour ce prototype, le compte sera sauvegardé uniquement
+        sur ce navigateur. Nous remplacerons ensuite ce mécanisme
+        par une véritable authentification Cloudflare + D1.
+
+      </div>
+
+
+      <div class="step-actions">
+
+        <button
+          class="button secondary"
+          onclick="previousStep()"
+        >
+          ← Retour
+        </button>
+
+        <button
+          class="button primary"
+          onclick="createPrototypeAccount()"
+        >
+          Créer mon espace
+        </button>
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+
+
+  <!-- ============================================================
+       SUCCESS
+  ============================================================ -->
+
+  <div
+    id="signupSuccess"
+    class="success-screen"
+  >
+
+    <div class="success-icon">
+      ✓
+    </div>
+
+    <h2>
+      Ton espace Life Upgrade est créé.
+    </h2>
+
+    <p style="margin-top:8px">
+      Pour cette version, ton profil est enregistré uniquement
+      dans ce navigateur.
+    </p>
+
+    <div
+      style="
+        margin-top:22px;
+        display:flex;
+        justify-content:center;
+        flex-wrap:wrap;
+        gap:8px
+      "
+    >
+
+      <a
+        class="button primary"
+        href="dashboard.html"
+      >
+        Ouvrir mon dashboard
+      </a>
+
+      <a
+        class="button secondary"
+        href="tests.html"
+      >
+        Voir les tests
+      </a>
+
+    </div>
+
+  </div>
+
+
+</section>
+
+</div>
+
+</main>
+
+
+<div id="lifeUpgradeFooter"></div>
+
+
+<script src="common.js"></script>
+
+
+<script>
+
+/* ============================================================
+   CONFIG
+============================================================ */
+
+const PROFILE_KEY =
+  "lifeUpgradeProfile";
+
+const ACCOUNT_KEY =
+  "lifeUpgradePrototypeAccount";
+
+const TOTAL_STEPS =
+  6;
+
+let currentStep =
+  1;
+
+
+/* ============================================================
+   STEP ENGINE
+============================================================ */
+
+function showStep(step){
+
+  currentStep =
+    Math.max(
+      1,
+      Math.min(
+        TOTAL_STEPS,
+        step
+      )
+    );
+
+
+  document
+    .querySelectorAll(
+      ".step"
+    )
+    .forEach(
+      item => {
+
+        item.classList.toggle(
+          "active",
+          Number(
+            item.dataset.step
+          ) === currentStep
+        );
+
+      }
+    );
+
+
+  const percentage =
+    Math.round(
+      (
+        currentStep /
+        TOTAL_STEPS
+      ) * 100
+    );
+
+
+  document
+    .getElementById(
+      "stepLabel"
+    )
+    .textContent =
+      `Étape ${currentStep} sur ${TOTAL_STEPS}`;
+
+
+  document
+    .getElementById(
+      "stepPercent"
+    )
+    .textContent =
+      percentage + " %";
+
+
+  document
+    .getElementById(
+      "signupProgressBar"
+    )
+    .style.width =
+      percentage + "%";
+
+
+  if(
+    currentStep === 5
+  ){
+
+    renderPersonalizedTestPlan();
+
+  }
+
+
+  if(
+    currentStep === 6
+  ){
+
+    renderProfilePreview();
+
+  }
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+function nextStep(){
+
+  if(
+    !validateCurrentStep()
+  ){
+    return;
+  }
+
+
+  showStep(
+    currentStep + 1
+  );
+
+}
+
+
+function previousStep(){
+
+  showStep(
+    currentStep - 1
+  );
+
+}
+
+
+/* ============================================================
+   VALIDATION
+============================================================ */
+
+function validateCurrentStep(){
+
+  if(
+    currentStep === 1
+  ){
+
+    const firstName =
+      document
+        .getElementById(
+          "firstName"
+        )
+        .value
+        .trim();
+
+
+    const lastName =
+      document
+        .getElementById(
+          "lastName"
+        )
+        .value
+        .trim();
+
+
+    const country =
+      document
+        .getElementById(
+          "country"
+        )
+        .value;
+
+
+    const phone =
+      document
+        .getElementById(
+          "phone"
+        )
+        .value
+        .trim();
+
+
+    const email =
+      document
+        .getElementById(
+          "email"
+        )
+        .value
+        .trim();
+
+
+    const password =
+      document
+        .getElementById(
+          "password"
+        )
+        .value;
+
+
+    const confirmPassword =
+      document
+        .getElementById(
+          "passwordConfirm"
+        )
+        .value;
+
+
+    if(
+      !firstName ||
+      !lastName ||
+      !country ||
+      !phone ||
+      !email
+    ){
+
+      alert(
+        "Complète tous les champs principaux."
+      );
+
+      return false;
+
+    }
+
+
+    if(
+      !email.includes("@")
+    ){
+
+      alert(
+        "Entre une adresse email valide."
+      );
+
+      return false;
+
+    }
+
+
+    if(
+      password.length < 8
+    ){
+
+      alert(
+        "Le mot de passe doit contenir au moins 8 caractères."
+      );
+
+      return false;
+
+    }
+
+
+    if(
+      password !==
+      confirmPassword
+    ){
+
+      alert(
+        "Les deux mots de passe ne correspondent pas."
+      );
+
+      return false;
+
+    }
+
+  }
+
+
+  if(
+    currentStep === 2
+  ){
+
+    const situation =
+      getSituation();
+
+
+    if(!situation){
+
+      alert(
+        "Choisis ta situation actuelle."
+      );
+
+      return false;
+
+    }
+
+  }
+
+
+  if(
+    currentStep === 3
+  ){
+
+    const interests =
+      getInterests();
+
+
+    if(
+      interests.length === 0
+    ){
+
+      alert(
+        "Choisis au moins un domaine que tu souhaites développer."
+      );
+
+      return false;
+
+    }
+
+  }
+
+
+  return true;
+
+}
+
+
+/* ============================================================
+   PROFILE DATA
+============================================================ */
+
+function getSituation(){
+
+  const selected =
+    document
+      .querySelector(
+        'input[name="situation"]:checked'
+      );
+
+
+  return selected
+    ?
+    selected.value
+    :
+    null;
+
+}
+
+
+function getInterests(){
+
+  return Array
+    .from(
+      document
+        .querySelectorAll(
+          "[data-interest]:checked"
+        )
+    )
+    .map(
+      input =>
+        input.value
+    );
+
+}
+
+
+function getProfileData(){
+
+  return {
+
+    firstName:
+      document
+        .getElementById(
+          "firstName"
+        )
+        .value
+        .trim(),
+
+    lastName:
+      document
+        .getElementById(
+          "lastName"
+        )
+        .value
+        .trim(),
+
+    country:
+      document
+        .getElementById(
+          "country"
+        )
+        .value,
+
+    phone:
+      document
+        .getElementById(
+          "phone"
+        )
+        .value
+        .trim(),
+
+    email:
+      document
+        .getElementById(
+          "email"
+        )
+        .value
+        .trim(),
+
+    situation:
+      getSituation(),
+
+    interests:
+      getInterests(),
+
+    goal90:
+      document
+        .getElementById(
+          "goal90"
+        )
+        .value
+        .trim(),
+
+    goal365:
+      document
+        .getElementById(
+          "goal365"
+        )
+        .value
+        .trim(),
+
+    weeklyTime:
+      Number(
+        document
+          .getElementById(
+            "weeklyTime"
+          )
+          .value
+      ),
+
+    createdAt:
+      new Date()
+        .toISOString()
+
+  };
+
+}
+
+
+/* ============================================================
+   TEST PLAN
+============================================================ */
+
+function renderPersonalizedTestPlan(){
+
+  const profile =
+    getProfileData();
+
+
+  const plan =
+    buildPersonalizedAssessment(
+      profile
+    );
+
+
+  document
+    .getElementById(
+      "testPlan"
+    )
+    .innerHTML =
+      plan.map(
+        item => `
+
+          <div class="test-plan-item">
+
+            <div>
+
+              <strong>
+                ${item.label}
+              </strong>
+
+              <span>
+                ${item.description}
+              </span>
+
+            </div>
+
+            <div class="test-count">
+              ${item.questions} Q
+            </div>
+
+          </div>
+
+        `
+      )
+      .join("")
+      +
+
+      `
+
+      <div
+        class="test-plan-item"
+        style="
+          border-color:#c9c6ff;
+          background:#f6f5ff
+        "
+      >
+
+        <div>
+
+          <strong>
+            TOTAL
+          </strong>
+
+          <span>
+            Évaluation personnalisée Life Upgrade
+          </span>
+
+        </div>
+
+        <div class="test-count">
+          50 Q
+        </div>
+
+      </div>
+
+      `;
+
+}
+
+
+function buildPersonalizedAssessment(
+  profile
+){
+
+  const situation =
+    profile.situation;
+
+
+  const interests =
+    profile.interests;
+
+
+  let domains = [];
+
+
+  /*
+    PROFILS ÉTUDES
+  */
+
+  if(
+    situation === "lyceen" ||
+    situation === "etudiant"
+  ){
+
+    domains = [
+
+      {
+        key:"organisation",
+        label:"Organisation & méthodes",
+        description:"Planification, préparation et méthodes de travail."
+      },
+
+      {
+        key:"concentration",
+        label:"Concentration",
+        description:"Attention, distractions et sessions de travail."
+      },
+
+      {
+        key:"memoire",
+        label:"Mémoire & apprentissage",
+        description:"Rappel, mémorisation et apprentissage."
+      },
+
+      {
+        key:"gestion-temps",
+        label:"Gestion du temps",
+        description:"Priorités, échéances et charge de travail."
+      },
+
+      {
+        key:"orientation",
+        label:"Orientation & objectifs",
+        description:"Intérêts, préférences et prochaines étapes."
+      }
+
+    ];
+
+  }
+
+
+  /*
+    PROFILS PROFESSIONNELS
+  */
+
+  else if(
+    situation === "salarie" ||
+    situation === "independant"
+  ){
+
+    domains = [
+
+      {
+        key:"organisation",
+        label:"Organisation professionnelle",
+        description:"Priorités, planification et charge de travail."
+      },
+
+      {
+        key:"communication",
+        label:"Communication",
+        description:"Écoute, feedback et expression professionnelle."
+      },
+
+      {
+        key:"intelligence-emotionnelle",
+        label:"Intelligence émotionnelle",
+        description:"Réactions, empathie et situations professionnelles."
+      },
+
+      {
+        key:"decision",
+        label:"Décision & résolution de problèmes",
+        description:"Analyse, options et choix."
+      },
+
+      {
+        key:"carriere",
+        label:"Carrière & compétences",
+        description:"Objectifs, compétences et évolution."
+      }
+
+    ];
+
+  }
+
+
+  /*
+    RECONVERSION / EMPLOI
+  */
+
+  else if(
+    situation === "reconversion" ||
+    situation === "recherche-emploi"
+  ){
+
+    domains = [
+
+      {
+        key:"carriere",
+        label:"Objectif professionnel",
+        description:"Direction, motivations et projet."
+      },
+
+      {
+        key:"reconversion",
+        label:"Compétences transférables",
+        description:"Expériences et compétences réutilisables."
+      },
+
+      {
+        key:"orientation",
+        label:"Préférences professionnelles",
+        description:"Environnement, contraintes et intérêts."
+      },
+
+      {
+        key:"communication",
+        label:"Communication & employabilité",
+        description:"Présentation, entretiens et relations."
+      },
+
+      {
+        key:"adaptabilite",
+        label:"Adaptabilité",
+        description:"Apprentissage et changement."
+      }
+
+    ];
+
+  }
+
+
+  /*
+    PARENT
+  */
+
+  else if(
+    situation === "parent"
+  ){
+
+    domains = [
+
+      {
+        key:"orientation",
+        label:"Comprendre l'orientation",
+        description:"Pistes, informations et accompagnement."
+      },
+
+      {
+        key:"communication",
+        label:"Communication",
+        description:"Écoute, questions et discussion."
+      },
+
+      {
+        key:"organisation",
+        label:"Organisation",
+        description:"Échéances et suivi."
+      },
+
+      {
+        key:"intelligence-emotionnelle",
+        label:"Intelligence émotionnelle",
+        description:"Écoute et compréhension des réactions."
+      },
+
+      {
+        key:"culture",
+        label:"Culture études & métiers",
+        description:"Compréhension des parcours possibles."
+      }
+
+    ];
+
+  }
+
+
+  /*
+    AUTRE
+  */
+
+  else{
+
+    domains = [
+
+      {
+        key:"organisation",
+        label:"Organisation",
+        description:"Structure et priorités."
+      },
+
+      {
+        key:"concentration",
+        label:"Concentration",
+        description:"Attention et distractions."
+      },
+
+      {
+        key:"intelligence-emotionnelle",
+        label:"Intelligence émotionnelle",
+        description:"Réactions et relations."
+      },
+
+      {
+        key:"communication",
+        label:"Communication",
+        description:"Écoute et expression."
+      },
+
+      {
+        key:"objectifs",
+        label:"Objectifs & progression",
+        description:"Priorités et trajectoire."
+      }
+
+    ];
+
+  }
+
+
+  /*
+    On donne une priorité aux domaines explicitement
+    choisis par l'utilisateur lorsqu'ils sont déjà présents.
+  */
+
+  domains.sort(
+    (
+      a,
+      b
+    ) => {
+
+      const aSelected =
+        interests.includes(
+          a.key
+        )
+        ?
+        1
+        :
+        0;
+
+
+      const bSelected =
+        interests.includes(
+          b.key
+        )
+        ?
+        1
+        :
+        0;
+
+
+      return (
+        bSelected -
+        aSelected
+      );
+
+    }
+  );
+
+
+  return domains.map(
+    item => ({
+      ...item,
+      questions:10
+    })
+  );
+
+}
+
+
+/* ============================================================
+   PREVIEW
+============================================================ */
+
+function renderProfilePreview(){
+
+  const profile =
+    getProfileData();
+
+
+  const situationLabels = {
+
+    lyceen:"Lycée",
+    etudiant:"Études supérieures",
+    salarie:"Salarié",
+    independant:"Indépendant / entrepreneur",
+    "recherche-emploi":"Recherche d'emploi",
+    reconversion:"Reconversion",
+    parent:"Parent",
+    autre:"Autre"
+
+  };
+
+
+  document
+    .getElementById(
+      "profilePreview"
+    )
+    .innerHTML = `
+
+      <div class="preview-box">
+
+        <span>
+          PROFIL
+        </span>
+
+        <strong>
+          ${escapeHTML(
+            profile.firstName
+          )}
+          ${escapeHTML(
+            profile.lastName
+          )}
+        </strong>
+
+      </div>
+
+
+      <div class="preview-box">
+
+        <span>
+          SITUATION
+        </span>
+
+        <strong>
+          ${
+            situationLabels[
+              profile.situation
+            ]
+            ||
+            profile.situation
+          }
+        </strong>
+
+      </div>
+
+
+      <div class="preview-box">
+
+        <span>
+          DOMAINES SÉLECTIONNÉS
+        </span>
+
+        <strong>
+          ${profile.interests.length}
+          domaine(s)
+        </strong>
+
+      </div>
+
+
+      <div class="preview-box">
+
+        <span>
+          TEMPS DISPONIBLE
+        </span>
+
+        <strong>
+          Environ
+          ${profile.weeklyTime}
+          h / semaine
+        </strong>
+
+      </div>
+
+
+      <div class="preview-box">
+
+        <span>
+          PREMIÈRE ÉVALUATION
+        </span>
+
+        <strong>
+          50 questions / épreuves
+        </strong>
+
+      </div>
+
+    `;
+
+}
+
+
+/* ============================================================
+   CREATE LOCAL ACCOUNT
+============================================================ */
+
+function createPrototypeAccount(){
+
+  const profile =
+    getProfileData();
+
+
+  const account = {
+
+    id:
+      "LU-" +
+      Date.now(),
+
+    role:"MEMBER",
+
+    subscription:"FREE",
+
+    profile:profile,
+
+    assessmentPlan:
+      buildPersonalizedAssessment(
+        profile
+      ),
+
+    createdAt:
+      new Date()
+        .toISOString()
+
+  };
+
+
+  /*
+    IMPORTANT :
+    on ne sauvegarde volontairement PAS
+    le mot de passe en localStorage.
+  */
+
+
+  lifeUpgradeSetStorage(
+    PROFILE_KEY,
+    profile
+  );
+
+
+  lifeUpgradeSetStorage(
+    ACCOUNT_KEY,
+    account
+  );
+
+
+  /*
+    Si une trajectoire existe déjà,
+    elle reste disponible et pourra
+    être lue par le dashboard.
+  */
+
+
+  document
+    .getElementById(
+      "signupFormArea"
+    )
+    .style.display =
+      "none";
+
+
+  document
+    .getElementById(
+      "signupSuccess"
+    )
+    .classList.add(
+      "show"
+    );
+
+
+  window.scrollTo({
+    top:0,
+    behavior:"smooth"
+  });
+
+}
+
+
+/* ============================================================
+   LOAD EXISTING DATA
+============================================================ */
+
+function loadExistingProfile(){
+
+  const profile =
+    lifeUpgradeGetStorage(
+      PROFILE_KEY,
+      null
+    );
+
+
+  if(!profile){
+    return;
+  }
+
+
+  const mappings = {
+
+    firstName:"firstName",
+    lastName:"lastName",
+    country:"country",
+    phone:"phone",
+    email:"email",
+    goal90:"goal90",
+    goal365:"goal365"
+
+  };
+
+
+  Object
+    .entries(
+      mappings
+    )
+    .forEach(
+      (
+        [
+          key,
+          id
+        ]
+      ) => {
+
+        if(
+          profile[key] !==
+          undefined
+        ){
+
+          document
+            .getElementById(id)
+            .value =
+              profile[key];
+
+        }
+
+      }
+    );
+
+
+  if(
+    profile.weeklyTime !==
+    undefined
+  ){
+
+    document
+      .getElementById(
+        "weeklyTime"
+      )
+      .value =
+        profile.weeklyTime;
+
+  }
+
+
+  if(
+    profile.situation
+  ){
+
+    const radio =
+      document
+        .querySelector(
+          `input[name="situation"][value="${profile.situation}"]`
+        );
+
+
+    if(radio){
+      radio.checked = true;
+    }
+
+  }
+
+
+  (
+    profile.interests ||
+    []
+  )
+  .forEach(
+    interest => {
+
+      const checkbox =
+        document
+          .querySelector(
+            `[data-interest][value="${interest}"]`
+          );
+
+
+      if(checkbox){
+        checkbox.checked = true;
+      }
+
+    }
+  );
+
+}
+
+
+/* ============================================================
+   INIT
+============================================================ */
+
+document.addEventListener(
+  "DOMContentLoaded",
+  function(){
+
+    loadExistingProfile();
+
+    showStep(1);
+
+  }
+);
+
+</script>
+
+</body>
+</html>
