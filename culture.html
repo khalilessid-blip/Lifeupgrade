@@ -1,0 +1,1559 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Culture & Curiosité — Life Upgrade</title>
+
+<meta
+  name="description"
+  content="Culture générale Life Upgrade : astronomie, sciences, histoire, technologie, économie, société, quiz et discussions."
+>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+
+.page-hero{
+  padding:70px 0 48px;
+}
+
+.page-hero-grid{
+  display:grid;
+  grid-template-columns:1fr 340px;
+  gap:28px;
+  align-items:center;
+}
+
+.page-hero p{
+  max-width:760px;
+  margin-top:15px;
+  font-size:17px;
+}
+
+.culture-summary{
+  padding:24px;
+  border-radius:22px;
+  color:white;
+  background:linear-gradient(145deg,#11172b,#263452);
+}
+
+.culture-summary p{
+  color:#b8c1d3;
+  font-size:12px;
+}
+
+.culture-summary-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:16px;
+}
+
+.culture-summary-item{
+  padding:12px;
+  border-radius:12px;
+  background:rgba(255,255,255,.07);
+}
+
+.culture-summary-item span{
+  display:block;
+  color:#adb8cb;
+  font-size:9px;
+}
+
+.culture-summary-item strong{
+  display:block;
+  margin-top:3px;
+  font-size:20px;
+}
+
+.category-nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:24px;
+}
+
+.category-nav a{
+  padding:8px 11px;
+  border-radius:999px;
+  border:1px solid var(--border);
+  background:white;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:800;
+}
+
+.category-nav a:hover{
+  color:var(--primary);
+  border-color:var(--primary);
+}
+
+.culture-section{
+  padding:72px 0;
+}
+
+.culture-section.white{
+  background:white;
+}
+
+.topic-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.topic-card{
+  display:flex;
+  flex-direction:column;
+  min-height:285px;
+  padding:22px;
+  border-radius:20px;
+  background:white;
+  border:1px solid var(--border);
+  transition:.2s;
+}
+
+.white .topic-card{
+  background:#f8f9fc;
+}
+
+.topic-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
+}
+
+.topic-card h3{
+  margin-top:6px;
+}
+
+.topic-card p{
+  margin-top:8px;
+  font-size:12px;
+}
+
+.topic-meta{
+  display:flex;
+  gap:6px;
+  flex-wrap:wrap;
+  margin:14px 0;
+}
+
+.topic-meta span{
+  padding:5px 7px;
+  border-radius:999px;
+  background:#f0f2f7;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:800;
+}
+
+.topic-actions{
+  margin-top:auto;
+  display:flex;
+  gap:7px;
+  flex-wrap:wrap;
+}
+
+.live-banner{
+  margin-top:20px;
+  display:grid;
+  grid-template-columns:1fr auto;
+  gap:18px;
+  align-items:center;
+  padding:22px;
+  border-radius:20px;
+  background:linear-gradient(145deg,#141a30,#263452);
+  color:white;
+}
+
+.live-banner p{
+  margin-top:7px;
+  color:#bac3d3;
+}
+
+.article-overlay{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  display:none;
+  background:#f5f7fb;
+  overflow:auto;
+}
+
+.article-overlay.open{
+  display:block;
+}
+
+.article-header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  min-height:67px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:10px 22px;
+  border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(12px);
+}
+
+.article-close{
+  padding:8px 11px;
+  border-radius:9px;
+  border:1px solid var(--border);
+  background:white;
+  cursor:pointer;
+  font-weight:800;
+}
+
+.article-layout{
+  width:min(980px,calc(100% - 30px));
+  margin:28px auto;
+}
+
+.article-content{
+  padding:32px;
+  border-radius:20px;
+  border:1px solid var(--border);
+  background:white;
+}
+
+.article-content h1{
+  font-size:42px;
+  letter-spacing:-1.5px;
+}
+
+.article-content h2{
+  margin-top:28px;
+  font-size:25px;
+}
+
+.article-content p{
+  margin-top:12px;
+  line-height:1.75;
+}
+
+.article-content ul{
+  margin:14px 0 0 20px;
+  color:var(--muted);
+}
+
+.article-content li{
+  margin-top:7px;
+}
+
+.key-box{
+  margin-top:20px;
+  padding:17px;
+  border-radius:15px;
+  background:#f4f5fb;
+}
+
+.quiz-box{
+  margin-top:24px;
+  padding:22px;
+  border-radius:18px;
+  background:#11172a;
+  color:white;
+}
+
+.quiz-box p{
+  color:#b8c1d2;
+}
+
+.quiz-progress{
+  height:8px;
+  margin:18px 0;
+  border-radius:999px;
+  background:#2a3148;
+  overflow:hidden;
+}
+
+.quiz-progress i{
+  display:block;
+  height:100%;
+  background:#8c88ff;
+}
+
+.quiz-question{
+  font-size:22px;
+  font-weight:900;
+  margin:20px 0;
+}
+
+.quiz-options{
+  display:grid;
+  gap:8px;
+}
+
+.quiz-option{
+  padding:12px;
+  text-align:left;
+  border:1px solid rgba(255,255,255,.15);
+  border-radius:11px;
+  background:rgba(255,255,255,.06);
+  color:white;
+  cursor:pointer;
+}
+
+.quiz-option:hover{
+  background:rgba(255,255,255,.12);
+}
+
+.quiz-result{
+  text-align:center;
+}
+
+.quiz-score{
+  margin:15px 0;
+  font-size:60px;
+  font-weight:900;
+  color:#9e9aff;
+}
+
+.discussion-box{
+  margin-top:22px;
+  padding:18px;
+  border-radius:16px;
+  border:1px solid var(--border);
+  background:#fafbfc;
+}
+
+@media(max-width:950px){
+  .page-hero-grid,
+  .topic-grid{
+    grid-template-columns:1fr 1fr;
+  }
+}
+
+@media(max-width:650px){
+  .page-hero-grid,
+  .topic-grid,
+  .live-banner{
+    grid-template-columns:1fr;
+  }
+
+  .article-content{
+    padding:20px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<header class="header">
+<div class="container nav">
+
+  <a class="logo" href="index.html">
+    <span class="logo-icon">LU</span>
+    <span>Life Upgrade</span>
+  </a>
+
+  <nav class="menu">
+    <a href="index.html">Accueil</a>
+    <a href="developpement.html">Développement</a>
+    <a href="etudes.html">Études & Orientation</a>
+    <a href="tests.html">Tests & Exercices</a>
+    <a href="cours.html">Cours</a>
+    <a class="active" href="culture.html">Culture</a>
+    <a href="forum.html">Forum</a>
+    <a href="coaching.html">Coaching</a>
+  </nav>
+
+  <a class="account-button" href="dashboard.html">
+    Mon espace
+  </a>
+
+</div>
+</header>
+
+<main>
+
+<section class="page-hero">
+<div class="container page-hero-grid">
+
+  <div>
+
+    <div class="eyebrow">
+      CULTURE · SCIENCES · HISTOIRE · CURIOSITÉ
+    </div>
+
+    <h1 style="font-size:clamp(44px,5vw,67px)">
+      Apprendre aussi pour le plaisir de comprendre.
+    </h1>
+
+    <p>
+      Life Upgrade propose des articles courts, des quiz,
+      des discussions et des sessions en ligne autour de la culture générale.
+    </p>
+
+    <div class="category-nav">
+      <a href="#astronomie">Astronomie</a>
+      <a href="#sciences">Sciences</a>
+      <a href="#vie">Sciences de la vie</a>
+      <a href="#histoire">Histoire</a>
+      <a href="#technologie">Technologie</a>
+      <a href="#economie">Économie</a>
+      <a href="#societe">Société</a>
+    </div>
+
+  </div>
+
+  <div class="culture-summary">
+
+    <span class="badge">
+      CULTURE LIFE UPGRADE
+    </span>
+
+    <h3 style="margin-top:8px">
+      Format court, contenu utile
+    </h3>
+
+    <p>
+      Lecture de 5 à 10 minutes, points clés,
+      quiz et discussion associée.
+    </p>
+
+    <div class="culture-summary-grid">
+
+      <div class="culture-summary-item">
+        <span>LECTURE</span>
+        <strong>5–10 min</strong>
+      </div>
+
+      <div class="culture-summary-item">
+        <span>QUIZ</span>
+        <strong>10 Q</strong>
+      </div>
+
+      <div class="culture-summary-item">
+        <span>DISCUSSION</span>
+        <strong>Forum</strong>
+      </div>
+
+      <div class="culture-summary-item">
+        <span>SESSIONS</span>
+        <strong>Live</strong>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- ASTRONOMIE -->
+
+<section id="astronomie" class="culture-section white">
+<div class="container">
+
+  <div class="section-title">
+    <span class="eyebrow">ASTRONOMIE</span>
+    <h2>Regarder plus loin.</h2>
+    <p>
+      Système solaire, étoiles, galaxies, trous noirs et exploration spatiale.
+    </p>
+  </div>
+
+  <div class="topic-grid">
+
+    <article class="topic-card">
+      <span class="badge">Disponible</span>
+      <h3>Comment naissent les étoiles ?</h3>
+      <p>
+        Comprendre les nuages de gaz, l'effondrement gravitationnel
+        et les premières étapes de la vie d'une étoile.
+      </p>
+      <div class="topic-meta">
+        <span>8 min</span>
+        <span>10 questions</span>
+        <span>Astronomie</span>
+      </div>
+      <div class="topic-actions">
+        <button class="button primary" style="border:0;cursor:pointer" onclick="openArticle('stars')">
+          Lire
+        </button>
+      </div>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Disponible</span>
+      <h3>Comprendre les trous noirs</h3>
+      <p>
+        Gravité, horizon des événements et ce que les astronomes
+        peuvent réellement observer.
+      </p>
+      <div class="topic-meta">
+        <span>9 min</span>
+        <span>10 questions</span>
+        <span>Astronomie</span>
+      </div>
+      <div class="topic-actions">
+        <button class="button primary" style="border:0;cursor:pointer" onclick="openArticle('blackholes')">
+          Lire
+        </button>
+      </div>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Catalogue</span>
+      <h3>Le système solaire</h3>
+      <p>
+        Soleil, planètes, lunes, astéroïdes et grandes distances.
+      </p>
+      <div class="topic-meta">
+        <span>À enrichir</span>
+        <span>Quiz prévu</span>
+      </div>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Catalogue</span>
+      <h3>Les galaxies</h3>
+      <p>
+        Formes, tailles, structure de la Voie lactée et galaxies lointaines.
+      </p>
+      <div class="topic-meta">
+        <span>À enrichir</span>
+      </div>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Catalogue</span>
+      <h3>Les exoplanètes</h3>
+      <p>
+        Comment détecter des planètes autour d'autres étoiles.
+      </p>
+      <div class="topic-meta">
+        <span>À enrichir</span>
+      </div>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Catalogue</span>
+      <h3>Mars et l'exploration spatiale</h3>
+      <p>
+        Missions robotiques, contraintes et grandes questions de l'exploration.
+      </p>
+      <div class="topic-meta">
+        <span>À enrichir</span>
+      </div>
+    </article>
+
+  </div>
+
+  <div class="live-banner">
+
+    <div>
+      <span class="badge">SESSION EN LIGNE</span>
+      <h3 style="margin-top:7px">
+        Discussion : étoiles, galaxies et trous noirs
+      </h3>
+      <p>
+        Session culture générale suivie de questions-réponses.
+      </p>
+    </div>
+
+    <a class="button primary" href="sessions.html">
+      Voir les sessions
+    </a>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- SCIENCES -->
+
+<section id="sciences" class="culture-section">
+<div class="container">
+
+  <div class="section-title">
+    <span class="eyebrow">SCIENCES</span>
+    <h2>Comprendre les idées fondamentales.</h2>
+  </div>
+
+  <div class="topic-grid">
+
+    <article class="topic-card">
+      <span class="badge">Physique</span>
+      <h3>Qu'est-ce que l'énergie ?</h3>
+      <p>
+        Une introduction aux différentes formes d'énergie
+        et aux transformations énergétiques.
+      </p>
+      <div class="topic-meta">
+        <span>7 min</span>
+        <span>Quiz prévu</span>
+      </div>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Physique</span>
+      <h3>Pourquoi les objets tombent-ils ?</h3>
+      <p>
+        Gravité, masse, accélération et distinction entre poids et masse.
+      </p>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Chimie</span>
+      <h3>Atomes et molécules</h3>
+      <p>
+        Une introduction à la matière et aux assemblages d'atomes.
+      </p>
+    </article>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- SCIENCES VIE -->
+
+<section id="vie" class="culture-section white">
+<div class="container">
+
+  <div class="section-title">
+    <span class="eyebrow">SCIENCES DE LA VIE</span>
+    <h2>Du vivant à l'évolution.</h2>
+  </div>
+
+  <div class="topic-grid">
+
+    <article class="topic-card">
+      <span class="badge">Biologie</span>
+      <h3>La cellule</h3>
+      <p>
+        Comprendre l'unité fondamentale du vivant.
+      </p>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Génétique</span>
+      <h3>ADN et information génétique</h3>
+      <p>
+        Comment l'information génétique est stockée et transmise.
+      </p>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Évolution</span>
+      <h3>Comment fonctionne la sélection naturelle ?</h3>
+      <p>
+        Variation, reproduction et évolution des populations.
+      </p>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Écologie</span>
+      <h3>Écosystèmes</h3>
+      <p>
+        Relations entre organismes et environnement.
+      </p>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Microbiologie</span>
+      <h3>Le monde microbien</h3>
+      <p>
+        Bactéries, archées, champignons et diversité microscopique.
+      </p>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Neurosciences</span>
+      <h3>Introduction au cerveau</h3>
+      <p>
+        Neurones, réseaux et grandes fonctions du système nerveux.
+      </p>
+    </article>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- HISTOIRE -->
+
+<section id="histoire" class="culture-section">
+<div class="container">
+
+  <div class="section-title">
+    <span class="eyebrow">HISTOIRE</span>
+    <h2>Comprendre les grandes transformations.</h2>
+  </div>
+
+  <div class="topic-grid">
+
+    <article class="topic-card">
+      <span class="badge">Antiquité</span>
+      <h3>Les grandes civilisations antiques</h3>
+      <p>
+        Égypte, Grèce, Rome et autres grands ensembles historiques.
+      </p>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Révolutions</span>
+      <h3>Pourquoi les révolutions transforment-elles les sociétés ?</h3>
+      <p>
+        Institutions, économie, idées et transformations politiques.
+      </p>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Science</span>
+      <h3>Histoire des découvertes scientifiques</h3>
+      <p>
+        Comment certaines idées ont changé notre vision du monde.
+      </p>
+    </article>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- TECHNOLOGIE -->
+
+<section id="technologie" class="culture-section white">
+<div class="container">
+
+  <div class="section-title">
+    <span class="eyebrow">TECHNOLOGIE</span>
+    <h2>Comprendre les outils qui transforment le monde.</h2>
+  </div>
+
+  <div class="topic-grid">
+
+    <article class="topic-card">
+      <span class="badge">Numérique</span>
+      <h3>Comment fonctionne Internet ?</h3>
+      <p>
+        Réseaux, serveurs, domaines et transmission de données.
+      </p>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">IA</span>
+      <h3>Introduction à l'intelligence artificielle</h3>
+      <p>
+        Modèles, données, apprentissage et limites.
+      </p>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Cybersécurité</span>
+      <h3>Les bases de la sécurité numérique</h3>
+      <p>
+        Mots de passe, phishing, mises à jour et pratiques essentielles.
+      </p>
+    </article>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- ECONOMIE -->
+
+<section id="economie" class="culture-section">
+<div class="container">
+
+  <div class="section-title">
+    <span class="eyebrow">ÉCONOMIE</span>
+    <h2>Comprendre quelques mécanismes économiques.</h2>
+  </div>
+
+  <div class="topic-grid">
+
+    <article class="topic-card">
+      <span class="badge">Économie</span>
+      <h3>Inflation : qu'est-ce que c'est ?</h3>
+      <p>
+        Niveau général des prix, pouvoir d'achat et mécanismes de base.
+      </p>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Finance</span>
+      <h3>Intérêt simple et intérêt composé</h3>
+      <p>
+        Comprendre comment une somme évolue dans le temps.
+      </p>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Entreprise</span>
+      <h3>Comment une entreprise crée-t-elle de la valeur ?</h3>
+      <p>
+        Clients, coûts, revenus, ressources et proposition de valeur.
+      </p>
+    </article>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- SOCIETE -->
+
+<section id="societe" class="culture-section white">
+<div class="container">
+
+  <div class="section-title">
+    <span class="eyebrow">SOCIÉTÉ</span>
+    <h2>Discuter avec davantage de contexte.</h2>
+  </div>
+
+  <div class="topic-grid">
+
+    <article class="topic-card">
+      <span class="badge">Travail</span>
+      <h3>Comment les métiers évoluent-ils ?</h3>
+      <p>
+        Technologie, organisation, compétences et transformations économiques.
+      </p>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Éducation</span>
+      <h3>Pourquoi apprend-on différemment ?</h3>
+      <p>
+        Méthodes, contexte, objectifs et diversité des stratégies d'apprentissage.
+      </p>
+    </article>
+
+    <article class="topic-card">
+      <span class="badge">Discussion</span>
+      <h3>Quel rôle pour l'IA dans l'éducation ?</h3>
+      <p>
+        Un sujet destiné à alimenter le forum et les sessions communautaires.
+      </p>
+    </article>
+
+  </div>
+
+</div>
+</section>
+
+</main>
+
+
+<footer>
+<div class="container footer-grid">
+
+  <div>
+    <a class="logo" href="index.html">
+      <span class="logo-icon">LU</span>
+      <span>Life Upgrade</span>
+    </a>
+
+    <p>
+      Développement personnel, professionnel,
+      études, apprentissage et curiosité.
+    </p>
+  </div>
+
+  <div>
+    <strong>Culture</strong>
+    <a href="#astronomie">Astronomie</a>
+    <a href="#sciences">Sciences</a>
+    <a href="#histoire">Histoire</a>
+    <a href="#technologie">Technologie</a>
+  </div>
+
+  <div>
+    <strong>Life Upgrade</strong>
+    <a href="tests.html">Tests</a>
+    <a href="cours.html">Cours</a>
+    <a href="forum.html">Forum</a>
+    <a href="dashboard.html">Mon espace</a>
+  </div>
+
+</div>
+</footer>
+
+
+<!-- ARTICLE OVERLAY -->
+
+<div id="articleOverlay" class="article-overlay">
+
+  <div class="article-header">
+
+    <button class="article-close" onclick="closeArticle()">
+      ← Retour
+    </button>
+
+    <strong id="articleHeaderTitle">
+      Culture Life Upgrade
+    </strong>
+
+  </div>
+
+  <div class="article-layout">
+
+    <article id="articleContent" class="article-content"></article>
+
+  </div>
+
+</div>
+
+
+<script>
+
+const cultureLibrary = {
+
+stars:{
+
+title:"Comment naissent les étoiles ?",
+
+content:`
+
+<div class="eyebrow">
+ASTRONOMIE
+</div>
+
+<h1>
+Comment naissent les étoiles ?
+</h1>
+
+<p>
+Les étoiles se forment dans de vastes régions contenant du gaz
+et de la poussière. Certaines zones deviennent progressivement
+plus denses que leur environnement.
+</p>
+
+<h2>
+La gravité entre en jeu
+</h2>
+
+<p>
+Lorsque suffisamment de matière est rassemblée,
+la gravité contribue à attirer davantage de matière vers la région dense.
+Le nuage peut alors commencer à s'effondrer sur lui-même.
+</p>
+
+<p>
+En se contractant, la matière devient plus dense
+et la température du centre augmente.
+</p>
+
+<h2>
+La protoétoile
+</h2>
+
+<p>
+Avant d'être une étoile stable,
+l'objet en formation est généralement décrit comme une protoétoile.
+Elle continue à accumuler de la matière provenant de son environnement.
+</p>
+
+<h2>
+La fusion nucléaire
+</h2>
+
+<p>
+Lorsque les conditions deviennent suffisamment extrêmes au centre,
+des réactions de fusion nucléaire peuvent commencer.
+Dans les étoiles comme le Soleil,
+l'hydrogène joue un rôle central dans cette phase.
+</p>
+
+<p>
+L'énergie produite contribue alors à l'équilibre
+entre la tendance de la gravité à comprimer l'étoile
+et les effets associés à l'énergie produite dans son intérieur.
+</p>
+
+<div class="key-box">
+
+<strong>
+À retenir
+</strong>
+
+<ul>
+<li>Les étoiles naissent dans des régions riches en gaz et poussière.</li>
+<li>La gravité participe à l'effondrement des régions suffisamment denses.</li>
+<li>Une protoétoile précède l'étoile stable.</li>
+<li>La fusion nucléaire marque une étape fondamentale.</li>
+</ul>
+
+</div>
+
+<div id="cultureQuiz"></div>
+
+<div class="discussion-box">
+
+<strong>
+Discussion associée
+</strong>
+
+<p>
+Pourquoi certaines étoiles deviennent-elles beaucoup plus massives que d'autres ?
+</p>
+
+<a class="button secondary" href="forum.html">
+Rejoindre la discussion
+</a>
+
+</div>
+
+`,
+
+quiz:[
+{
+q:"Les étoiles se forment principalement dans des régions contenant :",
+a:["du gaz et de la poussière","uniquement de l'eau","uniquement des métaux","du vide absolu"],
+correct:0
+},
+{
+q:"Quelle interaction joue un rôle central dans l'effondrement du nuage ?",
+a:["la gravité","le son","la couleur","le magnétisme uniquement"],
+correct:0
+},
+{
+q:"Lorsque le nuage se contracte, le centre tend à devenir :",
+a:["moins dense","plus dense et plus chaud","totalement froid","vide"],
+correct:1
+},
+{
+q:"Comment appelle-t-on couramment un objet stellaire en formation ?",
+a:["protoétoile","exoplanète","comète","galaxie"],
+correct:0
+},
+{
+q:"Une protoétoile peut continuer à :",
+a:["accumuler de la matière","perdre toute gravité","devenir une planète immédiatement","disparaître nécessairement"],
+correct:0
+},
+{
+q:"Quelle étape caractérise le passage vers une étoile stable ?",
+a:["le début de réactions de fusion nucléaire","la formation d'océans","la disparition de la matière","la perte de toute énergie"],
+correct:0
+},
+{
+q:"Dans une étoile comme le Soleil, quel élément joue un rôle central dans la fusion ?",
+a:["hydrogène","silicium uniquement","or","uranium uniquement"],
+correct:0
+},
+{
+q:"L'énergie produite dans l'étoile contribue notamment à :",
+a:["son équilibre interne","supprimer toute gravité","arrêter toute réaction","la transformer en planète"],
+correct:0
+},
+{
+q:"Toutes les étoiles ont exactement la même masse.",
+a:["Vrai","Faux","Toujours","Seulement le Soleil"],
+correct:1
+},
+{
+q:"Le processus de formation stellaire commence généralement par :",
+a:["une région de matière plus dense","une planète rocheuse","un océan","un satellite artificiel"],
+correct:0
+}
+]
+
+},
+
+
+blackholes:{
+
+title:"Comprendre les trous noirs",
+
+content:`
+
+<div class="eyebrow">
+ASTRONOMIE
+</div>
+
+<h1>
+Comprendre les trous noirs
+</h1>
+
+<p>
+Un trou noir est une région de l'espace-temps
+où la gravité est suffisamment intense pour qu'au-delà
+d'une certaine limite, appelée horizon des événements,
+aucun signal ne puisse revenir vers l'extérieur.
+</p>
+
+<h2>
+Comment certains trous noirs se forment-ils ?
+</h2>
+
+<p>
+Certains trous noirs stellaires peuvent se former
+à partir de l'évolution finale d'étoiles très massives.
+Lorsque leur structure ne peut plus être soutenue de la même manière,
+une partie de l'étoile peut s'effondrer.
+</p>
+
+<h2>
+L'horizon des événements
+</h2>
+
+<p>
+L'horizon des événements n'est pas une surface solide.
+Il représente une limite à partir de laquelle
+les trajectoires possibles ne permettent plus de revenir vers l'extérieur.
+</p>
+
+<h2>
+Comment observer quelque chose dont la lumière ne ressort pas ?
+</h2>
+
+<p>
+Les astronomes étudient les effets du trou noir
+sur la matière et les objets proches.
+La matière qui tombe vers un trou noir peut notamment chauffer fortement
+et produire un rayonnement détectable avant de franchir l'horizon.
+</p>
+
+<p>
+Les mouvements d'étoiles autour d'un objet invisible massif
+peuvent également fournir des indices.
+</p>
+
+<div class="key-box">
+
+<strong>
+À retenir
+</strong>
+
+<ul>
+<li>Un trou noir est une région où la gravité modifie fortement les trajectoires possibles.</li>
+<li>L'horizon des événements est une limite, pas une surface solide.</li>
+<li>Les astronomes observent notamment les effets des trous noirs sur leur environnement.</li>
+<li>Tous les trous noirs ne sont pas nécessairement identiques en masse.</li>
+</ul>
+
+</div>
+
+<div id="cultureQuiz"></div>
+
+<div class="discussion-box">
+
+<strong>
+Discussion associée
+</strong>
+
+<p>
+Comment peut-on étudier un objet qui n'émet pas directement de lumière visible ?
+</p>
+
+<a class="button secondary" href="forum.html">
+Rejoindre la discussion
+</a>
+
+</div>
+
+`,
+
+quiz:[
+{
+q:"Un trou noir est principalement décrit comme :",
+a:["une région de l'espace-temps à gravité extrême","une planète noire","une étoile sans gravité","un nuage de poussière"],
+correct:0
+},
+{
+q:"Comment appelle-t-on la limite au-delà de laquelle un signal ne peut plus revenir vers l'extérieur ?",
+a:["horizon des événements","orbite terrestre","équateur","atmosphère"],
+correct:0
+},
+{
+q:"L'horizon des événements est :",
+a:["une surface solide","une limite physique de trajectoires","une planète","une étoile"],
+correct:1
+},
+{
+q:"Certains trous noirs stellaires peuvent provenir :",
+a:["de l'évolution d'étoiles très massives","uniquement de planètes","des océans","de satellites artificiels"],
+correct:0
+},
+{
+q:"Les astronomes peuvent étudier un trou noir grâce notamment :",
+a:["aux effets sur la matière proche","à sa surface solide visible","à son atmosphère bleue","à ses continents"],
+correct:0
+},
+{
+q:"La matière tombant vers un trou noir peut :",
+a:["chauffer et rayonner","devenir toujours froide immédiatement","annuler la gravité","former nécessairement une planète"],
+correct:0
+},
+{
+q:"Les mouvements d'étoiles proches peuvent :",
+a:["fournir des indices sur un objet massif invisible","supprimer le trou noir","arrêter le temps partout","prouver que rien n'existe"],
+correct:0
+},
+{
+q:"Tous les trous noirs ont exactement la même masse.",
+a:["Vrai","Faux","Toujours","Seulement dans la Voie lactée"],
+correct:1
+},
+{
+q:"Pourquoi ne voit-on pas directement la lumière venant de l'intérieur de l'horizon ?",
+a:["les trajectoires ne permettent plus de revenir vers l'extérieur","il n'y a jamais de matière","l'espace devient transparent","la lumière disparaît dans toute la galaxie"],
+correct:0
+},
+{
+q:"Étudier un trou noir consiste souvent à étudier :",
+a:["son environnement et ses effets","uniquement sa couleur","sa surface rocheuse","ses océans"],
+correct:0
+}
+]
+
+}
+
+};
+
+
+let currentArticle = null;
+let cultureQuizState = null;
+
+
+function openArticle(id){
+
+  const article = cultureLibrary[id];
+
+  if(!article){
+    return;
+  }
+
+  currentArticle = id;
+
+  document
+    .getElementById("articleOverlay")
+    .classList
+    .add("open");
+
+  document.body.style.overflow = "hidden";
+
+  document.getElementById("articleHeaderTitle").textContent =
+    article.title;
+
+  document.getElementById("articleContent").innerHTML =
+    article.content;
+
+  renderCultureQuizIntro();
+
+  window.scrollTo(0,0);
+
+}
+
+
+function closeArticle(){
+
+  document
+    .getElementById("articleOverlay")
+    .classList
+    .remove("open");
+
+  document.body.style.overflow = "";
+
+  currentArticle = null;
+
+}
+
+
+function renderCultureQuizIntro(){
+
+  const article = cultureLibrary[currentArticle];
+
+  const target =
+    document.getElementById("cultureQuiz");
+
+  if(!target){
+    return;
+  }
+
+  target.innerHTML = `
+
+    <div class="quiz-box">
+
+      <div class="eyebrow" style="color:#aaa7ff">
+        QUIZ
+      </div>
+
+      <h2 style="color:white">
+        Vérifie ce que tu as retenu
+      </h2>
+
+      <p>
+        ${article.quiz.length} questions.
+        Le résultat est disponible immédiatement.
+      </p>
+
+      <button
+        class="button primary"
+        style="margin-top:15px;border:0;cursor:pointer"
+        onclick="startCultureQuiz()"
+      >
+        Commencer le quiz
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+function startCultureQuiz(){
+
+  const article =
+    cultureLibrary[currentArticle];
+
+  cultureQuizState = {
+    index:0,
+    answers:Array(article.quiz.length).fill(null)
+  };
+
+  renderCultureQuestion();
+
+}
+
+
+function renderCultureQuestion(){
+
+  const article =
+    cultureLibrary[currentArticle];
+
+  const question =
+    article.quiz[cultureQuizState.index];
+
+  const progress =
+    ((cultureQuizState.index + 1) / article.quiz.length) * 100;
+
+  const target =
+    document.getElementById("cultureQuiz");
+
+  target.innerHTML = `
+
+    <div class="quiz-box">
+
+      <div class="eyebrow" style="color:#aaa7ff">
+        QUIZ
+      </div>
+
+      <p>
+        Question ${cultureQuizState.index + 1}
+        / ${article.quiz.length}
+      </p>
+
+      <div class="quiz-progress">
+        <i style="width:${progress}%"></i>
+      </div>
+
+      <div class="quiz-question">
+        ${question.q}
+      </div>
+
+      <div class="quiz-options">
+
+        ${question.a.map((answer,index)=>`
+
+          <button
+            class="quiz-option"
+            onclick="answerCultureQuiz(${index})"
+          >
+            ${String.fromCharCode(65 + index)}.
+            ${answer}
+          </button>
+
+        `).join("")}
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function answerCultureQuiz(answerIndex){
+
+  const article =
+    cultureLibrary[currentArticle];
+
+  cultureQuizState.answers[
+    cultureQuizState.index
+  ] = answerIndex;
+
+
+  if(
+    cultureQuizState.index <
+    article.quiz.length - 1
+  ){
+
+    cultureQuizState.index++;
+
+    renderCultureQuestion();
+
+  }else{
+
+    showCultureResult();
+
+  }
+
+}
+
+
+function showCultureResult(){
+
+  const article =
+    cultureLibrary[currentArticle];
+
+  let correct = 0;
+
+  article.quiz.forEach((question,index)=>{
+
+    if(
+      cultureQuizState.answers[index] ===
+      question.correct
+    ){
+      correct++;
+    }
+
+  });
+
+
+  const percentage =
+    Math.round(
+      (correct / article.quiz.length) * 100
+    );
+
+
+  let message = "";
+
+  if(percentage >= 80){
+
+    message =
+      "Très bonne compréhension du sujet.";
+
+  }else if(percentage >= 60){
+
+    message =
+      "Bonne base. Quelques éléments peuvent être relus.";
+
+  }else{
+
+    message =
+      "Une seconde lecture aidera à consolider les points clés.";
+
+  }
+
+
+  saveCultureResult(
+    article.title,
+    percentage
+  );
+
+
+  const target =
+    document.getElementById("cultureQuiz");
+
+
+  target.innerHTML = `
+
+    <div class="quiz-box quiz-result">
+
+      <div class="eyebrow" style="color:#aaa7ff">
+        RÉSULTAT
+      </div>
+
+      <div class="quiz-score">
+        ${percentage}/100
+      </div>
+
+      <h3 style="color:white">
+        ${correct}/${article.quiz.length}
+        bonnes réponses
+      </h3>
+
+      <p>
+        ${message}
+      </p>
+
+      <button
+        class="button primary"
+        style="margin-top:16px;border:0;cursor:pointer"
+        onclick="startCultureQuiz()"
+      >
+        Refaire le quiz
+      </button>
+
+    </div>
+
+  `;
+
+}
+
+
+function saveCultureResult(title,score){
+
+  let results = [];
+
+  try{
+
+    results =
+      JSON.parse(
+        localStorage.getItem(
+          "lifeUpgradeCultureResults"
+        )
+      ) || [];
+
+  }catch(error){
+
+    results = [];
+
+  }
+
+
+  results.unshift({
+
+    title:title,
+
+    score:score,
+
+    date:
+      new Date()
+      .toLocaleString("fr-FR")
+
+  });
+
+
+  localStorage.setItem(
+
+    "lifeUpgradeCultureResults",
+
+    JSON.stringify(
+      results.slice(0,50)
+    )
+
+  );
+
+}
+
+</script>
+
+</body>
+</html>
