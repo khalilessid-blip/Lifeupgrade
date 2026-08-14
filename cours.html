@@ -1,0 +1,2945 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Cours & Parcours — Life Upgrade</title>
+
+<meta
+  name="description"
+  content="Cours gratuits Life Upgrade : développement personnel, professionnel, intelligence émotionnelle, soft skills, études et carrière."
+>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+.page-hero{
+  padding:70px 0 48px;
+}
+
+.page-hero-grid{
+  display:grid;
+  grid-template-columns:1fr 360px;
+  gap:28px;
+  align-items:center;
+}
+
+.page-hero p{
+  max-width:760px;
+  margin-top:15px;
+  font-size:17px;
+}
+
+.learning-summary{
+  padding:24px;
+  border-radius:22px;
+  color:white;
+  background:linear-gradient(145deg,#11172b,#253250);
+}
+
+.learning-summary p{
+  color:#b8c1d3;
+  font-size:12px;
+}
+
+.learning-summary-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-top:16px;
+}
+
+.learning-summary-item{
+  padding:12px;
+  border-radius:12px;
+  background:rgba(255,255,255,.07);
+}
+
+.learning-summary-item span{
+  display:block;
+  color:#adb8cb;
+  font-size:9px;
+}
+
+.learning-summary-item strong{
+  display:block;
+  margin-top:3px;
+  font-size:20px;
+}
+
+.category-nav{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  margin-top:24px;
+}
+
+.category-nav a{
+  padding:8px 11px;
+  border:1px solid var(--border);
+  border-radius:999px;
+  background:white;
+  color:var(--muted);
+  font-size:11px;
+  font-weight:800;
+}
+
+.category-nav a:hover{
+  color:var(--primary);
+  border-color:var(--primary);
+}
+
+.course-section{
+  padding:72px 0;
+}
+
+.course-section.white{
+  background:white;
+}
+
+.catalog-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+}
+
+.catalog-card{
+  display:flex;
+  flex-direction:column;
+  min-height:315px;
+  padding:22px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:white;
+  transition:.2s;
+}
+
+.white .catalog-card{
+  background:#f8f9fc;
+}
+
+.catalog-card:hover{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow);
+}
+
+.catalog-card h3{
+  margin-top:6px;
+}
+
+.catalog-card p{
+  margin-top:8px;
+  font-size:12px;
+}
+
+.course-details{
+  display:grid;
+  gap:6px;
+  margin:15px 0;
+  color:var(--muted);
+  font-size:11px;
+}
+
+.course-details div{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  padding-bottom:6px;
+  border-bottom:1px solid var(--border);
+}
+
+.course-details strong{
+  color:var(--text);
+}
+
+.course-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px;
+  margin-top:auto;
+  padding-top:12px;
+}
+
+.available{
+  margin-bottom:8px;
+  color:#138963;
+  font-size:10px;
+  font-weight:900;
+}
+
+.learning-path{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:9px;
+}
+
+.path-step{
+  padding:17px;
+  border:1px solid var(--border);
+  border-radius:17px;
+  background:white;
+}
+
+.path-step span{
+  color:var(--primary);
+  font-size:10px;
+  font-weight:900;
+}
+
+.path-step h3{
+  margin:6px 0;
+  font-size:15px;
+}
+
+.path-step p{
+  font-size:11px;
+}
+
+.live-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:13px;
+}
+
+.live-card{
+  padding:21px;
+  border:1px solid var(--border);
+  border-radius:19px;
+  background:white;
+}
+
+.live-card p{
+  margin-top:8px;
+  font-size:12px;
+}
+
+.live-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+  margin-top:14px;
+}
+
+.live-meta span{
+  padding:5px 7px;
+  border-radius:999px;
+  background:#f0f2f7;
+  color:var(--muted);
+  font-size:9px;
+  font-weight:800;
+}
+
+/* COURSE READER */
+
+.course-overlay{
+  position:fixed;
+  inset:0;
+  z-index:500;
+  display:none;
+  background:#f5f7fb;
+  overflow:auto;
+}
+
+.course-overlay.open{
+  display:block;
+}
+
+.reader-header{
+  position:sticky;
+  top:0;
+  z-index:10;
+  min-height:67px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:15px;
+  padding:10px 22px;
+  border-bottom:1px solid var(--border);
+  background:rgba(255,255,255,.96);
+  backdrop-filter:blur(12px);
+}
+
+.reader-header-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.reader-close{
+  border:1px solid var(--border);
+  background:white;
+  padding:8px 11px;
+  border-radius:9px;
+  cursor:pointer;
+  font-weight:800;
+}
+
+.reader-progress{
+  width:220px;
+  height:7px;
+  overflow:hidden;
+  border-radius:999px;
+  background:#e7eaf1;
+}
+
+.reader-progress i{
+  display:block;
+  height:100%;
+  background:var(--primary);
+}
+
+.reader-layout{
+  width:min(1200px,calc(100% - 30px));
+  margin:25px auto;
+  display:grid;
+  grid-template-columns:260px 1fr;
+  gap:16px;
+}
+
+.reader-sidebar{
+  align-self:start;
+  position:sticky;
+  top:92px;
+  padding:18px;
+  border:1px solid var(--border);
+  border-radius:18px;
+  background:white;
+}
+
+.reader-sidebar h3{
+  margin-bottom:12px;
+  font-size:16px;
+}
+
+.module-button{
+  width:100%;
+  margin-top:5px;
+  padding:9px;
+  text-align:left;
+  border:0;
+  border-radius:9px;
+  background:transparent;
+  color:var(--muted);
+  cursor:pointer;
+  font-size:11px;
+}
+
+.module-button:hover,
+.module-button.active{
+  color:var(--primary);
+  background:#f1f0ff;
+}
+
+.reader-content{
+  min-height:650px;
+  padding:32px;
+  border:1px solid var(--border);
+  border-radius:20px;
+  background:white;
+}
+
+.reader-content h1{
+  font-size:38px;
+  letter-spacing:-1.5px;
+}
+
+.reader-content h2{
+  margin-top:28px;
+  font-size:25px;
+  letter-spacing:-.8px;
+}
+
+.reader-content h3{
+  margin-top:22px;
+}
+
+.reader-content p{
+  margin-top:12px;
+  line-height:1.75;
+}
+
+.reader-content ul{
+  margin:14px 0 0 20px;
+  color:var(--muted);
+}
+
+.reader-content li{
+  margin-top:7px;
+}
+
+.lesson-box{
+  margin-top:20px;
+  padding:17px;
+  border-radius:15px;
+  background:#f5f6fb;
+}
+
+.lesson-box strong{
+  display:block;
+  margin-bottom:5px;
+}
+
+.practice-box{
+  margin-top:20px;
+  padding:18px;
+  border-radius:15px;
+  background:#11172a;
+  color:white;
+}
+
+.practice-box p{
+  color:#b8c1d2;
+}
+
+.reader-navigation{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-top:30px;
+}
+
+/* QUIZ */
+
+.quiz-progress{
+  height:8px;
+  margin:18px 0;
+  border-radius:999px;
+  overflow:hidden;
+  background:#e8ebf2;
+}
+
+.quiz-progress i{
+  display:block;
+  height:100%;
+  background:var(--primary);
+}
+
+.quiz-question{
+  margin:22px 0;
+  font-size:22px;
+  font-weight:900;
+}
+
+.quiz-options{
+  display:grid;
+  gap:9px;
+}
+
+.quiz-option{
+  padding:13px;
+  text-align:left;
+  border:1px solid var(--border);
+  border-radius:11px;
+  background:white;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.quiz-option:hover{
+  border-color:var(--primary);
+  background:#f5f4ff;
+}
+
+.quiz-result{
+  text-align:center;
+  padding:25px 0;
+}
+
+.quiz-score{
+  margin:15px 0;
+  color:var(--primary);
+  font-size:62px;
+  font-weight:900;
+}
+
+.result-stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:9px;
+  margin:20px 0;
+}
+
+.result-stat{
+  padding:14px;
+  border-radius:13px;
+  background:#f2f4f8;
+}
+
+.result-stat span{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+}
+
+.result-stat strong{
+  font-size:20px;
+}
+
+@media(max-width:950px){
+  .page-hero-grid,
+  .catalog-grid,
+  .live-grid{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .learning-path{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .reader-layout{
+    grid-template-columns:1fr;
+  }
+
+  .reader-sidebar{
+    position:static;
+  }
+}
+
+@media(max-width:650px){
+  .page-hero-grid,
+  .catalog-grid,
+  .live-grid,
+  .learning-path,
+  .result-stats{
+    grid-template-columns:1fr;
+  }
+
+  .reader-content{
+    padding:20px;
+  }
+
+  .reader-progress{
+    width:100px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+<div class="container nav">
+
+  <a class="logo" href="index.html">
+    <span class="logo-icon">LU</span>
+    <span>Life Upgrade</span>
+  </a>
+
+  <nav class="menu">
+    <a href="index.html">Accueil</a>
+    <a href="developpement.html">Développement</a>
+    <a href="etudes.html">Études & Orientation</a>
+    <a href="tests.html">Tests & Exercices</a>
+    <a class="active" href="cours.html">Cours</a>
+    <a href="culture.html">Culture</a>
+    <a href="forum.html">Forum</a>
+    <a href="coaching.html">Coaching</a>
+  </nav>
+
+  <a class="account-button" href="dashboard.html">
+    Mon espace
+  </a>
+
+</div>
+</header>
+
+
+<main>
+
+<!-- HERO -->
+
+<section class="page-hero">
+
+<div class="container page-hero-grid">
+
+  <div>
+
+    <div class="eyebrow">
+      COURS · PARCOURS · FORMATIONS
+    </div>
+
+    <h1 style="font-size:clamp(44px,5vw,67px)">
+      Apprendre quelque chose.
+      Puis l'utiliser.
+    </h1>
+
+    <p>
+      Les cours Life Upgrade combinent contenu pédagogique,
+      exemples, exercices pratiques, quiz et bilan final.
+      Les cours gratuits restent accessibles sans inscription.
+    </p>
+
+    <div class="category-nav">
+      <a href="#personnel">Personnel</a>
+      <a href="#emotionnel">Intelligence émotionnelle</a>
+      <a href="#professionnel">Professionnel</a>
+      <a href="#softskills">Soft Skills</a>
+      <a href="#etudes">Études</a>
+      <a href="#carriere">Carrière</a>
+      <a href="#live">Sessions live</a>
+    </div>
+
+  </div>
+
+  <div class="learning-summary">
+
+    <span class="badge">
+      LIFE UPGRADE LEARNING
+    </span>
+
+    <h3 style="margin-top:9px">
+      Un parcours complet
+    </h3>
+
+    <p style="margin-top:7px">
+      Un cours disponible doit réellement contenir du contenu,
+      des exercices et une évaluation.
+    </p>
+
+    <div class="learning-summary-grid">
+
+      <div class="learning-summary-item">
+        <span>MODULES MINIMUM</span>
+        <strong>5</strong>
+      </div>
+
+      <div class="learning-summary-item">
+        <span>QUIZ MINIMUM</span>
+        <strong>10 Q</strong>
+      </div>
+
+      <div class="learning-summary-item">
+        <span>EXERCICES</span>
+        <strong>Inclus</strong>
+      </div>
+
+      <div class="learning-summary-item">
+        <span>PRIX</span>
+        <strong>0 €</strong>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- PARCOURS -->
+
+<section class="course-section white">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      MÉTHODE
+    </span>
+
+    <h2>
+      Comment fonctionne un parcours ?
+    </h2>
+
+  </div>
+
+  <div class="learning-path">
+
+    <div class="path-step">
+      <span>01</span>
+      <h3>Comprendre</h3>
+      <p>Contenu pédagogique et exemples.</p>
+    </div>
+
+    <div class="path-step">
+      <span>02</span>
+      <h3>Pratiquer</h3>
+      <p>Exercices et mises en situation.</p>
+    </div>
+
+    <div class="path-step">
+      <span>03</span>
+      <h3>Tester</h3>
+      <p>Quiz de 10 questions minimum.</p>
+    </div>
+
+    <div class="path-step">
+      <span>04</span>
+      <h3>Appliquer</h3>
+      <p>Mission ou cas pratique.</p>
+    </div>
+
+    <div class="path-step">
+      <span>05</span>
+      <h3>Suivre</h3>
+      <p>Résultat et prochaine recommandation.</p>
+    </div>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- PERSONNEL -->
+
+<section id="personnel" class="course-section">
+
+<div class="container">
+
+  <div class="section-title">
+    <span class="eyebrow">DÉVELOPPEMENT PERSONNEL</span>
+    <h2>Construire de meilleures méthodes au quotidien.</h2>
+  </div>
+
+  <div class="catalog-grid">
+
+    <article class="catalog-card">
+
+      <span class="badge">Disponible</span>
+
+      <h3>
+        Gestion du temps
+      </h3>
+
+      <p>
+        Comprendre où part son temps, définir ses priorités
+        et construire une organisation réaliste.
+      </p>
+
+      <div class="course-details">
+        <div><span>Modules</span><strong>6</strong></div>
+        <div><span>Quiz final</span><strong>10 questions</strong></div>
+        <div><span>Durée</span><strong>≈ 45 min</strong></div>
+        <div><span>Niveau</span><strong>Débutant</strong></div>
+      </div>
+
+      <div class="course-actions">
+
+        <button
+          class="button primary"
+          style="border:0;cursor:pointer"
+          onclick="openCourse('time')"
+        >
+          Commencer
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <article class="catalog-card">
+
+      <span class="badge">Disponible</span>
+
+      <h3>
+        Concentration
+      </h3>
+
+      <p>
+        Comprendre les distractions et construire
+        des périodes de travail réellement concentrées.
+      </p>
+
+      <div class="course-details">
+        <div><span>Modules</span><strong>5</strong></div>
+        <div><span>Quiz final</span><strong>10 questions</strong></div>
+        <div><span>Exercices</span><strong>Focus Lab</strong></div>
+        <div><span>Niveau</span><strong>Tous</strong></div>
+      </div>
+
+      <div class="course-actions">
+
+        <button
+          class="button primary"
+          style="border:0;cursor:pointer"
+          onclick="openCourse('focus')"
+        >
+          Commencer
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <article class="catalog-card">
+
+      <span class="badge">Disponible</span>
+
+      <h3>
+        Habitudes & régularité
+      </h3>
+
+      <p>
+        Transformer une intention générale en comportement
+        suffisamment petit pour être répété.
+      </p>
+
+      <div class="course-details">
+        <div><span>Modules</span><strong>5</strong></div>
+        <div><span>Quiz final</span><strong>10 questions</strong></div>
+        <div><span>Mission</span><strong>7 jours</strong></div>
+        <div><span>Niveau</span><strong>Tous</strong></div>
+      </div>
+
+      <div class="course-actions">
+
+        <button
+          class="button primary"
+          style="border:0;cursor:pointer"
+          onclick="openCourse('habits')"
+        >
+          Commencer
+        </button>
+
+      </div>
+
+    </article>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- INTELLIGENCE EMOTIONNELLE -->
+
+<section id="emotionnel" class="course-section white">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      INTELLIGENCE ÉMOTIONNELLE
+    </span>
+
+    <h2>
+      Observer, comprendre, choisir sa réponse.
+    </h2>
+
+    <p>
+      Ces contenus portent sur des compétences de communication
+      et de gestion quotidienne. Ils ne constituent pas une prise en charge psychologique.
+    </p>
+
+  </div>
+
+  <div class="catalog-grid">
+
+    <article class="catalog-card">
+
+      <span class="badge">Disponible</span>
+
+      <h3>
+        Introduction à l'intelligence émotionnelle
+      </h3>
+
+      <p>
+        Reconnaître émotions, pensées et réactions,
+        puis comprendre leur influence sur les comportements.
+      </p>
+
+      <div class="course-details">
+        <div><span>Modules</span><strong>6</strong></div>
+        <div><span>Quiz</span><strong>10 questions</strong></div>
+        <div><span>Exercices</span><strong>4</strong></div>
+        <div><span>Niveau</span><strong>Introduction</strong></div>
+      </div>
+
+      <div class="course-actions">
+
+        <button
+          class="button primary"
+          style="border:0;cursor:pointer"
+          onclick="openCourse('emotional')"
+        >
+          Commencer
+        </button>
+
+      </div>
+
+    </article>
+
+
+    <article class="catalog-card">
+
+      <span class="badge">Parcours</span>
+
+      <h3>
+        Communication émotionnelle
+      </h3>
+
+      <p>
+        Exprimer faits, ressenti, besoin et demande
+        dans les conversations délicates.
+      </p>
+
+      <div class="course-details">
+        <div><span>Modules prévus</span><strong>6</strong></div>
+        <div><span>Situations</span><strong>10</strong></div>
+        <div><span>Examen</span><strong>Cas pratique</strong></div>
+      </div>
+
+      <div class="course-actions">
+        <a class="button secondary" href="developpement.html#intelligence-emotionnelle">
+          Voir le domaine
+        </a>
+      </div>
+
+    </article>
+
+
+    <article class="catalog-card">
+
+      <span class="badge">Professionnel</span>
+
+      <h3>
+        Intelligence émotionnelle au travail
+      </h3>
+
+      <p>
+        Feedback, désaccord, pression, empathie,
+        management et prise de recul.
+      </p>
+
+      <div class="course-details">
+        <div><span>Modules prévus</span><strong>8</strong></div>
+        <div><span>Scénarios</span><strong>15</strong></div>
+        <div><span>Niveau</span><strong>Intermédiaire</strong></div>
+      </div>
+
+      <div class="course-actions">
+        <a class="button secondary" href="developpement.html#professionnel">
+          Explorer
+        </a>
+      </div>
+
+    </article>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- PROFESSIONNEL -->
+
+<section id="professionnel" class="course-section">
+
+<div class="container">
+
+  <div class="section-title">
+    <span class="eyebrow">DÉVELOPPEMENT PROFESSIONNEL</span>
+    <h2>Des compétences directement applicables au travail.</h2>
+  </div>
+
+  <div class="catalog-grid">
+
+    <article class="catalog-card">
+      <span class="badge">Performance</span>
+      <h3>Performance au travail</h3>
+      <p>Priorités, interruptions, concentration et organisation de semaine.</p>
+      <div class="course-details">
+        <div><span>Modules</span><strong>7</strong></div>
+        <div><span>Exercices</span><strong>5</strong></div>
+        <div><span>Quiz prévu</span><strong>15 Q</strong></div>
+      </div>
+      <div class="course-actions">
+        <a class="button secondary" href="developpement.html#performance">
+          Explorer
+        </a>
+      </div>
+    </article>
+
+    <article class="catalog-card">
+      <span class="badge">Management</span>
+      <h3>Fondamentaux du management</h3>
+      <p>Objectifs, délégation, suivi, réunions et développement des collaborateurs.</p>
+      <div class="course-details">
+        <div><span>Modules</span><strong>8</strong></div>
+        <div><span>Scénarios</span><strong>10</strong></div>
+        <div><span>Examen</span><strong>Cas final</strong></div>
+      </div>
+      <div class="course-actions">
+        <a class="button secondary" href="developpement.html#professionnel">
+          Explorer
+        </a>
+      </div>
+    </article>
+
+    <article class="catalog-card">
+      <span class="badge">Leadership</span>
+      <h3>Leadership</h3>
+      <p>Direction, influence, communication, décision et accompagnement du changement.</p>
+      <div class="course-details">
+        <div><span>Modules</span><strong>10</strong></div>
+        <div><span>Scénarios</span><strong>10</strong></div>
+        <div><span>Quiz</span><strong>20 Q</strong></div>
+      </div>
+      <div class="course-actions">
+        <a class="button secondary" href="developpement.html#professionnel">
+          Explorer
+        </a>
+      </div>
+    </article>
+
+    <article class="catalog-card">
+      <span class="badge">Négociation</span>
+      <h3>Négocier efficacement</h3>
+      <p>Objectifs, intérêts, alternatives, compromis et conclusion.</p>
+      <div class="course-details">
+        <div><span>Modules</span><strong>6</strong></div>
+        <div><span>Situations</span><strong>10</strong></div>
+        <div><span>Examen</span><strong>Négociation simulée</strong></div>
+      </div>
+      <div class="course-actions">
+        <a class="button secondary" href="developpement.html#professionnel">
+          Explorer
+        </a>
+      </div>
+    </article>
+
+    <article class="catalog-card">
+      <span class="badge">Décision</span>
+      <h3>Prise de décision</h3>
+      <p>Options, information disponible, risques, conséquences et réversibilité.</p>
+      <div class="course-details">
+        <div><span>Modules</span><strong>6</strong></div>
+        <div><span>Problèmes</span><strong>10</strong></div>
+        <div><span>Quiz</span><strong>15 Q</strong></div>
+      </div>
+      <div class="course-actions">
+        <a class="button secondary" href="developpement.html#professionnel">
+          Explorer
+        </a>
+      </div>
+    </article>
+
+    <article class="catalog-card">
+      <span class="badge">Esprit critique</span>
+      <h3>Esprit critique</h3>
+      <p>Faits, opinions, sources, causalité, biais et argumentation.</p>
+      <div class="course-details">
+        <div><span>Modules</span><strong>8</strong></div>
+        <div><span>Analyses</span><strong>10</strong></div>
+        <div><span>Quiz</span><strong>20 Q</strong></div>
+      </div>
+      <div class="course-actions">
+        <a class="button secondary" href="developpement.html#professionnel">
+          Explorer
+        </a>
+      </div>
+    </article>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- SOFT SKILLS -->
+
+<section id="softskills" class="course-section white">
+
+<div class="container">
+
+  <div class="section-title">
+    <span class="eyebrow">SOFT SKILLS</span>
+    <h2>Compétences humaines et relationnelles.</h2>
+  </div>
+
+  <div class="catalog-grid">
+
+    <article class="catalog-card">
+      <span class="badge">Disponible</span>
+      <h3>Prise de parole</h3>
+      <p>Structurer son message, parler clairement et répondre aux questions.</p>
+      <div class="course-details">
+        <div><span>Modules</span><strong>6</strong></div>
+        <div><span>Exercices</span><strong>10</strong></div>
+        <div><span>Quiz</span><strong>10 Q</strong></div>
+      </div>
+      <div class="course-actions">
+        <button
+          class="button primary"
+          style="border:0;cursor:pointer"
+          onclick="openCourse('speaking')"
+        >
+          Commencer
+        </button>
+      </div>
+    </article>
+
+    <article class="catalog-card">
+      <span class="badge">Communication</span>
+      <h3>Communication professionnelle</h3>
+      <p>Écoute active, reformulation, feedback et conversations difficiles.</p>
+      <div class="course-details">
+        <div><span>Modules</span><strong>7</strong></div>
+        <div><span>Situations</span><strong>10</strong></div>
+        <div><span>Quiz</span><strong>15 Q</strong></div>
+      </div>
+      <div class="course-actions">
+        <a class="button secondary" href="developpement.html#soft-skills">
+          Explorer
+        </a>
+      </div>
+    </article>
+
+    <article class="catalog-card">
+      <span class="badge">Conflit</span>
+      <h3>Gérer un désaccord</h3>
+      <p>Écouter, distinguer faits et interprétations puis rechercher des options.</p>
+      <div class="course-details">
+        <div><span>Modules</span><strong>6</strong></div>
+        <div><span>Scénarios</span><strong>10</strong></div>
+        <div><span>Cas final</span><strong>1</strong></div>
+      </div>
+      <div class="course-actions">
+        <a class="button secondary" href="developpement.html#soft-skills">
+          Explorer
+        </a>
+      </div>
+    </article>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- ETUDES -->
+
+<section id="etudes" class="course-section">
+
+<div class="container">
+
+  <div class="section-title">
+    <span class="eyebrow">ÉTUDES</span>
+    <h2>Apprendre à apprendre.</h2>
+  </div>
+
+  <div class="catalog-grid">
+
+    <article class="catalog-card">
+      <span class="badge">Méthodes</span>
+      <h3>Apprendre à apprendre</h3>
+      <p>Rappel actif, répétition espacée, concentration et organisation.</p>
+      <div class="course-details">
+        <div><span>Modules</span><strong>7</strong></div>
+        <div><span>Exercices</span><strong>6</strong></div>
+        <div><span>Quiz</span><strong>15 Q</strong></div>
+      </div>
+      <div class="course-actions">
+        <a class="button secondary" href="etudes.html#methodes">
+          Explorer
+        </a>
+      </div>
+    </article>
+
+    <article class="catalog-card">
+      <span class="badge">Examens</span>
+      <h3>Préparer ses examens</h3>
+      <p>Planifier les révisions, tester ses connaissances et gérer les priorités.</p>
+      <div class="course-details">
+        <div><span>Modules</span><strong>6</strong></div>
+        <div><span>Plan</span><strong>30 jours</strong></div>
+        <div><span>Quiz</span><strong>10 Q</strong></div>
+      </div>
+      <div class="course-actions">
+        <a class="button secondary" href="etudes.html#examens">
+          Explorer
+        </a>
+      </div>
+    </article>
+
+    <article class="catalog-card">
+      <span class="badge">Employabilité</span>
+      <h3>Préparer son premier emploi</h3>
+      <p>Compétences, CV, portfolio, entretien et préparation professionnelle.</p>
+      <div class="course-details">
+        <div><span>Modules</span><strong>8</strong></div>
+        <div><span>Exercices</span><strong>7</strong></div>
+        <div><span>Projet final</span><strong>Profil candidat</strong></div>
+      </div>
+      <div class="course-actions">
+        <a class="button secondary" href="etudes.html#employabilite">
+          Explorer
+        </a>
+      </div>
+    </article>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- CARRIERE -->
+
+<section id="carriere" class="course-section white">
+
+<div class="container">
+
+  <div class="section-title">
+    <span class="eyebrow">CARRIÈRE & MÉTIERS</span>
+    <h2>Apprendre avec un objectif professionnel.</h2>
+  </div>
+
+  <div class="catalog-grid">
+
+    <article class="catalog-card">
+      <span class="badge">Carrière</span>
+      <h3>Construire son plan de carrière</h3>
+      <p>Objectif, compétences, Career Gap et plan de développement.</p>
+      <div class="course-details">
+        <div><span>Modules</span><strong>7</strong></div>
+        <div><span>Exercice</span><strong>Career Gap</strong></div>
+        <div><span>Plan</span><strong>90 jours</strong></div>
+      </div>
+      <div class="course-actions">
+        <a class="button secondary" href="developpement.html#carriere">
+          Explorer
+        </a>
+      </div>
+    </article>
+
+    <article class="catalog-card">
+      <span class="badge">Reconversion</span>
+      <h3>Préparer une reconversion</h3>
+      <p>Motivations, compétences transférables, pistes et transition.</p>
+      <div class="course-details">
+        <div><span>Modules</span><strong>8</strong></div>
+        <div><span>Diagnostic</span><strong>Inclus</strong></div>
+        <div><span>Plan</span><strong>Transition</strong></div>
+      </div>
+      <div class="course-actions">
+        <a class="button secondary" href="developpement.html#carriere">
+          Explorer
+        </a>
+      </div>
+    </article>
+
+    <article class="catalog-card">
+      <span class="badge">Compétences</span>
+      <h3>Construire un plan de montée en compétences</h3>
+      <p>Choisir quoi apprendre, pourquoi et comment mesurer la progression.</p>
+      <div class="course-details">
+        <div><span>Modules</span><strong>6</strong></div>
+        <div><span>Plan</span><strong>12 semaines</strong></div>
+        <div><span>Bilan</span><strong>Inclus</strong></div>
+      </div>
+      <div class="course-actions">
+        <a class="button secondary" href="developpement.html#competences">
+          Explorer
+        </a>
+      </div>
+    </article>
+
+  </div>
+
+</div>
+</section>
+
+
+<!-- LIVE -->
+
+<section id="live" class="course-section">
+
+<div class="container">
+
+  <div class="section-title">
+
+    <span class="eyebrow">
+      SESSIONS EN LIGNE
+    </span>
+
+    <h2>
+      Apprendre aussi avec d'autres personnes.
+    </h2>
+
+    <p>
+      Formations métier, ateliers, discussions de groupe,
+      culture générale et partage d'expérience.
+    </p>
+
+  </div>
+
+  <div class="live-grid">
+
+    <article class="live-card">
+
+      <span class="badge">
+        Formation métier
+      </span>
+
+      <h3>
+        Découvrir le métier de Data Analyst
+      </h3>
+
+      <p>
+        Présentation du métier, compétences, outils et questions/réponses.
+      </p>
+
+      <div class="live-meta">
+        <span>45 min</span>
+        <span>30 places</span>
+        <span>En ligne</span>
+      </div>
+
+    </article>
+
+
+    <article class="live-card">
+
+      <span class="badge">
+        Soft Skills
+      </span>
+
+      <h3>
+        Atelier prise de parole
+      </h3>
+
+      <p>
+        Petit groupe pratique avec exercices courts et retours.
+      </p>
+
+      <div class="live-meta">
+        <span>60 min</span>
+        <span>10 places</span>
+        <span>Priorité Premium+</span>
+      </div>
+
+    </article>
+
+
+    <article class="live-card">
+
+      <span class="badge">
+        Discussion
+      </span>
+
+      <h3>
+        Intelligence artificielle et métiers
+      </h3>
+
+      <p>
+        Discussion collective autour de l'évolution du travail et des compétences.
+      </p>
+
+      <div class="live-meta">
+        <span>60 min</span>
+        <span>50 places</span>
+        <span>Sujet sondage</span>
+      </div>
+
+    </article>
+
+
+    <article class="live-card">
+
+      <span class="badge">
+        Culture
+      </span>
+
+      <h3>
+        Comprendre les trous noirs
+      </h3>
+
+      <p>
+        Session culture générale suivie d'une discussion ouverte.
+      </p>
+
+      <div class="live-meta">
+        <span>45 min</span>
+        <span>40 places</span>
+        <span>Astronomie</span>
+      </div>
+
+    </article>
+
+
+    <article class="live-card">
+
+      <span class="badge">
+        Expérience
+      </span>
+
+      <h3>
+        Parcours de reconversion
+      </h3>
+
+      <p>
+        Partage d'expérience puis questions des participants.
+      </p>
+
+      <div class="live-meta">
+        <span>60 min</span>
+        <span>40 places</span>
+        <span>Carrière</span>
+      </div>
+
+    </article>
+
+
+    <article class="live-card">
+
+      <span class="badge">
+        Orientation
+      </span>
+
+      <h3>
+        Questions métiers
+      </h3>
+
+      <p>
+        Une session destinée aux lycéens, étudiants et parents.
+      </p>
+
+      <div class="live-meta">
+        <span>60 min</span>
+        <span>50 places</span>
+        <span>Orientation</span>
+      </div>
+
+    </article>
+
+  </div>
+
+</div>
+</section>
+
+</main>
+
+
+<footer>
+
+<div class="container footer-grid">
+
+  <div>
+    <a class="logo" href="index.html">
+      <span class="logo-icon">LU</span>
+      <span>Life Upgrade</span>
+    </a>
+
+    <p>
+      Développement personnel, professionnel,
+      études, apprentissage et trajectoire.
+    </p>
+  </div>
+
+  <div>
+    <strong>Apprendre</strong>
+    <a href="#personnel">Personnel</a>
+    <a href="#professionnel">Professionnel</a>
+    <a href="#softskills">Soft Skills</a>
+    <a href="#etudes">Études</a>
+  </div>
+
+  <div>
+    <strong>Life Upgrade</strong>
+    <a href="tests.html">Tests</a>
+    <a href="culture.html">Culture</a>
+    <a href="forum.html">Forum</a>
+    <a href="dashboard.html">Mon espace</a>
+  </div>
+
+</div>
+
+</footer>
+
+
+<!-- ==========================================================
+     LECTEUR DE COURS
+========================================================== -->
+
+<div
+  id="courseOverlay"
+  class="course-overlay"
+>
+
+  <div class="reader-header">
+
+    <div class="reader-header-left">
+
+      <button
+        class="reader-close"
+        onclick="closeCourse()"
+      >
+        ← Quitter
+      </button>
+
+      <div>
+        <strong id="readerCourseTitle">
+          Cours
+        </strong>
+      </div>
+
+    </div>
+
+    <div class="reader-progress">
+      <i id="readerProgressBar"></i>
+    </div>
+
+  </div>
+
+
+  <div class="reader-layout">
+
+    <aside class="reader-sidebar">
+
+      <h3>
+        Programme
+      </h3>
+
+      <div id="moduleNavigation"></div>
+
+    </aside>
+
+
+    <article
+      id="readerContent"
+      class="reader-content"
+    ></article>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* ============================================================
+   LIFE UPGRADE COURSE ENGINE
+============================================================ */
+
+const courseLibrary = {
+
+
+/* ============================================================
+   GESTION DU TEMPS
+============================================================ */
+
+time:{
+
+title:"Gestion du temps",
+
+modules:[
+
+{
+title:"1. Comprendre où va son temps",
+
+content:`
+
+<div class="eyebrow">
+MODULE 1
+</div>
+
+<h1>
+Comprendre où va son temps
+</h1>
+
+<p>
+Avant d'essayer de devenir plus productif, il faut comprendre
+comment le temps est réellement utilisé.
+</p>
+
+<p>
+Une journée comporte 24 heures. Une semaine en comporte 168.
+Une partie est consacrée au sommeil, au travail, aux études,
+aux transports, aux repas, aux relations et aux loisirs.
+</p>
+
+<h2>
+Le problème des estimations
+</h2>
+
+<p>
+Nous avons tendance à raisonner à partir d'impressions :
+« je passe beaucoup de temps à travailler » ou
+« je n'ai jamais le temps d'apprendre ».
+</p>
+
+<p>
+Un audit permet de remplacer cette impression par une estimation plus concrète.
+</p>
+
+<div class="lesson-box">
+
+<strong>
+À retenir
+</strong>
+
+Le premier objectif n'est pas de remplir chaque minute.
+Il est de comprendre les grandes catégories de temps.
+
+</div>
+
+<div class="practice-box">
+
+<strong>
+EXERCICE
+</strong>
+
+<p>
+Pendant une journée, note approximativement le temps consacré
+au sommeil, travail/études, transport, écran de loisir,
+repas, activité physique et apprentissage.
+</p>
+
+</div>
+`
+},
+
+{
+title:"2. Priorités",
+
+content:`
+
+<div class="eyebrow">
+MODULE 2
+</div>
+
+<h1>
+Tout n'a pas la même importance
+</h1>
+
+<p>
+Une longue liste de tâches ne constitue pas automatiquement un plan.
+Certaines tâches sont urgentes, d'autres importantes,
+et certaines ne sont ni l'un ni l'autre.
+</p>
+
+<h2>
+Urgence et importance
+</h2>
+
+<p>
+Une tâche urgente demande une attention rapide.
+Une tâche importante contribue réellement à un objectif.
+Les deux notions ne sont pas identiques.
+</p>
+
+<div class="lesson-box">
+
+<strong>
+Question utile
+</strong>
+
+Si je ne pouvais terminer qu'une seule tâche importante aujourd'hui,
+laquelle aurait le plus d'impact ?
+
+</div>
+
+<div class="practice-box">
+
+<strong>
+EXERCICE
+</strong>
+
+<p>
+Liste cinq tâches actuelles puis classe-les :
+urgent + important, important non urgent,
+urgent peu important, ni urgent ni important.
+</p>
+
+</div>
+`
+},
+
+{
+title:"3. Estimer correctement",
+
+content:`
+
+<div class="eyebrow">
+MODULE 3
+</div>
+
+<h1>
+Prévoir un temps réaliste
+</h1>
+
+<p>
+Une mauvaise estimation transforme rapidement un planning
+en accumulation de retards.
+</p>
+
+<p>
+Life Upgrade proposera progressivement un outil permettant
+de comparer le temps estimé et le temps réellement utilisé.
+</p>
+
+<h2>
+Décomposer avant d'estimer
+</h2>
+
+<p>
+« Préparer ma présentation » est trop vague.
+On peut la transformer en :
+recherche, structure, slides, répétition et correction.
+</p>
+
+<div class="practice-box">
+
+<strong>
+EXERCICE
+</strong>
+
+<p>
+Choisis une tâche importante et découpe-la en cinq étapes maximum.
+Estime ensuite chaque étape séparément.
+</p>
+
+</div>
+`
+},
+
+{
+title:"4. Time Blocking",
+
+content:`
+
+<div class="eyebrow">
+MODULE 4
+</div>
+
+<h1>
+Réserver du temps
+</h1>
+
+<p>
+Le time blocking consiste à réserver une période
+à une catégorie de travail ou à une tâche importante.
+</p>
+
+<p>
+Il ne s'agit pas de prévoir chaque minute,
+mais de protéger certaines périodes.
+</p>
+
+<h2>
+Prévoir de la marge
+</h2>
+
+<p>
+Un planning rempli à 100 % devient fragile au premier imprévu.
+Une organisation réaliste laisse volontairement de l'espace.
+</p>
+
+<div class="practice-box">
+
+<strong>
+EXERCICE
+</strong>
+
+<p>
+Réserve demain un bloc de 25 à 45 minutes
+pour ta priorité principale.
+</p>
+
+</div>
+`
+},
+
+{
+title:"5. Interruptions",
+
+content:`
+
+<div class="eyebrow">
+MODULE 5
+</div>
+
+<h1>
+Les petites interruptions s'accumulent
+</h1>
+
+<p>
+Notifications, messages, changements de tâche et sollicitations
+peuvent fragmenter une journée.
+</p>
+
+<p>
+L'objectif n'est pas de supprimer toute interaction,
+mais d'identifier ce qui peut être regroupé ou déplacé.
+</p>
+
+<div class="lesson-box">
+
+<strong>
+Expérience
+</strong>
+
+Pendant une session de 25 minutes,
+désactive les notifications non essentielles
+et garde une seule tâche ouverte.
+
+</div>
+`
+},
+
+{
+title:"6. Revue hebdomadaire",
+
+content:`
+
+<div class="eyebrow">
+MODULE 6
+</div>
+
+<h1>
+Regarder ce qui a réellement avancé
+</h1>
+
+<p>
+Une revue hebdomadaire permet de comparer le plan et la réalité.
+</p>
+
+<h2>
+Trois questions
+</h2>
+
+<ul>
+<li>Qu'est-ce qui a réellement avancé ?</li>
+<li>Qu'est-ce qui a consommé plus de temps que prévu ?</li>
+<li>Quelle modification tester la semaine prochaine ?</li>
+</ul>
+
+<div class="practice-box">
+
+<strong>
+MISSION
+</strong>
+
+<p>
+Fais une revue de dix minutes en fin de semaine
+et choisis une seule amélioration pour la suivante.
+</p>
+
+</div>
+`
+}
+
+],
+
+quiz:[
+
+{
+q:"Quel est le premier objectif d'un audit du temps ?",
+a:[
+"Remplir chaque minute",
+"Comprendre comment le temps est utilisé",
+"Travailler plus longtemps",
+"Supprimer tous les loisirs"
+],
+correct:1
+},
+
+{
+q:"Une tâche importante est principalement une tâche qui :",
+a:[
+"vient d'arriver",
+"est demandée par quelqu'un",
+"contribue réellement à un objectif",
+"prend moins de cinq minutes"
+],
+correct:2
+},
+
+{
+q:"Pourquoi décomposer une tâche avant de l'estimer ?",
+a:[
+"Pour augmenter artificiellement sa durée",
+"Pour mieux comprendre ses différentes étapes",
+"Pour éviter de la réaliser",
+"Pour créer plus de réunions"
+],
+correct:1
+},
+
+{
+q:"Le time blocking consiste principalement à :",
+a:[
+"chronométrer chaque seconde",
+"réserver des périodes à certaines activités",
+"supprimer toutes les pauses",
+"faire plusieurs tâches simultanément"
+],
+correct:1
+},
+
+{
+q:"Pourquoi laisser de la marge dans un planning ?",
+a:[
+"Parce que les imprévus existent",
+"Pour ne jamais travailler",
+"Pour rendre le planning plus long",
+"Pour éviter les priorités"
+],
+correct:0
+},
+
+{
+q:"Une interruption fréquente peut notamment :",
+a:[
+"fragmenter le travail",
+"augmenter automatiquement la concentration",
+"supprimer les tâches",
+"garantir un meilleur résultat"
+],
+correct:0
+},
+
+{
+q:"La revue hebdomadaire sert surtout à :",
+a:[
+"se culpabiliser",
+"comparer le plan et ce qui s'est réellement passé",
+"ajouter le maximum de tâches",
+"calculer son salaire"
+],
+correct:1
+},
+
+{
+q:"Une bonne priorité quotidienne devrait être :",
+a:[
+"forcément la tâche la plus facile",
+"liée à l'impact recherché",
+"toujours urgente",
+"choisie au hasard"
+],
+correct:1
+},
+
+{
+q:"Pour une tâche vague comme « préparer une présentation », il est utile de :",
+a:[
+"ne rien planifier",
+"la décomposer",
+"multiplier les notifications",
+"attendre la dernière minute"
+],
+correct:1
+},
+
+{
+q:"Quel comportement correspond le mieux à une organisation réaliste ?",
+a:[
+"Planifier 100 % du temps disponible",
+"Prévoir des priorités et une marge",
+"Commencer toutes les tâches simultanément",
+"Ne jamais modifier son planning"
+],
+correct:1
+}
+
+]
+
+},
+
+
+/* ============================================================
+   CONCENTRATION
+============================================================ */
+
+focus:{
+
+title:"Concentration",
+
+modules:[
+
+{
+title:"1. Comprendre l'attention",
+content:`
+<div class="eyebrow">MODULE 1</div>
+<h1>Comprendre l'attention</h1>
+<p>
+La concentration consiste à maintenir son attention sur une activité
+tout en limitant l'influence des distractions concurrentes.
+</p>
+<p>
+Elle dépend du contexte, de la tâche, de la fatigue,
+de l'environnement et de nombreux autres facteurs.
+</p>
+<div class="lesson-box">
+<strong>À retenir</strong>
+La concentration n'est pas simplement une question de volonté.
+L'environnement compte également.
+</div>
+`
+},
+
+{
+title:"2. Identifier les distractions",
+content:`
+<div class="eyebrow">MODULE 2</div>
+<h1>Identifier les distractions</h1>
+<p>
+Téléphone, notifications, conversations, onglets ouverts
+ou pensées liées à d'autres tâches peuvent interrompre une session.
+</p>
+<div class="practice-box">
+<strong>EXERCICE</strong>
+<p>
+Pendant une session, note chaque distraction rencontrée
+sans chercher immédiatement à la résoudre.
+</p>
+</div>
+`
+},
+
+{
+title:"3. Une tâche à la fois",
+content:`
+<div class="eyebrow">MODULE 3</div>
+<h1>Réduire les changements de tâche</h1>
+<p>
+Passer constamment d'une activité à une autre peut rendre
+le travail plus fragmenté.
+</p>
+<div class="practice-box">
+<strong>MISSION</strong>
+<p>
+Choisis une seule tâche et travaille dessus pendant 20 minutes.
+</p>
+</div>
+`
+},
+
+{
+title:"4. Construire une session",
+content:`
+<div class="eyebrow">MODULE 4</div>
+<h1>Préparer une session de focus</h1>
+<p>
+Une session efficace commence par un objectif concret :
+« terminer l'introduction » est plus clair que « travailler ».
+</p>
+<ul>
+<li>définir la tâche ;</li>
+<li>préparer le matériel ;</li>
+<li>réduire les distractions ;</li>
+<li>choisir une durée ;</li>
+<li>faire le bilan.</li>
+</ul>
+`
+},
+
+{
+title:"5. Progression",
+content:`
+<div class="eyebrow">MODULE 5</div>
+<h1>Mesurer la régularité</h1>
+<p>
+Life Upgrade suit surtout le temps de focus réalisé
+et les sessions terminées, plutôt qu'une prétendue mesure
+absolue de la capacité de concentration.
+</p>
+<div class="practice-box">
+<strong>PROCHAINE ÉTAPE</strong>
+<p>
+Utilise le Focus Timer dans Tests & Exercices.
+</p>
+</div>
+`
+}
+
+],
+
+quiz:[
+{
+q:"La concentration dépend uniquement de la volonté.",
+a:["Vrai","Faux","Toujours au travail","Seulement à l'école"],
+correct:1
+},
+{
+q:"Quel objectif est le plus concret ?",
+a:["Travailler","Être productif","Terminer l'introduction","Faire mieux"],
+correct:2
+},
+{
+q:"Pourquoi réduire les notifications pendant une session ?",
+a:["Pour limiter certaines interruptions","Pour accélérer Internet","Pour supprimer les tâches","Pour augmenter le volume sonore"],
+correct:0
+},
+{
+q:"Une session de focus devrait idéalement commencer par :",
+a:["Plusieurs tâches","Un objectif clair","Une réunion","Les réseaux sociaux"],
+correct:1
+},
+{
+q:"Changer fréquemment de tâche peut :",
+a:["fragmenter le travail","garantir une meilleure précision","supprimer la fatigue","faire disparaître les interruptions"],
+correct:0
+},
+{
+q:"Quel élément peut influencer l'attention ?",
+a:["L'environnement","La fatigue","La tâche","Toutes ces réponses"],
+correct:3
+},
+{
+q:"Life Upgrade doit présenter le temps de focus comme :",
+a:["une mesure absolue d'intelligence","une donnée de suivi des sessions","un diagnostic médical","un QI"],
+correct:1
+},
+{
+q:"Avant une session, il peut être utile de :",
+a:["préparer le matériel","ouvrir toutes les applications","activer toutes les notifications","commencer plusieurs tâches"],
+correct:0
+},
+{
+q:"Après une session, une question utile est :",
+a:["Ai-je avancé sur l'objectif prévu ?","Ai-je reçu beaucoup de notifications ?","Ai-je ouvert suffisamment d'onglets ?","Ai-je travaillé sans objectif ?"],
+correct:0
+},
+{
+q:"Pour développer une habitude de concentration, il est généralement utile de rechercher :",
+a:["la régularité","la perfection immédiate","le multitâche permanent","l'absence totale de pause"],
+correct:0
+}
+]
+
+},
+
+
+/* ============================================================
+   HABITUDES
+============================================================ */
+
+habits:{
+
+title:"Habitudes & régularité",
+
+modules:[
+{
+title:"1. Une habitude observable",
+content:`
+<div class="eyebrow">MODULE 1</div>
+<h1>Définir un comportement observable</h1>
+<p>
+« Être discipliné » est difficile à mesurer.
+« Lire dix minutes après le déjeuner » décrit une action observable.
+</p>
+`
+},
+{
+title:"2. Commencer petit",
+content:`
+<div class="eyebrow">MODULE 2</div>
+<h1>Réduire la difficulté de départ</h1>
+<p>
+Une nouvelle habitude peut commencer par une version volontairement petite.
+Le but initial est d'installer la répétition.
+</p>
+`
+},
+{
+title:"3. Déclencheurs",
+content:`
+<div class="eyebrow">MODULE 3</div>
+<h1>Associer l'action à un contexte</h1>
+<p>
+Un moment, un lieu ou une activité existante peut servir de rappel.
+</p>
+`
+},
+{
+title:"4. Friction",
+content:`
+<div class="eyebrow">MODULE 4</div>
+<h1>Rendre l'action plus facile</h1>
+<p>
+Préparer le matériel à l'avance ou éloigner une distraction
+peut modifier la facilité avec laquelle un comportement commence.
+</p>
+`
+},
+{
+title:"5. Revue",
+content:`
+<div class="eyebrow">MODULE 5</div>
+<h1>Observer sans chercher la perfection</h1>
+<p>
+Une semaine imparfaite fournit des informations.
+Le suivi sert à ajuster le système, pas à attribuer une valeur personnelle.
+</p>
+`
+}
+],
+
+quiz:[
+{q:"Quelle formulation décrit le mieux une habitude observable ?",a:["Être meilleur","Lire 10 minutes après le déjeuner","Avoir plus de motivation","Changer de vie"],correct:1},
+{q:"Pourquoi commencer petit ?",a:["Pour ne jamais progresser","Pour faciliter la répétition initiale","Pour éviter les objectifs","Pour supprimer le suivi"],correct:1},
+{q:"Un déclencheur peut être :",a:["un moment précis","un lieu","une activité existante","toutes ces réponses"],correct:3},
+{q:"Préparer ses chaussures de sport la veille agit surtout sur :",a:["la friction","le salaire","le QI","la météo"],correct:0},
+{q:"Une semaine imparfaite devrait servir à :",a:["abandonner","observer et ajuster","se comparer aux autres","doubler tous les objectifs"],correct:1},
+{q:"Une habitude utile doit nécessairement être énorme dès le départ.",a:["Vrai","Faux","Seulement lundi","Toujours"],correct:1},
+{q:"Le suivi sert principalement à :",a:["observer la régularité","punir les erreurs","garantir un résultat","remplacer l'action"],correct:0},
+{q:"Réduire une distraction peut :",a:["augmenter la friction de la mauvaise habitude","supprimer le temps","garantir la réussite","remplacer la motivation"],correct:0},
+{q:"Quel objectif est le plus concret ?",a:["Faire plus de sport","Marcher 20 minutes mardi et jeudi","Être discipliné","Changer"],correct:1},
+{q:"Après plusieurs semaines, il est utile de :",a:["réévaluer l'habitude","ne jamais rien modifier","supprimer le suivi","ajouter dix habitudes immédiatement"],correct:0}
+]
+
+},
+
+
+/* ============================================================
+   INTELLIGENCE EMOTIONNELLE
+============================================================ */
+
+emotional:{
+
+title:"Introduction à l'intelligence émotionnelle",
+
+modules:[
+{
+title:"1. Émotion, pensée, comportement",
+content:`
+<div class="eyebrow">MODULE 1</div>
+<h1>Distinguer plusieurs éléments</h1>
+<p>
+Une situation peut provoquer une émotion, susciter une interprétation
+et être suivie d'un comportement. Les distinguer aide à analyser
+ce qui s'est passé avec davantage de précision.
+</p>
+<div class="lesson-box">
+<strong>Important</strong>
+Life Upgrade utilise ces notions dans un contexte de développement personnel
+et de communication, pas comme outil de diagnostic psychologique.
+</div>
+`
+},
+{
+title:"2. Identifier ce que l'on ressent",
+content:`
+<div class="eyebrow">MODULE 2</div>
+<h1>Nommer avant de réagir</h1>
+<p>
+Décrire une émotion avec davantage de précision peut aider
+à distinguer irritation, déception, inquiétude ou frustration,
+par exemple.
+</p>
+<div class="practice-box">
+<strong>EXERCICE</strong>
+<p>
+Pense à une situation récente et écris séparément :
+fait observable, émotion ressentie, pensée et réaction.
+</p>
+</div>
+`
+},
+{
+title:"3. Prendre une pause",
+content:`
+<div class="eyebrow">MODULE 3</div>
+<h1>Créer un espace avant la réponse</h1>
+<p>
+Dans certaines situations, quelques instants de recul permettent
+de choisir une réponse différente de la première réaction.
+</p>
+`
+},
+{
+title:"4. Empathie",
+content:`
+<div class="eyebrow">MODULE 4</div>
+<h1>Éviter les conclusions trop rapides</h1>
+<p>
+Comprendre une autre personne ne signifie pas nécessairement être d'accord.
+Il s'agit notamment de chercher le contexte et de poser des questions.
+</p>
+`
+},
+{
+title:"5. Communication",
+content:`
+<div class="eyebrow">MODULE 5</div>
+<h1>Exprimer plutôt qu'accuser</h1>
+<p>
+Une conversation peut distinguer le fait observé,
+l'impact ressenti et la demande formulée.
+</p>
+`
+},
+{
+title:"6. Appliquer au quotidien",
+content:`
+<div class="eyebrow">MODULE 6</div>
+<h1>Construire une pratique</h1>
+<p>
+L'objectif est d'utiliser progressivement ces distinctions
+dans les conversations, le travail et les décisions quotidiennes.
+</p>
+`
+}
+],
+
+quiz:[
+{q:"Life Upgrade présente l'intelligence émotionnelle comme :",a:["un diagnostic clinique","un ensemble de compétences de développement et communication","une maladie","un test médical"],correct:1},
+{q:"Pourquoi distinguer émotion et comportement ?",a:["Parce qu'ils sont toujours identiques","Pour analyser plus précisément une situation","Pour supprimer les émotions","Pour éviter toute conversation"],correct:1},
+{q:"L'empathie signifie nécessairement être d'accord.",a:["Vrai","Faux","Toujours au travail","Seulement en famille"],correct:1},
+{q:"Une question utile avant de conclure sur quelqu'un peut être :",a:["Quel contexte me manque ?","Pourquoi ai-je forcément raison ?","Comment éviter toute discussion ?","Comment gagner immédiatement ?"],correct:0},
+{q:"Une pause peut servir à :",a:["choisir une réponse","garantir une émotion positive","supprimer le problème","éviter toute décision"],correct:0},
+{q:"Quel élément décrit le mieux un fait observable ?",a:["Il me méprise","Il a interrompu ma phrase deux fois","Il est mauvais","Il veut me nuire"],correct:1},
+{q:"Une communication claire peut distinguer :",a:["fait, ressenti et demande","attaque et accusation","rumeur et hypothèse","silence et fuite"],correct:0},
+{q:"Nommer plus précisément une émotion peut aider à :",a:["mieux décrire son expérience","prédire l'avenir","diagnostiquer une maladie","contrôler les autres"],correct:0},
+{q:"Comprendre le point de vue d'une personne signifie :",a:["devoir l'accepter","chercher à comprendre son contexte","abandonner son opinion","éviter toute limite"],correct:1},
+{q:"L'objectif de ces exercices est principalement :",a:["développer observation et communication","fournir un diagnostic psychologique","mesurer le QI","remplacer un professionnel de santé"],correct:0}
+]
+
+},
+
+
+/* ============================================================
+   PRISE DE PAROLE
+============================================================ */
+
+speaking:{
+
+title:"Prise de parole",
+
+modules:[
+{
+title:"1. Le message principal",
+content:`
+<div class="eyebrow">MODULE 1</div>
+<h1>Commencer par le message</h1>
+<p>
+Avant de construire les slides ou mémoriser des phrases,
+il faut savoir ce que le public doit retenir.
+</p>
+<div class="practice-box">
+<strong>EXERCICE 1</strong>
+<p>Explique ton idée principale en une phrase.</p>
+</div>
+`
+},
+{
+title:"2. Structure",
+content:`
+<div class="eyebrow">MODULE 2</div>
+<h1>Une structure simple</h1>
+<p>
+Une présentation courte peut utiliser :
+contexte → idée principale → arguments → conclusion.
+</p>
+<div class="practice-box">
+<strong>EXERCICE 2</strong>
+<p>Prépare une intervention d'une minute avec cette structure.</p>
+</div>
+`
+},
+{
+title:"3. Voix et rythme",
+content:`
+<div class="eyebrow">MODULE 3</div>
+<h1>Laisser le message respirer</h1>
+<p>
+Le rythme, les pauses et l'articulation contribuent à la compréhension.
+Parler plus vite n'est pas automatiquement parler mieux.
+</p>
+`
+},
+{
+title:"4. Regard et posture",
+content:`
+<div class="eyebrow">MODULE 4</div>
+<h1>Présence</h1>
+<p>
+Une posture stable et un regard réparti peuvent aider
+à rendre la présentation plus naturelle.
+</p>
+`
+},
+{
+title:"5. Questions",
+content:`
+<div class="eyebrow">MODULE 5</div>
+<h1>Répondre aux questions</h1>
+<p>
+Écouter entièrement la question, reformuler si nécessaire,
+répondre au point principal puis vérifier que la réponse est suffisante.
+</p>
+`
+},
+{
+title:"6. Présentation finale",
+content:`
+<div class="eyebrow">MODULE 6</div>
+<h1>Exercice final</h1>
+<p>
+Prépare une présentation de trois minutes sur un sujet que tu connais.
+</p>
+<div class="practice-box">
+<strong>MISSION FINALE</strong>
+<p>
+Message principal + structure + rythme + conclusion + deux questions possibles.
+</p>
+</div>
+`
+}
+],
+
+quiz:[
+{q:"Quel est généralement le meilleur point de départ d'une présentation ?",a:["Les animations","Le message principal","La police","La durée des transitions"],correct:1},
+{q:"Une structure simple peut être :",a:["Contexte → idée → arguments → conclusion","Conclusion uniquement","Questions → silence","Slides → slides → slides"],correct:0},
+{q:"Parler plus vite garantit une meilleure présentation.",a:["Vrai","Faux","Toujours","Seulement en réunion"],correct:1},
+{q:"Une pause peut notamment :",a:["aider à structurer le rythme","supprimer le message","remplacer la préparation","garantir l'accord du public"],correct:0},
+{q:"Lorsqu'une question est posée, il est généralement utile de :",a:["l'écouter entièrement","interrompre immédiatement","changer de sujet","répondre avant de comprendre"],correct:0},
+{q:"Si une question est ambiguë, on peut :",a:["la reformuler","l'ignorer systématiquement","inventer une réponse","accélérer"],correct:0},
+{q:"Une bonne conclusion devrait notamment :",a:["rappeler le point essentiel","introduire dix nouveaux sujets","être totalement différente du message","éviter toute synthèse"],correct:0},
+{q:"Le regard pendant une présentation peut être :",a:["réparti dans l'audience","fixé uniquement au sol","toujours sur les slides","toujours fermé"],correct:0},
+{q:"Quel exercice aide à clarifier un message ?",a:["L'expliquer en une phrase","Ajouter vingt slides","Parler plus vite","Éviter de préparer"],correct:0},
+{q:"L'exercice final proposé dure :",a:["30 secondes","1 heure","3 minutes","20 minutes"],correct:2}
+]
+
+}
+
+};
+
+
+/* ============================================================
+   ENGINE
+============================================================ */
+
+let currentCourse = null;
+let currentModuleIndex = 0;
+let quizState = null;
+
+
+function openCourse(courseId){
+
+  const course = courseLibrary[courseId];
+
+  if(!course){
+    return;
+  }
+
+  currentCourse = courseId;
+  currentModuleIndex = 0;
+
+  document
+    .getElementById("courseOverlay")
+    .classList
+    .add("open");
+
+  document.body.style.overflow = "hidden";
+
+  renderCourse();
+}
+
+
+function closeCourse(){
+
+  document
+    .getElementById("courseOverlay")
+    .classList
+    .remove("open");
+
+  document.body.style.overflow = "";
+
+  currentCourse = null;
+}
+
+
+function renderCourse(){
+
+  const course = courseLibrary[currentCourse];
+
+  document.getElementById("readerCourseTitle").textContent =
+    course.title;
+
+  const totalSteps =
+    course.modules.length + 1;
+
+  const progress =
+    ((currentModuleIndex + 1) / totalSteps) * 100;
+
+  document.getElementById("readerProgressBar").style.width =
+    progress + "%";
+
+
+  let navigation = "";
+
+  course.modules.forEach((module,index)=>{
+
+    navigation += `
+
+      <button
+        class="module-button ${index === currentModuleIndex ? "active" : ""}"
+        onclick="goToModule(${index})"
+      >
+        ${module.title}
+      </button>
+
+    `;
+
+  });
+
+
+  navigation += `
+
+    <button
+      class="module-button ${currentModuleIndex === course.modules.length ? "active" : ""}"
+      onclick="startCourseQuiz()"
+    >
+      Examen final
+    </button>
+
+  `;
+
+
+  document.getElementById("moduleNavigation").innerHTML =
+    navigation;
+
+
+  if(currentModuleIndex >= course.modules.length){
+
+    startCourseQuiz();
+
+    return;
+
+  }
+
+
+  const module =
+    course.modules[currentModuleIndex];
+
+
+  document.getElementById("readerContent").innerHTML = `
+
+    ${module.content}
+
+    <div class="reader-navigation">
+
+      ${
+        currentModuleIndex > 0
+        ?
+        `
+        <button
+          class="button secondary"
+          onclick="previousModule()"
+        >
+          ← Précédent
+        </button>
+        `
+        :
+        `<span></span>`
+      }
+
+      <button
+        class="button primary"
+        style="border:0;cursor:pointer"
+        onclick="nextModule()"
+      >
+        ${
+          currentModuleIndex === course.modules.length - 1
+          ? "Passer l'examen →"
+          : "Module suivant →"
+        }
+      </button>
+
+    </div>
+
+  `;
+
+  window.scrollTo(0,0);
+
+}
+
+
+function goToModule(index){
+
+  currentModuleIndex = index;
+
+  renderCourse();
+
+}
+
+
+function previousModule(){
+
+  if(currentModuleIndex > 0){
+
+    currentModuleIndex--;
+
+    renderCourse();
+
+  }
+
+}
+
+
+function nextModule(){
+
+  const course =
+    courseLibrary[currentCourse];
+
+  if(currentModuleIndex < course.modules.length - 1){
+
+    currentModuleIndex++;
+
+    renderCourse();
+
+  }else{
+
+    startCourseQuiz();
+
+  }
+
+}
+
+
+/* ============================================================
+   QUIZ
+============================================================ */
+
+function startCourseQuiz(){
+
+  const course =
+    courseLibrary[currentCourse];
+
+  currentModuleIndex =
+    course.modules.length;
+
+  quizState = {
+
+    index:0,
+
+    answers:
+      Array(course.quiz.length).fill(null)
+
+  };
+
+  renderQuizQuestion();
+
+}
+
+
+function renderQuizQuestion(){
+
+  const course =
+    courseLibrary[currentCourse];
+
+  const question =
+    course.quiz[quizState.index];
+
+  const progress =
+    ((quizState.index + 1) / course.quiz.length) * 100;
+
+
+  document.getElementById("readerProgressBar").style.width =
+    progress + "%";
+
+
+  document.getElementById("readerContent").innerHTML = `
+
+    <div class="eyebrow">
+      EXAMEN FINAL
+    </div>
+
+    <h1>
+      ${course.title}
+    </h1>
+
+    <p>
+      Question ${quizState.index + 1}
+      sur ${course.quiz.length}
+    </p>
+
+    <div class="quiz-progress">
+
+      <i style="width:${progress}%"></i>
+
+    </div>
+
+    <div class="quiz-question">
+
+      ${question.q}
+
+    </div>
+
+    <div class="quiz-options">
+
+      ${question.a.map((answer,index)=>`
+
+        <button
+          class="quiz-option"
+          onclick="answerQuiz(${index})"
+        >
+          ${String.fromCharCode(65 + index)}.
+          ${answer}
+        </button>
+
+      `).join("")}
+
+    </div>
+
+  `;
+
+  window.scrollTo(0,0);
+
+}
+
+
+function answerQuiz(answerIndex){
+
+  const course =
+    courseLibrary[currentCourse];
+
+  quizState.answers[quizState.index] =
+    answerIndex;
+
+
+  if(quizState.index < course.quiz.length - 1){
+
+    quizState.index++;
+
+    renderQuizQuestion();
+
+  }else{
+
+    showQuizResult();
+
+  }
+
+}
+
+
+function showQuizResult(){
+
+  const course =
+    courseLibrary[currentCourse];
+
+  let correct = 0;
+
+
+  course.quiz.forEach((question,index)=>{
+
+    if(
+      quizState.answers[index] ===
+      question.correct
+    ){
+
+      correct++;
+
+    }
+
+  });
+
+
+  const total =
+    course.quiz.length;
+
+  const percentage =
+    Math.round(
+      (correct / total) * 100
+    );
+
+
+  let message = "";
+
+
+  if(percentage >= 80){
+
+    message =
+      "Très bonne compréhension du parcours.";
+
+  }else if(percentage >= 60){
+
+    message =
+      "Le parcours est globalement compris. Certains points peuvent être revus.";
+
+  }else{
+
+    message =
+      "Plusieurs notions méritent une nouvelle lecture avant de poursuivre.";
+
+  }
+
+
+  saveCourseResult(
+    course.title,
+    percentage
+  );
+
+
+  document.getElementById("readerProgressBar").style.width =
+    "100%";
+
+
+  document.getElementById("readerContent").innerHTML = `
+
+    <div class="quiz-result">
+
+      <div class="eyebrow">
+        PARCOURS TERMINÉ
+      </div>
+
+      <h1>
+        ${course.title}
+      </h1>
+
+      <div class="quiz-score">
+
+        ${percentage}/100
+
+      </div>
+
+      <p>
+        ${message}
+      </p>
+
+
+      <div class="result-stats">
+
+        <div class="result-stat">
+
+          <span>
+            BONNES RÉPONSES
+          </span>
+
+          <strong>
+            ${correct}/${total}
+          </strong>
+
+        </div>
+
+
+        <div class="result-stat">
+
+          <span>
+            À REVOIR
+          </span>
+
+          <strong>
+            ${total - correct}
+          </strong>
+
+        </div>
+
+
+        <div class="result-stat">
+
+          <span>
+            MODULES
+          </span>
+
+          <strong>
+            ${course.modules.length}
+          </strong>
+
+        </div>
+
+      </div>
+
+
+      <p style="font-size:11px">
+
+        Ce résultat mesure uniquement
+        ta compréhension du contenu de ce parcours.
+
+      </p>
+
+
+      <div class="reader-navigation">
+
+        <button
+          class="button secondary"
+          onclick="restartCourse()"
+        >
+          Revoir le cours
+        </button>
+
+        <button
+          class="button primary"
+          style="border:0;cursor:pointer"
+          onclick="closeCourse()"
+        >
+          Terminer
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function restartCourse(){
+
+  currentModuleIndex = 0;
+
+  renderCourse();
+
+}
+
+
+/* ============================================================
+   LOCAL PROGRESS
+============================================================ */
+
+function saveCourseResult(
+  courseName,
+  score
+){
+
+  let results = [];
+
+  try{
+
+    results =
+      JSON.parse(
+        localStorage.getItem(
+          "lifeUpgradeCourseResults"
+        )
+      ) || [];
+
+  }catch(error){
+
+    results = [];
+
+  }
+
+
+  results.unshift({
+
+    course:
+      courseName,
+
+    score:
+      score,
+
+    date:
+      new Date()
+      .toLocaleString("fr-FR")
+
+  });
+
+
+  localStorage.setItem(
+
+    "lifeUpgradeCourseResults",
+
+    JSON.stringify(
+      results.slice(0,50)
+    )
+
+  );
+
+}
+
+</script>
+
+</body>
+</html>
